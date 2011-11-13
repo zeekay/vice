@@ -149,7 +149,7 @@
     set expandtab
     set smarttab
     set autoindent
-    autocmd FileType coffee,javascript,xml,xhtml,html,haml set shiftwidth=2
+    autocmd FileType coffee,javascript,xml,xhtml,html,htmldjango,haml set shiftwidth=2
 " }
 
 " Search/Highlight {
