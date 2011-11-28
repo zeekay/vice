@@ -30,9 +30,6 @@
     Bundle 'git://github.com/zeekay/vim-autoclose'
 
     if !has('win32unix')
-        " ultisnips - https://github.com/rygwdn/ultisnips
-        Bundle 'git://github.com/rygwdn/ultisnips'
-
         " syntastic - https://github.com/scrooloose/syntastic
         Bundle 'git://github.com/scrooloose/syntastic'
 
@@ -47,9 +44,6 @@
 
         " vim-coffees-script - https://github.com/kchmck/vim-coffee-script
         Bundle 'git://github.com/kchmck/vim-coffee-script'
-
-        " https://github.com/vim-scripts/VimClojure
-        Bundle 'git://github.com/vim-scripts/VimClojure'
 
         " chapa.vim - https://github.com/alfredodeza/chapa.vim
         Bundle 'git://github.com/alfredodeza/chapa.vim'
@@ -90,6 +84,15 @@
         " vim-fugitive - https://github.com/tpope/vim-fugitive
         " Bundle 'vim-fugitive'
 
+        if version > 700
+            " https://github.com/vim-scripts/VimClojure
+            Bundle 'git://github.com/vim-scripts/VimClojure'
+
+            " ultisnips - https://github.com/rygwdn/ultisnips
+            Bundle 'git://github.com/rygwdn/ultisnips'
+        endif
+
+
         if has("python")
             " https://github.com/ivanov/vim-ipython
             Bundle 'git://github.com/ivanov/vim-ipython'
@@ -112,8 +115,6 @@
     " set nowritebackup
     " set noswapfile
     " set nomodeline
-    set undofile
-    set undodir=~/.vim/tmp/undo
     set undolevels=1000
     set history=1000
     set autochdir
@@ -141,6 +142,10 @@
     " set scrolljump=10
     set splitright
     set nomore
+    if version > 700
+        set undofile
+        set undodir=~/.vim/tmp/undo
+    endif
 " }
 
 " Indent {
