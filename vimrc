@@ -298,6 +298,7 @@
     let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
     " let g:UltiSnipsJumpForwardTrigger = '<c-j>'
     " let g:UltiSnipsJumpBackwardTrigger = '<c-k>'
+    let g:UltiSnipsSnippetDirectories=["UltiSnips", "my-snippets"]
 " }
 
 " SuperTab {
