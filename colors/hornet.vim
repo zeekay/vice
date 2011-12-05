@@ -78,43 +78,41 @@ hi rubyClassVariable guifg=#29AEE3 gui=none
 hi StatColor ctermfg=230     ctermbg=235     cterm=none      guifg=#444444 guibg=#303030   gui=none
 hi Modified ctermbg=lightred ctermfg=black
 
-if !exists("vimpager")
-    function! MyStatusLine(mode)
-        let statusline=""
-        if a:mode == 'Enter'
-            let statusline.="%#StatColor#"
-        endif
-        let statusline.="\(%n\)\ %f\ "
-        if a:mode == 'Enter'
-            let statusline.="%*"
-        endif
-        let statusline.="%#Modified#%m"
-        if a:mode == 'Leave'
-            let statusline.="%*%r"
-        elseif a:mode == 'Enter'
-            let statusline.="%r%*"
-        endif
-        let statusline .= "\ (%l/%L,\ %c)\ %P%=%h%w\ %y\ [%{&encoding}:%{&fileformat}]\ \ "
-        return statusline
-    endfunction
+function! MyStatusLine(mode)
+    let statusline=""
+    if a:mode == 'Enter'
+        let statusline.="%#StatColor#"
+    endif
+    let statusline.="\(%n\)\ %f\ "
+    if a:mode == 'Enter'
+        let statusline.="%*"
+    endif
+    let statusline.="%#Modified#%m"
+    if a:mode == 'Leave'
+        let statusline.="%*%r"
+    elseif a:mode == 'Enter'
+        let statusline.="%r%*"
+    endif
+    let statusline .= "\ (%l/%L,\ %c)\ %P%=%h%w\ %y\ [%{&encoding}:%{&fileformat}]\ \ "
+    return statusline
+endfunction
 
-    au WinEnter * setlocal statusline=%!MyStatusLine('Enter')
-    au WinLeave * setlocal statusline=%!MyStatusLine('Leave')
-    inoremap <c-c> <c-o>:setlocal statusline=%!MyStatusLine('Leave')<cr><c-c>
-    set statusline=%!MyStatusLine('Enter')
+au WinEnter * setlocal statusline=%!MyStatusLine('Enter')
+au WinLeave * setlocal statusline=%!MyStatusLine('Leave')
+inoremap <c-c> <c-o>:setlocal statusline=%!MyStatusLine('Leave')<cr><c-c>
+set statusline=%!MyStatusLine('Enter')
 
-    function! InsertStatuslineColor(mode)
-      if a:mode == 'i'
-        hi StatColor ctermfg=230     ctermbg=238     cterm=none      guifg=#939395 guibg=#303030   gui=none
-      elseif a:mode == 'r'
-        hi StatColor guibg=#e454ba ctermbg=magenta
-      elseif a:mode == 'v'
-        hi StatColor ctermbg=blue cterm=none guibg=#e454ba ctermbg=magenta
-      else
-        hi StatColor guibg=red ctermbg=red
-      endif
-    endfunction
+function! InsertStatuslineColor(mode)
+  if a:mode == 'i'
+    hi StatColor ctermfg=230     ctermbg=238     cterm=none      guifg=#939395 guibg=#303030   gui=none
+  elseif a:mode == 'r'
+    hi StatColor guibg=#e454ba ctermbg=magenta
+  elseif a:mode == 'v'
+    hi StatColor ctermbg=blue cterm=none guibg=#e454ba ctermbg=magenta
+  else
+    hi StatColor guibg=red ctermbg=red
+  endif
+endfunction
 
-    au InsertEnter * call InsertStatuslineColor(v:insertmode)
-    au InsertLeave * hi StatColor ctermfg=230     ctermbg=235     cterm=none      guifg=#444444 guibg=#303030   gui=none
-endif
+au InsertEnter * call InsertStatuslineColor(v:insertmode)
+au InsertLeave * hi StatColor ctermfg=230     ctermbg=235     cterm=none      guifg=#444444 guibg=#303030   gui=none
