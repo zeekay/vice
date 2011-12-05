@@ -1,0 +1,28 @@
+syntax on
+set backspace=indent,eol,start
+set matchpairs+=<:>
+set shortmess=atToOI
+set hidden
+set encoding=utf-8
+set termencoding=utf-8
+set confirm
+set ruler
+set linebreak
+set wrap
+set whichwrap=b,s,h,l,<,>,[,]
+set showmatch
+set incsearch
+set ignorecase
+set smartcase
+set laststatus=0
+" set statusline=\(%n\)\ %f\ %*%#Modified#%m\ (%l/%L,\ %c)\ %P%=%h%w\ %y\ [%{&encoding}:%{&fileformat}]
+colorscheme hornet
+set mouse-=a
+nnoremap G G$
+vnoremap G G$
+nnoremap ; :
+vnoremap ; :
+nnoremap h h
+set noloadplugins
+let vimpager_disable_x11 = 1
+" vim:set filetype=vim:

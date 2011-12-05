@@ -15,15 +15,18 @@ if [ "$basedir" != "$HOME/.vim" ]; then
     rm -rf ~/.vim
     rm ~/.vimrc
 
-    echo "...linking ~/.vim and ~/.vimrc"
+    echo "...linking ~/.vim, ~/.vimrc and ~/.vimpagerrc"
     ln -s $basedir ~/.vim
     ln -s $basedir/vimrc ~/.vimrc
+    ln -s $basedir/vimpagerrc ~/.vimpagerrc
 else
     echo "...removing previous configuration"
     rm ~/.vimrc
+    rm ~/.vimpagerrc
 
-    echo "...linking ~/.vimrc"
+    echo "...linking ~/.vimrc and ~/.vimpagerrc"
     ln -s $basedir ~/.vimrc
+    ln -s $basedir ~/.vimpagerrc
 fi
 
 echo '...cloning vundle'
