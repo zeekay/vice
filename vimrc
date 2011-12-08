@@ -426,28 +426,29 @@
 " }
 
 " Multiline f motion {
-function! FindChar(...)
-    if a:0 == 0
-        let c = nr2char( getchar() )
-    else
-        let c = a:1
-    endif
-    let match = search('\V' . c)
-    silent! call repeat#set(":call FindChar('" . c . "')\n")
-endfunction
+    function! FindChar(direction, count, ...)
+        " get character, or use arg
+        if a:0 == 0
+            let c = nr2char(getchar())
+        else
+            let c = a:1
+        endif
 
-function! FindCharBackward(...)
-    if a:0 == 0
-        let c = nr2char( getchar() )
-    else
-        let c = a:1
-    endif
-    let match = search('\V' . c, 'b')
-    silent! call repeat#set(":call FindCharBackward('" . c . "')\n")
-endfunction
+        " search for matches
+        for i in range(a:count)
+            if a:direction == 'f'
+                let match = search('\V'.c)
+            else
+                let match = search('\V'.c, 'b')
+            endif
+        endfor
 
-nmap f :call FindChar()<CR>
-nmap F :call FindCharBackward()<CR>
+        " setup repeat
+        silent! call repeat#set(":call FindChar('".a:direction."',".a:count.",'".c."')\n")
+    endfunction
+
+    nmap f :<C-U>call FindChar('f', v:count1)<CR>
+    nmap F :<C-U>call FindChar('b', v:count1)<CR>
 " }
 
 " Pasta {
