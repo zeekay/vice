@@ -17,6 +17,9 @@
     " supertab - https://github.com/ervandew/supertab
     Bundle 'git://github.com/ervandew/supertab'
 
+    " vim-repeat - https://github.com/tpope/vim-repeat
+    Bundle 'git://github.com/tpope/vim-repeat'
+
     " vim-commentary - https://github.com/tpope/vim-commentary
     Bundle 'git://github.com/tpope/vim-commentary'
 
@@ -325,7 +328,7 @@
     au FileType python,man map! <buffer> <leader>pK :call ShowPyDoc('<C-R><C-A>', 0)<CR>
 
     " remap the K (or 'help') key
-    nnoremap <silent> <buffer> K :call ShowPyDoc(expand("<cword>"), 1)<CR>
+    " nnoremap <silent> <buffer> K :call ShowPyDoc(expand("<cword>"), 1)<CR>
 " }
 
 " IPython {
@@ -352,28 +355,28 @@
 " }
 
 " VisualSearch {
-    vnoremap <silent> * :call VisualSearch('f')<CR>
-    vnoremap <silent> # :call VisualSearch('b')<CR>
+    " vnoremap <silent> * :call VisualSearch('f')<CR>
+    " vnoremap <silent> # :call VisualSearch('b')<CR>
 
     " From an idea by Michael Naumann
-    function! VisualSearch(direction) range
-        let l:saved_reg = @"
-        execute "normal! vgvy"
+    " function! VisualSearch(direction) range
+    "     let l:saved_reg = @"
+    "     execute "normal! vgvy"
 
-        let l:pattern = escape(@", '\\/.*$^~[]')
-        let l:pattern = substitute(l:pattern, "\n$", "", "")
+    "     let l:pattern = escape(@", '\\/.*$^~[]')
+    "     let l:pattern = substitute(l:pattern, "\n$", "", "")
 
-        if a:direction == 'b'
-            execute "normal ?" . l:pattern . "^M"
-        elseif a:direction == 'gv'
-            call CmdLine("vimgrep " . '/'. l:pattern . '/' . ' **/*.')
-        elseif a:direction == 'f'
-            execute "normal /" . l:pattern . "^M"
-        endif
+    "     if a:direction == 'b'
+    "         execute "normal ?" . l:pattern . "^M"
+    "     elseif a:direction == 'gv'
+    "         call CmdLine("vimgrep " . '/'. l:pattern . '/' . ' **/*.')
+    "     elseif a:direction == 'f'
+    "         execute "normal /" . l:pattern . "^M"
+    "     endif
 
-        let @/ = l:pattern
-        let @" = l:saved_reg
-    endfunction
+    "     let @/ = l:pattern
+    "     let @" = l:saved_reg
+    " endfunction
 " }
 
 " Shift Lines {
@@ -422,6 +425,31 @@
     endfunction
 " }
 
+" Multiline f motion {
+function! FindChar(...)
+    if a:0 == 0
+        let c = nr2char( getchar() )
+    else
+        let c = a:1
+    endif
+    let match = search('\V' . c)
+    silent! call repeat#set(":call FindChar('" . c . "')\n")
+endfunction
+
+function! FindCharBackward(...)
+    if a:0 == 0
+        let c = nr2char( getchar() )
+    else
+        let c = a:1
+    endif
+    let match = search('\V' . c, 'b')
+    silent! call repeat#set(":call FindCharBackward('" . c . "')\n")
+endfunction
+
+nmap f :call FindChar()<CR>
+nmap F :call FindCharBackward()<CR>
+" }
+
 " Pasta {
     function! s:MakePasta(filename)
         let fn = a:filename
@@ -438,6 +466,9 @@
 " Mappings {
     " prevent cursor from moving when leavng insert mode
     inoremap <Esc> <Esc>`^
+
+    " ctrl+w switch window in insert mode
+    inoremap <c-w> <c-o><c-w>
 
     " ctrl+o to save
     nnoremap <C-o> :w<CR>
@@ -470,11 +501,16 @@
     nnoremap ; :
     vnoremap ; :
 
+    " K/J move up down half pages
+    nnoremap J <C-D>
+    nnoremap K <C-U>
+    vnoremap J <C-D>
+    vnoremap K <C-U>
+
     " make pageup/pagedown move up/down half pages
     nnoremap <silent> <PageUp> <C-U><C-U>
     vnoremap <silent> <PageUp> <C-U><C-U>
     inoremap <silent> <PageUp> <C-\><C-O><C-U><C-\><C-O><C-U>
-
     nnoremap <silent> <PageDown> <C-D><C-D>
     vnoremap <silent> <PageDown> <C-D><C-D>
     inoremap <silent> <PageDown> <C-\><C-O><C-D><C-\><C-O><C-D>
@@ -490,7 +526,7 @@
     nnoremap <c-t> :tabnew<cr>
     inoremap <c-t> <c-o>:tabnew<cr>
 
-    " ctrl-left/right to switch between tabs
+    " ctrl-left/right/h/l to switch between tabs
     nnoremap <c-Left> :tabp<CR>
     nnoremap <c-Right> :tabn<CR>
     inoremap <c-Left> <c-o>:tabp<CR>
