@@ -508,6 +508,12 @@
     vnoremap J <C-D>
     vnoremap K <C-U>
 
+    " clipboard yank/paste
+    nnoremap <c-y> "*yy
+    vnoremap <c-y> "*y
+    nnoremap <c-p> "*p
+    vnoremap <c-p> "*p
+
     " make pageup/pagedown move up/down half pages
     nnoremap <silent> <PageUp> <C-U><C-U>
     vnoremap <silent> <PageUp> <C-U><C-U>
@@ -544,8 +550,6 @@
         map <kDivide> <C-W><
         map <kMultiply> <C-W>>
     endif
-
-    set pastetoggle=<F2>
 " }
 
 " vim: fdm=marker foldmarker={,} foldlevel=1 nofoldenable
