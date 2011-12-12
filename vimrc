@@ -449,7 +449,12 @@
         endfor
 
         " setup repeat
-        silent! call repeat#set(":call FindChar('".a:direction."',".a:count.",'".c."')\n")
+        if c == "'"
+            let c = '"'.c.'"'
+        else
+            let c = "'".c."'"
+        endif
+        silent! call repeat#set(":call FindChar('".a:direction."',".a:count.",".c.")\n")
     endfunction
 
     nmap f :<C-U>call FindChar('f', v:count1)<CR>
