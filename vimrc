@@ -295,8 +295,13 @@
 " }
 
 " Syntastic {
+    " reorder runtimepath so my custom syntax plugins are used
+    set rtp-=~/.vim/bundle/syntastic
+    set rtp+=~/.vim/syntastic,~/.vim/bundle/syntastic
     let g:syntastic_enable_signs = 1
     let g:syntastic_auto_loc_list = 0
+    let g:syntastic_python_checker = 'flake8 --ignore=E501'
+    let g:syntastic_enable_highlighting = 0
 " }
 
 " UltiSnips {
@@ -306,7 +311,7 @@
     let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
     " let g:UltiSnipsJumpForwardTrigger = '<c-j>'
     " let g:UltiSnipsJumpBackwardTrigger = '<c-k>'
-    let g:UltiSnipsSnippetDirectories=["UltiSnips", "my-snippets"]
+    let g:UltiSnipsSnippetDirectories=["UltiSnips"]
 " }
 
 " SuperTab {
