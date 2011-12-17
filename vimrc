@@ -11,6 +11,9 @@
     " vundle - https://github.com/gmarik/vundle
     Bundle 'git://github.com/gmarik/vundle'
 
+    " ctrlp - https://github.com/kien/ctrlp.vim
+    " Bundle 'git://github.com/kien/ctrlp.vim'
+
     " ack.vim - https://github.com/mileszs/ack.vim
     Bundle 'git://github.com/mileszs/ack.vim'
 
@@ -24,10 +27,10 @@
     Bundle 'git://github.com/tpope/vim-commentary'
 
     " vim-surround - https://github.com/tpope/vim-surround
-    Bundle 'git://github.com/tpope/vim-surround'
+    " Bundle 'git://github.com/tpope/vim-surround'
 
     " delimitMate - https://github.com/Raimondi/delimitMate
-    Bundle 'git://github.com/Raimondi/delimitMate'
+    " Bundle 'git://github.com/Raimondi/delimitMate'
 
     " AutoCloseTag - https://github.com/zeekay/vim-autoclose
     Bundle 'git://github.com/zeekay/vim-autoclose'
@@ -37,10 +40,10 @@
         Bundle 'git://github.com/scrooloose/syntastic'
 
         " http://repo.or.cz/w/vcscommand
-        Bundle 'git://repo.or.cz/vcscommand'
+        " Bundle 'git://repo.or.cz/vcscommand'
 
         " vim-easymotion - https://github.com/Lokaltog/vim-easymotion
-        Bundle 'git://github.com/Lokaltog/vim-easymotion'
+        " Bundle 'git://github.com/Lokaltog/vim-easymotion'
 
         " https://github.com/juanpabloaj/help.vim
         Bundle 'git://github.com/juanpabloaj/help.vim'
@@ -49,28 +52,25 @@
         Bundle 'git://github.com/kchmck/vim-coffee-script'
 
         " chapa.vim - https://github.com/alfredodeza/chapa.vim
-        Bundle 'git://github.com/alfredodeza/chapa.vim'
+        " Bundle 'git://github.com/alfredodeza/chapa.vim'
 
         " tabular - https://github.com/godlygeek/tabular
         Bundle 'git://github.com/godlygeek/tabular'
 
         " tagbar - https://github.com/majutsushi/tagbar
-        Bundle 'git://github.com/majutsushi/tagbar'
+        " Bundle 'git://github.com/majutsushi/tagbar'
 
         " gundo - https://github.com/sjl/gundo.vim
-        Bundle 'git://github.com/sjl/gundo.vim'
+        " Bundle 'git://github.com/sjl/gundo.vim'
 
         " threesome.vim - https://github.com/sjl/threesome.vim
         " Bundle 'git://github.com/sjl/threesome.vim'
 
         " pydoc.vim - https://github.com/fs111/pydoc.vim
-        Bundle 'git://github.com/fs111/pydoc.vim'
+        " Bundle 'git://github.com/fs111/pydoc.vim'
 
         " current-func-info - https://github.com/tyru/current-func-info.vim
         " Bundle 'tyru/current-func-info.vim'
-
-        " pyflakes.vim - https://github.com/kevinw/pyflakes-vim
-        " Bundle 'kevinw/pyflakes-vim'
 
         " python.vim improved - https://gitorious.org/python-vim
         " Bundle 'git://gitorious.org/python-vim/python-vim'
@@ -96,15 +96,15 @@
         endif
 
 
-        if has("python")
-            " https://github.com/ivanov/vim-ipython
-            Bundle 'git://github.com/ivanov/vim-ipython'
-        endif
+        " if has("python")
+        "     " https://github.com/ivanov/vim-ipython
+        "     Bundle 'git://github.com/ivanov/vim-ipython'
+        " endif
 
-        if has("ruby")
-            " lusty - https://github.com/sjbach/lusty/
-            Bundle 'git://github.com/sjbach/lusty'
-        endif
+        " if has("ruby")
+        "     " lusty - https://github.com/sjbach/lusty/
+        "     Bundle 'git://github.com/sjbach/lusty'
+        " endif
     endif
 " }
 
@@ -138,6 +138,7 @@
     set gdefault
     set showcmd
     set virtualedit=block,onemore
+    set switchbuf=usetab
     " set pumheight=10
     " set diffopt+=context:3
     " set scrolloff=10
