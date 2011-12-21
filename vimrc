@@ -40,7 +40,7 @@
         Bundle 'git://github.com/scrooloose/syntastic'
 
         " http://repo.or.cz/w/vcscommand
-        " Bundle 'git://repo.or.cz/vcscommand'
+        Bundle 'git://repo.or.cz/vcscommand'
 
         " vim-easymotion - https://github.com/Lokaltog/vim-easymotion
         " Bundle 'git://github.com/Lokaltog/vim-easymotion'
@@ -58,10 +58,10 @@
         Bundle 'git://github.com/godlygeek/tabular'
 
         " tagbar - https://github.com/majutsushi/tagbar
-        " Bundle 'git://github.com/majutsushi/tagbar'
+        Bundle 'git://github.com/majutsushi/tagbar'
 
         " gundo - https://github.com/sjl/gundo.vim
-        " Bundle 'git://github.com/sjl/gundo.vim'
+        Bundle 'git://github.com/sjl/gundo.vim'
 
         " threesome.vim - https://github.com/sjl/threesome.vim
         " Bundle 'git://github.com/sjl/threesome.vim'
@@ -302,6 +302,7 @@
     let g:syntastic_enable_signs = 1
     let g:syntastic_auto_loc_list = 0
     let g:syntastic_python_checker = 'flake8 --ignore=E501'
+    let g:syntastic_javascript_checker = 'jslint'
     let g:syntastic_enable_highlighting = 0
 " }
 
