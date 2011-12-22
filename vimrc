@@ -51,6 +51,9 @@
         " vim-coffees-script - https://github.com/kchmck/vim-coffee-script
         Bundle 'git://github.com/kchmck/vim-coffee-script'
 
+        " vim-html - https://github.com/tpope/vim-haml
+        Bundle 'git://github.com/tpope/vim-haml'
+
         " chapa.vim - https://github.com/alfredodeza/chapa.vim
         " Bundle 'git://github.com/alfredodeza/chapa.vim'
 
