@@ -489,8 +489,13 @@
     " ctrl+w switch window in insert mode
     inoremap <c-w> <c-o><c-w>
 
-    " ctrl+o to save
+    " W and ctrl+o to write
     nnoremap <C-o> :w<CR>
+    " hesitant to use this as it's a motion
+    " map W :w<cr>
+
+    " Q and ctrl+x to quit
+    nnoremap Q :q<cr>
     nnoremap <C-x> :q<CR>
     vnoremap <C-x> :q<CR>
 
