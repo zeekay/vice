@@ -465,8 +465,9 @@
         silent! call repeat#set(":call FindChar('".a:direction."',".a:count.",".c.")\n")
     endfunction
 
-    nmap f :<C-U>call FindChar('f', v:count1)<CR>
-    nmap F :<C-U>call FindChar('b', v:count1)<CR>
+    " Will I miss this?
+    " nmap f :<C-U>call FindChar('f', v:count1)<CR>
+    " nmap F :<C-U>call FindChar('b', v:count1)<CR>
 " }
 
 " Pasta {
