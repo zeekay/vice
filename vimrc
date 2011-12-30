@@ -299,6 +299,7 @@
     autocmd FileType cfg set commentstring=#\ %s
     autocmd FileType cpp set commentstring=/\/\ %s
     autocmd FileType python set commentstring=#\ %s
+    autocmd FileType lisp set commentstring=;;\ %s
 " }
 
 " Syntastic {
