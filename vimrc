@@ -12,7 +12,7 @@
     Bundle 'git://github.com/gmarik/vundle'
 
     " ctrlp - https://github.com/kien/ctrlp.vim
-    " Bundle 'git://github.com/kien/ctrlp.vim'
+    Bundle 'git://github.com/kien/ctrlp.vim'
 
     " ack.vim - https://github.com/mileszs/ack.vim
     Bundle 'git://github.com/mileszs/ack.vim'
@@ -177,7 +177,7 @@
 " Menu/Complete {
     set wildmenu
     set wildmode=list:longest
-    set wildignore=*.o,*.obj,*.bak,*.exe,*.aux,*.dvi,*.dll,*.pyc,*.pyo
+    set wildignore=*.o,*.obj,*.bak,*.exe,*.aux,*.dvi,*.dll,*.pyc,*.pyo,*/.git/*,*/.hg/*,*/.svn/*
     set completeopt=menuone,menu,longest,preview
 " }
 
@@ -333,6 +333,19 @@
     let g:SuperTabMappingBackward = '<s-tab>'
     " let g:SuperTabMappingForward = '<c-j>'
     " let g:SuperTabMappingBackward = '<c-k>'
+" }
+
+" CtrlP {
+    let g:ctrlp_map = '<c-p>'
+    let g:ctrlp_jump_to_buffer = 2
+    let g:ctrlp_working_path_mode = 2
+    let g:ctrlp_clear_cache_on_exit = 0
+    let g:ctrlp_user_command = ['.git/', 'cd %s && git ls-files']
+    let g:ctrlp_user_command = ['.hg/', 'hg --cwd %s locate --fullpath -I .']
+    let g:ctrlp_open_new_file = 1
+    let g:ctrlp_cache_dir = '~/.vim/tmp/ctrlp_cache'
+    let g:ctrlp_open_multi = '1t'
+    nnoremap <c-b> :CtrlPBuffer<cr>
 " }
 
 " PyDoc {
@@ -498,20 +511,13 @@
 
     " Q and ctrl+x to quit
     nnoremap Q :q<cr>
-    nnoremap <C-x> :q<CR>
-    vnoremap <C-x> :q<CR>
+    nnoremap <C-x> <C-W>q
 
     " stay in visual mode after indentation change
     vnoremap > >gv
     vnoremap < <gv
     vnoremap <tab> >gv
     vnoremap <s-tab> <gv
-
-    " Move in insert mode using alt-h/j/k/l
-    inoremap k <Up>
-    inoremap j <Down>
-    inoremap h <Left>
-    inoremap l <Right>
 
     " Move selections in visual mode using alt-i/j/k/l
     vnoremap k <Esc>:call <SID>MoveVisualUp()<CR>
@@ -534,10 +540,10 @@
     vnoremap K <C-U>
 
     " clipboard yank/paste
-    nnoremap <c-y> "*yy
-    vnoremap <c-y> "*y
-    nnoremap <c-p> "*p
-    vnoremap <c-p> "*p
+    nnoremap y "*yy
+    vnoremap y "*y
+    nnoremap p "*p
+    vnoremap p "*p
 
     " make pageup/pagedown move up/down half pages
     nnoremap <silent> <PageUp> <C-U><C-U>
