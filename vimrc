@@ -126,7 +126,7 @@
     " set nomodeline
     set undolevels=1000
     set history=1000
-    set autochdir
+    " set autochdir
     set backspace=indent,eol,start
     set matchpairs+=<:>
     set shortmess=atToOI
@@ -177,7 +177,7 @@
 " Menu/Complete {
     set wildmenu
     set wildmode=list:longest
-    set wildignore=*.o,*.obj,*.bak,*.exe,*.aux,*.dvi,*.dll,*.pyc,*.pyo,*/.git/*,*/.hg/*,*/.svn/*
+    set wildignore=*.o,*.obj,*.bak,*.exe,*.aux,*.dvi,*.dll,*.pyc,*.pyo
     set completeopt=menuone,menu,longest,preview
 " }
 
@@ -336,10 +336,11 @@
 " }
 
 " CtrlP {
+    " let g:ctrlp_user_command = 'find %s -type f'       " MacOSX/Linux
     let g:ctrlp_map = '<c-p>'
     let g:ctrlp_jump_to_buffer = 2
     let g:ctrlp_working_path_mode = 2
-    let g:ctrlp_clear_cache_on_exit = 0
+    " let g:ctrlp_clear_cache_on_exit = 0
     let g:ctrlp_user_command = ['.git/', 'cd %s && git ls-files']
     let g:ctrlp_user_command = ['.hg/', 'hg --cwd %s locate --fullpath -I .']
     let g:ctrlp_open_new_file = 1
