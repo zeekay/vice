@@ -498,6 +498,10 @@
     command! Pasta call s:MakePasta(expand("%"))
 " }
 
+" Commands {
+    command Sudowrite :execute ':silent w !sudo tee % > /dev/null' | :edit!
+" }
+
 " Mappings {
     " prevent cursor from moving when leavng insert mode
     inoremap <Esc> <Esc>`^
