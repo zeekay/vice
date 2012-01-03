@@ -54,6 +54,9 @@
         " vim-jade - https://github.com/digitaltoad/vim-jade.git
         Bundle 'git://github.com/digitaltoad/vim-jade'
 
+        " vim-stylus - https://github.com/wavded/vim-stylus.git
+        Bundle 'git://github.com/wavded/vim-stylus'
+
         " vim-html - https://github.com/tpope/vim-haml
         Bundle 'git://github.com/tpope/vim-haml'
 
