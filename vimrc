@@ -159,6 +159,8 @@
         set undofile
         set undodir=~/.vim/tmp/undo
     endif
+    " Disable folding
+    set foldminlines=99999
 " }
 
 " Indent {
