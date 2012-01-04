@@ -162,13 +162,6 @@
     " set foldminlines=99999
 " }
 
-" Vimdiff {
-    set diffopt+=iwhite,context:3
-    if &diff
-        nmap u u :diff<cr>
-    endif
-"
-" }
 " Indent {
     set tabstop=4
     set shiftwidth=4
@@ -596,6 +589,14 @@
         map <kMinus> <C-W>-
         map <kDivide> <C-W><
         map <kMultiply> <C-W>>
+    endif
+" }
+
+" Vimdiff {
+    set diffopt+=iwhite,context:3
+    if &diff
+        nmap u u :diff<cr>
+        nmap Q :qa<cr>
     endif
 " }
 
