@@ -132,7 +132,7 @@
     " set autochdir
     set backspace=indent,eol,start
     set matchpairs+=<:>
-    set shortmess=atToOI
+    set shortmess=aoOsTI
     set hidden
     set encoding=utf-8
     set termencoding=utf-8
@@ -149,7 +149,6 @@
     set virtualedit=block,onemore
     set switchbuf=usetab
     " set pumheight=10
-    " set diffopt+=context:3
     " set scrolloff=10
     " set sidescrolloff=20
     " set scrolljump=10
@@ -160,9 +159,16 @@
         set undodir=~/.vim/tmp/undo
     endif
     " Disable folding
-    set foldminlines=99999
+    " set foldminlines=99999
 " }
 
+" Vimdiff {
+    set diffopt+=iwhite,context:3
+    if &diff
+        nmap u u :diff<cr>
+    endif
+"
+" }
 " Indent {
     set tabstop=4
     set shiftwidth=4
