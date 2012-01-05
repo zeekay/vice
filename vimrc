@@ -154,7 +154,7 @@
     " set scrolljump=10
     set splitright
     set nomore
-    if version > 700
+    if version > 720
         set undofile
         set undodir=~/.vim/tmp/undo
     endif
