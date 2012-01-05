@@ -548,6 +548,12 @@
     vnoremap J <C-D>
     vnoremap K <C-U>
 
+    " Fix arrow keys in insert
+    inoremap OA <up>
+    inoremap OB <down>
+    inoremap OD <left>
+    inoremap OC <right>
+
     " clipboard yank/paste
     nnoremap y "*yy
     vnoremap y "*y
