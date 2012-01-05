@@ -160,6 +160,7 @@
     endif
     " Disable folding
     " set foldminlines=99999
+    set mouse=a
 " }
 
 " Indent {
@@ -215,12 +216,11 @@
         set guioptions=ace
         set guifont=Dina-medium:h13
         set linespace=1
-        set mouse=a
         " set transparency=15
         colorscheme molokai-original
     else
         colorscheme hornet
-        set mouse-=a
+        " set mouse-=a
     endif
 " }
 
@@ -601,7 +601,7 @@
 " Vimdiff {
     set diffopt+=iwhite,context:3
     if &diff
-        nmap u u :diff<cr>
+        nmap u u :diffu<cr>
         nmap Q :qa<cr>
     endif
 " }
