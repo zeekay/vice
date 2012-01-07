@@ -389,77 +389,6 @@
     au FileType coffee imap <F6> <c-o>:CoffeeCompile watch vertical<cr>
 " }
 
-" VisualSearch {
-    " vnoremap <silent> * :call VisualSearch('f')<CR>
-    " vnoremap <silent> # :call VisualSearch('b')<CR>
-
-    " From an idea by Michael Naumann
-    " function! VisualSearch(direction) range
-    "     let l:saved_reg = @"
-    "     execute "normal! vgvy"
-
-    "     let l:pattern = escape(@", '\\/.*$^~[]')
-    "     let l:pattern = substitute(l:pattern, "\n$", "", "")
-
-    "     if a:direction == 'b'
-    "         execute "normal ?" . l:pattern . "^M"
-    "     elseif a:direction == 'gv'
-    "         call CmdLine("vimgrep " . '/'. l:pattern . '/' . ' **/*.')
-    "     elseif a:direction == 'f'
-    "         execute "normal /" . l:pattern . "^M"
-    "     endif
-
-    "     let @/ = l:pattern
-    "     let @" = l:saved_reg
-    " endfunction
-" }
-
-" Shift Lines {
-    function! s:MoveLineUp()
-        call <SID>MoveLineOrVisualUp(".", "")
-    endfunction
-
-    function! s:MoveLineDown()
-        call <SID>MoveLineOrVisualDown(".", "")
-    endfunction
-
-    function! s:MoveVisualUp()
-        call <SID>MoveLineOrVisualUp("'<", "'<,'>")
-        normal gv
-    endfunction
-
-    function! s:MoveVisualDown()
-        call <SID>MoveLineOrVisualDown("'>", "'<,'>")
-        normal gv
-    endfunction
-
-    function! s:MoveLineOrVisualUp(line_getter, range)
-        let l_num = line(a:line_getter)
-        if l_num - v:count1 - 1 < 0
-            let move_arg = "0"
-        else
-            let move_arg = a:line_getter." -".(v:count1 + 1)
-        endif
-        call <SID>MoveLineOrVisualUpOrDown(a:range."move ".move_arg)
-    endfunction
-
-    function! s:MoveLineOrVisualDown(line_getter, range)
-        let l_num = line(a:line_getter)
-        if l_num + v:count1 > line("$")
-            let move_arg = "$"
-        else
-            let move_arg = a:line_getter." +".v:count1
-        endif
-        call <SID>MoveLineOrVisualUpOrDown(a:range."move ".move_arg)
-    endfunction
-
-    function! s:MoveLineOrVisualUpOrDown(move_arg)
-        let col_num = virtcol(".")
-        execute "silent! ".a:move_arg
-        execute "normal! ".col_num."|"
-    endfunction
-" }
-
 " Multiline f motion {
     function! FindChar(direction, count, ...)
         " get character, or use arg
@@ -522,33 +451,24 @@
 " }
 
 " Mappings {
+    " Real men don't use arrow keys!
+    noremap <up> <nop>
+    noremap <down> <nop>
+    noremap <left> <nop>
+    noremap <right> <nop>
+    noremap OA <nop>
+    noremap OB <nop>
+    noremap OD <nop>
+    noremap OC <nop>
+
     " prevent cursor from moving when leavng insert mode
     inoremap <Esc> <Esc>`^
-
-    " ctrl+w switch window in insert mode
-    inoremap <c-w> <c-o><c-w>
-
-    " W and ctrl+o to write
-    nnoremap <C-o> :w<CR>
-
-    " hesitant to use this as it's a motion
-    " map W :w<cr>
-
-    " Q and ctrl+x to quit
-    nnoremap Q :q<cr>
-    nnoremap <C-x> <C-W>q
 
     " stay in visual mode after indentation change
     vnoremap > >gv
     vnoremap < <gv
     vnoremap <tab> >gv
     vnoremap <s-tab> <gv
-
-    " Move selections in visual mode using alt-i/j/k/l
-    vnoremap k <Esc>:call <SID>MoveVisualUp()<CR>
-    vnoremap j <Esc>:call <SID>MoveVisualDown()<CR>
-    vnoremap h <Left> <gv
-    vnoremap l <Right> >gv
 
     " make G go to *end* of last line
     nnoremap G G$
@@ -558,17 +478,11 @@
     nnoremap ; :
     vnoremap ; :
 
-    " K/J move up down half pages
+    " J/K move up down half pages
     nnoremap J <C-D>
     nnoremap K <C-U>
     vnoremap J <C-D>
     vnoremap K <C-U>
-
-    " Fix arrow keys in insert
-    inoremap OA <up>
-    inoremap OB <down>
-    inoremap OD <left>
-    inoremap OC <right>
 
     " make pageup/pagedown move up/down half pages
     nnoremap <silent> <PageUp> <C-U><C-U>
@@ -577,6 +491,16 @@
     nnoremap <silent> <PageDown> <C-D><C-D>
     vnoremap <silent> <PageDown> <C-D><C-D>
     inoremap <silent> <PageDown> <C-\><C-O><C-D><C-\><C-O><C-D>
+
+    " ctrl+w switch window in insert mode
+    inoremap <c-w> <c-o><c-w>
+
+    " W and ctrl+o to write
+    nnoremap <C-o> :w<CR>
+
+    " Q and ctrl+x to quit
+    nnoremap Q :q<cr>
+    nnoremap <C-x> <C-W>q
 
     " ctrl+e to explore current directory
     nnoremap <C-e> :Explore<cr>
@@ -589,11 +513,7 @@
     nnoremap <c-t> :tabnew<cr>
     inoremap <c-t> <c-o>:tabnew<cr>
 
-    " ctrl-left/right/h/l to switch between tabs
-    nnoremap <c-Left> :tabp<CR>
-    nnoremap <c-Right> :tabn<CR>
-    inoremap <c-Left> <c-o>:tabp<CR>
-    inoremap <c-Right> <c-o>:tabn<CR>
+    " ctrl-h/l to switch between tabs
     nnoremap <c-h> :tabp<CR>
     nnoremap <c-l> :tabn<CR>
     inoremap <c-h> <c-o>:tabp<CR>
@@ -607,12 +527,13 @@
         map <kMultiply> <C-W>>
     endif
 
-    " Replace text in visual mode when pasting with p/P
+    " p/P replace selection in visual mode
     vnoremap p "_dp
     vnoremap P "_dP
 
     " \b for blackhole register
     map      <leader>b "_
+
     " \y and \p for clipboard yank/paste
     nnoremap <leader>y "*yy
     vnoremap <leader>y "*y
@@ -621,8 +542,10 @@
     nnoremap <leader>P "*P
     vnoremap <leader>P "*P
     nnoremap <leader>a :Ack<space>
+
     " \r toggles relatie number
     nnoremap <leader>r :set relativenumber!<cr>
+
     " \sb toggles scrollbind
     nnoremap <leader>sb :ScrollBindToggle<cr>
 " }
