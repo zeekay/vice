@@ -143,7 +143,7 @@
     set linebreak
     set wrap
     set whichwrap=b,s,h,l,<,>,[,]
-    set clipboard=unnamed,unnamedplus,autoselect
+    set clipboard=unnamed,unnamedplus
     set autoread
     set report=0
     set gdefault
@@ -607,6 +607,7 @@
         map <kMultiply> <C-W>>
     endif
 
+    vnoremap p "_dP
     " faster access to black hole register
     map      <leader>b "_
     " clipboard yank/paste
