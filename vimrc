@@ -456,10 +456,10 @@
     noremap <down> <nop>
     noremap <left> <nop>
     noremap <right> <nop>
-    noremap OA <nop>
-    noremap OB <nop>
-    noremap OD <nop>
-    noremap OC <nop>
+    inoremap OA <nop>
+    inoremap OB <nop>
+    inoremap OD <nop>
+    inoremap OC <nop>
 
     " prevent cursor from moving when leavng insert mode
     inoremap <Esc> <Esc>`^
