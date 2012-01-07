@@ -27,10 +27,10 @@
     Bundle 'git://github.com/tpope/vim-commentary'
 
     " vim-surround - https://github.com/tpope/vim-surround
-    Bundle 'git://github.com/tpope/vim-surround'
+    " Bundle 'git://github.com/tpope/vim-surround'
 
     " delimitMate - https://github.com/Raimondi/delimitMate
-    Bundle 'git://github.com/Raimondi/delimitMate'
+    " Bundle 'git://github.com/Raimondi/delimitMate'
 
     " AutoCloseTag - https://github.com/zeekay/vim-autoclose
     " Bundle 'git://github.com/zeekay/vim-autoclose'
@@ -43,10 +43,10 @@
         Bundle 'git://github.com/scrooloose/syntastic'
 
         " http://repo.or.cz/w/vcscommand
-        Bundle 'git://repo.or.cz/vcscommand'
+        " Bundle 'git://repo.or.cz/vcscommand'
 
         " vim-easymotion - https://github.com/Lokaltog/vim-easymotion
-        Bundle 'git://github.com/Lokaltog/vim-easymotion'
+        " Bundle 'git://github.com/Lokaltog/vim-easymotion'
 
         " https://github.com/juanpabloaj/help.vim
         Bundle 'git://github.com/juanpabloaj/help.vim'
@@ -64,13 +64,13 @@
         Bundle 'git://github.com/tpope/vim-haml'
 
         " chapa.vim - https://github.com/alfredodeza/chapa.vim
-        Bundle 'git://github.com/alfredodeza/chapa.vim'
+        " Bundle 'git://github.com/alfredodeza/chapa.vim'
 
         " tabular - https://github.com/godlygeek/tabular
         Bundle 'git://github.com/godlygeek/tabular'
 
         " tagbar - https://github.com/majutsushi/tagbar
-        Bundle 'git://github.com/majutsushi/tagbar'
+        " Bundle 'git://github.com/majutsushi/tagbar'
 
         " gundo - https://github.com/sjl/gundo.vim
         Bundle 'git://github.com/sjl/gundo.vim'
@@ -82,7 +82,7 @@
         " Bundle 'git://github.com/fs111/pydoc.vim'
 
         " current-func-info - https://github.com/tyru/current-func-info.vim
-        Bundle 'tyru/current-func-info.vim'
+        " Bundle 'tyru/current-func-info.vim'
 
         " ropevim - https://github.com/gordyt/rope-vim
         " Bundle 'gordyt/rope-vim'
@@ -126,7 +126,7 @@
     " set nomodeline
     set undolevels=1000
     set history=1000
-    set autochdir
+    " set autochdir
     set backspace=indent,eol,start
     set matchpairs+=<:>
     set shortmess=aoOsTI
@@ -179,7 +179,7 @@
 
 " Menu/Complete {
     set wildmenu
-    set wildmode=list:longest
+    set wildmode=list:longest,full
     set wildignore=*.o,*.obj,*.bak,*.exe,*.aux,*.dvi,*.dll,*.pyc,*.pyo
     set completeopt=menuone,menu,longest,preview
 " }
@@ -215,6 +215,8 @@
         set linespace=1
         " set transparency=15
         colorscheme molokai
+        " change dir to currently open file
+        lcd %:p:h
     else
         colorscheme hornet
         " set mouse-=a
@@ -278,7 +280,7 @@
     let g:delimitMate_excluded_ft = "mail,help"
     au FileType * let b:delimitMate_autoclose = 1
     " If using html auto complete (complete closing tag)
-    au FileType xml,html,xhtml let b:delimitMate_matchpairs = "(:),[:],{:}"
+    " au FileType xml,html,xhtml let b:delimitMate_matchpairs = "(:),[:],{:}"
 " }
 
 " AutoCloseTag {
