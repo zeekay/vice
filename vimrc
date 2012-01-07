@@ -27,13 +27,13 @@
     Bundle 'git://github.com/tpope/vim-commentary'
 
     " vim-surround - https://github.com/tpope/vim-surround
-    " Bundle 'git://github.com/tpope/vim-surround'
+    Bundle 'git://github.com/tpope/vim-surround'
 
     " delimitMate - https://github.com/Raimondi/delimitMate
-    " Bundle 'git://github.com/Raimondi/delimitMate'
+    Bundle 'git://github.com/Raimondi/delimitMate'
 
     " AutoCloseTag - https://github.com/zeekay/vim-autoclose
-    Bundle 'git://github.com/zeekay/vim-autoclose'
+    " Bundle 'git://github.com/zeekay/vim-autoclose'
 
     " SearchComplete - http://www.vim.org/scripts/script.php?script_id=474
     Bundle 'SearchComplete'
@@ -46,7 +46,7 @@
         Bundle 'git://repo.or.cz/vcscommand'
 
         " vim-easymotion - https://github.com/Lokaltog/vim-easymotion
-        " Bundle 'git://github.com/Lokaltog/vim-easymotion'
+        Bundle 'git://github.com/Lokaltog/vim-easymotion'
 
         " https://github.com/juanpabloaj/help.vim
         Bundle 'git://github.com/juanpabloaj/help.vim'
@@ -64,7 +64,7 @@
         Bundle 'git://github.com/tpope/vim-haml'
 
         " chapa.vim - https://github.com/alfredodeza/chapa.vim
-        " Bundle 'git://github.com/alfredodeza/chapa.vim'
+        Bundle 'git://github.com/alfredodeza/chapa.vim'
 
         " tabular - https://github.com/godlygeek/tabular
         Bundle 'git://github.com/godlygeek/tabular'
@@ -82,10 +82,7 @@
         " Bundle 'git://github.com/fs111/pydoc.vim'
 
         " current-func-info - https://github.com/tyru/current-func-info.vim
-        " Bundle 'tyru/current-func-info.vim'
-
-        " python.vim improved - https://gitorious.org/python-vim
-        " Bundle 'git://gitorious.org/python-vim/python-vim'
+        Bundle 'tyru/current-func-info.vim'
 
         " ropevim - https://github.com/gordyt/rope-vim
         " Bundle 'gordyt/rope-vim'
@@ -126,9 +123,6 @@
     set directory=~/.vim/tmp/swap
     set backup
     set backupdir=~/.vim/tmp/backup
-    " set nobackup
-    " set nowritebackup
-    " set noswapfile
     " set nomodeline
     set undolevels=1000
     set history=1000
@@ -143,7 +137,7 @@
     set linebreak
     set wrap
     set whichwrap=b,s,h,l,<,>,[,]
-    set clipboard=unnamed,unnamedplus
+    " set clipboard=unnamed,unnamedplus
     set autoread
     set report=0
     set gdefault
@@ -261,8 +255,12 @@
     let g:netrw_list_hide='\.swp$,\.pyc$,\.pyo$,^\.hg$,^\$,^\.svn$,^\.o$,.Trash,.DS_Store,.CFUserTextEncoding'
 " }
 
+" Ack.vim {
+    let g:ackprg="ack -H --nocolor --nogroup --column"
+" }
+
 " Gundo {
-    nnoremap <F11> :GundoToggle<CR>
+    " nnoremap <F11> :GundoToggle<CR>
     let g:gundo_right = 1
     let g:gundo_width = 50
 " }
@@ -299,7 +297,7 @@
     let g:tagbar_compact = 1
     let g:tagbar_ctags_bin = '/usr/local/bin/ctags'
     let g:tagbar_expand = 1
-    nnoremap <silent> <F12> :TagbarToggle<CR>
+    " nnoremap <silent> <F12> :TagbarToggle<CR>
 " }
 
 " vim-commentary {
@@ -495,24 +493,6 @@
     " ctrl+w switch window in insert mode
     inoremap <c-w> <c-o><c-w>
 
-    " W and ctrl+o to write
-    nnoremap <C-o> :w<CR>
-
-    " Q and ctrl+x to quit
-    nnoremap Q :q<cr>
-    nnoremap <C-x> <C-W>q
-
-    " ctrl+e to explore current directory
-    nnoremap <C-e> :Explore<cr>
-    inoremap <C-e> <C-o>:Explore<cr>>
-
-    " ctrl-} to move backwards through ctags
-    nnoremap <c-}> <c-t>
-
-    " ...now map ctrl-t to open new tabs
-    nnoremap <c-t> :tabnew<cr>
-    inoremap <c-t> <c-o>:tabnew<cr>
-
     " ctrl-h/l to switch between tabs
     nnoremap <c-h> :tabp<CR>
     nnoremap <c-l> :tabn<CR>
@@ -541,13 +521,26 @@
     vnoremap <leader>p "*p
     nnoremap <leader>P "*P
     vnoremap <leader>P "*P
+
+    " \a search with ack
     nnoremap <leader>a :Ack<space>
+
+    " \u \t toggle Gundo/Tagbar
+    nnoremap <leader>u :GundoToggle<cr>
+    nnoremap <leader>t :TagbarToggle<cr>
 
     " \r toggles relatie number
     nnoremap <leader>r :set relativenumber!<cr>
 
     " \sb toggles scrollbind
     nnoremap <leader>sb :ScrollBindToggle<cr>
+
+    " \e \q \w \t
+    nnoremap <leader>e :Explore<cr>
+    nnoremap <leader>q :q<cr>
+    nnoremap <leader>t :tabnew<cr>
+    nnoremap <leader>w :w<cr>
+
 " }
 
 " Vimdiff {
