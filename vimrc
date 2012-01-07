@@ -35,6 +35,9 @@
     " AutoCloseTag - https://github.com/zeekay/vim-autoclose
     Bundle 'git://github.com/zeekay/vim-autoclose'
 
+    " SearchComplete - http://www.vim.org/scripts/script.php?script_id=474
+    Bundle 'SearchComplete'
+
     if !has('win32unix')
         " syntastic - https://github.com/scrooloose/syntastic
         Bundle 'git://github.com/scrooloose/syntastic'
@@ -213,7 +216,6 @@
 " Colors/Gui {
     if has("gui_running")
         let macvim_hig_shift_movement = 1
-        set nu
         set guioptions=ace
         set guifont=Dina-medium:h13
         set linespace=1
@@ -528,6 +530,7 @@
 
     " W and ctrl+o to write
     nnoremap <C-o> :w<CR>
+
     " hesitant to use this as it's a motion
     " map W :w<cr>
 
@@ -567,12 +570,6 @@
     inoremap OD <left>
     inoremap OC <right>
 
-    " clipboard yank/paste
-    nnoremap y "*yy
-    vnoremap y "*y
-    nnoremap p "*p
-    vnoremap p "*p
-
     " make pageup/pagedown move up/down half pages
     nnoremap <silent> <PageUp> <C-U><C-U>
     vnoremap <silent> <PageUp> <C-U><C-U>
@@ -610,6 +607,15 @@
         map <kMultiply> <C-W>>
     endif
 
+    " faster access to black hole register
+    map      <leader>b "_
+    " clipboard yank/paste
+    nnoremap <leader>y "*yy
+    vnoremap <leader>y "*y
+    nnoremap <leader>p "*p
+    vnoremap <leader>p "*p
+    nnoremap <leader>P "*P
+    vnoremap <leader>P "*P
     nnoremap <leader>a :Ack<space>
     nnoremap <leader>r :set relativenumber!<cr>
     nnoremap <leader>s :ScrollBindToggle<cr>
