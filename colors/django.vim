@@ -56,5 +56,3 @@ hi DiffAdd	    ctermbg=4
 hi DiffChange	ctermbg=5
 hi DiffDelete	cterm=bold ctermfg=4 ctermbg=6
 hi DiffText	    cterm=bold ctermbg=1
-
-

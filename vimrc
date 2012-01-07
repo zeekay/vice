@@ -218,7 +218,7 @@
         set guifont=Dina-medium:h13
         set linespace=1
         " set transparency=15
-        colorscheme molokai-original
+        colorscheme molokai
     else
         colorscheme hornet
         " set mouse-=a

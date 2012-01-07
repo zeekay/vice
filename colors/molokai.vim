@@ -5,9 +5,6 @@
 " Note: Based on the monokai theme for textmate
 " by Wimer Hazenberg and its darker variant
 " by Hamish Stuart Macpherson
-"
-
-hi clear
 
 set background=dark
 if version > 580
@@ -19,13 +16,6 @@ if version > 580
     endif
 endif
 let g:colors_name="molokai"
-
-if exists("g:molokai_original")
-    let s:molokai_original = g:molokai_original
-else
-    let s:molokai_original = 0
-endif
-
 
 hi Boolean         guifg=#AE81FF
 hi Character       guifg=#E6DB74
@@ -88,8 +78,8 @@ if has("spell")
     hi SpellRare   guisp=#FFFFFF gui=undercurl
 endif
 hi Statement       guifg=#F92672               gui=bold
-hi StatusLine      guifg=#455354 guibg=fg
-hi StatusLineNC    guifg=#808080 guibg=#080808
+hi StatusLine      guifg=#bcbcbc guibg=#56584b gui=none
+hi StatusLineNC    guifg=#808080 guibg=#303030 gui=none
 hi StorageClass    guifg=#FD971F               gui=italic
 hi Structure       guifg=#66D9EF
 hi Tag             guifg=#F92672               gui=italic
@@ -106,21 +96,12 @@ hi Visual                        guibg=#403D3D
 hi WarningMsg      guifg=#FFFFFF guibg=#333333 gui=bold
 hi WildMenu        guifg=#66D9EF guibg=#000000
 
-if s:molokai_original == 1
-   hi Normal          guifg=#F8F8F2 guibg=#212121
-   hi Comment         guifg=#75715E
-   hi CursorLine                    guibg=#3E3D32
-   hi CursorColumn                  guibg=#3E3D32
-   hi LineNr          guifg=#BCBCBC guibg=#3B3A32
-   hi NonText         guifg=#BCBCBC guibg=#3B3A32
-else
-   hi Normal          guifg=#F8F8F2 guibg=#1B1D1E
-   hi Comment         guifg=#465457
-   hi CursorLine                    guibg=#293739
-   hi CursorColumn                  guibg=#293739
-   hi LineNr          guifg=#BCBCBC guibg=#232526
-   hi NonText         guifg=#BCBCBC guibg=#232526
-end
+hi Normal          ctermbg=234 guifg=#F8F8F2 guibg=#272822
+hi Comment         guifg=#75715E
+hi CursorLine                    guibg=#3E3D32
+hi CursorColumn                  guibg=#3E3D32
+hi LineNr          guifg=#BCBCBC guibg=#3B3A32
+hi NonText         guifg=#BCBCBC guibg=#3B3A32
 
 "
 " Support for 256-color terminal
@@ -184,7 +165,7 @@ if &t_Co > 255
    hi SpecialKey      ctermfg=245
 
    hi Statement       ctermfg=161               cterm=bold
-   hi StatusLine      ctermfg=238 ctermbg=253
+   hi StatusLine      ctermfg=244 ctermbg=233   cterm=none
    hi StatusLineNC    ctermfg=244 ctermbg=232
    hi StorageClass    ctermfg=208
    hi Structure       ctermfg=81
@@ -202,10 +183,10 @@ if &t_Co > 255
    hi WarningMsg      ctermfg=231 ctermbg=238   cterm=bold
    hi WildMenu        ctermfg=81  ctermbg=16
 
-   hi Normal          ctermfg=252 ctermbg=233
+   hi Normal          ctermfg=252 ctermbg=234
    hi Comment         ctermfg=59
-   hi CursorLine                  ctermbg=234   cterm=none
-   hi CursorColumn                ctermbg=234
-   hi LineNr          ctermfg=250 ctermbg=234
-   hi NonText         ctermfg=250 ctermbg=234
+   hi CursorLine                  ctermbg=233   cterm=none
+   hi CursorColumn                ctermbg=233
+   hi LineNr          ctermfg=250 ctermbg=233
+   hi NonText         ctermfg=250 ctermbg=233
 end
