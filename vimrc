@@ -607,10 +607,13 @@
         map <kMultiply> <C-W>>
     endif
 
-    vnoremap p "_dP
-    " faster access to black hole register
+    " Replace text in visual mode when pasting with p/P
+    vnoremap p "_dp
+    vnoremap P "_dP
+
+    " \b for blackhole register
     map      <leader>b "_
-    " clipboard yank/paste
+    " \y and \p for clipboard yank/paste
     nnoremap <leader>y "*yy
     vnoremap <leader>y "*y
     nnoremap <leader>p "*p
@@ -618,8 +621,10 @@
     nnoremap <leader>P "*P
     vnoremap <leader>P "*P
     nnoremap <leader>a :Ack<space>
+    " \r toggles relatie number
     nnoremap <leader>r :set relativenumber!<cr>
-    nnoremap <leader>s :ScrollBindToggle<cr>
+    " \sb toggles scrollbind
+    nnoremap <leader>sb :ScrollBindToggle<cr>
 " }
 
 " Vimdiff {
