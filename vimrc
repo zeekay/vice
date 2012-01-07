@@ -126,7 +126,7 @@
     " set nomodeline
     set undolevels=1000
     set history=1000
-    " set autochdir
+    set autochdir
     set backspace=indent,eol,start
     set matchpairs+=<:>
     set shortmess=aoOsTI
@@ -142,7 +142,7 @@
     set report=0
     set gdefault
     set showcmd
-    set showmode
+    set noshowmode
     set ttyfast
     set virtualedit=block,onemore
     set switchbuf=usetab
@@ -540,7 +540,8 @@
     nnoremap <leader>q :q<cr>
     nnoremap <leader>t :tabnew<cr>
     nnoremap <leader>w :w<cr>
-
+    nnoremap <leader>W :wa<cr>
+    nnoremap <leader>Q :qa<cr>
 " }
 
 " Vimdiff {
