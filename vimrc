@@ -503,6 +503,18 @@
     command! Pasta call s:MakePasta(expand("%"))
 " }
 
+" } Toggle scrollbind
+    function! s:ScrollBindToggle()
+        :set scrollbind!
+        " switch to other window
+        :wincmd w
+        :set scrollbind!
+        " switch back
+        :wincmd w
+    endfunction
+    command! ScrollBindToggle call s:ScrollBindToggle()
+" }
+
 " Commands {
     command Sudowrite :execute ':silent w !sudo tee % > /dev/null' | :edit!
 " }
@@ -600,6 +612,7 @@
 
     nnoremap <leader>a :Ack<space>
     nnoremap <leader>r :set relativenumber!<cr>
+    nnoremap <leader>s :ScrollBindToggle<cr>
 " }
 
 " Vimdiff {
