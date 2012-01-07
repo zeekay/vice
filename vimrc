@@ -136,16 +136,17 @@
     set hidden
     set encoding=utf-8
     set termencoding=utf-8
-    set confirm
     set ruler
     set linebreak
     set wrap
     set whichwrap=b,s,h,l,<,>,[,]
-    " set clipboard=unnamed,unnamedplus,autoselect
+    set clipboard=unnamed,unnamedplus,autoselect
     set autoread
     set report=0
     set gdefault
     set showcmd
+    set showmode
+    set ttyfast
     set virtualedit=block,onemore
     set switchbuf=usetab
     " set pumheight=10
@@ -596,6 +597,9 @@
         map <kDivide> <C-W><
         map <kMultiply> <C-W>>
     endif
+
+    nnoremap <leader>a :Ack<space>
+    nnoremap <leader>r :set relativenumber!<cr>
 " }
 
 " Vimdiff {
