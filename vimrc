@@ -131,6 +131,7 @@
     set matchpairs+=<:>
     set shortmess=aoOsTI
     set hidden
+    set confirm
     set encoding=utf-8
     set termencoding=utf-8
     set ruler
