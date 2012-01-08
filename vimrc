@@ -126,7 +126,7 @@
     " set nomodeline
     set undolevels=1000
     set history=1000
-    " set autochdir
+    set autochdir
     set backspace=indent,eol,start
     set matchpairs+=<:>
     set shortmess=aoOsTI
@@ -525,7 +525,7 @@
     vnoremap P "_dP
 
     " \b for blackhole register
-    map      <leader>b "_
+    nnoremap <leader>b "_
 
     " \y and \p for clipboard yank/paste
     nnoremap <leader>y "*yy
@@ -552,9 +552,11 @@
     nnoremap <leader>e :Explore<cr>
     nnoremap <leader>q :q<cr>
     nnoremap <leader>t :tabnew<cr>
-    nnoremap <leader>w :w<cr>
-    nnoremap <leader>W :wa<cr>
+    nnoremap <leader>w <c-w>
+    nnoremap Q :qa<cr>
     nnoremap <leader>Q :qa<cr>
+    nnoremap gb :CtrlPBuffer<cr>
+    nnoremap go :CtrlP<cr>
 " }
 
 " Vimdiff {

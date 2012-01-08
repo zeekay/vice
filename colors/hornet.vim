@@ -36,7 +36,7 @@ hi Title	        guifg=#f6f3e8 guibg=NONE	gui=bold ctermfg=254 cterm=bold
 hi Visual	        guifg=#faf4c6 guibg=#3c414c gui=none ctermfg=254 ctermbg=4
 hi SpecialKey       guifg=#808080 guibg=#343434 gui=none ctermfg=244 ctermbg=236
 hi Directory 	    guifg=#fecf35 gui=none ctermfg=148
-hi StatusLine       ctermfg=230     ctermbg=235     cterm=none      guifg=#d3d3d5 guibg=#303030   gui=italic
+hi StatusLine       ctermfg=230     ctermbg=235     cterm=none      guifg=#d3d3d5 guibg=#303030   gui=none
 hi VertSplit        ctermfg=236     ctermbg=235     cterm=none      guifg=#444444 guibg=#303030   gui=none
 hi StatusLineNC     ctermfg=238     ctermbg=235     cterm=none      guifg=#939395 guibg=#303030   gui=none
 
@@ -75,7 +75,7 @@ hi rubyClass       guifg=#E42F29 gui=none
 hi rubyClassVariable guifg=#29AEE3 gui=none
 
 " Dynamic Statusline
-hi StatColor ctermfg=230     ctermbg=235     cterm=none      guifg=#444444 guibg=#303030   gui=none
+hi StatColor ctermfg=230     ctermbg=235     cterm=none      guifg=#d3d3d5 guibg=#303030   gui=none
 hi Modified ctermbg=lightred ctermfg=black
 
 function! MyStatusLine(mode)
@@ -104,7 +104,7 @@ set statusline=%!MyStatusLine('Enter')
 
 function! InsertStatuslineColor(mode)
   if a:mode == 'i'
-    hi StatColor ctermfg=230     ctermbg=238     cterm=none      guifg=#939395 guibg=#303030   gui=none
+    hi StatColor ctermfg=230     ctermbg=238     cterm=none      guifg=#ffffff guibg=#404040   gui=none
   elseif a:mode == 'r'
     hi StatColor guibg=#e454ba ctermbg=magenta
   elseif a:mode == 'v'
@@ -115,4 +115,4 @@ function! InsertStatuslineColor(mode)
 endfunction
 
 au InsertEnter * call InsertStatuslineColor(v:insertmode)
-au InsertLeave * hi StatColor ctermfg=230     ctermbg=235     cterm=none      guifg=#444444 guibg=#303030   gui=none
+au InsertLeave * hi StatColor ctermfg=230     ctermbg=235     cterm=none      guifg=#d3d3d5 guibg=#303030   gui=none

@@ -90,7 +90,7 @@ hi Typedef         guifg=#66D9EF
 hi Type            guifg=#66D9EF               gui=none
 hi Underlined      guifg=#808080               gui=underline
 
-hi VertSplit       guifg=#808080 guibg=#080808 gui=bold
+hi VertSplit       guifg=#808080 guibg=#080808 gui=none
 hi VisualNOS                     guibg=#403D3D
 hi Visual                        guibg=#403D3D
 hi WarningMsg      guifg=#FFFFFF guibg=#333333 gui=bold
@@ -101,7 +101,8 @@ hi Comment         guifg=#75715E
 hi CursorLine                    guibg=#3E3D32
 hi CursorColumn                  guibg=#3E3D32
 hi LineNr          guifg=#BCBCBC guibg=#3B3A32
-hi NonText         guifg=#BCBCBC guibg=#272822 gui=none
+hi NonText         guifg=#808080 guibg=#222222 gui=none
+
 
 "
 " Support for 256-color terminal
