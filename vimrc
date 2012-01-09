@@ -79,7 +79,7 @@
         " Bundle 'git://github.com/sjl/threesome.vim'
 
         " pydoc.vim - https://github.com/fs111/pydoc.vim
-        " Bundle 'git://github.com/fs111/pydoc.vim'
+        Bundle 'git://github.com/zeekay/pydoc.vim'
 
         " current-func-info - https://github.com/tyru/current-func-info.vim
         " Bundle 'tyru/current-func-info.vim'
@@ -117,7 +117,7 @@
     endif
 " }
 
-" Basic Configuration {
+" Basic/General Configuration {
     syntax on
     filetype plugin indent on
     set directory=~/.vim/tmp/swap
@@ -160,6 +160,9 @@
     " Disable folding
     " set foldminlines=99999
     set mouse=a
+    " Save and load view for each document to preserve folding and cursor position on reload
+    au BufWinLeave * mkview
+    au BufWinEnter * silent! loadview
 " }
 
 " Indent {
@@ -367,22 +370,19 @@
 " }
 
 " PyDoc {
-    au FileType python,man map! <buffer> <leader>pw :call ShowPyDoc('<C-R><C-W>', 1)<CR>
-    au FileType python,man map! <buffer> <leader>pW :call ShowPyDoc('<C-R><C-A>', 1)<CR>
-    au FileType python,man map! <buffer> <leader>pk :call ShowPyDoc('<C-R><C-W>', 0)<CR>
-    au FileType python,man map! <buffer> <leader>pK :call ShowPyDoc('<C-R><C-A>', 0)<CR>
-
-    " remap the K (or 'help') key
-    " nnoremap <silent> <buffer> K :call ShowPyDoc(expand("<cword>"), 1)<CR>
+    let g:pydoc_open_cmd = 'vsplit'
+    let g:pydoc_perform_mappings = 0
+    let g:pydoc_highlight = 0
+    au FileType python,man map <leader>d :Pydoc <C-R>=expand("<cWORD>")<CR><CR>
 " }
 
 " IPython {
-    let g:ipy_perform_mappings = 0
-    au FileType python map <silent> <F5> :python run_this_file()<CR>
-    au FileType python map <silent> <S-F5> :python run_this_line()<CR>
-    au FileType python vmap <silent> <F5> :python run_these_lines()<CR>
-    au FileType python map <silent> <leader>d :py get_doc_buffer()<CR>
-    au FileType python map <F6> :call <SID>toggle_send_on_save()<CR>
+    " let g:ipy_perform_mappings = 0
+    " au FileType python map <silent> <F5> :python run_this_file()<CR>
+    " au FileType python map <silent> <S-F5> :python run_this_line()<CR>
+    " au FileType python vmap <silent> <F5> :python run_these_lines()<CR>
+    " au FileType python map <silent> <leader>d :py get_doc_buffer()<CR>
+    " au FileType python map <F6> :call <SID>toggle_send_on_save()<CR>
 " }
 
 " Python highlighting {
@@ -540,12 +540,12 @@ let g:ExploreToggled = 0
     nnoremap <leader>b "_
 
     " \y and \p for clipboard yank/paste
-    nnoremap <leader>y "*yy
+    nnoremap <leader>y "*y
     vnoremap <leader>y "*y
     nnoremap <leader>p "*p
-    vnoremap <leader>p "*p
+    vnoremap <leader>p "*P
     nnoremap <leader>P "*P
-    vnoremap <leader>P "*P
+    nnoremap <leader>Y "*Y
 
     " \a search with ack
     nnoremap <leader>a :Ack<space>
