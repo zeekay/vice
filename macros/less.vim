@@ -107,6 +107,7 @@ map F :e<CR>G<SID>L:sleep 1<CR>F
 " Scroll half a page forward
 noremap <script> d <C-D><SID>L
 map <C-D> d
+map J d
 
 " Scroll one line forward
 noremap <script> <CR> <C-E><SID>L
@@ -125,6 +126,7 @@ map <Esc>v b
 " Scroll half a page backward
 noremap <script> u <C-U><SID>L
 noremap <script> <C-U> <C-U><SID>L
+map K u
 
 " Scroll one line backward
 noremap <script> k <C-Y><SID>L
