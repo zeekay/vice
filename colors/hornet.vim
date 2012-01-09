@@ -28,10 +28,8 @@ endif
 
 hi Cursor 	        guifg=NONE    guibg=#626262 gui=none ctermbg=241
 hi Normal 	        guifg=#e2e2e5 guibg=#202020 gui=none ctermfg=253 ctermbg=234
-" hi NonText          ctermfg=241     ctermbg=233     cterm=none      guifg=#857b6f   guibg=#080808   gui=none
 hi NonText          guifg=#808080 guibg=#202020 gui=none ctermfg=244 ctermbg=233
 hi LineNr 	        guifg=#303030 guibg=#202020 gui=none ctermfg=244 ctermbg=233
-hi Folded 	        guibg=#384048 guifg=#a0a8b0 gui=none ctermbg=4 ctermfg=248
 hi Title	        guifg=#f6f3e8 guibg=NONE	gui=bold ctermfg=254 cterm=bold
 hi Visual	        guifg=#faf4c6 guibg=#3c414c gui=none ctermfg=254 ctermbg=4
 hi SpecialKey       guifg=#808080 guibg=#343434 gui=none ctermfg=244 ctermbg=236
@@ -39,6 +37,15 @@ hi Directory 	    guifg=#fecf35 gui=none ctermfg=148
 hi StatusLine       ctermfg=230     ctermbg=235     cterm=none      guifg=#d3d3d5 guibg=#303030   gui=none
 hi VertSplit        ctermfg=236     ctermbg=235     cterm=none      guifg=#444444 guibg=#303030   gui=none
 hi StatusLineNC     ctermfg=238     ctermbg=235     cterm=none      guifg=#939395 guibg=#303030   gui=none
+
+" Diff ------------------------------------------------------------------------
+
+hi Folded 	        guibg=#384048 guifg=#a0a8b0 gui=none ctermfg=242 ctermbg=235
+hi FoldColumn       guibg=#384048 guifg=#a0a8b0 gui=none ctermfg=242 ctermbg=235
+hi DiffAdd          ctermbg=233
+hi DiffDelete       ctermbg=233 ctermfg=235
+hi DiffChange       ctermbg=233
+hi DiffText         ctermbg=0
 
 " Syntax highlighting ---------------------------------------------------------
 

@@ -167,7 +167,7 @@
     set shiftwidth=4
     set expandtab
     set smarttab
-    set autoindent
+    set smartindent
     autocmd FileType coffee,javascript,xml,xhtml,html,htmldjango,haml set shiftwidth=2
 " }
 
@@ -175,13 +175,12 @@
     set showmatch
     set incsearch
     set ignorecase
-    set smartcase
 " }
 
 " Menu/Complete {
     set wildmenu
     set wildmode=list:longest,full
-    set wildignore=*.o,*.obj,*.bak,*.exe,*.aux,*.dvi,*.dll,*.pyc,*.pyo
+    set wildignore=*.o,*.obj,*.bak,*.exe,*.aux,*.dvi,*.dll,*.pyc,*.pyo,*.zwc,*.zwc.old
     set completeopt=menuone,menu,longest,preview
 " }
 
@@ -447,14 +446,27 @@
 
 " } Toggle scrollbind
     function! s:ScrollBindToggle()
-        :set scrollbind!
+        set scrollbind!
         " switch to other window
-        :wincmd w
-        :set scrollbind!
+        wincmd w
+        set scrollbind!
         " switch back
-        :wincmd w
+        wincmd w
     endfunction
     command! ScrollBindToggle call s:ScrollBindToggle()
+" }
+
+let g:ExploreToggled = 0
+" } Toggle Explore
+    function! s:ExploreToggle()
+        if g:ExploreToggled
+            :bp
+        else
+            Explore
+        endif
+        let g:ExploreToggled = !g:ExploreToggled
+    endfunction
+    command! ExploreToggle call s:ExploreToggle()
 " }
 
 " Commands {
@@ -549,12 +561,11 @@
     nnoremap <leader>sb :ScrollBindToggle<cr>
 
     " \e \q \w \t
-    nnoremap <leader>e :Explore<cr>
+    nnoremap <leader>e :ExploreToggle<cr>
     nnoremap <leader>q :q<cr>
     nnoremap <leader>t :tabnew<cr>
     nnoremap <leader>w <c-w>
     nnoremap Q :qa<cr>
-    nnoremap <leader>Q :qa<cr>
     nnoremap gb :CtrlPBuffer<cr>
     nnoremap go :CtrlP<cr>
 " }
@@ -563,7 +574,7 @@
     set diffopt+=iwhite,context:3
     if &diff
         nmap u u :diffu<cr>
-        nmap Q :qa<cr>
+        nmap <leader>q :qa<cr>
     endif
 " }
 
