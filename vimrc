@@ -99,9 +99,10 @@
         if version > 700
             " https://github.com/vim-scripts/VimClojure
             Bundle 'git://github.com/vim-scripts/VimClojure'
-
-            " ultisnips - https://github.com/rygwdn/ultisnips
-            Bundle 'git://github.com/rygwdn/ultisnips'
+            if has('python')
+                " ultisnips - https://github.com/rygwdn/ultisnips
+                Bundle 'git://github.com/rygwdn/ultisnips'
+            endif
         endif
 
 
