@@ -524,6 +524,12 @@ let g:ExploreToggled = 0
     inoremap <c-h> <c-o>:tabp<CR>
     inoremap <c-l> <c-o>:tabn<CR>
 
+    " ctrl-j/k to switch between buffers
+    nnoremap <c-k> :bn<cr>
+    nnoremap <c-j> :bp<cr>
+    inoremap <c-k> <c-o>:bn<cr>
+    inoremap <c-j> <c-o>:bp<cr>
+
     " Fast window resizing
     if bufwinnr(1)
         map <kPlus> <C-W>+
