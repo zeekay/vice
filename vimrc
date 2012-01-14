@@ -23,6 +23,9 @@
     " vim-repeat - https://github.com/tpope/vim-repeat
     Bundle 'git://github.com/tpope/vim-repeat'
 
+    " vim-space - https://github.com/zeekay/vim-space
+    Bundle 'git://github.com/zeekay/vim-space'
+
     " vim-commentary - https://github.com/tpope/vim-commentary
     Bundle 'git://github.com/tpope/vim-commentary'
 
@@ -358,7 +361,8 @@
 
 " CtrlP {
     " let g:ctrlp_user_command = 'find %s -type f'       " MacOSX/Linux
-    let g:ctrlp_map = '<c-p>'
+    " let g:ctrlp_map = '<c-p>'
+    " nnoremap <c-b> :CtrlPBuffer<cr>
     let g:ctrlp_jump_to_buffer = 2
     let g:ctrlp_working_path_mode = 2
     " let g:ctrlp_clear_cache_on_exit = 0
@@ -367,7 +371,6 @@
     let g:ctrlp_open_new_file = 1
     let g:ctrlp_cache_dir = '~/.vim/tmp/ctrlp_cache'
     let g:ctrlp_open_multi = '1t'
-    nnoremap <c-b> :CtrlPBuffer<cr>
 " }
 
 " PyDoc {
