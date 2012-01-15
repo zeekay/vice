@@ -428,38 +428,6 @@ EOL
     au FileType coffee imap <leader>c <c-o>:CoffeeCompile watch vertical<cr>
 " }
 
-" Multiline f motion {
-    function! FindChar(direction, count, ...)
-        " get character, or use arg
-        if a:0 == 0
-            let c = nr2char(getchar())
-        else
-            let c = a:1
-        endif
-
-        " search for matches
-        for i in range(a:count)
-            if a:direction == 'f'
-                let match = search('\V'.c)
-            else
-                let match = search('\V'.c, 'b')
-            endif
-        endfor
-
-        " setup repeat
-        if c == "'"
-            let c = '"'.c.'"'
-        else
-            let c = "'".c."'"
-        endif
-        silent! call repeat#set(":call FindChar('".a:direction."',".a:count.",".c.")\n")
-    endfunction
-
-    " Will I miss this?
-    " nmap f :<C-U>call FindChar('f', v:count1)<CR>
-    " nmap F :<C-U>call FindChar('b', v:count1)<CR>
-" }
-
 " Pasta {
     function! s:MakePasta(filename)
         let fn = a:filename
