@@ -214,16 +214,25 @@
 " }
 
 " Colors/Gui {
+    " set fillchars+=vert:│
+    set fillchars=
     if has("gui_running")
+        if has('mac')
+            let macvim_hig_shift_movement = 1
+            set guifont=Dina-medium:h13
+            " change dir to open file
+            lcd %:p:h
+        else
+            set guifont=MonteCarlo
+        endif
+        " set fillchars=diff:⣿
+        " set listchars=tab:▸\ ,eol:¬,extends:❯,precedes:❮
+        " set showbreak=↪
         set mouse=a
-        let macvim_hig_shift_movement = 1
         set guioptions=ace
-        set guifont=Dina-medium:h13
         set linespace=1
         " set transparency=15
         colorscheme molokai
-        " change dir to open file
-        lcd %:p:h
         nnoremap <D-1> 1gt
         nnoremap <D-2> 2gt
         nnoremap <D-3> 3gt
