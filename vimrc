@@ -547,12 +547,12 @@ let g:ExploreToggled = 0
     nnoremap <leader>b "_
 
     " \y and \p for clipboard yank/paste
-    nnoremap <leader>y "*y
-    vnoremap <leader>y "*y
-    nnoremap <leader>p "*p
-    vnoremap <leader>p "*P
-    nnoremap <leader>P "*P
-    nnoremap <leader>Y "*Y
+    nnoremap <leader>y "+y
+    vnoremap <leader>y "+y
+    nnoremap <leader>p "+p
+    vnoremap <leader>p "+P
+    nnoremap <leader>P "+P
+    nnoremap <leader>Y "+Y
 
     " \a search with ack
     nnoremap <leader>a :Ack<space>
@@ -572,6 +572,8 @@ let g:ExploreToggled = 0
     nnoremap <leader>q :q<cr>
     nnoremap <leader>t :tabnew<cr>
     nnoremap <leader>w <c-w>
+    nnoremap <leader>s :s%//<left>
+    vnoremap <leader>s :s//<left>
     nnoremap Q :qa<cr>
     nnoremap gb :CtrlPBuffer<cr>
     nnoremap go :CtrlP<cr>
