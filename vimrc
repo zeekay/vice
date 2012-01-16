@@ -164,7 +164,7 @@
     " Disable folding
     " set foldminlines=99999
     " Save and load view for each document to preserve folding and cursor position on reload
-    au BufWinLeave * mkview
+    au BufWinLeave * silent! mkview
     au BufWinEnter * silent! loadview
 " }
 
