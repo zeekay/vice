@@ -23,6 +23,9 @@
     " vim-repeat - https://github.com/tpope/vim-repeat
     Bundle 'git://github.com/tpope/vim-repeat'
 
+    " vim-space - https://github.com/zeekay/vim-space
+    Bundle 'git://github.com/zeekay/vim-space'
+
     " vim-commentary - https://github.com/tpope/vim-commentary
     Bundle 'git://github.com/tpope/vim-commentary'
 
@@ -160,7 +163,6 @@
     endif
     " Disable folding
     " set foldminlines=99999
-    set mouse=a
     " Save and load view for each document to preserve folding and cursor position on reload
     au BufWinLeave * mkview
     au BufWinEnter * silent! loadview
@@ -213,6 +215,7 @@
 
 " Colors/Gui {
     if has("gui_running")
+        set mouse=a
         let macvim_hig_shift_movement = 1
         set guioptions=ace
         set guifont=Dina-medium:h13
@@ -358,8 +361,9 @@
 
 " CtrlP {
     " let g:ctrlp_user_command = 'find %s -type f'       " MacOSX/Linux
-    let g:ctrlp_map = '<c-p>'
-    let g:ctrlp_jump_to_buffer = 2
+    " let g:ctrlp_map = '<c-p>'
+    " nnoremap <c-b> :CtrlPBuffer<cr>
+    let g:ctrlp_jumP_TO_buffer = 2
     let g:ctrlp_working_path_mode = 2
     " let g:ctrlp_clear_cache_on_exit = 0
     let g:ctrlp_user_command = ['.git/', 'cd %s && git ls-files']
@@ -367,7 +371,6 @@
     let g:ctrlp_open_new_file = 1
     let g:ctrlp_cache_dir = '~/.vim/tmp/ctrlp_cache'
     let g:ctrlp_open_multi = '1t'
-    nnoremap <c-b> :CtrlPBuffer<cr>
 " }
 
 " PyDoc {
@@ -392,44 +395,45 @@
     " let g:python_print_as_function = 1
 " }
 
-" CoffeeScript {
-    au Filetype coffee setl foldmethod=indent nofoldenable
-    au FileType coffee map <F5> :CoffeeRun<cr>
-    au FileType coffee map <F6> :CoffeeCompile watch vertical<cr>
-    au FileType coffee imap <F5> <c-o>:CoffeeRun<cr>
-    au FileType coffee imap <F6> <c-o>:CoffeeCompile watch vertical<cr>
+" Python {
+    if has('python')
+python << EOL
+import os
+import sys
+import vim
+
+# gf jumps to filename under cursor, point at import statement to jump to it
+# for p in sys.path:
+#     if os.path.isdir(p):
+#         vim.command(r"set path+=%s" % (p.replace(" ", r"\ ")))
+
+def EvaluateCurrentRange():
+    first = vim.current.range[0]
+    leading = len(first) - len(first.lstrip())
+    code = '\n'.join(l[leading:] for l in vim.current.range if l.strip())
+    if not 'print' in code:
+        last = code.split('\n')[-1].split(' ')
+        for idx, word in enumerate(last):
+            if word:
+                if last[idx+1] == '=':
+                    last.append('\nprint %s' % word)
+                else:
+                    last.insert(idx, 'print')
+                break
+        code = '\n'.join(code.split('\n')[:-1] +[' '.join(last)])
+    eval(compile(code,'','exec'),globals())
+EOL
+        vnoremap <leader>r :py EvaluateCurrentRange()<cr>
+        nnoremap <leader>r :py eval(compile('\n'.join(vim.current.buffer),'','exec'),globals())<cr>
+    endif
 " }
 
-" Multiline f motion {
-    function! FindChar(direction, count, ...)
-        " get character, or use arg
-        if a:0 == 0
-            let c = nr2char(getchar())
-        else
-            let c = a:1
-        endif
-
-        " search for matches
-        for i in range(a:count)
-            if a:direction == 'f'
-                let match = search('\V'.c)
-            else
-                let match = search('\V'.c, 'b')
-            endif
-        endfor
-
-        " setup repeat
-        if c == "'"
-            let c = '"'.c.'"'
-        else
-            let c = "'".c."'"
-        endif
-        silent! call repeat#set(":call FindChar('".a:direction."',".a:count.",".c.")\n")
-    endfunction
-
-    " Will I miss this?
-    " nmap f :<C-U>call FindChar('f', v:count1)<CR>
-    " nmap F :<C-U>call FindChar('b', v:count1)<CR>
+" CoffeeScript {
+    au Filetype coffee setl foldmethod=indent nofoldenable
+    au FileType coffee map <leader>r :CoffeeRun<cr>
+    au FileType coffee map <leader>c :CoffeeCompile watch vertical<cr>
+    au FileType coffee imap <leader>r <c-o>:CoffeeRun<cr>
+    au FileType coffee imap <leader>c <c-o>:CoffeeCompile watch vertical<cr>
 " }
 
 " Pasta {
@@ -562,7 +566,7 @@ let g:ExploreToggled = 0
     nnoremap <leader>t :TagbarToggle<cr>
 
     " \r toggles relatie number
-    nnoremap <leader>r :set relativenumber!<cr>
+    nnoremap <leader>n :set relativenumber!<cr>
 
     " \sb toggles scrollbind
     nnoremap <leader>sb :ScrollBindToggle<cr>
