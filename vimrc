@@ -398,7 +398,15 @@
 " Python {
     if has('python')
 python << EOL
+import os
+import sys
 import vim
+
+# gf jumps to filename under cursor, point at import statement to jump to it
+# for p in sys.path:
+#     if os.path.isdir(p):
+#         vim.command(r"set path+=%s" % (p.replace(" ", r"\ ")))
+
 def EvaluateCurrentRange():
     first = vim.current.range[0]
     leading = len(first) - len(first.lstrip())
