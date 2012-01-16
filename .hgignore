@@ -4,3 +4,4 @@ tmp/
 .git/
 .gitignore
 *.orig
+view
