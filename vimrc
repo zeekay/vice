@@ -82,7 +82,7 @@
         " Bundle 'git://github.com/sjl/threesome.vim'
 
         " pydoc.vim - https://github.com/fs111/pydoc.vim
-        Bundle 'git://github.com/zeekay/pydoc.vim'
+        " Bundle 'git://github.com/zeekay/pydoc.vim'
 
         " current-func-info - https://github.com/tyru/current-func-info.vim
         " Bundle 'tyru/current-func-info.vim'
@@ -148,7 +148,6 @@
     set gdefault
     set showcmd
     set noshowmode
-    set ttyfast
     set virtualedit=block,onemore
     set switchbuf=usetab
     " set pumheight=10
@@ -217,11 +216,26 @@
     " set fillchars+=vert:│
     set fillchars=
     if has("gui_running")
+        " MacVim
         if has('mac')
+            set fuoptions=maxvert,maxhorz
             let macvim_hig_shift_movement = 1
+            " let macvim_skip_cmd_opt_movement = 1
             set guifont=Dina-medium:h13
             " change dir to open file
             lcd %:p:h
+            set linespace=1
+            nnoremap <D-1> 1gt
+            nnoremap <D-2> 2gt
+            nnoremap <D-3> 3gt
+            nnoremap <D-4> 4gt
+            nnoremap <D-5> 5gt
+            nnoremap <D-6> 6gt
+            nnoremap <D-7> 7gt
+            nnoremap <D-8> 8gt
+            nnoremap <D-9> 9gt
+            nnoremap <D-0> 10gt
+        " gVim
         else
             set guifont=MonteCarlo
         endif
@@ -230,22 +244,10 @@
         " set showbreak=↪
         set mouse=a
         set guioptions=ace
-        set linespace=1
-        " set transparency=15
         colorscheme molokai
-        nnoremap <D-1> 1gt
-        nnoremap <D-2> 2gt
-        nnoremap <D-3> 3gt
-        nnoremap <D-4> 4gt
-        nnoremap <D-5> 5gt
-        nnoremap <D-6> 6gt
-        nnoremap <D-7> 7gt
-        nnoremap <D-8> 8gt
-        nnoremap <D-9> 9gt
-        nnoremap <D-0> 10gt
     else
+        set ttyfast
         colorscheme hornet
-        " set mouse-=a
     endif
 " }
 
@@ -341,7 +343,7 @@
     set rtp+=~/.vim/syntastic,~/.vim/bundle/syntastic
     let g:syntastic_enable_signs = 1
     let g:syntastic_auto_loc_list = 0
-    let g:syntastic_python_checker = 'flake8 --ignore=E501'
+    let g:syntastic_python_checker = 'flake8 --ignore=E221,E225,E231,E302,E303,E501,E702'
     let g:syntastic_javascript_checker = 'jslint'
     let g:syntastic_enable_highlighting = 0
 " }
@@ -374,7 +376,8 @@
     " nnoremap <c-b> :CtrlPBuffer<cr>
     let g:ctrlp_jumP_TO_buffer = 2
     let g:ctrlp_working_path_mode = 2
-    " let g:ctrlp_clear_cache_on_exit = 0
+    let g:ctrlp_use_caching = 1
+    let g:ctrlp_clear_cache_on_exit = 1
     let g:ctrlp_user_command = ['.git/', 'cd %s && git ls-files']
     let g:ctrlp_user_command = ['.hg/', 'hg --cwd %s locate --fullpath -I .']
     let g:ctrlp_open_new_file = 1
@@ -405,11 +408,29 @@
 " }
 
 " Python {
-    if has('python')
+if has('python')
+function ActivateVirtualenv(path)
+    let activate_this = a:path . '/bin/activate_this.py'
+    if getftype(a:path) == "dir" && filereadable(activate_this)
+        python << EOF
+import vim
+activate_this = vim.eval('l:activate_this')
+execfile(activate_this, dict(__file__=activate_this))
+EOF
+    endif
+endfunction
+
 python << EOL
 import os
 import sys
 import vim
+
+paths = [
+    '~/ve/compiler/compiler',
+]
+
+for path in paths:
+    sys.path.insert(0, os.path.expanduser(path))
 
 # gf jumps to filename under cursor, point at import statement to jump to it
 # for p in sys.path:
@@ -481,6 +502,26 @@ let g:ExploreToggled = 0
         let g:ExploreToggled = !g:ExploreToggled
     endfunction
     command! ExploreToggle call s:ExploreToggle()
+" }
+
+" Ack motion {
+    function! s:CopyMotionForType(type)
+        if a:type ==# 'v'
+            silent execute "normal! `<" . a:type . "`>y"
+        elseif a:type ==# 'char'
+            silent execute "normal! `[v`]y"
+        endif
+    endfunction
+
+    function! s:AckMotion(type) abort
+        let reg_save = @@
+
+        call s:CopyMotionForType(a:type)
+
+        execute "normal! :Ack! --literal " . shellescape(@@) . "\<cr>"
+
+        let @@ = reg_save
+    endfunction
 " }
 
 " Commands {
@@ -569,6 +610,8 @@ let g:ExploreToggled = 0
 
     " \a search with ack
     nnoremap <leader>a :Ack<space>
+    " nnoremap <silent> <leader>a :set opfunc=<SID>AckMotion<CR>g@
+    xnoremap <silent> <leader>a :<C-U>call <SID>AckMotion(visualmode())<CR>
 
     " \u \t toggle Gundo/Tagbar
     nnoremap <leader>u :GundoToggle<cr>
@@ -583,7 +626,6 @@ let g:ExploreToggled = 0
     " \e \q \w \t
     nnoremap <leader>e :ExploreToggle<cr>
     nnoremap <leader>q :q<cr>
-    nnoremap <leader>t :tabnew<cr>
     nnoremap <leader>w <c-w>
     nnoremap <leader>s :s%//<left>
     vnoremap <leader>s :s//<left>
