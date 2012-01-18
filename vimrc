@@ -73,7 +73,7 @@
         Bundle 'git://github.com/godlygeek/tabular'
 
         " tagbar - https://github.com/majutsushi/tagbar
-        " Bundle 'git://github.com/majutsushi/tagbar'
+        Bundle 'git://github.com/majutsushi/tagbar'
 
         " gundo - https://github.com/sjl/gundo.vim
         Bundle 'git://github.com/sjl/gundo.vim'
@@ -105,6 +105,9 @@
             if has('python')
                 " ultisnips - https://github.com/rygwdn/ultisnips
                 Bundle 'git://github.com/rygwdn/ultisnips'
+
+                " vim-adv-python - https://github.com/zeekay/vim-adv-python
+                Bundle 'git://github.com/zeekay/vim-adv-python'
             endif
         endif
 
@@ -343,7 +346,7 @@
     set rtp+=~/.vim/syntastic,~/.vim/bundle/syntastic
     let g:syntastic_enable_signs = 1
     let g:syntastic_auto_loc_list = 0
-    let g:syntastic_python_checker = 'flake8 --ignore=E221,E225,E231,E302,E303,E501,E702'
+    let g:syntastic_python_checker = 'flake8 --ignore=E221,E225,E231,E251,E302,E303,W391,E501,E702'
     let g:syntastic_javascript_checker = 'jslint'
     let g:syntastic_enable_highlighting = 0
 " }
@@ -408,54 +411,8 @@
 " }
 
 " Python {
-if has('python')
-function ActivateVirtualenv(path)
-    let activate_this = a:path . '/bin/activate_this.py'
-    if getftype(a:path) == "dir" && filereadable(activate_this)
-        python << EOF
-import vim
-activate_this = vim.eval('l:activate_this')
-execfile(activate_this, dict(__file__=activate_this))
-EOF
-    endif
-endfunction
-
-python << EOL
-import os
-import sys
-import vim
-
-paths = [
-    '~/ve/compiler/compiler',
-]
-
-for path in paths:
-    sys.path.insert(0, os.path.expanduser(path))
-
-# gf jumps to filename under cursor, point at import statement to jump to it
-# for p in sys.path:
-#     if os.path.isdir(p):
-#         vim.command(r"set path+=%s" % (p.replace(" ", r"\ ")))
-
-def EvaluateCurrentRange():
-    first = vim.current.range[0]
-    leading = len(first) - len(first.lstrip())
-    code = '\n'.join(l[leading:] for l in vim.current.range if l.strip())
-    if not 'print' in code:
-        last = code.split('\n')[-1].split(' ')
-        for idx, word in enumerate(last):
-            if word:
-                if last[idx+1] == '=':
-                    last.append('\nprint %s' % word)
-                else:
-                    last.insert(idx, 'print')
-                break
-        code = '\n'.join(code.split('\n')[:-1] +[' '.join(last)])
-    eval(compile(code,'','exec'),globals())
-EOL
-        vnoremap <leader>r :py EvaluateCurrentRange()<cr>
-        nnoremap <leader>r :py eval(compile('\n'.join(vim.current.buffer),'','exec'),globals())<cr>
-    endif
+    au FileType python vnoremap <leader>r :py EvaluateCurrentRange()<cr>
+    au FileType python nnoremap <leader>r :py eval(compile('\n'.join(vim.current.buffer),'','exec'),globals())<cr>
 " }
 
 " CoffeeScript {
@@ -587,10 +544,10 @@ let g:ExploreToggled = 0
 
     " Fast window resizing
     if bufwinnr(1)
-        map <kPlus> <C-W>+
-        map <kMinus> <C-W>-
-        map <kDivide> <C-W><
-        map <kMultiply> <C-W>>
+        map <c-up> <C-W>-
+        map <c-down> <C-W>+
+        map <c-left> <C-W><
+        map <c-right> <C-W>>
     endif
 
     " p/P replace selection in visual mode
@@ -599,14 +556,15 @@ let g:ExploreToggled = 0
 
     " \b for blackhole register
     nnoremap <leader>b "_
+    vnoremap <silent><leader>b "_
 
     " \y and \p for clipboard yank/paste
-    nnoremap <leader>y "+y
-    vnoremap <leader>y "+y
-    nnoremap <leader>p "+p
-    vnoremap <leader>p "+P
-    nnoremap <leader>P "+P
-    nnoremap <leader>Y "+Y
+    nnoremap <leader>y "*y
+    vnoremap <leader>y "*y
+    nnoremap <leader>p "*p
+    vnoremap <leader>p "*P
+    nnoremap <leader>P "*P
+    nnoremap <leader>Y "*Y
 
     " \a search with ack
     nnoremap <leader>a :Ack<space>
@@ -630,6 +588,7 @@ let g:ExploreToggled = 0
     nnoremap <leader>s :s%//<left>
     vnoremap <leader>s :s//<left>
     nnoremap Q :qa<cr>
+    nnoremap W :w<cr>
     nnoremap gb :CtrlPBuffer<cr>
     nnoremap go :CtrlP<cr>
 " }
