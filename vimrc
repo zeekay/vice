@@ -159,7 +159,7 @@
     set expandtab
     set smarttab
     set smartindent
-    autocmd FileType coffee,javascript,xml,xhtml,html,htmldjango,haml set shiftwidth=2
+    au FileType coffee,javascript,xml,xhtml,html,htmldjango,haml set shiftwidth=2
 " }
 
 " Search/Highlight {
@@ -176,15 +176,15 @@
 " }
 
 " Completions {
-    autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-    autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-    autocmd FileType html setlocal omnifunc=htmlcomplete#CompleteTags
-    autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-    autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-    autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
-    autocmd FileType c setlocal omnifunc=ccomplete#Complete
-    autocmd FileType cpp setlocal omnifunc=omni#cpp#complete#Main
-    autocmd FileType ruby,eruby setlocal omnifunc=rubycomplete#Complete
+    au FileType python setlocal omnifunc=pythoncomplete#Complete
+    au FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+    au FileType html setlocal omnifunc=htmlcomplete#CompleteTags
+    au FileType css setlocal omnifunc=csscomplete#CompleteCSS
+    au FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+    au FileType php setlocal omnifunc=phpcomplete#CompletePHP
+    au FileType c setlocal omnifunc=ccomplete#Complete
+    au FileType cpp setlocal omnifunc=omni#cpp#complete#Main
+    au FileType ruby,eruby setlocal omnifunc=rubycomplete#Complete
 " }
 
 " Statusline {
@@ -242,7 +242,7 @@
 
 " Fast Escape {
     augroup fastescape
-        autocmd!
+        au!
 
         set notimeout
         set ttimeout
@@ -320,10 +320,10 @@
 " }
 
 " vim-commentary {
-    autocmd FileType cfg set commentstring=#\ %s
-    autocmd FileType cpp set commentstring=/\/\ %s
-    autocmd FileType python set commentstring=#\ %s
-    autocmd FileType lisp set commentstring=;;\ %s
+    au FileType cfg set commentstring=#\ %s
+    au FileType cpp set commentstring=/\/\ %s
+    au FileType python set commentstring=#\ %s
+    au FileType lisp set commentstring=;;\ %s
 " }
 
 " Syntastic {
@@ -349,6 +349,7 @@
 
 " SuperTab {
     " let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
+    let g:SuperTabDefaultCompletionType = "context"
     let g:SuperTabCompletionContexts = ['s:ContextDiscover', 's:ContextText']
     let g:SuperTabContextTextOmniPrecedence = ['&omnifunc', '&completefunc']
     let g:SuperTabContextDiscoverDiscovery =
