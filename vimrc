@@ -107,6 +107,47 @@
     endif
 " }
 
+" Python {
+    if has('python')
+        if $VIM_USE_IPYTHON
+            function! s:IPythonAutoConnect()
+                if !exists('g:ipython_autoconnected')
+                    let g:ipython_autoconnected = 1
+
+                    " Try to connect to an IPython kernel
+                    IPython
+                endif
+            endfunction
+
+            " Use my fork of https://github.com/ivanov/vim-ipython
+            Bundle 'git://github.com/zeekay/vim-ipython'
+
+            let g:ipy_perform_mappings = 0
+            au FileType python map <silent> <leader>r :python run_this_file()<cr>
+            " au FileType python map <silent> <leader>r :python run_this_line()<CR>
+            au FileType python vmap <silent> <leader>r :python run_these_lines()<cr>
+            au FileType python map <silent> <leader>d :py get_doc_buffer()<cr>
+            au FileType python map <silent> <leader>R :IPythonToggleSendOnSave<cr>
+
+            au FileType python :call s:IPythonAutoConnect()
+        else
+            " pydoc.vim - https://github.com/fs111/pydoc.vim
+            Bundle 'git://github.com/zeekay/pydoc.vim'
+
+            " vim-adv-python - https://github.com/zeekay/vim-adv-python
+            Bundle 'git://github.com/zeekay/vim-adv-python'
+
+            let g:pydoc_open_cmd = 'vsplit'
+            let g:pydoc_perform_mappings = 0
+            let g:pydoc_highlight = 0
+            au FileType python,man map <leader>d :Pydoc <C-R>=expand("<cWORD>")<CR><CR>
+            au FileType python vnoremap <leader>r :py EvaluateCurrentRange()<cr>
+            au FileType python nnoremap <leader>r :RunPythonBuffer<cr>
+        endif
+    endif
+" }
+
+
 " Basic/General Configuration {
     syntax on
     filetype plugin indent on
@@ -226,7 +267,7 @@
             nnoremap <D-0> 10gt
         " gVim
         else
-            " set guifont=MonteCarlo
+            set guifont=MonteCarlo
         endif
         " set fillchars=diff:⣿
         " set listchars=tab:▸\ ,eol:¬,extends:❯,precedes:❮
@@ -350,10 +391,10 @@
 " SuperTab {
     " let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
     let g:SuperTabDefaultCompletionType = "context"
-    let g:SuperTabCompletionContexts = ['s:ContextDiscover', 's:ContextText']
+    let g:SuperTabCompletionContexts = ['s:ContextText', 's:ContextDiscover']
     let g:SuperTabContextTextOmniPrecedence = ['&omnifunc', '&completefunc']
     let g:SuperTabContextDiscoverDiscovery =
-        \ ["&omnifunc:<c-x><c-o>","&completefunc:<c-x><c-u>"]
+        \ ["&completefunc:<c-x><c-u>", "&omnifunc:<c-x><c-o>"]
     let g:SuperTabMappingForward = '<tab>'
     let g:SuperTabMappingBackward = '<s-tab>'
     " let g:SuperTabMappingForward = '<c-j>'
@@ -373,46 +414,6 @@
     let g:ctrlp_open_new_file = 1
     let g:ctrlp_cache_dir = '~/.vim/tmp/ctrlp_cache'
     let g:ctrlp_open_multi = '1t'
-" }
-
-" Python {
-    if has('python')
-        if $VIM_USE_IPYTHON
-            function! s:IPythonAutoConnect()
-                if !exists('g:ipython_autoconnected')
-                    let g:ipython_autoconnected = 1
-
-                    " Try to connect to an IPython kernel
-                    IPython
-                endif
-            endfunction
-
-            " Use my fork of https://github.com/ivanov/vim-ipython
-            Bundle 'git://github.com/zeekay/vim-ipython'
-
-            let g:ipy_perform_mappings = 0
-            au FileType python map <silent> <leader>r :python run_this_file()<CR>
-            " au FileType python map <silent> <leader>r :python run_this_line()<CR>
-            au FileType python vmap <silent> <leader>r :python run_these_lines()<CR>
-            au FileType python map <silent> <leader>d :py get_doc_buffer()<CR>
-            au FileType python map <silent> <leader>R :call <SID>toggle_send_on_save()<CR>
-
-            au FileType python :call s:IPythonAutoConnect()
-        else
-            " pydoc.vim - https://github.com/fs111/pydoc.vim
-            Bundle 'git://github.com/zeekay/pydoc.vim'
-
-            " vim-adv-python - https://github.com/zeekay/vim-adv-python
-            Bundle 'git://github.com/zeekay/vim-adv-python'
-
-            let g:pydoc_open_cmd = 'vsplit'
-            let g:pydoc_perform_mappings = 0
-            let g:pydoc_highlight = 0
-            au FileType python,man map <leader>d :Pydoc <C-R>=expand("<cWORD>")<CR><CR>
-            au FileType python vnoremap <leader>r :py EvaluateCurrentRange()<cr>
-            au FileType python nnoremap <leader>r :RunPythonBuffer<cr>
-        endif
-    endif
 " }
 
 " Python highlighting {
