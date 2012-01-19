@@ -374,8 +374,8 @@
 " Python {
     if has('python')
         if $VIM_USE_IPYTHON
-            " https://github.com/ivanov/vim-ipython
-            Bundle 'git://github.com/ivanov/vim-ipython'
+            " Use my fork of https://github.com/ivanov/vim-ipython
+            Bundle 'git://github.com/zeekay/vim-ipython'
 
             let g:ipy_perform_mappings = 0
             au FileType python map <silent> <leader>r :python run_this_file()<CR>
