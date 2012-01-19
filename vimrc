@@ -377,6 +377,15 @@
 " Python {
     if has('python')
         if $VIM_USE_IPYTHON
+            function! s:IPythonAutoload()
+                if !exists('g:ipython_autoloaded')
+                    let g:ipython_autoloaded = 1
+
+                    " Try to connect to an IPython kernel
+                    IPython
+                endif
+            endfunction
+
             " Use my fork of https://github.com/ivanov/vim-ipython
             Bundle 'git://github.com/zeekay/vim-ipython'
 
@@ -386,8 +395,8 @@
             au FileType python vmap <silent> <leader>r :python run_these_lines()<CR>
             au FileType python map <silent> <leader>d :py get_doc_buffer()<CR>
             au FileType python map <silent> <leader>R :call <SID>toggle_send_on_save()<CR>
-            " Try to connect to an IPython kernel
-            au FileType python IPython
+
+            au FileType python :call s:IPythonAutoload()
         else
             " pydoc.vim - https://github.com/fs111/pydoc.vim
             Bundle 'git://github.com/zeekay/pydoc.vim'
