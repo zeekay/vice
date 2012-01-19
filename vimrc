@@ -102,6 +102,16 @@
             if has('python')
                 " ultisnips - https://github.com/rygwdn/ultisnips
                 Bundle 'git://github.com/rygwdn/ultisnips'
+                if $VIM_USE_IPYTHON
+                    " Use my fork of https://github.com/ivanov/vim-ipython
+                    Bundle 'git://github.com/zeekay/vim-ipython'
+                else
+                    " pydoc.vim - https://github.com/fs111/pydoc.vim
+                    Bundle 'git://github.com/zeekay/pydoc.vim'
+
+                    " vim-adv-python - https://github.com/zeekay/vim-adv-python
+                    Bundle 'git://github.com/zeekay/vim-adv-python'
+                endif
             endif
         endif
     endif
@@ -383,9 +393,6 @@
 
     if has('python')
         if $VIM_USE_IPYTHON
-            " Use my fork of https://github.com/ivanov/vim-ipython
-            Bundle 'git://github.com/zeekay/vim-ipython'
-
             function! s:IPythonAutoConnect()
                 if !exists('g:ipython_autoconnected')
                     let g:ipython_autoconnected = 1
@@ -404,18 +411,12 @@
 
             au FileType python :call s:IPythonAutoConnect()
         else
-            " pydoc.vim - https://github.com/fs111/pydoc.vim
-            Bundle 'git://github.com/zeekay/pydoc.vim'
-
-            " vim-adv-python - https://github.com/zeekay/vim-adv-python
-            Bundle 'git://github.com/zeekay/vim-adv-python'
-
             let g:pydoc_open_cmd = 'vsplit'
             let g:pydoc_perform_mappings = 0
             let g:pydoc_highlight = 0
-            au FileType python,man map <leader>d :Pydoc <C-R>=expand("<cWORD>")<CR><CR>
-            au FileType python vnoremap <leader>r :py EvaluateCurrentRange()<cr>
-            au FileType python nnoremap <leader>r :RunPythonBuffer<cr>
+            au FileType python,man map <silent> <leader>d :Pydoc <C-R>=expand("<cWORD>")<CR><CR>
+            au FileType python vnoremap <silent> <leader>r :py EvaluateCurrentRange()<cr>
+            au FileType python nnoremap <silent> <leader>r :RunPythonBuffer<cr>
         endif
     endif
 " }
