@@ -107,47 +107,6 @@
     endif
 " }
 
-" Python {
-    if has('python')
-        if $VIM_USE_IPYTHON
-            function! s:IPythonAutoConnect()
-                if !exists('g:ipython_autoconnected')
-                    let g:ipython_autoconnected = 1
-
-                    " Try to connect to an IPython kernel
-                    IPython
-                endif
-            endfunction
-
-            " Use my fork of https://github.com/ivanov/vim-ipython
-            Bundle 'git://github.com/zeekay/vim-ipython'
-
-            let g:ipy_perform_mappings = 0
-            au FileType python map <silent> <leader>r :python run_this_file()<cr>
-            " au FileType python map <silent> <leader>r :python run_this_line()<CR>
-            au FileType python vmap <silent> <leader>r :python run_these_lines()<cr>
-            au FileType python map <silent> <leader>d :py get_doc_buffer()<cr>
-            au FileType python map <silent> <leader>R :IPythonToggleSendOnSave<cr>
-
-            au FileType python :call s:IPythonAutoConnect()
-        else
-            " pydoc.vim - https://github.com/fs111/pydoc.vim
-            Bundle 'git://github.com/zeekay/pydoc.vim'
-
-            " vim-adv-python - https://github.com/zeekay/vim-adv-python
-            Bundle 'git://github.com/zeekay/vim-adv-python'
-
-            let g:pydoc_open_cmd = 'vsplit'
-            let g:pydoc_perform_mappings = 0
-            let g:pydoc_highlight = 0
-            au FileType python,man map <leader>d :Pydoc <C-R>=expand("<cWORD>")<CR><CR>
-            au FileType python vnoremap <leader>r :py EvaluateCurrentRange()<cr>
-            au FileType python nnoremap <leader>r :RunPythonBuffer<cr>
-        endif
-    endif
-" }
-
-
 " Basic/General Configuration {
     syntax on
     filetype plugin indent on
@@ -416,11 +375,51 @@
     let g:ctrlp_open_multi = '1t'
 " }
 
-" Python highlighting {
+" Python {
+    " Python highlighting
     let g:python_highlight_all = 1
     let g:python_show_sync = 1
     " let g:python_print_as_function = 1
+
+    if has('python')
+        if $VIM_USE_IPYTHON
+            " Use my fork of https://github.com/ivanov/vim-ipython
+            Bundle 'git://github.com/zeekay/vim-ipython'
+
+            function! s:IPythonAutoConnect()
+                if !exists('g:ipython_autoconnected')
+                    let g:ipython_autoconnected = 1
+
+                    " Try to connect to an IPython kernel
+                    IPython
+                endif
+            endfunction
+
+            let g:ipy_perform_mappings = 0
+            au FileType python map <silent> <leader>r :python run_this_file()<cr>
+            " au FileType python map <silent> <leader>r :python run_this_line()<CR>
+            au FileType python vmap <silent> <leader>r :python run_these_lines()<cr>
+            au FileType python map <silent> <leader>d :py get_doc_buffer()<cr>
+            au FileType python map <silent> <leader>R :IPythonToggleSendOnSave<cr>
+
+            au FileType python :call s:IPythonAutoConnect()
+        else
+            " pydoc.vim - https://github.com/fs111/pydoc.vim
+            Bundle 'git://github.com/zeekay/pydoc.vim'
+
+            " vim-adv-python - https://github.com/zeekay/vim-adv-python
+            Bundle 'git://github.com/zeekay/vim-adv-python'
+
+            let g:pydoc_open_cmd = 'vsplit'
+            let g:pydoc_perform_mappings = 0
+            let g:pydoc_highlight = 0
+            au FileType python,man map <leader>d :Pydoc <C-R>=expand("<cWORD>")<CR><CR>
+            au FileType python vnoremap <leader>r :py EvaluateCurrentRange()<cr>
+            au FileType python nnoremap <leader>r :RunPythonBuffer<cr>
+        endif
+    endif
 " }
+
 
 " CoffeeScript {
     au Filetype coffee setl foldmethod=indent nofoldenable
