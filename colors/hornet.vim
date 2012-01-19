@@ -85,7 +85,7 @@ hi rubyClassVariable guifg=#29AEE3 gui=none
 hi StatColor ctermfg=230     ctermbg=235     cterm=none      guifg=#d3d3d5 guibg=#303030   gui=none
 hi Modified ctermbg=lightred ctermfg=black
 
-function! MyStatusLine(mode)
+function! DynamicStatusLine(mode)
     let statusline=""
     if a:mode == 'Enter'
         let statusline.="%#StatColor#"
@@ -104,10 +104,10 @@ function! MyStatusLine(mode)
     return statusline
 endfunction
 
-au WinEnter * setlocal statusline=%!MyStatusLine('Enter')
-au WinLeave * setlocal statusline=%!MyStatusLine('Leave')
-inoremap <c-c> <c-o>:setlocal statusline=%!MyStatusLine('Leave')<cr><c-c>
-set statusline=%!MyStatusLine('Enter')
+au WinEnter * setlocal statusline=%!DynamicStatusLine('Enter')
+au WinLeave * setlocal statusline=%!DynamicStatusLine('Leave')
+inoremap <c-c> <c-o>:setlocal statusline=%!DynamicStatusLine('Leave')<cr><c-c>
+set statusline=%!DynamicStatusLine('Enter')
 
 function! InsertStatuslineColor(mode)
   if a:mode == 'i'

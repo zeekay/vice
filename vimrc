@@ -190,6 +190,9 @@
 " Statusline {
     set laststatus=2
     set statusline=\(%n\)\ %f\ %*%#Modified#%m\ (%l/%L,\ %c)\ %P%=%h%w\ %y\ [%{&encoding}:%{&fileformat}]
+    " Prevents error when switching between theme with dynamic statuslines
+    function DynamicStatusLine(...)
+    endfunction
 " }
 
 " Quickfix {
