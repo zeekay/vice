@@ -81,9 +81,6 @@
         " threesome.vim - https://github.com/sjl/threesome.vim
         " Bundle 'git://github.com/sjl/threesome.vim'
 
-        " pydoc.vim - https://github.com/fs111/pydoc.vim
-        " Bundle 'git://github.com/zeekay/pydoc.vim'
-
         " current-func-info - https://github.com/tyru/current-func-info.vim
         " Bundle 'tyru/current-func-info.vim'
 
@@ -105,22 +102,8 @@
             if has('python')
                 " ultisnips - https://github.com/rygwdn/ultisnips
                 Bundle 'git://github.com/rygwdn/ultisnips'
-
-                " vim-adv-python - https://github.com/zeekay/vim-adv-python
-                Bundle 'git://github.com/zeekay/vim-adv-python'
             endif
         endif
-
-
-        " if has("python")
-        "     " https://github.com/ivanov/vim-ipython
-        "     Bundle 'git://github.com/ivanov/vim-ipython'
-        " endif
-
-        " if has("ruby")
-        "     " lusty - https://github.com/sjbach/lusty/
-        "     Bundle 'git://github.com/sjbach/lusty'
-        " endif
     endif
 " }
 
@@ -193,15 +176,15 @@
 " }
 
 " Completions {
-    autocmd FileType python set omnifunc=pythoncomplete#Complete
-    autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
-    autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
-    autocmd FileType css set omnifunc=csscomplete#CompleteCSS
-    autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
-    autocmd FileType php set omnifunc=phpcomplete#CompletePHP
-    autocmd FileType c set omnifunc=ccomplete#Complete
-    autocmd FileType cpp set omnifunc=omni#cpp#complete#Main
-    autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
+    autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+    autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+    autocmd FileType html setlocal omnifunc=htmlcomplete#CompleteTags
+    autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+    autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+    autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
+    autocmd FileType c setlocal omnifunc=ccomplete#Complete
+    autocmd FileType cpp setlocal omnifunc=omni#cpp#complete#Main
+    autocmd FileType ruby,eruby setlocal omnifunc=rubycomplete#Complete
 " }
 
 " Statusline {
@@ -240,7 +223,7 @@
             nnoremap <D-0> 10gt
         " gVim
         else
-            set guifont=MonteCarlo
+            " set guifont=MonteCarlo
         endif
         " set fillchars=diff:⣿
         " set listchars=tab:▸\ ,eol:¬,extends:❯,precedes:❮
@@ -388,31 +371,41 @@
     let g:ctrlp_open_multi = '1t'
 " }
 
-" PyDoc {
-    let g:pydoc_open_cmd = 'vsplit'
-    let g:pydoc_perform_mappings = 0
-    let g:pydoc_highlight = 0
-    au FileType python,man map <leader>d :Pydoc <C-R>=expand("<cWORD>")<CR><CR>
-" }
+" Python {
+    if has('python')
+        if $VIM_USE_IPYTHON
+            " https://github.com/ivanov/vim-ipython
+            Bundle 'git://github.com/ivanov/vim-ipython'
 
-" IPython {
-    " let g:ipy_perform_mappings = 0
-    " au FileType python map <silent> <F5> :python run_this_file()<CR>
-    " au FileType python map <silent> <S-F5> :python run_this_line()<CR>
-    " au FileType python vmap <silent> <F5> :python run_these_lines()<CR>
-    " au FileType python map <silent> <leader>d :py get_doc_buffer()<CR>
-    " au FileType python map <F6> :call <SID>toggle_send_on_save()<CR>
+            let g:ipy_perform_mappings = 0
+            au FileType python map <silent> <leader>r :python run_this_file()<CR>
+            " au FileType python map <silent> <leader>r :python run_this_line()<CR>
+            au FileType python vmap <silent> <leader>r :python run_these_lines()<CR>
+            au FileType python map <silent> <leader>d :py get_doc_buffer()<CR>
+            au FileType python map <silent> <leader>R :call <SID>toggle_send_on_save()<CR>
+            " Try to connect to an IPython kernel
+            au FileType python IPython
+        else
+            " pydoc.vim - https://github.com/fs111/pydoc.vim
+            Bundle 'git://github.com/zeekay/pydoc.vim'
+
+            " vim-adv-python - https://github.com/zeekay/vim-adv-python
+            Bundle 'git://github.com/zeekay/vim-adv-python'
+
+            let g:pydoc_open_cmd = 'vsplit'
+            let g:pydoc_perform_mappings = 0
+            let g:pydoc_highlight = 0
+            au FileType python,man map <leader>d :Pydoc <C-R>=expand("<cWORD>")<CR><CR>
+            au FileType python vnoremap <leader>r :py EvaluateCurrentRange()<cr>
+            au FileType python nnoremap <leader>r :RunPythonBuffer<cr>
+        endif
+    endif
 " }
 
 " Python highlighting {
     let g:python_highlight_all = 1
     let g:python_show_sync = 1
     " let g:python_print_as_function = 1
-" }
-
-" Python {
-    au FileType python vnoremap <leader>r :py EvaluateCurrentRange()<cr>
-    au FileType python nnoremap <leader>r :py eval(compile('\n'.join(vim.current.buffer),'','exec'),globals())<cr>
 " }
 
 " CoffeeScript {
