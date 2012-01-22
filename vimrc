@@ -39,7 +39,7 @@
     " Bundle 'git://github.com/zeekay/vim-autoclose'
 
     " SearchComplete - http://www.vim.org/scripts/script.php?script_id=474
-    Bundle 'SearchComplete'
+    " Bundle 'SearchComplete'
 
     if !has('win32unix')
         " syntastic - https://github.com/scrooloose/syntastic
@@ -102,16 +102,15 @@
             if has('python')
                 " ultisnips - https://github.com/rygwdn/ultisnips
                 Bundle 'git://github.com/rygwdn/ultisnips'
-                if $VIM_USE_IPYTHON
-                    " Use my fork of https://github.com/ivanov/vim-ipython
-                    Bundle 'git://github.com/zeekay/vim-ipython'
-                else
-                    " pydoc.vim - https://github.com/fs111/pydoc.vim
-                    Bundle 'git://github.com/zeekay/pydoc.vim'
 
-                    " vim-adv-python - https://github.com/zeekay/vim-adv-python
-                    Bundle 'git://github.com/zeekay/vim-adv-python'
-                endif
+                " Use my fork of https://github.com/ivanov/vim-ipython
+                Bundle 'git://github.com/zeekay/vim-ipython'
+
+                " pydoc.vim - https://github.com/fs111/pydoc.vim
+                " Bundle 'git://github.com/zeekay/pydoc.vim'
+
+                " vim-adv-python - https://github.com/zeekay/vim-adv-python
+                Bundle 'git://github.com/zeekay/vim-adv-python'
             endif
         endif
     endif
@@ -123,6 +122,7 @@
     set directory=~/.vim/tmp/swap
     set backup
     set backupdir=~/.vim/tmp/backup
+    set viewdir=~/.vim/tmp/view
     " set nomodeline
     set undolevels=1000
     set history=1000
@@ -158,9 +158,11 @@
     endif
     " Disable folding
     " set foldminlines=99999
-    " Save and load view for each document to preserve folding and cursor position on reload
+    " Save and load view for each document, preserving cursor position
     au BufWinLeave * silent! mkview
     au BufWinEnter * silent! loadview
+    " Center text
+    au BufWinEnter * silent! normal zz
 " }
 
 " Indent {
@@ -182,7 +184,7 @@
     set wildmenu
     set wildmode=list:longest,full
     set wildignore=*.o,*.obj,*.bak,*.exe,*.aux,*.dvi,*.dll,*.pyc,*.pyo,*.zwc,*.zwc.old
-    set completeopt=menuone,menu,longest,preview
+    set completeopt=menuone,menu,longest
 " }
 
 " Completions {
@@ -200,9 +202,46 @@
 " Statusline {
     set laststatus=2
     set statusline=\(%n\)\ %f\ %*%#Modified#%m\ (%l/%L,\ %c)\ %P%=%h%w\ %y\ [%{&encoding}:%{&fileformat}]
-    " Prevents error when switching between theme with dynamic statuslines
-    function DynamicStatusLine(...)
-    endfunction
+    if !has('gui_running')
+        function! DynamicStatusLine(mode)
+            let statusline = ""
+            if a:mode == 'Enter'
+                let statusline .= "%#StatColor#"
+            endif
+            let statusline .= "\(%n\)\ %f\ "
+            if a:mode == 'Enter'
+                let statusline .= "%*"
+            endif
+            let statusline .= "%#Modified#%m"
+            if a:mode == 'Leave'
+                let statusline .= "%*%r"
+            elseif a:mode == 'Enter'
+                let statusline .= "%r%*"
+            endif
+            let statusline .= "\ (%l/%L,\ %c)\ %P%=%h%w\ %y\ [%{&encoding}:%{&fileformat}]\ \ "
+            return statusline
+        endfunction
+
+        au WinEnter * setlocal statusline=%!DynamicStatusLine('Enter')
+        au WinLeave * setlocal statusline=%!DynamicStatusLine('Leave')
+        inoremap <c-c> <c-o>:setlocal statusline=%!DynamicStatusLine('Leave')<cr><c-c>
+        set statusline=%!DynamicStatusLine('Enter')
+
+        function! InsertStatuslineColor(mode)
+          if a:mode == 'i'
+            hi StatColor ctermfg=230     ctermbg=238     cterm=none      guifg=#ffffff guibg=#404040   gui=none
+          elseif a:mode == 'r'
+            hi StatColor guibg=#e454ba ctermbg=magenta
+          elseif a:mode == 'v'
+            hi StatColor ctermbg=blue cterm=none guibg=#e454ba ctermbg=magenta
+          else
+            hi StatColor guibg=red ctermbg=red
+          endif
+        endfunction
+
+        au InsertEnter * call InsertStatuslineColor(v:insertmode)
+        au InsertLeave * hi StatColor ctermfg=230     ctermbg=235     cterm=none      guifg=#d3d3d5 guibg=#303030   gui=none
+    endif
 " }
 
 " Quickfix {
@@ -392,32 +431,45 @@
     " let g:python_print_as_function = 1
 
     if has('python')
-        if $VIM_USE_IPYTHON
-            function! s:IPythonAutoConnect()
-                if !exists('g:ipython_autoconnected')
-                    let g:ipython_autoconnected = 1
+        let g:ipy_perform_mappings = 0
+        function! s:IPythonAutoConnect()
+            if !exists('g:ipython_autoconnected')
+                let g:ipython_autoconnected = 1
+                " Try to connect to an IPython kernel
+                IPython
+            endif
+        endfunction
 
-                    " Try to connect to an IPython kernel
-                    IPython
-                endif
-            endfunction
+        au FileType python map <silent> <leader>rf :python run_this_file()<cr>
+        au FileType python map <silent> <leader>rl :python run_this_line()<CR>
+        au FileType python vmap <silent> <leader>r :python run_these_lines()<cr>
+        au FileType python map <silent> <leader>d :py get_doc_buffer()<cr>
+        au FileType python map <silent> <leader>ra :IPythonToggleSendOnSave<cr>
+        " au FileType python map gf :py get_filename()<cr>
+        au FileType python :call s:IPythonAutoConnect()
 
-            let g:ipy_perform_mappings = 0
-            au FileType python map <silent> <leader>r :python run_this_file()<cr>
-            " au FileType python map <silent> <leader>r :python run_this_line()<CR>
-            au FileType python vmap <silent> <leader>r :python run_these_lines()<cr>
-            au FileType python map <silent> <leader>d :py get_doc_buffer()<cr>
-            au FileType python map <silent> <leader>R :IPythonToggleSendOnSave<cr>
+        " function! s:PythonToggleRunOnSave()
+        "     if !exists('s:ssos')
+        "         let s:ssos = 1
+        "     endif
+        "     if s:ssos == 1
+        "         au BufWritePost *.py :RunPythonBuffer<cr<>
+        "         echo "Autorun On"
+        "     else
+        "         au! BufWritePost *.py
+        "         echo "Autorun Off"
+        "     endif
+        "     let s:ssos = !s:ssos
+        " endfunction
+        " command! PythonToggleRunOnSave :call s:PythonToggleRunOnSave()
 
-            au FileType python :call s:IPythonAutoConnect()
-        else
-            let g:pydoc_open_cmd = 'vsplit'
-            let g:pydoc_perform_mappings = 0
-            let g:pydoc_highlight = 0
-            au FileType python,man map <silent> <leader>d :Pydoc <C-R>=expand("<cWORD>")<CR><CR>
-            au FileType python vnoremap <silent> <leader>r :py EvaluateCurrentRange()<cr>
-            au FileType python nnoremap <silent> <leader>r :RunPythonBuffer<cr>
-        endif
+        " let g:pydoc_open_cmd = 'vsplit'
+        " let g:pydoc_perform_mappings = 0
+        " let g:pydoc_highlight = 0
+        " au FileType python nnoremap <silent> <leader>d :Pydoc <C-R>=expand("<cWORD>")<CR><CR>
+        " au FileType python vnoremap <silent> <leader>r :py EvaluateCurrentRange()<cr>
+        " au FileType python nnoremap <silent> <leader>rf :RunPythonBuffer<cr>
+        " au FileType python nnoremap <silent> <leader>ra :PythonToggleRunOnSave<cr>
     endif
 " }
 
@@ -594,7 +646,7 @@ let g:ExploreToggled = 0
     nnoremap <leader>w <c-w>
     nnoremap <leader>s :s%//<left>
     vnoremap <leader>s :s//<left>
-    nnoremap Q :qa<cr>
+    nnoremap Q :q<cr>
     nnoremap W :w<cr>
     nnoremap gb :CtrlPBuffer<cr>
     nnoremap go :CtrlP<cr>
