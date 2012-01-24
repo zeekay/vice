@@ -1,4 +1,3 @@
-" Author: Zach Kelling
 " Source: https://bitbucket.org/zeekay/dot-vim or https://github.com/zeekay/dot-vim
 
 " Vundle {
@@ -114,6 +113,10 @@
             endif
         endif
     endif
+
+    " Use my fork of https://bitbucket.org/ludovicchabant/vim-lawrencium
+    Bundle 'git://github.com/zeekay/vim-lawrencium'
+
 " }
 
 " Basic/General Configuration {
@@ -656,6 +659,7 @@ let g:ExploreToggled = 0
     set diffopt+=iwhite,context:3
     if &diff
         nmap u u :diffu<cr>
+        nmap Q :qa<cr>
         nmap <leader>q :qa<cr>
     endif
 " }
