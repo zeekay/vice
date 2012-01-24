@@ -102,14 +102,16 @@
                 " ultisnips - https://github.com/rygwdn/ultisnips
                 Bundle 'git://github.com/rygwdn/ultisnips'
 
-                " Use my fork of https://github.com/ivanov/vim-ipython
-                Bundle 'git://github.com/zeekay/vim-ipython'
-
                 " pydoc.vim - https://github.com/fs111/pydoc.vim
                 " Bundle 'git://github.com/zeekay/pydoc.vim'
 
                 " vim-adv-python - https://github.com/zeekay/vim-adv-python
                 Bundle 'git://github.com/zeekay/vim-adv-python'
+
+                if $VIM_USE_IPYTHON || has('gui_running')
+                    " Use my fork of https://github.com/ivanov/vim-ipython
+                    Bundle 'git://github.com/zeekay/vim-ipython'
+                endif
             endif
         endif
     endif
@@ -328,6 +330,28 @@
 
 " Ack.vim {
     let g:ackprg="ack -H --nocolor --nogroup --column"
+
+    function! s:CopyMotionForType(type)
+        if a:type ==# 'v'
+            silent execute "normal! `<" . a:type . "`>y"
+        elseif a:type ==# 'char'
+            silent execute "normal! `[v`]y"
+        endif
+    endfunction
+
+    function! s:AckMotion(type) abort
+        let reg_save = @@
+
+        call s:CopyMotionForType(a:type)
+
+        execute "normal! :Ack! --literal " . shellescape(@@) . "\<cr>"
+
+        let @@ = reg_save
+    endfunction
+
+    nnoremap <leader>a :Ack<space>
+    " nnoremap <silent> <leader>a :set opfunc=<SID>AckMotion<CR>g@
+    xnoremap <silent> <leader>a :<C-U>call <SID>AckMotion(visualmode())<CR>
 " }
 
 " Gundo {
@@ -434,48 +458,49 @@
     " let g:python_print_as_function = 1
 
     if has('python')
-        let g:ipy_perform_mappings = 0
-        function! s:IPythonAutoConnect()
-            if !exists('g:ipython_autoconnected')
-                let g:ipython_autoconnected = 1
-                " Try to connect to an IPython kernel
-                IPython
-            endif
-        endfunction
+        if $VIM_USE_IPYTHON || has('gui_running')
+            let g:ipy_perform_mappings = 0
+            function! s:IPythonAutoConnect()
+                if !exists('g:ipython_autoconnected')
+                    let g:ipython_autoconnected = 1
+                    " Try to connect to an IPython kernel
+                    IPython
+                endif
+            endfunction
 
-        au FileType python map <silent> <leader>rf :python run_this_file()<cr>
-        au FileType python map <silent> <leader>rl :python run_this_line()<CR>
-        au FileType python vmap <silent> <leader>r :python run_these_lines()<cr>
-        au FileType python map <silent> <leader>d :py get_doc_buffer()<cr>
-        au FileType python map <silent> <leader>ra :IPythonToggleSendOnSave<cr>
-        " au FileType python map gf :py get_filename()<cr>
-        au FileType python :call s:IPythonAutoConnect()
+            au FileType python nnoremap <silent> <leader>rf :python run_this_file()<cr>
+            au FileType python nnoremap <silent> <leader>rl :python run_this_line()<CR>
+            au FileType python vnoremap <silent> <leader>r :python run_these_lines()<cr>
+            au FileType python nnoremap <silent> <leader>d :py get_doc_buffer()<cr>
+            au FileType python nnoremap <silent> <leader>ra :IPythonToggleSendOnSave<cr>
+            " au FileType python map gf :py get_filename()<cr>
+            au FileType python :call s:IPythonAutoConnect()
+        else
+            function! s:PythonToggleRunOnSave()
+                if !exists('s:ssos')
+                    let s:ssos = 1
+                endif
+                if s:ssos == 1
+                    au BufWritePost *.py :RunPythonBuffer<cr<>
+                    echo "Autorun On"
+                else
+                    au! BufWritePost *.py
+                    echo "Autorun Off"
+                endif
+                let s:ssos = !s:ssos
+            endfunction
+            command! PythonToggleRunOnSave :call s:PythonToggleRunOnSave()
 
-        " function! s:PythonToggleRunOnSave()
-        "     if !exists('s:ssos')
-        "         let s:ssos = 1
-        "     endif
-        "     if s:ssos == 1
-        "         au BufWritePost *.py :RunPythonBuffer<cr<>
-        "         echo "Autorun On"
-        "     else
-        "         au! BufWritePost *.py
-        "         echo "Autorun Off"
-        "     endif
-        "     let s:ssos = !s:ssos
-        " endfunction
-        " command! PythonToggleRunOnSave :call s:PythonToggleRunOnSave()
-
-        " let g:pydoc_open_cmd = 'vsplit'
-        " let g:pydoc_perform_mappings = 0
-        " let g:pydoc_highlight = 0
-        " au FileType python nnoremap <silent> <leader>d :Pydoc <C-R>=expand("<cWORD>")<CR><CR>
-        " au FileType python vnoremap <silent> <leader>r :py EvaluateCurrentRange()<cr>
-        " au FileType python nnoremap <silent> <leader>rf :RunPythonBuffer<cr>
-        " au FileType python nnoremap <silent> <leader>ra :PythonToggleRunOnSave<cr>
+            let g:pydoc_open_cmd = 'vsplit'
+            let g:pydoc_perform_mappings = 0
+            let g:pydoc_highlight = 0
+            au FileType python nnoremap <silent> <leader>d :Pydoc <C-R>=expand("<cWORD>")<CR><CR>
+            au FileType python vnoremap <silent> <leader>r :py EvaluateCurrentRange()<cr>
+            au FileType python nnoremap <silent> <leader>rf :RunPythonBuffer<cr>
+            au FileType python nnoremap <silent> <leader>ra :PythonToggleRunOnSave<cr>
+        endif
     endif
 " }
-
 
 " CoffeeScript {
     au Filetype coffee setl foldmethod=indent nofoldenable
@@ -521,26 +546,6 @@ let g:ExploreToggled = 0
         let g:ExploreToggled = !g:ExploreToggled
     endfunction
     command! ExploreToggle call s:ExploreToggle()
-" }
-
-" Ack motion {
-    function! s:CopyMotionForType(type)
-        if a:type ==# 'v'
-            silent execute "normal! `<" . a:type . "`>y"
-        elseif a:type ==# 'char'
-            silent execute "normal! `[v`]y"
-        endif
-    endfunction
-
-    function! s:AckMotion(type) abort
-        let reg_save = @@
-
-        call s:CopyMotionForType(a:type)
-
-        execute "normal! :Ack! --literal " . shellescape(@@) . "\<cr>"
-
-        let @@ = reg_save
-    endfunction
 " }
 
 " Commands {
@@ -612,13 +617,12 @@ let g:ExploreToggled = 0
         map <c-right> <C-W>>
     endif
 
-    " p/P replace selection in visual mode
-    vnoremap p "_dp
-    vnoremap P "_dP
+    " p replace selection in visual mode
+    vnoremap p "_dP
 
     " \b for blackhole register
     nnoremap <leader>b "_
-    vnoremap <silent><leader>b "_
+    vnoremap <silent> <leader>b "_
 
     " \y and \p for clipboard yank/paste
     nnoremap <leader>y "*y
@@ -627,11 +631,6 @@ let g:ExploreToggled = 0
     vnoremap <leader>p "*P
     nnoremap <leader>P "*P
     nnoremap <leader>Y "*Y
-
-    " \a search with ack
-    nnoremap <leader>a :Ack<space>
-    " nnoremap <silent> <leader>a :set opfunc=<SID>AckMotion<CR>g@
-    xnoremap <silent> <leader>a :<C-U>call <SID>AckMotion(visualmode())<CR>
 
     " \u \t toggle Gundo/Tagbar
     nnoremap <leader>u :GundoToggle<cr>
@@ -649,6 +648,7 @@ let g:ExploreToggled = 0
     nnoremap <leader>w <c-w>
     nnoremap <leader>s :s%//<left>
     vnoremap <leader>s :s//<left>
+    nnoremap <leader>o :silent !open <C-R>=expand("<cWORD>")<CR><CR>:redraw!<cr>
     nnoremap Q :q<cr>
     nnoremap W :w<cr>
     nnoremap gb :CtrlPBuffer<cr>
