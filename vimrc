@@ -648,11 +648,14 @@ let g:ExploreToggled = 0
     nnoremap <leader>w <c-w>
     nnoremap <leader>s :s%//<left>
     vnoremap <leader>s :s//<left>
-    nnoremap <leader>o :silent !open <C-R>=expand("<cWORD>")<CR><CR>:redraw!<cr>
     nnoremap Q :q<cr>
     nnoremap W :w<cr>
     nnoremap gb :CtrlPBuffer<cr>
     nnoremap go :CtrlP<cr>
+
+    " open urls
+    nnoremap <leader>o :silent !open -a "Google Chrome" <c-r>=expand("<cWORD>")<cr><cr>:redraw!<cr>
+
 " }
 
 " Vimdiff {
