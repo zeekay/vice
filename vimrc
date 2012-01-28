@@ -127,7 +127,7 @@
     set directory=~/.vim/tmp/swap
     set backup
     set backupdir=~/.vim/tmp/backup
-    " set viewdir=~/.vim/tmp/view
+    set viewdir=~/.vim/tmp/view
     " set nomodeline
     set undolevels=1000
     set history=1000
