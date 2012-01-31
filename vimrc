@@ -40,6 +40,9 @@
     " SearchComplete - http://www.vim.org/scripts/script.php?script_id=474
     " Bundle 'SearchComplete'
 
+    " http://www.vim.org/scripts/script.php?script_id=2937
+    Bundle 'hexHighlight.vim'
+
     if !has('win32unix')
         " syntastic - https://github.com/scrooloose/syntastic
         Bundle 'git://github.com/scrooloose/syntastic'
@@ -93,7 +96,10 @@
         " Bundle 'mattsa/vim-fuzzee'
 
         " vim-fugitive - https://github.com/tpope/vim-fugitive
-        " Bundle 'vim-fugitive'
+        Bundle 'git://github.com/tpope/vim-fugitive'
+
+        " Use my fork of https://bitbucket.org/ludovicchabant/vim-lawrencium
+        Bundle 'git://github.com/zeekay/vim-lawrencium'
 
         if version > 700
             " https://github.com/vim-scripts/VimClojure
@@ -115,10 +121,6 @@
             endif
         endif
     endif
-
-    " Use my fork of https://bitbucket.org/ludovicchabant/vim-lawrencium
-    Bundle 'git://github.com/zeekay/vim-lawrencium'
-
 " }
 
 " Basic/General Configuration {
@@ -146,7 +148,7 @@
     " set clipboard=unnamed,unnamedplus
     set autoread
     set report=0
-    set gdefault
+    " set gdefault
     set showcmd
     set noshowmode
     set virtualedit=block,onemore
@@ -253,6 +255,9 @@
     au Filetype qf setl nolist
     au Filetype qf setl nocursorline
     au Filetype qf setl nowrap
+    nnoremap ]q :cnext<cr>
+    nnoremap [q :cprevious<cr>
+
 " }
 
 " Colors/Gui {
@@ -627,10 +632,8 @@ let g:ExploreToggled = 0
     " \y and \p for clipboard yank/paste
     nnoremap <leader>y "*y
     vnoremap <leader>y "*y
-    nnoremap <leader>p "*p
+    nnoremap <leader>p "*P
     vnoremap <leader>p "*P
-    nnoremap <leader>P "*P
-    nnoremap <leader>Y "*Y
 
     " \u \t toggle Gundo/Tagbar
     nnoremap <leader>u :GundoToggle<cr>
