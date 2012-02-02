@@ -39,9 +39,9 @@
 
     " SearchComplete - http://www.vim.org/scripts/script.php?script_id=474
     " Bundle 'SearchComplete'
-
-    " http://www.vim.org/scripts/script.php?script_id=2937
-    Bundle 'hexHighlight.vim'
+    "
+    " https://github.com/lvivski/vim-css-color.git
+    Bundle 'https://github.com/lvivski/vim-css-color.git'
 
     if !has('win32unix')
         " syntastic - https://github.com/scrooloose/syntastic
