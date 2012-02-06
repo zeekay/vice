@@ -16,9 +16,6 @@
     " ack.vim - https://github.com/mileszs/ack.vim
     Bundle 'git://github.com/mileszs/ack.vim'
 
-    " supertab - https://github.com/ervandew/supertab
-    Bundle 'git://github.com/ervandew/supertab'
-
     " vim-repeat - https://github.com/tpope/vim-repeat
     Bundle 'git://github.com/tpope/vim-repeat'
 
@@ -27,6 +24,67 @@
 
     " vim-commentary - https://github.com/tpope/vim-commentary
     Bundle 'git://github.com/tpope/vim-commentary'
+
+    " https://github.com/juanpabloaj/help.vim
+    Bundle 'git://github.com/juanpabloaj/help.vim'
+
+    " tabular - https://github.com/godlygeek/tabular
+    Bundle 'git://github.com/godlygeek/tabular'
+
+    " tagbar - https://github.com/majutsushi/tagbar
+    Bundle 'git://github.com/majutsushi/tagbar'
+
+    " gundo - https://github.com/sjl/gundo.vim
+    Bundle 'git://github.com/sjl/gundo.vim'
+
+    " supertab - https://github.com/ervandew/supertab
+    Bundle 'git://github.com/ervandew/supertab'
+
+    " syntastic - https://github.com/scrooloose/syntastic
+    Bundle 'git://github.com/scrooloose/syntastic'
+
+    " vim-coffees-script - https://github.com/kchmck/vim-coffee-script
+    Bundle 'git://github.com/kchmck/vim-coffee-script'
+
+    " vim-jade - https://github.com/digitaltoad/vim-jade.git
+    Bundle 'git://github.com/digitaltoad/vim-jade'
+
+    " vim-stylus - https://github.com/wavded/vim-stylus.git
+    Bundle 'git://github.com/wavded/vim-stylus'
+
+    " vim-html - https://github.com/tpope/vim-haml
+    Bundle 'git://github.com/tpope/vim-haml'
+
+    " https://github.com/lvivski/vim-css-color.git
+    Bundle 'https://github.com/lvivski/vim-css-color.git'
+
+    " vim-fugitive - https://github.com/tpope/vim-fugitive
+    Bundle 'git://github.com/tpope/vim-fugitive'
+
+    " Use my fork of https://bitbucket.org/ludovicchabant/vim-lawrencium
+    Bundle 'git://github.com/zeekay/vim-lawrencium'
+
+    if version > 700
+        " https://github.com/vim-scripts/VimClojure
+        Bundle 'git://github.com/vim-scripts/VimClojure'
+    endif
+
+    if version > 700 && has('python')
+        " ultisnips - https://github.com/rygwdn/ultisnips
+        Bundle 'git://github.com/rygwdn/ultisnips'
+
+        " vim-python - https://github.com/zeekay/vim-python
+        Bundle 'git://github.com/zeekay/vim-python'
+    endif
+
+    " pydoc.vim - https://github.com/fs111/pydoc.vim
+    " Bundle 'git://github.com/zeekay/pydoc.vim'
+
+    " vim-adv-python - https://github.com/zeekay/vim-adv-python
+    " Bundle 'git://github.com/zeekay/vim-adv-python'
+
+    " Use my fork of https://github.com/ivanov/vim-ipython
+    " Bundle 'git://github.com/zeekay/vim-ipython'
 
     " vim-surround - https://github.com/tpope/vim-surround
     " Bundle 'git://github.com/tpope/vim-surround'
@@ -39,88 +97,15 @@
 
     " SearchComplete - http://www.vim.org/scripts/script.php?script_id=474
     " Bundle 'SearchComplete'
-    "
-    " https://github.com/lvivski/vim-css-color.git
-    Bundle 'https://github.com/lvivski/vim-css-color.git'
 
-    if !has('win32unix')
-        " syntastic - https://github.com/scrooloose/syntastic
-        Bundle 'git://github.com/scrooloose/syntastic'
+    " http://repo.or.cz/w/vcscommand
+    " Bundle 'git://repo.or.cz/vcscommand'
 
-        " http://repo.or.cz/w/vcscommand
-        " Bundle 'git://repo.or.cz/vcscommand'
+    " vim-easymotion - https://github.com/Lokaltog/vim-easymotion
+    " Bundle 'git://github.com/Lokaltog/vim-easymotion'
 
-        " vim-easymotion - https://github.com/Lokaltog/vim-easymotion
-        " Bundle 'git://github.com/Lokaltog/vim-easymotion'
-
-        " https://github.com/juanpabloaj/help.vim
-        Bundle 'git://github.com/juanpabloaj/help.vim'
-
-        " vim-coffees-script - https://github.com/kchmck/vim-coffee-script
-        Bundle 'git://github.com/kchmck/vim-coffee-script'
-
-        " vim-jade - https://github.com/digitaltoad/vim-jade.git
-        Bundle 'git://github.com/digitaltoad/vim-jade'
-
-        " vim-stylus - https://github.com/wavded/vim-stylus.git
-        Bundle 'git://github.com/wavded/vim-stylus'
-
-        " vim-html - https://github.com/tpope/vim-haml
-        Bundle 'git://github.com/tpope/vim-haml'
-
-        " chapa.vim - https://github.com/alfredodeza/chapa.vim
-        " Bundle 'git://github.com/alfredodeza/chapa.vim'
-
-        " tabular - https://github.com/godlygeek/tabular
-        Bundle 'git://github.com/godlygeek/tabular'
-
-        " tagbar - https://github.com/majutsushi/tagbar
-        Bundle 'git://github.com/majutsushi/tagbar'
-
-        " gundo - https://github.com/sjl/gundo.vim
-        Bundle 'git://github.com/sjl/gundo.vim'
-
-        " threesome.vim - https://github.com/sjl/threesome.vim
-        " Bundle 'git://github.com/sjl/threesome.vim'
-
-        " current-func-info - https://github.com/tyru/current-func-info.vim
-        " Bundle 'tyru/current-func-info.vim'
-
-        " ropevim - https://github.com/gordyt/rope-vim
-        " Bundle 'gordyt/rope-vim'
-
-        " sparkup - https://github.com/rstacruz/sparkup
-        " Bundle 'rstacruz/sparkup'
-
-        " vim-fuzzee - https://github.com/mattsa/vim-fuzzee
-        " Bundle 'mattsa/vim-fuzzee'
-
-        " vim-fugitive - https://github.com/tpope/vim-fugitive
-        Bundle 'git://github.com/tpope/vim-fugitive'
-
-        " Use my fork of https://bitbucket.org/ludovicchabant/vim-lawrencium
-        Bundle 'git://github.com/zeekay/vim-lawrencium'
-
-        if version > 700
-            " https://github.com/vim-scripts/VimClojure
-            Bundle 'git://github.com/vim-scripts/VimClojure'
-            if has('python')
-                " ultisnips - https://github.com/rygwdn/ultisnips
-                Bundle 'git://github.com/rygwdn/ultisnips'
-
-                " pydoc.vim - https://github.com/fs111/pydoc.vim
-                " Bundle 'git://github.com/zeekay/pydoc.vim'
-
-                " " vim-adv-python - https://github.com/zeekay/vim-adv-python
-                " Bundle 'git://github.com/zeekay/vim-adv-python'
-
-                " if $VIM_USE_IPYTHON || has('gui_running')
-                "     " Use my fork of https://github.com/ivanov/vim-ipython
-                "     Bundle 'git://github.com/zeekay/vim-ipython'
-                " endif
-            endif
-        endif
-    endif
+    " chapa.vim - https://github.com/alfredodeza/chapa.vim
+    " Bundle 'git://github.com/alfredodeza/chapa.vim'
 " }
 
 " Basic/General Configuration {
@@ -461,7 +446,6 @@
     let g:python_highlight_all = 1
     let g:python_show_sync = 1
     " let g:python_print_as_function = 1
-    au FileType python source ~/.vim/ropevim.vim
     let ropevim_vim_completion=1
     let ropevim_extended_complete=1
     " if has('python')
