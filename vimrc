@@ -104,20 +104,25 @@
         if version > 700
             " https://github.com/vim-scripts/VimClojure
             Bundle 'git://github.com/vim-scripts/VimClojure'
+
             if has('python')
                 " ultisnips - https://github.com/rygwdn/ultisnips
                 Bundle 'git://github.com/rygwdn/ultisnips'
 
+                " https://github.com/klen/python-mode.git
+                Bundle 'git://github.com/klen/python-mode'
+
                 " pydoc.vim - https://github.com/fs111/pydoc.vim
                 " Bundle 'git://github.com/zeekay/pydoc.vim'
 
-                " vim-adv-python - https://github.com/zeekay/vim-adv-python
-                Bundle 'git://github.com/zeekay/vim-adv-python'
+                " " vim-adv-python - https://github.com/zeekay/vim-adv-python
+                " Bundle 'git://github.com/zeekay/vim-adv-python'
 
-                if $VIM_USE_IPYTHON || has('gui_running')
-                    " Use my fork of https://github.com/ivanov/vim-ipython
-                    Bundle 'git://github.com/zeekay/vim-ipython'
-                endif
+                " if $VIM_USE_IPYTHON || has('gui_running')
+                "     " Use my fork of https://github.com/ivanov/vim-ipython
+                "     Bundle 'git://github.com/ivanov/vim-ipython'
+                "     " Bundle 'git://github.com/zeekay/vim-ipython'
+                " endif
             endif
         endif
     endif
@@ -462,49 +467,49 @@
     let g:python_show_sync = 1
     " let g:python_print_as_function = 1
 
-    if has('python')
-        if $VIM_USE_IPYTHON || has('gui_running')
-            let g:ipy_perform_mappings = 0
-            function! s:IPythonAutoConnect()
-                if !exists('g:ipython_autoconnected')
-                    let g:ipython_autoconnected = 1
-                    " Try to connect to an IPython kernel
-                    IPython
-                endif
-            endfunction
+    " if has('python')
+    "     if $VIM_USE_IPYTHON || has('gui_running')
+    "         let g:ipy_perform_mappings = 0
+    "         function! s:IPythonAutoConnect()
+    "             if !exists('g:ipython_autoconnected')
+    "                 let g:ipython_autoconnected = 1
+    "                 " Try to connect to an IPython kernel
+    "                 IPython
+    "             endif
+    "         endfunction
 
-            au FileType python nnoremap <silent> <leader>rf :python run_this_file()<cr>
-            au FileType python nnoremap <silent> <leader>rl :python run_this_line()<CR>
-            au FileType python vnoremap <silent> <leader>r :python run_these_lines()<cr>
-            au FileType python nnoremap <silent> <leader>d :py get_doc_buffer()<cr>
-            au FileType python nnoremap <silent> <leader>ra :IPythonToggleSendOnSave<cr>
-            " au FileType python map gf :py get_filename()<cr>
-            au FileType python :call s:IPythonAutoConnect()
-        else
-            function! s:PythonToggleRunOnSave()
-                if !exists('s:ssos')
-                    let s:ssos = 1
-                endif
-                if s:ssos == 1
-                    au BufWritePost *.py :RunPythonBuffer<cr<>
-                    echo "Autorun On"
-                else
-                    au! BufWritePost *.py
-                    echo "Autorun Off"
-                endif
-                let s:ssos = !s:ssos
-            endfunction
-            command! PythonToggleRunOnSave :call s:PythonToggleRunOnSave()
+    "         au FileType python nnoremap <silent> <leader>rf :python run_this_file()<cr>
+    "         au FileType python nnoremap <silent> <leader>rl :python run_this_line()<CR>
+    "         au FileType python vnoremap <silent> <leader>r :python run_these_lines()<cr>
+    "         au FileType python nnoremap <silent> <leader>d :py get_doc_buffer()<cr>
+    "         au FileType python nnoremap <silent> <leader>ra :IPythonToggleSendOnSave<cr>
+    "         " au FileType python map gf :py get_filename()<cr>
+    "         au FileType python :call s:IPythonAutoConnect()
+    "     else
+    "         function! s:PythonToggleRunOnSave()
+    "             if !exists('s:ssos')
+    "                 let s:ssos = 1
+    "             endif
+    "             if s:ssos == 1
+    "                 au BufWritePost *.py :RunPythonBuffer<cr<>
+    "                 echo "Autorun On"
+    "             else
+    "                 au! BufWritePost *.py
+    "                 echo "Autorun Off"
+    "             endif
+    "             let s:ssos = !s:ssos
+    "         endfunction
+    "         command! PythonToggleRunOnSave :call s:PythonToggleRunOnSave()
 
-            let g:pydoc_open_cmd = 'vsplit'
-            let g:pydoc_perform_mappings = 0
-            let g:pydoc_highlight = 0
-            au FileType python nnoremap <silent> <leader>d :Pydoc <C-R>=expand("<cWORD>")<CR><CR>
-            au FileType python vnoremap <silent> <leader>r :py EvaluateCurrentRange()<cr>
-            au FileType python nnoremap <silent> <leader>rf :RunPythonBuffer<cr>
-            au FileType python nnoremap <silent> <leader>ra :PythonToggleRunOnSave<cr>
-        endif
-    endif
+    "         let g:pydoc_open_cmd = 'vsplit'
+    "         let g:pydoc_perform_mappings = 0
+    "         let g:pydoc_highlight = 0
+    "         au FileType python nnoremap <silent> <leader>d :Pydoc <C-R>=expand("<cWORD>")<CR><CR>
+    "         au FileType python vnoremap <silent> <leader>r :py EvaluateCurrentRange()<cr>
+    "         au FileType python nnoremap <silent> <leader>rf :RunPythonBuffer<cr>
+    "         au FileType python nnoremap <silent> <leader>ra :PythonToggleRunOnSave<cr>
+    "     endif
+    " endif
 " }
 
 " CoffeeScript {
