@@ -21,9 +21,9 @@ echo "...linking ~/.vimrc, ~/.gvimrc and ~/.vimpagerrc"
 rm ~/.vimrc
 rm ~/.gvimrc
 rm ~/.vimpagerrc
-ln -s $basedir ~/.vimrc
-ln -s $basedir ~/.gvimrc
-ln -s $basedir ~/.vimpagerrc
+ln -s $basedir/vimrc ~/.vimrc
+ln -s $basedir/gvimrc ~/.gvimrc
+ln -s $basedir/vimpagerrc ~/.vimpagerrc
 
 echo '...cloning vundle'
 
