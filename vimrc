@@ -506,6 +506,7 @@
         let fn = a:filename
         let res = system('/usr/local/bin/python ~/.bin/pasta ' . fn)
         echo res
+
         " botright new
         " setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nowrap
         " execute '$read !/usr/local/bin/python ~/.bin/pasta.py '. fn
