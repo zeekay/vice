@@ -255,7 +255,6 @@
             let macvim_hig_shift_movement = 1
             " let macvim_skip_cmd_opt_movement = 1
             set guifont=Dina-medium:h13
-            " set guifont=Inconsolata:h12
             " change dir to open file
             lcd %:p:h
             set linespace=1
@@ -272,9 +271,9 @@
         " gVim
         else
             " set guifont=MonteCarlo
-            " set guifont=Inconsolata\ 8
-            " set guifont=Andale\ Mono\ 8
-            " set guifont=Dejavu\ Sans\ Mono\ 8
+            set guifont=Inconsolata\ 11
+            " set guifont=Andale\ Mono\ 9
+            " set guifont=Dejavu\ Sans\ Mono\ 9
         endif
         " set fillchars=diff:⣿
         " set listchars=tab:▸\ ,eol:¬,extends:❯,precedes:❮
@@ -283,8 +282,8 @@
         set guioptions=ace
         " colorscheme molokai
         " colorscheme pyte
-        " colorscheme proton
-        " colorscheme molokai
+        colorscheme proton
+        " colorscheme solarized
     else
         set ttyfast
         colorscheme hornet
