@@ -73,8 +73,8 @@
         " ultisnips - https://github.com/rygwdn/ultisnips
         Bundle 'git://github.com/rygwdn/ultisnips'
 
-        " vim-python - https://github.com/zeekay/vim-python
-        Bundle 'git://github.com/zeekay/vim-python'
+        " vim-python - https://github.com/zeekay/vim-python-mode
+        Bundle 'git://github.com/zeekay/vim-python-mode'
     endif
 
     " pydoc.vim - https://github.com/fs111/pydoc.vim
@@ -150,9 +150,10 @@
     endif
     " Disable folding
     " set foldminlines=99999
+
     " Save and load view for each document, preserving cursor position
-    au BufWinLeave * silent! mkview
-    au BufWinEnter * silent! loadview
+    " au BufWinLeave * silent! mkview
+    " au BufWinEnter * silent! loadview
     " Center text
     au BufWinEnter * silent! normal zz
 " }
@@ -249,12 +250,14 @@
     " set fillchars+=vert:│
     set fillchars=
     if has("gui_running")
-        " MacVim
         if has('mac')
+            " MacVim
             set fuoptions=maxvert,maxhorz
             let macvim_hig_shift_movement = 1
-            " let macvim_skip_cmd_opt_movement = 1
-            set guifont=Dina-medium:h13
+            let macvim_skip_cmd_opt_movement = 1
+            " set guifont=Dina-medium:h13
+            " set guifont=Monaco:h12
+            set guifont=Inconsolata:h14
             " change dir to open file
             lcd %:p:h
             set linespace=1
@@ -268,13 +271,14 @@
             nnoremap <D-8> 8gt
             nnoremap <D-9> 9gt
             nnoremap <D-0> 10gt
-        " gVim
         else
+            " gVim
             " set guifont=MonteCarlo
             set guifont=Inconsolata\ 11
             " set guifont=Andale\ Mono\ 9
             " set guifont=Dejavu\ Sans\ Mono\ 9
         endif
+        " Gui Vim
         " set fillchars=diff:⣿
         " set listchars=tab:▸\ ,eol:¬,extends:❯,precedes:❮
         " set showbreak=↪
@@ -285,6 +289,7 @@
         colorscheme proton
         " colorscheme solarized
     else
+        " Console Vim
         set ttyfast
         colorscheme hornet
     endif
