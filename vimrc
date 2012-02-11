@@ -16,7 +16,7 @@
     " vim-repeat - https://github.com/tpope/vim-repeat
     Bundle 'git://github.com/tpope/vim-repeat'
     " vim-space - https://github.com/zeekay/vim-space
-    Bundle 'git://github.com/zeekay/vim-space'
+    Bundle 'git@github.com:zeekay/vim-space.git'
     " vim-commentary - https://github.com/tpope/vim-commentary
     Bundle 'git://github.com/tpope/vim-commentary'
     " https://github.com/juanpabloaj/help.vim
@@ -44,9 +44,9 @@
     " vim-fugitive - https://github.com/tpope/vim-fugitive
     Bundle 'git://github.com/tpope/vim-fugitive'
     " Use my fork of https://bitbucket.org/ludovicchabant/vim-lawrencium
-    Bundle 'git://github.com/zeekay/vim-lawrencium'
+    Bundle 'git@github.com:zeekay/vim-lawrencium.git'
     " vim-powerline - Use my fork of https://github.com/Lokaltog/vim-powerline
-    Bundle 'git://github.com/zeekay/vim-powerline'
+    Bundle 'git@github.com:zeekay/vim-powerline.git'
 
     if version > 700
         " https://github.com/vim-scripts/VimClojure
@@ -55,9 +55,9 @@
 
     if version > 700 && has('python')
         " vim-python - https://github.com/zeekay/vim-python-mode
-        Bundle 'git://github.com/zeekay/vim-python-mode'
+        Bundle 'git@github.com:zeekay/vim-python-mode.git'
         " vim-virtualenv - Use my fork of https://github.com/jmcantrell/vim-virtualenv.git
-        Bundle 'git://github.com/zeekay/vim-virtualenv'
+        Bundle 'git@github.com:zeekay/vim-virtualenv.git'
     endif
 " }
 
@@ -71,7 +71,7 @@
     " pydoc.vim - https://github.com/fs111/pydoc.vim
     " Bundle 'git://github.com/zeekay/pydoc.vim'
     " vim-adv-python - https://github.com/zeekay/vim-adv-python
-    " Bundle 'git://github.com/zeekay/vim-adv-python'
+    " Bundle 'git@github.com:zeekay/vim-adv-python.git'
     " Use my fork of https://github.com/ivanov/vim-ipython
     " Bundle 'git://github.com/zeekay/vim-ipython'
     " vim-surround - https://github.com/tpope/vim-surround
@@ -472,15 +472,16 @@
     " vim-virtualenv
     let g:virtualenv_directory = '~/ve'
     let g:virtualenv_stl_format = '%n'
-    " if $VIRTUAL_ENV
-    "     let g:virtualenv_auto_activate = 1
-    " endif
+    if $VIRTUAL_ENV
+        let g:virtualenv_auto_activate = 1
+    endif
     " Python highlighting
     let g:python_highlight_all = 1
     let g:python_show_sync = 1
     let g:python_print_as_function = 1
-    let ropevim_vim_completion = 1
-    let ropevim_extended_complete = 1
+    " let g:pythonmode_enable_rope = 1
+    " let ropevim_vim_completion = 1
+    " let ropevim_extended_complete = 1
 " }
 
 " CoffeeScript {
