@@ -29,8 +29,14 @@
     Bundle 'git://github.com/scrooloose/syntastic'
     " newcomplcache - https://github.com/Shougo/neocomplcache
     Bundle 'git://github.com/Shougo/neocomplcache'
+    " newcomplcache-clang - https://github.com/Shougo/neocomplcache-clang
+    Bundle 'git://github.com/Shougo/neocomplcache-clang'
     " newcomplcache-snippets-complete - https://github.com/Shougo/neocomplcache-snippets-complete
     Bundle 'git://github.com/Shougo/neocomplcache-snippets-complete'
+    " clang_complete - https://github.com/Rip-Rip/clang_complete
+    Bundle 'git://github.com/Rip-Rip/clang_complete'
+    " neocomplcache-clang_complete - https://github.com/osyo-manga/neocomplcache-clang_complete
+    Bundle 'git://github.com/osyo-manga/neocomplcache-clang_complete'
     " vim-coffees-script - https://github.com/kchmck/vim-coffee-script
     Bundle 'git://github.com/kchmck/vim-coffee-script'
     " vim-jade - https://github.com/digitaltoad/vim-jade.git
@@ -40,7 +46,7 @@
     " vim-html - https://github.com/tpope/vim-haml
     Bundle 'git://github.com/tpope/vim-haml'
     " https://github.com/lvivski/vim-css-color.git
-    Bundle 'https://github.com/lvivski/vim-css-color.git'
+    Bundle 'git://github.com/lvivski/vim-css-color.git'
     " vim-fugitive - https://github.com/tpope/vim-fugitive
     Bundle 'git://github.com/tpope/vim-fugitive'
     " Use my fork of https://bitbucket.org/ludovicchabant/vim-lawrencium
@@ -406,9 +412,23 @@
     " let g:tagbar_autoclose = 1
     let g:tagbar_autofocus = 1
     let g:tagbar_compact = 1
-    let g:tagbar_ctags_bin = '/usr/local/bin/ctags'
+    let g:tagbar_ctags_bin = 'ctags'
     let g:tagbar_expand = 1
-    " nnoremap <silent> <F12> :TagbarToggle<CR>
+    " if you want your tags to include vars/objects do:
+    " coffeetags --vim-conf --include-vars
+     let g:tagbar_type_coffee = {
+      \ 'kinds' : [
+      \   'f:functions',
+      \   'o:object'
+      \ ],
+      \ 'kind2scope' : {
+      \  'f' : 'object',
+      \   'o' : 'object'
+      \},
+      \ 'sro' : ".",
+      \ 'ctagsbin' : 'coffeetags',
+      \ 'ctagsargs' : ' ',
+      \}
 " }
 
 " vim-commentary {
