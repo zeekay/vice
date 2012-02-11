@@ -75,7 +75,16 @@
 
         " vim-python - https://github.com/zeekay/vim-python-mode
         Bundle 'git://github.com/zeekay/vim-python-mode'
+
+        " vim-virtualenv - https://github.com/jmcantrell/vim-virtualenv.git
+        Bundle 'git://github.com/jmcantrell/vim-virtualenv'
+
+        " rope-omni - https://github.com/rygwdn/rope-omni.git
+        Bundle 'git://github.com/rygwdn/rope-omni'
     endif
+
+    " vim-powerline - https://github.com/Lokaltog/vim-powerline
+    Bundle 'git://github.com/Lokaltog/vim-powerline'
 
     " pydoc.vim - https://github.com/fs111/pydoc.vim
     " Bundle 'git://github.com/zeekay/pydoc.vim'
@@ -194,55 +203,16 @@
 
 " Statusline {
     set laststatus=2
-    set statusline=\(%n\)\ %f\ %*%#Modified#%m\ (%l/%L,\ %c)\ %P%=%h%w\ %y\ [%{&encoding}:%{&fileformat}]
-    if !has('gui_running')
-        function! DynamicStatusLine(mode)
-            let statusline = ""
-            if a:mode == 'Enter'
-                let statusline .= "%#StatColor#"
-            endif
-            let statusline .= "\(%n\)\ %f\ "
-            if a:mode == 'Enter'
-                let statusline .= "%*"
-            endif
-            let statusline .= "%#Modified#%m"
-            if a:mode == 'Leave'
-                let statusline .= "%*%r"
-            elseif a:mode == 'Enter'
-                let statusline .= "%r%*"
-            endif
-            let statusline .= "\ (%l/%L,\ %c)\ %P%=%h%w\ %y\ [%{&encoding}:%{&fileformat}]\ \ "
-            return statusline
-        endfunction
-
-        au WinEnter * setlocal statusline=%!DynamicStatusLine('Enter')
-        au WinLeave * setlocal statusline=%!DynamicStatusLine('Leave')
-        inoremap <c-c> <c-o>:setlocal statusline=%!DynamicStatusLine('Leave')<cr><c-c>
-        set statusline=%!DynamicStatusLine('Enter')
-
-        function! InsertStatuslineColor(mode)
-          if a:mode == 'i'
-            hi StatColor ctermfg=230     ctermbg=238     cterm=none      guifg=#ffffff guibg=#404040   gui=none
-          elseif a:mode == 'r'
-            hi StatColor guibg=#e454ba ctermbg=magenta
-          elseif a:mode == 'v'
-            hi StatColor ctermbg=blue cterm=none guibg=#e454ba ctermbg=magenta
-          else
-            hi StatColor guibg=red ctermbg=red
-          endif
-        endfunction
-
-        au InsertEnter * call InsertStatuslineColor(v:insertmode)
-        au InsertLeave * hi StatColor ctermfg=230     ctermbg=235     cterm=none      guifg=#d3d3d5 guibg=#303030   gui=none
-    endif
 " }
 
-" Quickfix {
+" Quickfix / location list {
     au Filetype qf setl nolist
     au Filetype qf setl nocursorline
     au Filetype qf setl nowrap
     nnoremap ]q :cnext<cr>
     nnoremap [q :cprevious<cr>
+    nnoremap ]l :lnext<cr>
+    nnoremap [l :lprevious<cr>
 
 " }
 
@@ -284,10 +254,10 @@
         " set showbreak=↪
         set mouse=a
         set guioptions=ace
-        " colorscheme molokai
+        colorscheme molokai
         " colorscheme pyte
-        colorscheme proton
         " colorscheme solarized
+        " colorscheme proton
     else
         " Console Vim
         set ttyfast
@@ -412,6 +382,8 @@
     let g:syntastic_python_checker = 'flake8 --ignore=E221,E225,E231,E251,E302,E303,W391,E501,E702'
     let g:syntastic_javascript_checker = 'jslint'
     let g:syntastic_enable_highlighting = 0
+    let g:syntastic_stl_format = '⚡ %E{Err: %fe #%e}%B{, }%W{Warn: %fw #%w} ⚡'
+
 " }
 
 " UltiSnips {
@@ -453,55 +425,18 @@
 " }
 
 " Python {
+    " vim-virtualenv
+    let g:virtualenv_directory = '~/ve'
+    let g:virtualenv_stl_format = '%n'
+    if $VIRTUAL_ENV
+        let g:virtualenv_auto_activate = 1
+    endif
     " Python highlighting
     let g:python_highlight_all = 1
     let g:python_show_sync = 1
-    " let g:python_print_as_function = 1
-    let ropevim_vim_completion=1
-    let ropevim_extended_complete=1
-    " if has('python')
-    "     if $VIM_USE_IPYTHON || has('gui_running')
-    "         let g:ipy_perform_mappings = 0
-    "         function! s:IPythonAutoConnect()
-    "             if !exists('g:ipython_autoconnected')
-    "                 let g:ipython_autoconnected = 1
-    "                 " Try to connect to an IPython kernel
-    "                 IPython
-    "             endif
-    "         endfunction
-
-    "         au FileType python nnoremap <silent> <leader>rf :python run_this_file()<cr>
-    "         au FileType python nnoremap <silent> <leader>rl :python run_this_line()<CR>
-    "         au FileType python vnoremap <silent> <leader>r :python run_these_lines()<cr>
-    "         au FileType python nnoremap <silent> <leader>d :py get_doc_buffer()<cr>
-    "         au FileType python nnoremap <silent> <leader>ra :IPythonToggleSendOnSave<cr>
-    "         " au FileType python map gf :py get_filename()<cr>
-    "         au FileType python :call s:IPythonAutoConnect()
-    "     else
-    "         function! s:PythonToggleRunOnSave()
-    "             if !exists('s:ssos')
-    "                 let s:ssos = 1
-    "             endif
-    "             if s:ssos == 1
-    "                 au BufWritePost *.py :RunPythonBuffer<cr<>
-    "                 echo "Autorun On"
-    "             else
-    "                 au! BufWritePost *.py
-    "                 echo "Autorun Off"
-    "             endif
-    "             let s:ssos = !s:ssos
-    "         endfunction
-    "         command! PythonToggleRunOnSave :call s:PythonToggleRunOnSave()
-
-    "         let g:pydoc_open_cmd = 'vsplit'
-    "         let g:pydoc_perform_mappings = 0
-    "         let g:pydoc_highlight = 0
-    "         au FileType python nnoremap <silent> <leader>d :Pydoc <C-R>=expand("<cWORD>")<CR><CR>
-    "         au FileType python vnoremap <silent> <leader>r :py EvaluateCurrentRange()<cr>
-    "         au FileType python nnoremap <silent> <leader>rf :RunPythonBuffer<cr>
-    "         au FileType python nnoremap <silent> <leader>ra :PythonToggleRunOnSave<cr>
-    "     endif
-    " endif
+    let g:python_print_as_function = 1
+    let ropevim_vim_completion = 1
+    let ropevim_extended_complete = 1
 " }
 
 " CoffeeScript {
