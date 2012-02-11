@@ -9,134 +9,42 @@
 
     " vundle - https://github.com/gmarik/vundle
     Bundle 'git://github.com/gmarik/vundle'
-
     " ctrlp - https://github.com/kien/ctrlp.vim
     Bundle 'git://github.com/kien/ctrlp.vim'
-
     " ack.vim - https://github.com/mileszs/ack.vim
     Bundle 'git://github.com/mileszs/ack.vim'
-
     " vim-repeat - https://github.com/tpope/vim-repeat
     Bundle 'git://github.com/tpope/vim-repeat'
-
     " vim-space - https://github.com/zeekay/vim-space
     Bundle 'git://github.com/zeekay/vim-space'
-
     " vim-commentary - https://github.com/tpope/vim-commentary
     Bundle 'git://github.com/tpope/vim-commentary'
-
     " https://github.com/juanpabloaj/help.vim
     Bundle 'git://github.com/juanpabloaj/help.vim'
-
-    " tabular - https://github.com/godlygeek/tabular
-    " Bundle 'git://github.com/godlygeek/tabular'
-
     " tagbar - https://github.com/majutsushi/tagbar
     Bundle 'git://github.com/majutsushi/tagbar'
-
     " gundo - https://github.com/sjl/gundo.vim
     Bundle 'git://github.com/sjl/gundo.vim'
-
-    " supertab - https://github.com/ervandew/supertab
-    " Bundle 'git://github.com/ervandew/supertab'
-
     " syntastic - https://github.com/scrooloose/syntastic
     Bundle 'git://github.com/scrooloose/syntastic'
-
-    " newcomplcache - https://github.com/Shougo/neocomplcache.git {
-        Bundle 'git://github.com/Shougo/neocomplcache'
-        Bundle 'git://github.com/Shougo/neocomplcache-snippets-complete'
-
-        " Disable AutoComplPop.
-        let g:acp_enableAtStartup = 0
-        " Use neocomplcache.
-        let g:neocomplcache_enable_at_startup = 1
-        " Use smartcase.
-        let g:neocomplcache_enable_smart_case = 1
-        " Use camel case completion.
-        let g:neocomplcache_enable_camel_case_completion = 1
-        " Use underbar completion.
-        let g:neocomplcache_enable_underbar_completion = 1
-        " Set minimum syntax keyword length.
-        let g:neocomplcache_min_syntax_length = 3
-        let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
-
-        " Define dictionary.
-        let g:neocomplcache_dictionary_filetype_lists = {
-            \ 'default' : '',
-            \ 'vimshell' : $HOME.'/.vimshell_hist',
-            \ 'scheme' : $HOME.'/.gosh_completions'
-            \ }
-
-        " Define keyword.
-        if !exists('g:neocomplcache_keyword_patterns')
-          let g:neocomplcache_keyword_patterns = {}
-        endif
-        let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
-
-        " Plugin key-mappings.
-        imap <C-s>     <Plug>(neocomplcache_snippets_expand)
-        smap <C-s>     <Plug>(neocomplcache_snippets_expand)
-        inoremap <expr><C-g>     neocomplcache#undo_completion()
-        inoremap <expr><C-l>     neocomplcache#complete_common_string()
-
-        " SuperTab like snippets behavior.
-        imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ?
-                         \ "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>"
-
-        " Recommended key-mappings.
-        " <CR>: close popup and save indent.
-        inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
-        " <TAB>: completion.
-        inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-        " <C-h>, <BS>: close popup and delete backword char.
-        inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
-        inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
-        inoremap <expr><C-y>  neocomplcache#close_popup()
-        inoremap <expr><C-e>  neocomplcache#cancel_popup()
-
-        " AutoComplPop like behavior.
-        " let g:neocomplcache_enable_auto_select = 1
-
-        " Shell like behavior(not recommended).
-        " set completeopt+=longest
-        " let g:neocomplcache_enable_auto_select = 1
-        " let g:neocomplcache_disable_auto_complete = 1
-        " inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<TAB>"
-        " inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
-
-        " Enable heavy omni completion.
-        if !exists('g:neocomplcache_omni_patterns')
-          let g:neocomplcache_omni_patterns = {}
-        endif
-        let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
-        "autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
-        let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-        let g:neocomplcache_omni_patterns.c = '\%(\.\|->\)\h\w*'
-        let g:neocomplcache_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
-    " }
-
+    " newcomplcache - https://github.com/Shougo/neocomplcache
+    Bundle 'git://github.com/Shougo/neocomplcache'
+    " newcomplcache-snippets-complete - https://github.com/Shougo/neocomplcache-snippets-complete
+    Bundle 'git://github.com/Shougo/neocomplcache-snippets-complete'
     " vim-coffees-script - https://github.com/kchmck/vim-coffee-script
     Bundle 'git://github.com/kchmck/vim-coffee-script'
-
     " vim-jade - https://github.com/digitaltoad/vim-jade.git
     Bundle 'git://github.com/digitaltoad/vim-jade'
-
     " vim-stylus - https://github.com/wavded/vim-stylus.git
     Bundle 'git://github.com/wavded/vim-stylus'
-
     " vim-html - https://github.com/tpope/vim-haml
     Bundle 'git://github.com/tpope/vim-haml'
-
     " https://github.com/lvivski/vim-css-color.git
     Bundle 'https://github.com/lvivski/vim-css-color.git'
-
     " vim-fugitive - https://github.com/tpope/vim-fugitive
     Bundle 'git://github.com/tpope/vim-fugitive'
-
     " Use my fork of https://bitbucket.org/ludovicchabant/vim-lawrencium
     Bundle 'git://github.com/zeekay/vim-lawrencium'
-
     " vim-powerline - Use my fork of https://github.com/Lokaltog/vim-powerline
     Bundle 'git://github.com/zeekay/vim-powerline'
 
@@ -146,48 +54,42 @@
     endif
 
     if version > 700 && has('python')
-        " ultisnips - https://github.com/rygwdn/ultisnips
-        " Bundle 'git://github.com/rygwdn/ultisnips'
-
         " vim-python - https://github.com/zeekay/vim-python-mode
         Bundle 'git://github.com/zeekay/vim-python-mode'
-
         " vim-virtualenv - Use my fork of https://github.com/jmcantrell/vim-virtualenv.git
         Bundle 'git://github.com/zeekay/vim-virtualenv'
-
-        " rope-omni - https://github.com/rygwdn/rope-omni.git
-        " Bundle 'git://github.com/rygwdn/rope-omni'
     endif
+" }
 
+" Disabled bundles {
+    " supertab - https://github.com/ervandew/supertab
+    " Bundle 'git://github.com/ervandew/supertab'
+    " ultisnips - https://github.com/rygwdn/ultisnips
+    " Bundle 'git://github.com/rygwdn/ultisnips'
+    " rope-omni - https://github.com/rygwdn/rope-omni.git
+    " Bundle 'git://github.com/rygwdn/rope-omni'
     " pydoc.vim - https://github.com/fs111/pydoc.vim
     " Bundle 'git://github.com/zeekay/pydoc.vim'
-
     " vim-adv-python - https://github.com/zeekay/vim-adv-python
     " Bundle 'git://github.com/zeekay/vim-adv-python'
-
     " Use my fork of https://github.com/ivanov/vim-ipython
     " Bundle 'git://github.com/zeekay/vim-ipython'
-
     " vim-surround - https://github.com/tpope/vim-surround
     " Bundle 'git://github.com/tpope/vim-surround'
-
     " delimitMate - https://github.com/Raimondi/delimitMate
     " Bundle 'git://github.com/Raimondi/delimitMate'
-
     " AutoCloseTag - https://github.com/zeekay/vim-autoclose
     " Bundle 'git://github.com/zeekay/vim-autoclose'
-
     " SearchComplete - http://www.vim.org/scripts/script.php?script_id=474
     " Bundle 'SearchComplete'
-
     " http://repo.or.cz/w/vcscommand
     " Bundle 'git://repo.or.cz/vcscommand'
-
     " vim-easymotion - https://github.com/Lokaltog/vim-easymotion
     " Bundle 'git://github.com/Lokaltog/vim-easymotion'
-
     " chapa.vim - https://github.com/alfredodeza/chapa.vim
     " Bundle 'git://github.com/alfredodeza/chapa.vim'
+    " tabular - https://github.com/godlygeek/tabular
+    " Bundle 'git://github.com/godlygeek/tabular'
 " }
 
 " Basic/General Configuration {
@@ -372,6 +274,76 @@
     let g:netrw_list_hide='\.swp$,\.pyc$,\.pyo$,^\.hg$,^\$,^\.svn$,^\.o$,.Trash,.DS_Store,.CFUserTextEncoding'
 " }
 
+" neocomplcache {
+    " Disable AutoComplPop.
+    let g:acp_enableAtStartup = 0
+    " Use neocomplcache.
+    let g:neocomplcache_enable_at_startup = 1
+    " Use smartcase.
+    let g:neocomplcache_enable_smart_case = 1
+    " Use camel case completion.
+    let g:neocomplcache_enable_camel_case_completion = 1
+    " Use underbar completion.
+    let g:neocomplcache_enable_underbar_completion = 1
+    " Set minimum syntax keyword length.
+    let g:neocomplcache_min_syntax_length = 3
+    let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
+
+    " Define dictionary.
+    let g:neocomplcache_dictionary_filetype_lists = {
+        \ 'default' : '',
+        \ 'vimshell' : $HOME.'/.vimshell_hist',
+        \ 'scheme' : $HOME.'/.gosh_completions'
+        \ }
+
+    " Define keyword.
+    if !exists('g:neocomplcache_keyword_patterns')
+      let g:neocomplcache_keyword_patterns = {}
+    endif
+    let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
+
+    " Plugin key-mappings.
+    imap <C-s>     <Plug>(neocomplcache_snippets_expand)
+    smap <C-s>     <Plug>(neocomplcache_snippets_expand)
+    inoremap <expr><C-g>     neocomplcache#undo_completion()
+    inoremap <expr><C-l>     neocomplcache#complete_common_string()
+
+    " SuperTab like snippets behavior.
+    imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ?
+                     \ "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>"
+
+    " Recommended key-mappings.
+    " <CR>: close popup and save indent.
+    inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
+    " <TAB>: completion.
+    inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+    " <C-h>, <BS>: close popup and delete backword char.
+    inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
+    inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
+    inoremap <expr><C-y>  neocomplcache#close_popup()
+    inoremap <expr><C-e>  neocomplcache#cancel_popup()
+
+    " AutoComplPop like behavior.
+    " let g:neocomplcache_enable_auto_select = 1
+
+    " Shell like behavior(not recommended).
+    " set completeopt+=longest
+    " let g:neocomplcache_enable_auto_select = 1
+    " let g:neocomplcache_disable_auto_complete = 1
+    " inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<TAB>"
+    " inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
+
+    " Enable heavy omni completion.
+    if !exists('g:neocomplcache_omni_patterns')
+      let g:neocomplcache_omni_patterns = {}
+    endif
+    let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
+    "autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
+    let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+    let g:neocomplcache_omni_patterns.c = '\%(\.\|->\)\h\w*'
+    let g:neocomplcache_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
+" }
+
 " Ack.vim {
     let g:ackprg="ack -H --nocolor --nogroup --column"
 
@@ -456,7 +428,6 @@
     let g:syntastic_javascript_checker = 'jslint'
     let g:syntastic_enable_highlighting = 0
     let g:syntastic_stl_format = '⚡ %E{Err: %fe #%e}%B{, }%W{Warn: %fw #%w} ⚡'
-
 " }
 
 " UltiSnips {
@@ -525,11 +496,6 @@
         let fn = a:filename
         let res = system('/usr/local/bin/python ~/.bin/pasta ' . fn)
         echo res
-
-        " botright new
-        " setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nowrap
-        " execute '$read !/usr/local/bin/python ~/.bin/pasta.py '. fn
-        " setlocal nomodifiable
     endfunction
     command! Pasta call s:MakePasta(expand("%"))
 " }
