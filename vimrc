@@ -28,11 +28,11 @@
     " syntastic - https://github.com/scrooloose/syntastic
     Bundle 'git://github.com/scrooloose/syntastic'
     " newcomplcache - https://github.com/Shougo/neocomplcache
-    Bundle 'git://github.com/Shougo/neocomplcache'
+        Bundle 'git://github.com/Shougo/neocomplcache'
     " newcomplcache-clang - https://github.com/Shougo/neocomplcache-clang
     Bundle 'git://github.com/Shougo/neocomplcache-clang'
     " newcomplcache-snippets-complete - https://github.com/Shougo/neocomplcache-snippets-complete
-    Bundle 'git://github.com/Shougo/neocomplcache-snippets-complete'
+        Bundle 'git://github.com/Shougo/neocomplcache-snippets-complete'
     " clang_complete - https://github.com/Rip-Rip/clang_complete
     Bundle 'git://github.com/Rip-Rip/clang_complete'
     " neocomplcache-clang_complete - https://github.com/osyo-manga/neocomplcache-clang_complete
@@ -140,12 +140,11 @@
     endif
     " Disable folding
     " set foldminlines=99999
-
     " Save and load view for each document, preserving cursor position
     " au BufWinLeave * silent! mkview
     " au BufWinEnter * silent! loadview
     " Center text
-    au BufWinEnter * silent! normal zz
+    " au BufWinEnter * silent! normal zz
 " }
 
 " Indent {
@@ -194,7 +193,6 @@
     nnoremap [q :cprevious<cr>
     nnoremap ]l :lnext<cr>
     nnoremap [l :lprevious<cr>
-
 " }
 
 " Colors/Gui {
@@ -278,76 +276,6 @@
     " long listing style
     let g:netrw_liststyle = 1
     let g:netrw_list_hide='\.swp$,\.pyc$,\.pyo$,^\.hg$,^\$,^\.svn$,^\.o$,.Trash,.DS_Store,.CFUserTextEncoding'
-" }
-
-" neocomplcache {
-    " Disable AutoComplPop.
-    let g:acp_enableAtStartup = 0
-    " Use neocomplcache.
-    let g:neocomplcache_enable_at_startup = 1
-    " Use smartcase.
-    let g:neocomplcache_enable_smart_case = 1
-    " Use camel case completion.
-    let g:neocomplcache_enable_camel_case_completion = 1
-    " Use underbar completion.
-    let g:neocomplcache_enable_underbar_completion = 1
-    " Set minimum syntax keyword length.
-    let g:neocomplcache_min_syntax_length = 3
-    let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
-
-    " Define dictionary.
-    let g:neocomplcache_dictionary_filetype_lists = {
-        \ 'default' : '',
-        \ 'vimshell' : $HOME.'/.vimshell_hist',
-        \ 'scheme' : $HOME.'/.gosh_completions'
-        \ }
-
-    " Define keyword.
-    if !exists('g:neocomplcache_keyword_patterns')
-      let g:neocomplcache_keyword_patterns = {}
-    endif
-    let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
-
-    " Plugin key-mappings.
-    imap <C-s>     <Plug>(neocomplcache_snippets_expand)
-    smap <C-s>     <Plug>(neocomplcache_snippets_expand)
-    inoremap <expr><C-g>     neocomplcache#undo_completion()
-    inoremap <expr><C-l>     neocomplcache#complete_common_string()
-
-    " SuperTab like snippets behavior.
-    imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ?
-                     \ "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>"
-
-    " Recommended key-mappings.
-    " <CR>: close popup and save indent.
-    inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
-    " <TAB>: completion.
-    inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-    " <C-h>, <BS>: close popup and delete backword char.
-    inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
-    inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
-    inoremap <expr><C-y>  neocomplcache#close_popup()
-    inoremap <expr><C-e>  neocomplcache#cancel_popup()
-
-    " AutoComplPop like behavior.
-    " let g:neocomplcache_enable_auto_select = 1
-
-    " Shell like behavior(not recommended).
-    " set completeopt+=longest
-    " let g:neocomplcache_enable_auto_select = 1
-    " let g:neocomplcache_disable_auto_complete = 1
-    " inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<TAB>"
-    " inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
-
-    " Enable heavy omni completion.
-    if !exists('g:neocomplcache_omni_patterns')
-      let g:neocomplcache_omni_patterns = {}
-    endif
-    let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
-    "autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
-    let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-    let g:neocomplcache_omni_patterns.c = '\%(\.\|->\)\h\w*'
-    let g:neocomplcache_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
 " }
 
 " Ack.vim {
@@ -489,7 +417,6 @@
 " }
 
 " Python {
-    " vim-virtualenv
     let g:virtualenv_directory = '~/ve'
     let g:virtualenv_stl_format = '%n'
     if $VIRTUAL_ENV
@@ -502,10 +429,11 @@
     " let g:pythonmode_enable_rope = 1
     " let ropevim_vim_completion = 1
     " let ropevim_extended_complete = 1
+    au FileType python setlocal foldmethod=syntax
 " }
 
 " CoffeeScript {
-    au Filetype coffee setl foldmethod=indent nofoldenable
+    au Filetype coffee setlocal foldmethod=indent nofoldenable
     au FileType coffee map <leader>r :CoffeeRun<cr>
     au FileType coffee map <leader>c :CoffeeCompile watch vertical<cr>
     au FileType coffee imap <leader>r <c-o>:CoffeeRun<cr>
