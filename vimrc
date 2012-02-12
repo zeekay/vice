@@ -555,6 +555,10 @@
     inoremap OD <nop>
     inoremap OC <nop>
 
+    " However they hate gj and gk!
+    nnoremap j gj
+    nnoremap k gk
+
     " prevent cursor from moving when leavng insert mode
     inoremap <Esc> <Esc>`^
 
