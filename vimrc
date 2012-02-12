@@ -28,11 +28,11 @@
     " syntastic - https://github.com/scrooloose/syntastic
     Bundle 'git://github.com/scrooloose/syntastic'
     " newcomplcache - https://github.com/Shougo/neocomplcache
-        Bundle 'git://github.com/Shougo/neocomplcache'
+    Bundle 'git://github.com/Shougo/neocomplcache'
     " newcomplcache-clang - https://github.com/Shougo/neocomplcache-clang
     Bundle 'git://github.com/Shougo/neocomplcache-clang'
     " newcomplcache-snippets-complete - https://github.com/Shougo/neocomplcache-snippets-complete
-        Bundle 'git://github.com/Shougo/neocomplcache-snippets-complete'
+    Bundle 'git://github.com/Shougo/neocomplcache-snippets-complete'
     " clang_complete - https://github.com/Rip-Rip/clang_complete
     Bundle 'git://github.com/Rip-Rip/clang_complete'
     " neocomplcache-clang_complete - https://github.com/osyo-manga/neocomplcache-clang_complete
