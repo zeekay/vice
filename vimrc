@@ -61,7 +61,7 @@
     endif
 
     if version > 700 && has('python')
-        " vim-python - https://github.com/zeekay/vim-python-mode
+        " vim-python-mode - https://github.com/zeekay/vim-python-mode
         Bundle 'git@github.com:zeekay/vim-python-mode.git'
     endif
 " }}}
@@ -496,8 +496,6 @@
 
 " Python {{{
     let g:virtualenv_directory = '~/ve'
-    let g:virtualenv_stl_format = '%n'
-    " Python highlighting
     let g:python_highlight_all = 1
     let g:python_show_sync = 1
     let g:python_print_as_function = 1
