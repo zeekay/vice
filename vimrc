@@ -191,7 +191,7 @@
     nnoremap [q :cprevious<cr>
     nnoremap ]l :lnext<cr>
     nnoremap [l :lprevious<cr>
-" }}}}}
+" }}}
 
 " Colors/Gui {{{
     " set fillchars+=vert:│
@@ -239,7 +239,7 @@
         " colorscheme proton
         " }}}
     else
-        " Console Vim {{{
+        " Console {{{
         set ttyfast
         colorscheme hornet
         " }}}
@@ -257,7 +257,7 @@
         au InsertEnter * set timeout
         au InsertLeave * set notimeout
     augroup END
-" }}}}}
+" }}}
 
 " Remove Trailing Whitespace {{{
     function! s:StripTrailingWhitespace()
@@ -268,7 +268,7 @@
         normal `Z
     endfunction
     au FileType * au BufWritePre <buffer> :silent! call <SID>StripTrailingWhitespace()`
-" }}}}}
+" }}}
 
 " Netrw {{{
     let g:netrw_silent = 1
@@ -528,8 +528,8 @@
     command! Pasta call s:MakePasta(expand("%"))
 " }}}
 
-" Toggle scrollbind {{{
-    function! s:ScrollBindToggle()
+" Scrollbind Toggle {{{
+    function! s:ScrollbindToggle()
         set scrollbind!
         " switch to other window
         wincmd w
@@ -537,27 +537,14 @@
         " switch back
         wincmd w
     endfunction
-    command! ScrollBindToggle call s:ScrollBindToggle()
-" }}}
-
-" Toggle Explore {{{
-    let g:ExploreToggled = 0
-    function! s:ExploreToggle()
-        if g:ExploreToggled
-            :bp
-        else
-            Explore
-        endif
-        let g:ExploreToggled = !g:ExploreToggled
-    endfunction
-    command! ExploreToggle call s:ExploreToggle()
+    command! ScrollbindToggle call s:ScrollbindToggle()
 " }}}
 
 " Commands {{{
     command! Sudowrite :execute ':silent w !sudo tee % > /dev/null' | :edit!
 " }}}
 
-" Mappings {{{
+" Mapping {{{
     " Real men don't use arrow keys!
     noremap <up> <nop>
     noremap <down> <nop>
@@ -670,4 +657,4 @@
     endif
 " }}}
 
-" vim: fdm=marker foldmarker={,} foldlevel=1 nofoldenable
+" vim: fdm=marker foldlevel=1 nofoldenable
