@@ -1,4 +1,4 @@
-" Author: Zach Kelling - http://twitter.com/zeekay
+" Author: Zach Kelling
 " Source: https://bitbucket.org/zeekay/dot-vim / https://github.com/zeekay/dot-vim
 
 " Vundle {{{
