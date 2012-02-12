@@ -63,8 +63,6 @@
     if version > 700 && has('python')
         " vim-python - https://github.com/zeekay/vim-python-mode
         Bundle 'git@github.com:zeekay/vim-python-mode.git'
-        " vim-virtualenv - Fork of https://github.com/jmcantrell/vim-virtualenv.git
-        Bundle 'git@github.com:zeekay/vim-virtualenv.git'
     endif
 " }}}
 
@@ -498,9 +496,6 @@
 " Python {{{
     let g:virtualenv_directory = '~/ve'
     let g:virtualenv_stl_format = '%n'
-    if $VIRTUAL_ENV
-        let g:virtualenv_auto_activate = 1
-    endif
     " Python highlighting
     let g:python_highlight_all = 1
     let g:python_show_sync = 1
