@@ -1,6 +1,7 @@
-" Source: https://bitbucket.org/zeekay/dot-vim or https://github.com/zeekay/dot-vim
+" Author: Zach Kelling
+" Source: https://bitbucket.org/zeekay/dot-vim / https://github.com/zeekay/dot-vim
 
-" Vundle {
+" Vundle {{{
     set nocompatible
     filetype off
 
@@ -15,8 +16,6 @@
     Bundle 'git://github.com/mileszs/ack.vim'
     " vim-repeat - https://github.com/tpope/vim-repeat
     Bundle 'git://github.com/tpope/vim-repeat'
-    " vim-space - https://github.com/zeekay/vim-space
-    Bundle 'git@github.com:zeekay/vim-space.git'
     " vim-commentary - https://github.com/tpope/vim-commentary
     Bundle 'git://github.com/tpope/vim-commentary'
     " https://github.com/juanpabloaj/help.vim
@@ -49,10 +48,12 @@
     Bundle 'git://github.com/lvivski/vim-css-color.git'
     " vim-fugitive - https://github.com/tpope/vim-fugitive
     Bundle 'git://github.com/tpope/vim-fugitive'
-    " Use my fork of https://bitbucket.org/ludovicchabant/vim-lawrencium
+    " vim-lawrencium - Fork of https://bitbucket.org/ludovicchabant/vim-lawrencium
     Bundle 'git@github.com:zeekay/vim-lawrencium.git'
-    " vim-powerline - Use my fork of https://github.com/Lokaltog/vim-powerline
+    " vim-powerline - Fork of https://github.com/Lokaltog/vim-powerline
     Bundle 'git@github.com:zeekay/vim-powerline.git'
+    " vim-space - Fork of https://github.com/spiiph/vim-space
+    Bundle 'git@github.com:zeekay/vim-space.git'
 
     if version > 700
         " https://github.com/vim-scripts/VimClojure
@@ -62,43 +63,39 @@
     if version > 700 && has('python')
         " vim-python - https://github.com/zeekay/vim-python-mode
         Bundle 'git@github.com:zeekay/vim-python-mode.git'
-        " vim-virtualenv - Use my fork of https://github.com/jmcantrell/vim-virtualenv.git
+        " vim-virtualenv - Fork of https://github.com/jmcantrell/vim-virtualenv.git
         Bundle 'git@github.com:zeekay/vim-virtualenv.git'
     endif
-" }
+" }}}
 
-" Disabled bundles {
+" Disabled bundles {{{
+    " vim-ipython - Fork of https://github.com/ivanov/vim-ipython
+    " Bundle 'git://github.com/zeekay/vim-ipython'
+    " rope-omni - https://github.com/rygwdn/rope-omni.git
+    " Bundle 'git://github.com/rygwdn/rope-omni'
     " supertab - https://github.com/ervandew/supertab
     " Bundle 'git://github.com/ervandew/supertab'
     " ultisnips - https://github.com/rygwdn/ultisnips
     " Bundle 'git://github.com/rygwdn/ultisnips'
-    " rope-omni - https://github.com/rygwdn/rope-omni.git
-    " Bundle 'git://github.com/rygwdn/rope-omni'
-    " pydoc.vim - https://github.com/fs111/pydoc.vim
-    " Bundle 'git://github.com/zeekay/pydoc.vim'
-    " vim-adv-python - https://github.com/zeekay/vim-adv-python
-    " Bundle 'git@github.com:zeekay/vim-adv-python.git'
-    " Use my fork of https://github.com/ivanov/vim-ipython
-    " Bundle 'git://github.com/zeekay/vim-ipython'
+    " pydoc.vim - Fork of https://github.com/fs111/pydoc.vim
+    " Bundle 'git@github.com:zeekay/pydoc.vim'
     " vim-surround - https://github.com/tpope/vim-surround
     " Bundle 'git://github.com/tpope/vim-surround'
-    " delimitMate - https://github.com/Raimondi/delimitMate
-    " Bundle 'git://github.com/Raimondi/delimitMate'
-    " AutoCloseTag - https://github.com/zeekay/vim-autoclose
-    " Bundle 'git://github.com/zeekay/vim-autoclose'
-    " SearchComplete - http://www.vim.org/scripts/script.php?script_id=474
-    " Bundle 'SearchComplete'
-    " http://repo.or.cz/w/vcscommand
-    " Bundle 'git://repo.or.cz/vcscommand'
     " vim-easymotion - https://github.com/Lokaltog/vim-easymotion
     " Bundle 'git://github.com/Lokaltog/vim-easymotion'
     " chapa.vim - https://github.com/alfredodeza/chapa.vim
     " Bundle 'git://github.com/alfredodeza/chapa.vim'
     " tabular - https://github.com/godlygeek/tabular
     " Bundle 'git://github.com/godlygeek/tabular'
-" }
+    " delimitMate - https://github.com/Raimondi/delimitMate
+    " Bundle 'git://github.com/Raimondi/delimitMate'
+    " AutoCloseTag - https://github.com/zeekay/vim-autoclose
+    " Bundle 'git@github.com:zeekay/vim-autoclose'
+    " SearchComplete - http://www.vim.org/scripts/script.php?script_id=474
+    " Bundle 'SearchComplete'
+" }}}
 
-" Basic/General Configuration {
+" Basic/General Configuration {{{
     syntax on
     filetype plugin indent on
     set directory=~/.vim/tmp/swap
@@ -140,37 +137,36 @@
     endif
     " Disable folding
     " set foldminlines=99999
-
     " Save and load view for each document, preserving cursor position
     " au BufWinLeave * silent! mkview
     " au BufWinEnter * silent! loadview
     " Center text
-    au BufWinEnter * silent! normal zz
-" }
+    " au BufWinEnter * silent! normal zz
+" }}}
 
-" Indent {
+" Indent {{{
     set tabstop=4
     set shiftwidth=4
     set expandtab
     set smarttab
     set smartindent
     au FileType coffee,javascript,xml,xhtml,html,htmldjango,haml set shiftwidth=2
-" }
+" }}}
 
-" Search/Highlight {
+" Search/Highlight {{{
     set showmatch
     set incsearch
     set ignorecase
-" }
+" }}}
 
-" Menu/Complete {
+" Menu/Complete {{{
     set wildmenu
     set wildmode=list:longest,full
     set wildignore=*.o,*.obj,*.bak,*.exe,*.aux,*.dvi,*.dll,*.pyc,*.pyo,*.zwc,*.zwc.old
     set completeopt=menuone,menu,longest
-" }
+" }}}
 
-" Enable omnicomplete {
+" Enable omnicomplete {{{
     au FileType python setlocal omnifunc=pythoncomplete#Complete
     au FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
     au FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
@@ -180,13 +176,14 @@
     au FileType c setlocal omnifunc=ccomplete#Complete
     au FileType cpp setlocal omnifunc=omni#cpp#complete#Main
     au FileType ruby,eruby setlocal omnifunc=rubycomplete#Complete
-" }
 
-" Statusline {
+" }}}
+
+" Statusline {{{
     set laststatus=2
-" }
+" }}}
 
-" Quickfix / location list {
+" Quickfix / location list {{{
     au Filetype qf setl nolist
     au Filetype qf setl nocursorline
     au Filetype qf setl nowrap
@@ -194,15 +191,14 @@
     nnoremap [q :cprevious<cr>
     nnoremap ]l :lnext<cr>
     nnoremap [l :lprevious<cr>
+" }}}
 
-" }
-
-" Colors/Gui {
+" Colors/Gui {{{
     " set fillchars+=vert:│
     set fillchars=
     if has("gui_running")
         if has('mac')
-            " MacVim
+            " MacVim {{{
             set fuoptions=maxvert,maxhorz
             let macvim_hig_shift_movement = 1
             let macvim_skip_cmd_opt_movement = 1
@@ -222,14 +218,16 @@
             nnoremap <D-8> 8gt
             nnoremap <D-9> 9gt
             nnoremap <D-0> 10gt
+            " }}}
         else
-            " gVim
+            " gVim {{{
             " set guifont=MonteCarlo
             set guifont=Inconsolata\ 11
             " set guifont=Andale\ Mono\ 9
             " set guifont=Dejavu\ Sans\ Mono\ 9
+            " }}}
         endif
-        " Gui Vim
+        " Common gui settings {{{
         " set fillchars=diff:⣿
         " set listchars=tab:▸\ ,eol:¬,extends:❯,precedes:❮
         " set showbreak=↪
@@ -239,14 +237,16 @@
         " colorscheme pyte
         " colorscheme solarized
         " colorscheme proton
+        " }}}
     else
-        " Console Vim
+        " Console {{{
         set ttyfast
         colorscheme hornet
+        " }}}
     endif
-" }
+" }}}
 
-" Fast Escape {
+" Fast Escape {{{
     augroup fastescape
         au!
 
@@ -257,9 +257,9 @@
         au InsertEnter * set timeout
         au InsertLeave * set notimeout
     augroup END
-" }
+" }}}
 
-" Remove Trailing Whitespace {
+" Remove Trailing Whitespace {{{
     function! s:StripTrailingWhitespace()
         normal mZ
 
@@ -268,9 +268,9 @@
         normal `Z
     endfunction
     au FileType * au BufWritePre <buffer> :silent! call <SID>StripTrailingWhitespace()`
-" }
+" }}}
 
-" Netrw {
+" Netrw {{{
     let g:netrw_silent = 1
     let g:netrw_cursor = 0
     let g:netrw_banner = 0
@@ -278,9 +278,9 @@
     " long listing style
     let g:netrw_liststyle = 1
     let g:netrw_list_hide='\.swp$,\.pyc$,\.pyo$,^\.hg$,^\$,^\.svn$,^\.o$,.Trash,.DS_Store,.CFUserTextEncoding'
-" }
+" }}}
 
-" neocomplcache {
+" neocomplcache {{{
     " Disable AutoComplPop.
     let g:acp_enableAtStartup = 0
     " Use neocomplcache.
@@ -290,10 +290,11 @@
     " Use camel case completion.
     let g:neocomplcache_enable_camel_case_completion = 1
     " Use underbar completion.
-    let g:neocomplcache_enable_underbar_completion = 1
+    " let g:neocomplcache_enable_underbar_completion = 1
     " Set minimum syntax keyword length.
     let g:neocomplcache_min_syntax_length = 3
-    let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
+    " let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
+    let g:neocomplcache_source_disable = {'include_complete' : 1, 'filename_complete' : 1}
 
     " Define dictionary.
     let g:neocomplcache_dictionary_filetype_lists = {
@@ -315,8 +316,12 @@
     inoremap <expr><C-l>     neocomplcache#complete_common_string()
 
     " SuperTab like snippets behavior.
-    imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ?
-                     \ "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>"
+    " imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ?
+                     " \ "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>"
+    " imap  <silent><expr><tab> neocomplcache#sources#snippets_complete#expandable() ?
+                     " \ "\<plug>(neocomplcache_snippets_expand)" : (pumvisible() ? "\<c-e>" : "\<tab>")
+    " smap  <tab>  <right><plug>(neocomplcache_snippets_jump)
+    " inoremap <expr><c-e>     neocomplcache#complete_common_string()
 
     " Recommended key-mappings.
     " <CR>: close popup and save indent.
@@ -343,14 +348,16 @@
     if !exists('g:neocomplcache_omni_patterns')
       let g:neocomplcache_omni_patterns = {}
     endif
+    " let g:neocomplcache_omni_patterns.python = '[^. *\t]\.\w*\'
     let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
-    "autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
     let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
     let g:neocomplcache_omni_patterns.c = '\%(\.\|->\)\h\w*'
     let g:neocomplcache_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
-" }
+    let g:neocomplcache_omni_patterns.go = '\h\w*\%.'
 
-" Ack.vim {
+" }}}
+
+" Ack.vim {{{
     let g:ackprg="ack -H --nocolor --nogroup --column"
 
     function! s:CopyMotionForType(type)
@@ -374,21 +381,21 @@
     nnoremap <leader>a :Ack<space>
     " nnoremap <silent> <leader>a :set opfunc=<SID>AckMotion<CR>g@
     xnoremap <silent> <leader>a :<C-U>call <SID>AckMotion(visualmode())<CR>
-" }
+" }}}
 
-" Gundo {
+" Gundo {{{
     " nnoremap <F11> :GundoToggle<CR>
     let g:gundo_right = 1
     let g:gundo_width = 50
-" }
+" }}}
 
-" Tabularize {
+" Tabularize {{{
     vnoremap <silent> <Leader>t> :Tabularize /=><CR>
     vnoremap <silent> <Leader>t= :Tabularize /=<CR>
     vnoremap <silent> <Leader>t, :Tabularize /,<CR>
-" }
+" }}}
 
-" delimitMate {
+" delimitMate {{{
     let g:delimitMate_expand_cr = 1
     let g:delimitMate_expand_space = 1
     let g:delimitMate_balance_matchpairs = 1
@@ -396,18 +403,18 @@
     au FileType * let b:delimitMate_autoclose = 1
     " If using html auto complete (complete closing tag)
     " au FileType xml,html,xhtml let b:delimitMate_matchpairs = "(:),[:],{:}"
-" }
+" }}}
 
-" AutoCloseTag {
+" AutoCloseTag {{{
     " Make it so AutoCloseTag works for xml and xhtml files as well
     au FileType xhtml,xml ru ftplugin/html/autoclosetag.vim
-" }
+" }}}
 
-" EasyMotion {
+" EasyMotion {{{
     let g:EasyMotion_keys = ";,.pyfgcrl/aoeuidhtns-'qjkxbmwvz"
-" }
+" }}}
 
-" Tagbar {
+" Tagbar {{{
     let g:tagbar_singleclick = 1
     let g:tagbar_width = 50
     " let g:tagbar_autoclose = 1
@@ -430,16 +437,16 @@
       \ 'ctagsbin' : 'coffeetags',
       \ 'ctagsargs' : ' ',
       \}
-" }
+" }}}
 
-" vim-commentary {
+" vim-commentary {{{
     au FileType cfg set commentstring=#\ %s
     au FileType cpp set commentstring=/\/\ %s
     au FileType python set commentstring=#\ %s
     au FileType lisp set commentstring=;;\ %s
-" }
+" }}}
 
-" Syntastic {
+" Syntastic {{{
     " reorder runtimepath so my custom syntax plugins are used
     set rtp-=~/.vim/bundle/syntastic
     set rtp+=~/.vim/syntastic,~/.vim/bundle/syntastic
@@ -449,9 +456,9 @@
     let g:syntastic_javascript_checker = 'jslint'
     let g:syntastic_enable_highlighting = 0
     let g:syntastic_stl_format = '⚡ %E{Err: %fe #%e}%B{, }%W{Warn: %fw #%w} ⚡'
-" }
+" }}}
 
-" UltiSnips {
+" UltiSnips {{{
     let g:UltiSnipsSnippetDirectories=["UltiSnips"]
     let g:UltiSnipsExpandTrigger = '<tab>'
     " let g:UltiSnipsListSnippets = '<c-s>'
@@ -459,9 +466,9 @@
     let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
     " let g:UltiSnipsJumpForwardTrigger = '<c-j>'
     " let g:UltiSnipsJumpBackwardTrigger = '<c-k>'
-" }
+" }}}
 
-" SuperTab {
+" SuperTab {{{
     " let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
     let g:SuperTabDefaultCompletionType = "context"
     let g:SuperTabCompletionContexts = ['s:ContextText', 's:ContextDiscover']
@@ -472,9 +479,9 @@
     let g:SuperTabMappingBackward = '<s-tab>'
     " let g:SuperTabMappingForward = '<c-j>'
     " let g:SuperTabMappingBackward = '<c-k>'
-" }
+" }}}
 
-" CtrlP {
+" CtrlP {{{
     " let g:ctrlp_user_command = 'find %s -type f'       " MacOSX/Linux
     " let g:ctrlp_map = '<c-p>'
     " nnoremap <c-b> :CtrlPBuffer<cr>
@@ -487,10 +494,9 @@
     let g:ctrlp_open_new_file = 1
     let g:ctrlp_cache_dir = '~/.vim/tmp/ctrlp_cache'
     let g:ctrlp_open_multi = '1t'
-" }
+" }}}
 
-" Python {
-    " vim-virtualenv
+" Python {{{
     let g:virtualenv_directory = '~/ve'
     let g:virtualenv_stl_format = '%n'
     if $VIRTUAL_ENV
@@ -503,27 +509,28 @@
     " let g:pythonmode_enable_rope = 1
     " let ropevim_vim_completion = 1
     " let ropevim_extended_complete = 1
-" }
+    au FileType python setlocal foldmethod=syntax
+" }}}
 
-" CoffeeScript {
-    au Filetype coffee setl foldmethod=indent nofoldenable
+" CoffeeScript {{{
+    au Filetype coffee setlocal foldmethod=indent nofoldenable
     au FileType coffee map <leader>r :CoffeeRun<cr>
     au FileType coffee map <leader>c :CoffeeCompile watch vertical<cr>
     au FileType coffee imap <leader>r <c-o>:CoffeeRun<cr>
     au FileType coffee imap <leader>c <c-o>:CoffeeCompile watch vertical<cr>
-" }
+" }}}
 
-" Pasta {
+" Pasta {{{
     function! s:MakePasta(filename)
         let fn = a:filename
         let res = system('/usr/local/bin/python ~/.bin/pasta ' . fn)
         echo res
     endfunction
     command! Pasta call s:MakePasta(expand("%"))
-" }
+" }}}
 
-" } Toggle scrollbind
-    function! s:ScrollBindToggle()
+" Scrollbind Toggle {{{
+    function! s:ScrollbindToggle()
         set scrollbind!
         " switch to other window
         wincmd w
@@ -531,27 +538,14 @@
         " switch back
         wincmd w
     endfunction
-    command! ScrollBindToggle call s:ScrollBindToggle()
-" }
+    command! ScrollbindToggle call s:ScrollbindToggle()
+" }}}
 
-let g:ExploreToggled = 0
-" } Toggle Explore
-    function! s:ExploreToggle()
-        if g:ExploreToggled
-            :bp
-        else
-            Explore
-        endif
-        let g:ExploreToggled = !g:ExploreToggled
-    endfunction
-    command! ExploreToggle call s:ExploreToggle()
-" }
-
-" Commands {
+" Commands {{{
     command! Sudowrite :execute ':silent w !sudo tee % > /dev/null' | :edit!
-" }
+" }}}
 
-" Mappings {
+" Mapping {{{
     " Real men don't use arrow keys!
     noremap <up> <nop>
     noremap <down> <nop>
@@ -561,6 +555,10 @@ let g:ExploreToggled = 0
     inoremap OB <nop>
     inoremap OD <nop>
     inoremap OC <nop>
+
+    " However they hate gj and gk!
+    nnoremap j gj
+    nnoremap k gk
 
     " prevent cursor from moving when leavng insert mode
     inoremap <Esc> <Esc>`^
@@ -653,15 +651,15 @@ let g:ExploreToggled = 0
     " open urls
     nnoremap <leader>o :silent !open -a "Google Chrome" <c-r>=expand("<cWORD>")<cr><cr>:redraw!<cr>
 
-" }
+" }}}
 
-" Vimdiff {
+" Vimdiff {{{
     set diffopt+=iwhite,context:3
     if &diff
         nmap u u :diffu<cr>
         nmap Q :qa<cr>
         nmap <leader>q :qa<cr>
     endif
-" }
+" }}}
 
-" vim: fdm=marker foldmarker={,} foldlevel=1 nofoldenable
+" vim: fdm=marker foldlevel=1 nofoldenable
