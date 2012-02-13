@@ -179,6 +179,7 @@
 
 " Statusline {{{
     set laststatus=2
+    set statusline=\(%n\)\ %f\ %*%#Modified#%m\ (%l/%L,\ %c)\ %P%=%h%w\ %y\ [%{&encoding}:%{&fileformat}]
 " }}}
 
 " Quickfix / location list {{{
@@ -220,7 +221,7 @@
         else
             " gVim {{{
             " set guifont=MonteCarlo
-            set guifont=Inconsolata\ 11
+            set guifont=Inconsolata\ 10
             " set guifont=Andale\ Mono\ 9
             " set guifont=Dejavu\ Sans\ Mono\ 9
             " }}}
