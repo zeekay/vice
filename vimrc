@@ -54,6 +54,8 @@
     Bundle 'git@github.com:zeekay/vim-powerline.git'
     " vim-space - Fork of https://github.com/spiiph/vim-space
     Bundle 'git@github.com:zeekay/vim-space.git'
+    " gist-vim - https://github.com/mattn/gist-vim.git
+    Bundle 'git://github.com/mattn/gist-vim'
 
     if version > 700
         " https://github.com/vim-scripts/VimClojure
@@ -296,11 +298,11 @@
     let g:neocomplcache_source_disable = {'include_complete' : 1, 'filename_complete' : 1}
 
     " Define dictionary.
-    let g:neocomplcache_dictionary_filetype_lists = {
-        \ 'default' : '',
-        \ 'vimshell' : $HOME.'/.vimshell_hist',
-        \ 'scheme' : $HOME.'/.gosh_completions'
-        \ }
+    " let g:neocomplcache_dictionary_filetype_lists = {
+    "     \ 'default' : '',
+    "     \ 'vimshell' : $HOME.'/.vimshell_hist',
+    "     \ 'scheme' : $HOME.'/.gosh_completions'
+    "     \ }
 
     " Define keyword.
     if !exists('g:neocomplcache_keyword_patterns')
@@ -347,7 +349,8 @@
     if !exists('g:neocomplcache_omni_patterns')
       let g:neocomplcache_omni_patterns = {}
     endif
-    " let g:neocomplcache_omni_patterns.python = '[^. *\t]\.\w*\'
+    " let g:neocomplcache_omni_patterns.python = '[^. \t]\.\w*'
+    let g:neocomplcache_omni_patterns.coffee = '[^. \t]\.\%(\h\w*\)\?'
     let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
     let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
     let g:neocomplcache_omni_patterns.c = '\%(\.\|->\)\h\w*'
