@@ -426,21 +426,50 @@
     let g:tagbar_compact = 1
     let g:tagbar_ctags_bin = 'ctags'
     let g:tagbar_expand = 1
-    " if you want your tags to include vars/objects do:
-    " coffeetags --vim-conf --include-vars
-     let g:tagbar_type_coffee = {
-         \ 'kinds': [
-         \   'f:functions',
-         \   'o:object'
-         \ ],
-         \ 'kind2scope': {
-         \   'f': 'object',
-         \   'o': 'object'
-         \},
-         \ 'sro' : ".",
-         \ 'ctagsbin': 'coffeetags',
-         \ 'ctagsargs': '--include-vars ',
-     \}
+    if executable('coffeetags')
+        let g:tagbar_type_coffee = {
+            \ 'ctagsbin': 'coffeetags',
+            \ 'ctagsargs': '--include-vars ',
+            \ 'sro' : ".",
+            \ 'kinds': [
+                \ 'f:functions',
+                \ 'o:object'
+            \ ],
+            \ 'kind2scope': {
+                \ 'f': 'object',
+                \ 'o': 'object'
+            \ }
+        \}
+    endif
+    if executable('lushtags')
+        let g:tagbar_type_haskell = {
+            \ 'ctagsbin': 'lushtags',
+            \ 'ctagsargs': '--ignore-parse-error --',
+            \ 'sro': '.',
+            \ 'kinds': [
+                \ 'm:module:0',
+                \ 'e:exports:1',
+                \ 'i:imports:1',
+                \ 't:declarations:0',
+                \ 'd:declarations:1',
+                \ 'n:declarations:1',
+                \ 'f:functions:0',
+                \ 'c:constructors:0'
+            \ ],
+            \ 'kind2scope': {
+                \ 'd': 'data',
+                \ 'n': 'newtype',
+                \ 'c': 'constructor',
+                \ 't': 'type'
+            \ },
+            \ 'scope2kind': {
+                \ 'data': 'd',
+                \ 'newtype': 'n',
+                \ 'constructor': 'c',
+                \ 'type': 't'
+            \ }
+        \ }
+    endif
 " }}}
 
 " vim-commentary {{{
