@@ -95,6 +95,8 @@
     " Bundle 'git@github.com:zeekay/vim-autoclose'
     " SearchComplete - http://www.vim.org/scripts/script.php?script_id=474
     " Bundle 'SearchComplete'
+    " vim-easytags - https://github.com/xolox/vim-easytags
+    " Bundle 'git://github.com/xolox/vim-easytags'
 " }}}
 
 " Basic/General Configuration {{{
