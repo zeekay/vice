@@ -36,6 +36,8 @@
     Bundle 'git://github.com/Rip-Rip/clang_complete'
     " neocomplcache-clang_complete - https://github.com/osyo-manga/neocomplcache-clang_complete
     Bundle 'git://github.com/osyo-manga/neocomplcache-clang_complete'
+    " vim-javascript - https://github.com/pangloss/vim-javascript
+    Bundle 'git://github.com/pangloss/vim-javascript'
     " vim-coffees-script - https://github.com/kchmck/vim-coffee-script
     Bundle 'git://github.com/kchmck/vim-coffee-script'
     " vim-jade - https://github.com/digitaltoad/vim-jade.git
