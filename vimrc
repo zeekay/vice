@@ -542,6 +542,10 @@
     au FileType python setlocal foldmethod=syntax
 " }}}
 
+" Javascript {{{
+    map <leader>r :!node %<cr>
+" }}}
+
 " CoffeeScript {{{
     au Filetype coffee setlocal foldmethod=indent nofoldenable
     au FileType coffee map <leader>r :CoffeeRun<cr>
