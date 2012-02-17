@@ -246,7 +246,9 @@
     else
         " Console {{{
         set ttyfast
+        set background=dark
         colorscheme hornet
+        " colorscheme mango
         " }}}
     endif
 " }}}
