@@ -20,22 +20,10 @@
     Bundle 'git://github.com/tpope/vim-commentary'
     " https://github.com/juanpabloaj/help.vim
     Bundle 'git://github.com/juanpabloaj/help.vim'
-    " tagbar - https://github.com/majutsushi/tagbar
-    Bundle 'git://github.com/majutsushi/tagbar'
     " gundo - https://github.com/sjl/gundo.vim
     Bundle 'git://github.com/sjl/gundo.vim'
     " syntastic - https://github.com/scrooloose/syntastic
     Bundle 'git://github.com/scrooloose/syntastic'
-    " newcomplcache - https://github.com/Shougo/neocomplcache
-    Bundle 'git://github.com/Shougo/neocomplcache'
-    " newcomplcache-clang - https://github.com/Shougo/neocomplcache-clang
-    Bundle 'git://github.com/Shougo/neocomplcache-clang'
-    " newcomplcache-snippets-complete - https://github.com/Shougo/neocomplcache-snippets-complete
-    Bundle 'git://github.com/Shougo/neocomplcache-snippets-complete'
-    " clang_complete - https://github.com/Rip-Rip/clang_complete
-    Bundle 'git://github.com/Rip-Rip/clang_complete'
-    " neocomplcache-clang_complete - https://github.com/osyo-manga/neocomplcache-clang_complete
-    Bundle 'git://github.com/osyo-manga/neocomplcache-clang_complete'
     " vim-javascript - https://github.com/pangloss/vim-javascript
     Bundle 'git://github.com/pangloss/vim-javascript'
     " vim-coffees-script - https://github.com/kchmck/vim-coffee-script
@@ -62,6 +50,18 @@
     if version > 700
         " https://github.com/vim-scripts/VimClojure
         Bundle 'git://github.com/vim-scripts/VimClojure'
+        " tagbar - https://github.com/majutsushi/tagbar
+        Bundle 'git://github.com/majutsushi/tagbar'
+        " newcomplcache - https://github.com/Shougo/neocomplcache
+        Bundle 'git://github.com/Shougo/neocomplcache'
+        " newcomplcache-clang - https://github.com/Shougo/neocomplcache-clang
+        Bundle 'git://github.com/Shougo/neocomplcache-clang'
+        " newcomplcache-snippets-complete - https://github.com/Shougo/neocomplcache-snippets-complete
+        Bundle 'git://github.com/Shougo/neocomplcache-snippets-complete'
+        " clang_complete - https://github.com/Rip-Rip/clang_complete
+        Bundle 'git://github.com/Rip-Rip/clang_complete'
+        " neocomplcache-clang_complete - https://github.com/osyo-manga/neocomplcache-clang_complete
+        Bundle 'git://github.com/osyo-manga/neocomplcache-clang_complete'
     endif
 
     if version > 700 && has('python')
