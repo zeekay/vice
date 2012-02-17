@@ -544,7 +544,13 @@
 " }}}
 
 " Javascript {{{
-    map <leader>r :!node %<cr>
+    " Quick and dirty javascript run current file
+    function! s:RunInNode()
+        w
+        !node %
+    endfunction
+    command! RunInNode call s:RunInNode()
+    map <leader>r :RunInNode<cr>
 " }}}
 
 " CoffeeScript {{{
