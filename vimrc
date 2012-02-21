@@ -58,7 +58,9 @@
     Bundle 'git@github.com:zeekay/vim-space.git'
     " gist-vim - https://github.com/mattn/gist-vim.git
     Bundle 'git://github.com/mattn/gist-vim'
+    " haskellmode-vim - https://github.com/zeekay/haskellmode-vim
 
+    Bundle 'git@github.com:zeekay/haskellmode-vim'
     if version > 700
         " https://github.com/vim-scripts/VimClojure
         Bundle 'git://github.com/vim-scripts/VimClojure'
@@ -483,12 +485,12 @@
 
 " Syntastic {{{
     " reorder runtimepath so my custom syntax plugins are used
-    set rtp-=~/.vim/bundle/syntastic
-    set rtp+=~/.vim/syntastic,~/.vim/bundle/syntastic
     let g:syntastic_enable_signs = 1
     let g:syntastic_auto_loc_list = 0
-    let g:syntastic_python_checker = 'flake8 --ignore=E221,E225,E231,E251,E302,E303,W391,E501,E702'
+    let g:syntastic_python_checker = 'flake8'
+    let g:syntastic_python_checker_args = '--ignore=E221,E225,E231,E251,E302,E303,W391,E501,E702'
     let g:syntastic_javascript_checker = 'jslint'
+    let g:syntastic_javascript_jslint_conf = "--white --undef --nomen --regexp --plusplus --bitwise --newcap --sloppy --vars"
     let g:syntastic_enable_highlighting = 0
     let g:syntastic_stl_format = '⚡ %E{Err: %fe #%e}%B{, }%W{Warn: %fw #%w} ⚡'
 " }}}
