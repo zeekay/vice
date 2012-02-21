@@ -20,22 +20,10 @@
     Bundle 'git://github.com/tpope/vim-commentary'
     " https://github.com/juanpabloaj/help.vim
     Bundle 'git://github.com/juanpabloaj/help.vim'
-    " tagbar - https://github.com/majutsushi/tagbar
-    Bundle 'git://github.com/majutsushi/tagbar'
     " gundo - https://github.com/sjl/gundo.vim
     Bundle 'git://github.com/sjl/gundo.vim'
     " syntastic - https://github.com/scrooloose/syntastic
     Bundle 'git://github.com/scrooloose/syntastic'
-    " newcomplcache - https://github.com/Shougo/neocomplcache
-    Bundle 'git://github.com/Shougo/neocomplcache'
-    " newcomplcache-clang - https://github.com/Shougo/neocomplcache-clang
-    Bundle 'git://github.com/Shougo/neocomplcache-clang'
-    " newcomplcache-snippets-complete - https://github.com/Shougo/neocomplcache-snippets-complete
-    Bundle 'git://github.com/Shougo/neocomplcache-snippets-complete'
-    " clang_complete - https://github.com/Rip-Rip/clang_complete
-    Bundle 'git://github.com/Rip-Rip/clang_complete'
-    " neocomplcache-clang_complete - https://github.com/osyo-manga/neocomplcache-clang_complete
-    Bundle 'git://github.com/osyo-manga/neocomplcache-clang_complete'
     " vim-javascript - https://github.com/pangloss/vim-javascript
     Bundle 'git://github.com/pangloss/vim-javascript'
     " vim-coffees-script - https://github.com/kchmck/vim-coffee-script
@@ -59,14 +47,26 @@
     " gist-vim - https://github.com/mattn/gist-vim.git
     Bundle 'git://github.com/mattn/gist-vim'
     " haskellmode-vim - https://github.com/zeekay/haskellmode-vim
-
     Bundle 'git@github.com:zeekay/haskellmode-vim'
-    if version > 700
+
+    if version > 702
         " https://github.com/vim-scripts/VimClojure
         Bundle 'git://github.com/vim-scripts/VimClojure'
+        " tagbar - https://github.com/majutsushi/tagbar
+        Bundle 'git://github.com/majutsushi/tagbar'
+        " newcomplcache - https://github.com/Shougo/neocomplcache
+        Bundle 'git://github.com/Shougo/neocomplcache'
+        " newcomplcache-clang - https://github.com/Shougo/neocomplcache-clang
+        Bundle 'git://github.com/Shougo/neocomplcache-clang'
+        " newcomplcache-snippets-complete - https://github.com/Shougo/neocomplcache-snippets-complete
+        Bundle 'git://github.com/Shougo/neocomplcache-snippets-complete'
+        " clang_complete - https://github.com/Rip-Rip/clang_complete
+        Bundle 'git://github.com/Rip-Rip/clang_complete'
+        " neocomplcache-clang_complete - https://github.com/osyo-manga/neocomplcache-clang_complete
+        Bundle 'git://github.com/osyo-manga/neocomplcache-clang_complete'
     endif
 
-    if version > 700 && has('python')
+    if version > 702 && has('python')
         " vim-python-mode - https://github.com/zeekay/vim-python-mode
         Bundle 'git@github.com:zeekay/vim-python-mode.git'
     endif
@@ -288,6 +288,7 @@
 " }}}
 
 " neocomplcache {{{
+    if version > 702
     " Disable AutoComplPop.
     let g:acp_enableAtStartup = 0
     " Use neocomplcache.
@@ -362,7 +363,7 @@
     let g:neocomplcache_omni_patterns.c = '\%(\.\|->\)\h\w*'
     let g:neocomplcache_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
     let g:neocomplcache_omni_patterns.go = '\h\w*\%.'
-
+    endif
 " }}}
 
 " Ack.vim {{{
@@ -485,12 +486,12 @@
 
 " Syntastic {{{
     " reorder runtimepath so my custom syntax plugins are used
+    set rtp-=~/.vim/bundle/syntastic
+    set rtp+=~/.vim/syntastic,~/.vim/bundle/syntastic
     let g:syntastic_enable_signs = 1
     let g:syntastic_auto_loc_list = 0
-    let g:syntastic_python_checker = 'flake8'
-    let g:syntastic_python_checker_args = '--ignore=E221,E225,E231,E251,E302,E303,W391,E501,E702'
+    let g:syntastic_python_checker = 'flake8 --ignore=E221,E225,E231,E251,E302,E303,W391,E501,E702'
     let g:syntastic_javascript_checker = 'jslint'
-    let g:syntastic_javascript_jslint_conf = "--white --undef --nomen --regexp --plusplus --bitwise --newcap --sloppy --vars"
     let g:syntastic_enable_highlighting = 0
     let g:syntastic_stl_format = '⚡ %E{Err: %fe #%e}%B{, }%W{Warn: %fw #%w} ⚡'
 " }}}
@@ -545,7 +546,13 @@
 " }}}
 
 " Javascript {{{
-    map <leader>r :!node %<cr>
+    " Quick and dirty javascript run current file
+    function! s:RunInNode()
+        w
+        !node %
+    endfunction
+    command! RunInNode call s:RunInNode()
+    map <leader>r :RunInNode<cr>
 " }}}
 
 " CoffeeScript {{{
