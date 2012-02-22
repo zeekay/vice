@@ -161,6 +161,7 @@
     set showmatch
     set incsearch
     set ignorecase
+    " set hlsearch
 " }}}
 
 " Menu/Complete {{{
@@ -359,29 +360,30 @@
 " }}}
 
 " Ack.vim {{{
-    let g:ackprg="ack -H --nocolor --nogroup --column"
+    let g:ackprg="ack -i -H --nocolor --nogroup --column --text"
+    nnoremap <leader>a :Ack!<space>
+    " let g:ackhighlight = 1
 
-    function! s:CopyMotionForType(type)
-        if a:type ==# 'v'
-            silent execute "normal! `<" . a:type . "`>y"
-        elseif a:type ==# 'char'
-            silent execute "normal! `[v`]y"
-        endif
-    endfunction
+    " function! s:CopyMotionForType(type)
+    "     if a:type ==# 'v'
+    "         silent execute "normal! `<" . a:type . "`>y"
+    "     elseif a:type ==# 'char'
+    "         silent execute "normal! `[v`]y"
+    "     endif
+    " endfunction
 
-    function! s:AckMotion(type) abort
-        let reg_save = @@
+    " function! s:AckMotion(type) abort
+    "     let reg_save = @@
 
-        call s:CopyMotionForType(a:type)
+    "     call s:CopyMotionForType(a:type)
 
-        execute "normal! :Ack! --literal " . shellescape(@@) . "\<cr>"
+    "     execute "normal! :Ack! --literal " . shellescape(@@) . "\<cr>"
 
-        let @@ = reg_save
-    endfunction
+    "     let @@ = reg_save
+    " endfunction
 
-    nnoremap <leader>a :Ack<space>
     " nnoremap <silent> <leader>a :set opfunc=<SID>AckMotion<CR>g@
-    xnoremap <silent> <leader>a :<C-U>call <SID>AckMotion(visualmode())<CR>
+    " xnoremap <silent> <leader>a :<C-U>call <SID>AckMotion(visualmode())<CR>
 " }}}
 
 " Gundo {{{
@@ -553,6 +555,10 @@
     au FileType coffee map <leader>c :CoffeeCompile watch vertical<cr>
     au FileType coffee imap <leader>r <c-o>:CoffeeRun<cr>
     au FileType coffee imap <leader>c <c-o>:CoffeeCompile watch vertical<cr>
+" }}}
+
+" Misc Filetypes {{{
+    autocmd BufNewFile,BufRead *.{md,mkd,mkdn,mark*} set filetype=markdown
 " }}}
 
 " Pasta {{{
