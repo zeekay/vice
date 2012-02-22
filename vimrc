@@ -542,7 +542,7 @@
     " let g:pythonmode_enable_rope = 1
     " let ropevim_vim_completion = 1
     " let ropevim_extended_complete = 1
-    au FileType python setlocal foldmethod=syntax
+    " au FileType python setlocal foldmethod=syntax
 " }}}
 
 " Javascript {{{
