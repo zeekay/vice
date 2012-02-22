@@ -56,14 +56,12 @@
         Bundle 'git://github.com/majutsushi/tagbar'
         " newcomplcache - https://github.com/Shougo/neocomplcache
         Bundle 'git://github.com/Shougo/neocomplcache'
-        " newcomplcache-clang - https://github.com/Shougo/neocomplcache-clang
-        Bundle 'git://github.com/Shougo/neocomplcache-clang'
         " newcomplcache-snippets-complete - https://github.com/Shougo/neocomplcache-snippets-complete
         Bundle 'git://github.com/Shougo/neocomplcache-snippets-complete'
         " clang_complete - https://github.com/Rip-Rip/clang_complete
-        Bundle 'git://github.com/Rip-Rip/clang_complete'
+        " Bundle 'git://github.com/Rip-Rip/clang_complete'
         " neocomplcache-clang_complete - https://github.com/osyo-manga/neocomplcache-clang_complete
-        Bundle 'git://github.com/osyo-manga/neocomplcache-clang_complete'
+        " Bundle 'git://github.com/osyo-manga/neocomplcache-clang_complete'
     endif
 
     if version > 702 && has('python')
@@ -104,9 +102,13 @@
 " Basic/General Configuration {{{
     syntax on
     filetype plugin indent on
-    set directory=~/.vim/tmp/swap
     set backup
     set backupdir=~/.vim/tmp/backup
+    if version > 702
+        set undofile
+        set undodir=~/.vim/tmp/undo
+    endif
+    set directory=~/.vim/tmp/swap
     set viewdir=~/.vim/tmp/view
     " set nomodeline
     set undolevels=1000
@@ -137,10 +139,6 @@
     " set scrolljump=10
     set splitright
     set nomore
-    if version > 720
-        set undofile
-        set undodir=~/.vim/tmp/undo
-    endif
     " Disable folding
     " set foldminlines=99999
     " Save and load view for each document, preserving cursor position
@@ -182,7 +180,6 @@
     au FileType c setlocal omnifunc=ccomplete#Complete
     au FileType cpp setlocal omnifunc=omni#cpp#complete#Main
     au FileType ruby,eruby setlocal omnifunc=rubycomplete#Complete
-
 " }}}
 
 " Statusline {{{
@@ -212,9 +209,9 @@
             " set guifont=Dina-medium:h13
             " set guifont=Monaco:h12
             set guifont=Inconsolata:h14
-            " change dir to open file
-            lcd %:p:h
             set linespace=1
+            " change dir to open file
+            " lcd %:p:h
             nnoremap <D-1> 1gt
             nnoremap <D-2> 2gt
             nnoremap <D-3> 3gt
@@ -256,11 +253,9 @@
 " Fast Escape {{{
     augroup fastescape
         au!
-
         set notimeout
         set ttimeout
         set timeoutlen=10
-
         au InsertEnter * set timeout
         au InsertLeave * set notimeout
     augroup END
@@ -269,9 +264,7 @@
 " Remove Trailing Whitespace {{{
     function! s:StripTrailingWhitespace()
         normal mZ
-
         %s/\s\+$//e
-
         normal `Z
     endfunction
     au FileType * au BufWritePre <buffer> :silent! call <SID>StripTrailingWhitespace()`
@@ -282,87 +275,86 @@
     let g:netrw_cursor = 0
     let g:netrw_banner = 0
     " let g:netrw_menu = 0
-    " long listing style
     let g:netrw_liststyle = 1
     let g:netrw_list_hide='\.swp$,\.pyc$,\.pyo$,^\.hg$,^\$,^\.svn$,^\.o$,.Trash,.DS_Store,.CFUserTextEncoding'
 " }}}
 
 " neocomplcache {{{
     if version > 702
-    " Disable AutoComplPop.
-    let g:acp_enableAtStartup = 0
-    " Use neocomplcache.
-    let g:neocomplcache_enable_at_startup = 1
-    " Use smartcase.
-    let g:neocomplcache_enable_smart_case = 1
-    " Use camel case completion.
-    let g:neocomplcache_enable_camel_case_completion = 1
-    " Use underbar completion.
-    " let g:neocomplcache_enable_underbar_completion = 1
-    " Set minimum syntax keyword length.
-    let g:neocomplcache_min_syntax_length = 3
-    " let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
-    let g:neocomplcache_source_disable = {'include_complete' : 1, 'filename_complete' : 1}
+        " Disable AutoComplPop.
+        let g:acp_enableAtStartup = 0
+        " Use neocomplcache.
+        let g:neocomplcache_enable_at_startup = 1
+        " Use smartcase.
+        let g:neocomplcache_enable_smart_case = 1
+        " Use camel case completion.
+        let g:neocomplcache_enable_camel_case_completion = 1
+        " Use underbar completion.
+        " let g:neocomplcache_enable_underbar_completion = 1
+        " Set minimum syntax keyword length.
+        let g:neocomplcache_min_syntax_length = 3
+        " let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
+        let g:neocomplcache_source_disable = {'include_complete' : 1, 'filename_complete' : 1}
 
-    " Define dictionary.
-    " let g:neocomplcache_dictionary_filetype_lists = {
-    "     \ 'default' : '',
-    "     \ 'vimshell' : $HOME.'/.vimshell_hist',
-    "     \ 'scheme' : $HOME.'/.gosh_completions'
-    "     \ }
+        " Define dictionary.
+        " let g:neocomplcache_dictionary_filetype_lists = {
+        "     \ 'default' : '',
+        "     \ 'vimshell' : $HOME.'/.vimshell_hist',
+        "     \ 'scheme' : $HOME.'/.gosh_completions'
+        "     \ }
 
-    " Define keyword.
-    if !exists('g:neocomplcache_keyword_patterns')
-      let g:neocomplcache_keyword_patterns = {}
-    endif
-    let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
+        " Define keyword.
+        if !exists('g:neocomplcache_keyword_patterns')
+          let g:neocomplcache_keyword_patterns = {}
+        endif
+        let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
 
-    " Plugin key-mappings.
-    imap <C-s>     <Plug>(neocomplcache_snippets_expand)
-    smap <C-s>     <Plug>(neocomplcache_snippets_expand)
-    inoremap <expr><C-g>     neocomplcache#undo_completion()
-    inoremap <expr><C-l>     neocomplcache#complete_common_string()
+        " Plugin key-mappings.
+        imap <C-s>     <Plug>(neocomplcache_snippets_expand)
+        smap <C-s>     <Plug>(neocomplcache_snippets_expand)
+        inoremap <expr><C-g>     neocomplcache#undo_completion()
+        inoremap <expr><C-l>     neocomplcache#complete_common_string()
 
-    " SuperTab like snippets behavior.
-    " imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ?
-                     " \ "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>"
-    " imap  <silent><expr><tab> neocomplcache#sources#snippets_complete#expandable() ?
-                     " \ "\<plug>(neocomplcache_snippets_expand)" : (pumvisible() ? "\<c-e>" : "\<tab>")
-    " smap  <tab>  <right><plug>(neocomplcache_snippets_jump)
-    " inoremap <expr><c-e>     neocomplcache#complete_common_string()
+        " SuperTab like snippets behavior.
+        " imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ?
+                         " \ "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>"
+        " imap  <silent><expr><tab> neocomplcache#sources#snippets_complete#expandable() ?
+                         " \ "\<plug>(neocomplcache_snippets_expand)" : (pumvisible() ? "\<c-e>" : "\<tab>")
+        " smap  <tab>  <right><plug>(neocomplcache_snippets_jump)
+        " inoremap <expr><c-e>     neocomplcache#complete_common_string()
 
-    " Recommended key-mappings.
-    " <CR>: close popup and save indent.
-    inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
-    " <TAB>: completion.
-    inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-    " <C-h>, <BS>: close popup and delete backword char.
-    inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
-    inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
-    inoremap <expr><C-y>  neocomplcache#close_popup()
-    inoremap <expr><C-e>  neocomplcache#cancel_popup()
+        " Recommended key-mappings.
+        " <CR>: close popup and save indent.
+        inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
+        " <TAB>: completion.
+        inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+        " <C-h>, <BS>: close popup and delete backword char.
+        inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
+        inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
+        inoremap <expr><C-y>  neocomplcache#close_popup()
+        inoremap <expr><C-e>  neocomplcache#cancel_popup()
 
-    " AutoComplPop like behavior.
-    " let g:neocomplcache_enable_auto_select = 1
+        " AutoComplPop like behavior.
+        " let g:neocomplcache_enable_auto_select = 1
 
-    " Shell like behavior(not recommended).
-    " set completeopt+=longest
-    " let g:neocomplcache_enable_auto_select = 1
-    " let g:neocomplcache_disable_auto_complete = 1
-    " inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<TAB>"
-    " inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
+        " Shell like behavior(not recommended).
+        " set completeopt+=longest
+        " let g:neocomplcache_enable_auto_select = 1
+        " let g:neocomplcache_disable_auto_complete = 1
+        " inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<TAB>"
+        " inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
 
-    " Enable heavy omni completion.
-    if !exists('g:neocomplcache_omni_patterns')
-      let g:neocomplcache_omni_patterns = {}
-    endif
-    " let g:neocomplcache_omni_patterns.python = '[^. \t]\.\w*'
-    let g:neocomplcache_omni_patterns.coffee = '[^. \t]\.\%(\h\w*\)\?'
-    let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
-    let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-    let g:neocomplcache_omni_patterns.c = '\%(\.\|->\)\h\w*'
-    let g:neocomplcache_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
-    let g:neocomplcache_omni_patterns.go = '\h\w*\%.'
+        " Enable heavy omni completion.
+        if !exists('g:neocomplcache_omni_patterns')
+          let g:neocomplcache_omni_patterns = {}
+        endif
+        " let g:neocomplcache_omni_patterns.python = '[^. \t]\.\w*'
+        let g:neocomplcache_omni_patterns.coffee = '[^. \t]\.\%(\h\w*\)\?'
+        let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
+        let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+        let g:neocomplcache_omni_patterns.c = '\%(\.\|->\)\h\w*'
+        let g:neocomplcache_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
+        let g:neocomplcache_omni_patterns.go = '\h\w*\%.'
     endif
 " }}}
 
@@ -551,8 +543,8 @@
         w
         !node %
     endfunction
-    command! RunInNode call s:RunInNode()
-    map <leader>r :RunInNode<cr>
+    au FileType javascript command! RunInNode call s:RunInNode()
+    au FileType javascript map <leader>r :RunInNode<cr>
 " }}}
 
 " CoffeeScript {{{
@@ -669,6 +661,10 @@
     vnoremap <leader>y "*y
     nnoremap <leader>p "*P
     vnoremap <leader>p "*P
+    nnoremap <leader>Y "+y
+    vnoremap <leader>Y "+y
+    nnoremap <leader>P "+P
+    vnoremap <leader>P "+P
 
     " \u \t toggle Gundo/Tagbar
     nnoremap <leader>u :GundoToggle<cr>
