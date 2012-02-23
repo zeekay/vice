@@ -34,6 +34,8 @@
     Bundle 'git://github.com/wavded/vim-stylus'
     " vim-html - https://github.com/tpope/vim-haml
     Bundle 'git://github.com/tpope/vim-haml'
+    " ColorV - https://github.com/Rykka/ColorV
+    Bundle 'git://github.com/Rykka/ColorV'
     " https://github.com/lvivski/vim-css-color.git
     Bundle 'git://github.com/lvivski/vim-css-color.git'
     " vim-fugitive - https://github.com/tpope/vim-fugitive
@@ -249,6 +251,7 @@
         " Console {{{
         set ttyfast
         colorscheme hornet
+        " colorscheme jellybeans
         " }}}
     endif
 " }}}
