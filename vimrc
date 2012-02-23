@@ -62,6 +62,8 @@
         " Bundle 'git://github.com/Rip-Rip/clang_complete'
         " neocomplcache-clang_complete - https://github.com/osyo-manga/neocomplcache-clang_complete
         " Bundle 'git://github.com/osyo-manga/neocomplcache-clang_complete'
+        " neco-ghc - https://github.com/ujihisa/neco-ghc
+        Bundle 'git://github.com/ujihisa/neco-ghc.git'
     endif
 
     if version > 702 && has('python')
@@ -555,6 +557,10 @@
     au FileType coffee map <leader>c :CoffeeCompile watch vertical<cr>
     au FileType coffee imap <leader>r <c-o>:CoffeeRun<cr>
     au FileType coffee imap <leader>c <c-o>:CoffeeCompile watch vertical<cr>
+" }}}
+
+" Haskell {{{
+    let g:haddock_browser="/usr/bin/firefox"
 " }}}
 
 " Misc Filetypes {{{
