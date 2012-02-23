@@ -231,9 +231,10 @@
         else
             " gVim {{{
             " set guifont=MonteCarlo
-            set guifont=Inconsolata\ 10
-            " set guifont=Andale\ Mono\ 9
-            " set guifont=Dejavu\ Sans\ Mono\ 9
+            " set guifont=Inconsolata\ 10
+            " set guifont=Andale\ Mono\ 10
+            set guifont=Bitstream\ Vera\ Sans\ Mono\ 10
+            " set guifont=Dejavu\ Sans\ Mono\ 10
             " }}}
         endif
         " Common gui settings {{{
@@ -251,6 +252,7 @@
         " Console {{{
         set ttyfast
         colorscheme hornet
+        colorscheme github
         " colorscheme jellybeans
         " }}}
     endif
@@ -704,7 +706,10 @@
 
     " open urls
     nnoremap <leader>o :silent !open -a "Google Chrome" <c-r>=expand("<cWORD>")<cr><cr>:redraw!<cr>
-
+    " Identify vim syntax highlight group under cursor
+    map <leader>hi :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+                             \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+                             \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 " }}}
 
 " Vimdiff {{{
