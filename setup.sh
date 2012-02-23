@@ -34,3 +34,11 @@ echo '...installing bundles'
 vim -e -c 'BundleInstall!' -c 'qa'
 
 echo '...done!'
+
+echo
+echo 'You also might want to install a few external programs for syntax checking.'
+echo 'For Haskell, Javascript and Python I recommend:'
+echo
+echo 'cabal install ghc-mod'
+echo 'npm install -g jslint'
+echo 'pip install flake8'
