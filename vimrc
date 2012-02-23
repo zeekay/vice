@@ -192,61 +192,51 @@
     set statusline=\(%n\)\ %f\ %*%#Modified#%m\ (%l/%L,\ %c)\ %P%=%h%w\ %y\ [%{&encoding}:%{&fileformat}]
 " }}}
 
-" Quickfix / location list {{{
-    au Filetype qf setl nolist
-    au Filetype qf setl nocursorline
-    au Filetype qf setl nowrap
-    nnoremap ]q :cnext<cr>
-    nnoremap [q :cprevious<cr>
-    nnoremap ]l :lnext<cr>
-    nnoremap [l :lprevious<cr>
-" }}}
-
 " Colors/Gui {{{
     " set fillchars+=vert:│
     set fillchars=
     if has("gui_running")
         if has('mac')
             " MacVim {{{
-            set fuoptions=maxvert,maxhorz
-            let macvim_hig_shift_movement = 1
-            let macvim_skip_cmd_opt_movement = 1
-            " set guifont=Dina-medium:h13
-            " set guifont=Monaco:h12
-            set guifont=Inconsolata:h14
-            set linespace=1
-            " change dir to open file
-            " lcd %:p:h
-            nnoremap <D-1> 1gt
-            nnoremap <D-2> 2gt
-            nnoremap <D-3> 3gt
-            nnoremap <D-4> 4gt
-            nnoremap <D-5> 5gt
-            nnoremap <D-6> 6gt
-            nnoremap <D-7> 7gt
-            nnoremap <D-8> 8gt
-            nnoremap <D-9> 9gt
-            nnoremap <D-0> 10gt
+                set fuoptions=maxvert,maxhorz
+                let macvim_hig_shift_movement = 1
+                let macvim_skip_cmd_opt_movement = 1
+                " set guifont=Dina-medium:h13
+                " set guifont=Monaco:h12
+                set guifont=Inconsolata:h14
+                set linespace=1
+                " change dir to open file
+                " lcd %:p:h
+                nnoremap <D-1> 1gt
+                nnoremap <D-2> 2gt
+                nnoremap <D-3> 3gt
+                nnoremap <D-4> 4gt
+                nnoremap <D-5> 5gt
+                nnoremap <D-6> 6gt
+                nnoremap <D-7> 7gt
+                nnoremap <D-8> 8gt
+                nnoremap <D-9> 9gt
+                nnoremap <D-0> 10gt
             " }}}
         else
             " gVim {{{
-            " set guifont=MonteCarlo
-            " set guifont=Inconsolata\ 10
-            " set guifont=Andale\ Mono\ 10
-            set guifont=Bitstream\ Vera\ Sans\ Mono\ 10
-            " set guifont=Dejavu\ Sans\ Mono\ 10
+                " set guifont=MonteCarlo
+                " set guifont=Andale\ Mono\ 10
+                " set guifont=Bitstream\ Vera\ Sans\ Mono\ 10
+                " set guifont=Dejavu\ Sans\ Mono\ 10
+                set guifont=Inconsolata\ 10
             " }}}
         endif
         " Common gui settings {{{
-        " set fillchars=diff:⣿
-        " set listchars=tab:▸\ ,eol:¬,extends:❯,precedes:❮
-        " set showbreak=↪
-        set mouse=a
-        set guioptions=ace
-        colorscheme molokai
-        " colorscheme pyte
-        " colorscheme solarized
-        " colorscheme proton
+            set fillchars=diff:⣿
+            set listchars=tab:▸\ ,eol:¬,extends:❯,precedes:❮
+            " set showbreak=↪
+            set mouse=a
+            set guioptions=ace
+            colorscheme molokai
+            " colorscheme pyte
+            " colorscheme solarized
+            " colorscheme proton
         " }}}
     else
         " Console {{{
@@ -707,9 +697,27 @@
     " open urls
     nnoremap <leader>o :silent !open -a "Google Chrome" <c-r>=expand("<cWORD>")<cr><cr>:redraw!<cr>
     " Identify vim syntax highlight group under cursor
-    map <leader>hi :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
-                             \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
-                             \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+    map <leader>hi :echo "hi: " . synIDattr(synID(line("."),col("."),1),"name") . ', trans: '
+                             \ . synIDattr(synID(line("."),col("."),0),"name") . ", lo: "
+                             \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name")<CR>
+" }}}
+
+" Cmdline Editing {{{
+    cnoremap <C-O> <C-F>
+    cnoremap <C-A> <Home>
+    cnoremap <C-E> <End>
+    cnoremap <C-F> <Right>
+    cnoremap <C-B> <Left>
+" }}}
+
+" Quickfix / location list {{{
+    au Filetype qf setl nolist
+    au Filetype qf setl nocursorline
+    au Filetype qf setl nowrap
+    nnoremap ]q :cnext<cr>
+    nnoremap [q :cprevious<cr>
+    nnoremap ]l :lnext<cr>
+    nnoremap [l :lprevious<cr>
 " }}}
 
 " Vimdiff {{{
