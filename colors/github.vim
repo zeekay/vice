@@ -22,20 +22,20 @@ hi Statement                guifg=#444444 ctermfg=236 gui=bold cterm=bold
 hi Number                   guifg=#009999 ctermfg=30
 hi Define                   guifg=#444444 ctermfg=0 gui=bold cterm=bold
 hi LineNr                   guifg=#666666 ctermfg=241 guibg=#ECECEC ctermbg=7
-hi Type                     guifg=#445588 gui=bold  cterm=bold    ctermfg=103
 hi Keyword                  guifg=#ff9800 gui=none      ctermfg=208
-hi Constant                 guifg=#c03000 gui=none      ctermfg=208
-hi Special                  guifg=#4bb5c1 gui=none      ctermfg=208
-hi PreProc                  guifg=#96ca2d gui=none      ctermfg=230
-hi Todo                     guifg=#fec135 guibg=#202020 gui=none
-hi Search                   guifg=#444444 guibg=#aeee00 gui=none
+" hi Constant                 guifg=#c03000 gui=none      ctermfg=208
+" hi Special                  guifg=#4bb5c1 gui=none      ctermfg=208
+" hi PreProc                  guifg=#96ca2d gui=none      ctermfg=230
+" hi Todo                     guifg=#fec135 guibg=#202020 gui=none
+" hi Search                   guifg=#444444 guibg=#aeee00 gui=none
 
 hi vimCommentTitle          guifg=#999988 ctermfg=246 guibg=#FFFFFF ctermbg=231 gui=italic
 
-hi pythonDottedName         gui=none guifg=#444444
-hi pythonDecorator          gui=none guifg=#444444
+hi pythonDottedName         guifg=#444444
+hi pythonDecorator          guifg=#444444
 hi pythonBuiltinFunc        guifg=#0086B3
-hi pythonSelf               gui=none guifg=#999999
+hi pythonSelf               guifg=#999999
+hi PythonClass              guifg=#445588 gui=bold  cterm=bold    ctermfg=103
 
 hi javaScriptRegexpString   guifg=#009926 ctermfg=28
 hi javaScriptGlobal         guifg=#000080 ctermfg=18
