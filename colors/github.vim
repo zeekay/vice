@@ -11,13 +11,15 @@ endif
 
 let colors_name = "github"
 
-hi Normal                   guifg=#333333 ctermfg=240 guibg=#FFFFFF ctermbg=231
-hi Comment                  guifg=#999988 ctermfg=244 guibg=#FFFFFF ctermbg=231 gui=italic
+hi Normal                   guifg=#333333 ctermfg=236 guibg=#FFFFFF ctermbg=231
+hi Comment                  guifg=#999988 ctermfg=246 guibg=#FFFFFF ctermbg=231 gui=italic
+hi vimCommentTitle          guifg=#999988 ctermfg=246 guibg=#FFFFFF ctermbg=231 gui=italic
+" hi Type                     ctermfg=66
 hi Number                   guifg=#009999 ctermfg=30
 hi String                   guifg=#DD1144 ctermfg=161
 hi Boolean                  gui=bold cterm=bold
 hi Identifier               guifg=#444444 ctermfg=0
-hi Function                 guifg=#990000 gui=bold cterm=bold
+hi Function                 guifg=#990000 ctermfg=124 gui=bold cterm=bold
 hi Statement                guifg=#444444 ctermfg=236 gui=bold cterm=bold
 hi Number                   guifg=#009999 ctermfg=30
 hi Define                   guifg=#444444 ctermfg=0 gui=bold cterm=bold
@@ -29,13 +31,12 @@ hi Keyword                  guifg=#ff9800 gui=none      ctermfg=208
 " hi Todo                     guifg=#fec135 guibg=#202020 gui=none
 " hi Search                   guifg=#444444 guibg=#aeee00 gui=none
 
-hi vimCommentTitle          guifg=#999988 ctermfg=246 guibg=#FFFFFF ctermbg=231 gui=italic
-
-hi pythonDottedName         guifg=#444444
-hi pythonDecorator          guifg=#444444
-hi pythonBuiltinFunc        guifg=#0086B3
-hi pythonSelf               guifg=#999999
-hi PythonClass              guifg=#445588 gui=bold  cterm=bold    ctermfg=103
+hi pythonDottedName         guifg=#444444 ctermfg=236 gui=none cterm=none
+hi pythonDecorator          guifg=#444444 ctermfg=236 gui=none cterm=none
+hi pythonBuiltinFunc        guifg=#0086B3 ctermfg=38
+hi pythonSelf               guifg=#999999 ctermfg=247
+hi pythonClass              guifg=#445588 gui=bold  cterm=bold    ctermfg=60
+hi pythonExClass            guifg=#990000 ctermfg=124 gui=bold cterm=bold
 
 hi javaScriptRegexpString   guifg=#009926 ctermfg=28
 hi javaScriptGlobal         guifg=#000080 ctermfg=18
