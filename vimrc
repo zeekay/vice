@@ -223,8 +223,8 @@
                 " set guifont=MonteCarlo
                 " set guifont=Andale\ Mono\ 10
                 " set guifont=Bitstream\ Vera\ Sans\ Mono\ 10
-                " set guifont=Dejavu\ Sans\ Mono\ 10
-                set guifont=Inconsolata\ 10
+                set guifont=Dejavu\ LGC\ Sans\ Mono\ 8
+                " set guifont=Inconsolata\ 10
             " }}}
         endif
         " Common gui settings {{{
@@ -242,7 +242,7 @@
         " Console {{{
         set ttyfast
         colorscheme hornet
-        colorscheme github
+        " colorscheme github
         " colorscheme jellybeans
         " }}}
     endif

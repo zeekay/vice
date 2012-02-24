@@ -75,6 +75,7 @@ hi pythonOperator  guifg=#7e8aa2 gui=none ctermfg=103
 hi pythonBuiltinFunction guifg=#009000 gui=none ctermfg=200
 hi pythonExClass   guifg=#009000 gui=none ctermfg=200
 hi pythonAssignment guifg=#757575 gui=none ctermfg=244
+hi pythonSelf       ctermfg=199
 
 " Ruby
 hi rubyBeginEnd    guifg=#48BB8D gui=none
