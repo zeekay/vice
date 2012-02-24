@@ -24,6 +24,8 @@
     Bundle 'git://github.com/sjl/gundo.vim'
     " syntastic - https://github.com/scrooloose/syntastic
     Bundle 'git://github.com/scrooloose/syntastic'
+    " python.vim - https://github.com/zeekay/python.vim
+    Bundle 'git@github.com:zeekay/python.vim'
     " vim-javascript - https://github.com/pangloss/vim-javascript
     Bundle 'git://github.com/pangloss/vim-javascript'
     " vim-coffees-script - https://github.com/kchmck/vim-coffee-script
