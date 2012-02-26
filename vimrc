@@ -52,6 +52,8 @@
     Bundle 'git://github.com/mattn/gist-vim'
     " haskellmode-vim - https://github.com/zeekay/haskellmode-vim
     Bundle 'git@github.com:zeekay/haskellmode-vim'
+    " vimtips - https://github.com/zeekay/vimtips
+    Bundle 'git@github.com:zeekay/vimtips'
 
     if version > 702
         " https://github.com/vim-scripts/VimClojure
