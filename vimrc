@@ -296,7 +296,7 @@
         " Set minimum syntax keyword length.
         let g:neocomplcache_min_syntax_length = 3
         " let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
-        let g:neocomplcache_source_disable = {'include_complete' : 1, 'filename_complete' : 1}
+        let g:neocomplcache_source_disable = {'include_complete' : 0, 'filename_complete' : 0}
 
         " Define dictionary.
         " let g:neocomplcache_dictionary_filetype_lists = {
