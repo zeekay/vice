@@ -34,15 +34,15 @@ filetype plugin indent on
     \]
 
     if version > 702
-    let addons += [
-        \'github:vim-scripts/VimClojure',
-        \'github:majutsushi/tagbar',
-        \'github:Shougo/neocomplcache',
-        \'github:Shougo/neocomplcache-snippets-complete',
-        \'github:Rip-Rip/clang_complete',
-        \'github:osyo-manga/neocomplcache-clang_complete',
-        \'github:ujihisa/neco-ghc.git',
-    \]
+        let addons += [
+            \'github:vim-scripts/VimClojure',
+            \'github:majutsushi/tagbar',
+            \'github:Shougo/neocomplcache',
+            \'github:Shougo/neocomplcache-snippets-complete',
+            \'github:Rip-Rip/clang_complete',
+            \'github:osyo-manga/neocomplcache-clang_complete',
+            \'github:ujihisa/neco-ghc.git',
+        \]
     endif
 
     if version > 702 && has('python')
