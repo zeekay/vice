@@ -131,6 +131,10 @@
     set termencoding=utf-8
     set ruler
     set linebreak
+    if exists('+breakindent')
+        " compiled with breakindent patch
+        set breakindent
+    endif
     set wrap
     set whichwrap=b,s,h,l,<,>,[,]
     " set clipboard=unnamed,unnamedplus
