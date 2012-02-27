@@ -34,7 +34,6 @@
     endif
 
     call vam#ActivateAddons(addons, {'auto_install': 1})
-
 " }}}
 
 " FileType Plugins {{{
@@ -370,7 +369,7 @@
     " let g:ctrlp_user_command = 'find %s -type f'       " MacOSX/Linux
     " let g:ctrlp_map = '<c-p>'
     " nnoremap <c-b> :CtrlPBuffer<cr>
-    let g:ctrlp_jumP_TO_buffer = 2
+    let g:ctrlp_jump_to_buffer = 2
     let g:ctrlp_working_path_mode = 2
     let g:ctrlp_use_caching = 1
     let g:ctrlp_clear_cache_on_exit = 1
@@ -410,11 +409,18 @@
     au FileType coffee imap <leader>c <c-o>:CoffeeCompile watch vertical<cr>
 " }}}
 
+" Clojure {{{
+    let g:vimclojure#SplitPos = "left"
+    let g:vimclojure#ParenRainbow = 1
+    let g:vimclojure#DynamicHighlighting = 1
+    " au BufRead,BufNewFile *.clj nmap xyz <Plug>ClojureEvalToplevel
+" }}}
+
 " Haskell {{{
     let g:haddock_browser="/usr/bin/firefox"
 " }}}
 
-" Misc Filetypes {{{
+" Markdown {{{
     autocmd BufNewFile,BufRead *.{md,mkd,mkdn,mark*} set filetype=markdown
 " }}}
 
@@ -438,16 +444,6 @@
     au FileType * au BufWritePre <buffer> :silent! call <SID>StripTrailingWhitespace()`
 " }}}
 
-
-" Pasta {{{
-    function! s:MakePasta(filename)
-        let fn = a:filename
-        let res = system('/usr/local/bin/python ~/.bin/pasta ' . fn)
-        echo res
-    endfunction
-    command! Pasta call s:MakePasta(expand("%"))
-" }}}
-
 " Scrollbind Toggle {{{
     function! s:ScrollbindToggle()
         set scrollbind!
@@ -465,6 +461,8 @@
 " }}}
 
 " Mapping {{{
+    map localleader ,
+
     " Real men don't use arrow keys!
     noremap <up> <nop>
     noremap <down> <nop>
