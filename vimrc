@@ -6,8 +6,8 @@ syntax on
 filetype plugin indent on
 
 " Enable plugins {{{
-
     set rtp+=~/.vim/bundle/vim-addon-manager
+
     let addons = [
         \'github:kien/ctrlp.vim',
         \'github:mileszs/ack.vim',
@@ -49,7 +49,7 @@ filetype plugin indent on
         let addons += ['hg:ssh://hg/vim-python-mode']
     endif
 
-    call vam#ActivateAddons(addons, {'auto_install': 'yes'})
+    call vam#ActivateAddons(addons, {'auto_install': 1})
 
 " }}}
 
