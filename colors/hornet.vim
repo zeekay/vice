@@ -82,7 +82,5 @@ hi rubyBeginEnd    guifg=#48BB8D gui=none
 hi rubyClass       guifg=#E42F29 gui=none
 hi rubyClassVariable guifg=#29AEE3 gui=none
 
-" Dynamic Statusline
-hi StatColor ctermfg=230     ctermbg=235     cterm=none      guifg=#d3d3d5 guibg=#303030   gui=none
-hi Modified ctermbg=lightred ctermfg=black
-
+" HTML
+hi htmlItalic   cterm=bold
