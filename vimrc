@@ -26,7 +26,7 @@ filetype plugin indent on
         \'github:lvivski/vim-css-color',
         \'github:tpope/vim-fugitive',
         \'hg:ssh://hg/vim-lawrencium',
-        \'github:zeekay/vim-powerline',
+        \'github:Lokaltog/vim-powerline',
         \'github:zeekay/vim-space',
         \'github:mattn/gist-vim',
         \'hg:ssh://hg/haskellmode-vim',
@@ -97,11 +97,7 @@ filetype plugin indent on
     set nomore
     " Disable folding
     " set foldminlines=99999
-    " Save and load view for each document, preserving cursor position
-    " au BufWinLeave * silent! mkview
-    " au BufWinEnter * silent! loadview
-    " Center text
-    " au BufWinEnter * silent! normal zz
+    set viminfo='100,\"100,:100,h,n~/.vim/tmp/viminfo
 " }}}
 
 " Indent {{{
@@ -142,6 +138,10 @@ filetype plugin indent on
 " Statusline {{{
     set laststatus=2
     set statusline=\(%n\)\ %f\ %*%#Modified#%m\ (%l/%L,\ %c)\ %P%=%h%w\ %y\ [%{&encoding}:%{&fileformat}]
+    set encoding=utf-8 " Necessary to show unicode glyphs
+    let g:Powerline_symbols = 'compatible'
+    let g:Powerline_theme = 'distinguished'
+    let g:Powerline_colorscheme = 'distinguished'
 " }}}
 
 " Colors/Gui {{{
@@ -260,10 +260,10 @@ filetype plugin indent on
         let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
 
         " Plugin key-mappings.
-        imap <C-s>     <Plug>(neocomplcache_snippets_expand)
-        smap <C-s>     <Plug>(neocomplcache_snippets_expand)
-        inoremap <expr><C-g>     neocomplcache#undo_completion()
-        inoremap <expr><C-l>     neocomplcache#complete_common_string()
+        imap <C-l>    <Plug>(neocomplcache_snippets_expand)
+        smap <C-l>    <Plug>(neocomplcache_snippets_expand)
+        " inoremap <expr><C-g>     neocomplcache#undo_completion()
+        " inoremap <expr><C-l>     neocomplcache#complete_common_string()
 
         " SuperTab like snippets behavior.
         " imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ?
@@ -589,10 +589,10 @@ filetype plugin indent on
     inoremap <c-w> <c-o><c-w>
 
     " ctrl-h/l to switch between tabs
-    nnoremap <c-h> :tabp<CR>
-    nnoremap <c-l> :tabn<CR>
-    inoremap <c-h> <c-o>:tabp<CR>
-    inoremap <c-l> <c-o>:tabn<CR>
+    " nnoremap <c-h> :tabp<CR>
+    " nnoremap <c-l> :tabn<CR>
+    " inoremap <c-h> <c-o>:tabp<CR>
+    " inoremap <c-l> <c-o>:tabn<CR>
 
     " ctrl-j/k to switch between buffers
     nnoremap <c-k> :bn<cr>
@@ -655,11 +655,12 @@ filetype plugin indent on
 " }}}
 
 " Cmdline Editing {{{
-    cnoremap <C-O> <C-F>
     cnoremap <C-A> <Home>
     cnoremap <C-E> <End>
-    cnoremap <C-F> <Right>
-    cnoremap <C-B> <Left>
+    cnoremap <C-k> <Up>
+    cnoremap <C-j> <Down>
+    cnoremap <C-h> <Left>
+    cnoremap <C-l> <Right>
 " }}}
 
 " Quickfix / location list {{{
