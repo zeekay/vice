@@ -241,6 +241,7 @@ filetype plugin indent on
 " }}}
 
 " Gundo {{{
+    let g:gundo_help = 0
     let g:gundo_right = 1
     let g:gundo_width = 50
 " }}}
@@ -266,7 +267,6 @@ filetype plugin indent on
 " Tagbar {{{
     let g:tagbar_singleclick = 1
     let g:tagbar_width = 50
-    " let g:tagbar_autoclose = 1
     let g:tagbar_autofocus = 1
     let g:tagbar_compact = 1
     let g:tagbar_ctags_bin = 'ctags'
