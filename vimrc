@@ -66,7 +66,7 @@
     set viminfo='100,\"100,:100,h,n~/.vim/tmp/viminfo
     set undolevels=100
     set history=100
-    " set autochdir
+    set autochdir
     set backspace=indent,eol,start
     set matchpairs+=<:>
     set shortmess=aoOsTI
@@ -83,17 +83,17 @@
     set gdefault
     set showcmd
     set noshowmode
+    set fillchars=
     set virtualedit=block,onemore
     set switchbuf=usetab
     set splitright
     set nomore
-    " set clipboard=unnamed,unnamedplus
-    " set pumheight=10
-    " set scrolloff=10
-    " set sidescrolloff=20
-    " set scrolljump=10
-    " Disable folding
-    " set foldminlines=99999
+    set clipboard=unnamed,unnamedplus
+    set pumheight=10
+    set scrolloff=5
+    set sidescrolloff=5
+    set scrolljump=5
+    set foldminlines=99999
     if exists('+breakindent')
         " compiled with breakindent patch
         set breakindent
@@ -180,7 +180,6 @@
         " }}}
     else
         " Console {{{
-        set fillchars=
         set ttyfast
         colorscheme hornet
         " }}}
@@ -352,8 +351,8 @@
     let g:python_highlight_all = 1
     let g:python_show_sync = 1
     let g:python_print_as_function = 1
-    let g:pythonmode_enable_rope = 0
     let g:pythonmode_enable_django = 1
+    let g:pythonmode_enable_rope = 0
     let ropevim_vim_completion = 1
     let ropevim_extended_complete = 1
     " au FileType python setlocal foldmethod=syntax
@@ -442,10 +441,6 @@
     inoremap OB <nop>
     inoremap OD <nop>
     inoremap OC <nop>
-
-    " However they hate gj and gk!
-    nnoremap j gj
-    nnoremap k gk
 
     " prevent cursor from moving when leavng insert mode
     inoremap <Esc> <Esc>`^
