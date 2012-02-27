@@ -141,7 +141,6 @@ filetype plugin indent on
 " }}}
 
 " Colors/Gui {{{
-    set fillchars=
     if has("gui_running")
         if has('mac')
             " MacVim {{{
@@ -173,8 +172,9 @@ filetype plugin indent on
             " }}}
         endif
         " Common gui settings {{{
-            set fillchars=diff:⣿
-            set listchars=tab:▸\ ,eol:¬,extends:❯,precedes:❮
+            set fillchars=
+            " set fillchars=diff:⣿
+            " set listchars=tab:▸\ ,eol:¬,extends:❯,precedes:❮
             " set showbreak=↪
             set mouse=a
             set guioptions=ace
@@ -187,6 +187,7 @@ filetype plugin indent on
         " Console {{{
         set ttyfast
         colorscheme hornet
+        " colorscheme molokai
         " colorscheme github
         " colorscheme jellybeans
         " }}}
