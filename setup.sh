@@ -25,13 +25,13 @@ ln -s $basedir/vimrc ~/.vimrc
 ln -s $basedir/gvimrc ~/.gvimrc
 ln -s $basedir/vimpagerrc ~/.vimpagerrc
 
-echo '...cloning vundle'
+echo '...cloning vim-addon-manager'
 
-rm -rf $basedir/bundle/vundle
+rm -rf $basedir/bundle/vim-addon-manager
 git clone git://github.com/MarcWeber/vim-addon-manager.git $basedir/bundle/vim-addon-manager
 
-echo '...installing bundles'
-vim -e -c 'BundleInstall!' -c 'qa'
+echo '...installing plugins'
+yes | vim -c 'q'
 
 echo '...done!'
 
