@@ -1,115 +1,59 @@
 " Author: Zach Kelling
 " Source: https://bitbucket.org/zeekay/dot-vim / https://github.com/zeekay/dot-vim
 
-" Vundle {{{
-    set nocompatible
-    filetype off
+set nocompatible
+syntax on
+filetype plugin indent on
 
-    set rtp+=~/.vim/bundle/vundle
-    call vundle#rc()
+" Enable plugins {{{
 
-    " vundle - https://github.com/gmarik/vundle
-    Bundle 'git://github.com/gmarik/vundle'
-    " ctrlp - https://github.com/kien/ctrlp.vim
-    Bundle 'git://github.com/kien/ctrlp.vim'
-    " ack.vim - https://github.com/mileszs/ack.vim
-    Bundle 'git://github.com/mileszs/ack.vim'
-    " vim-repeat - https://github.com/tpope/vim-repeat
-    Bundle 'git://github.com/tpope/vim-repeat'
-    " vim-commentary - https://github.com/tpope/vim-commentary
-    Bundle 'git://github.com/tpope/vim-commentary'
-    " https://github.com/juanpabloaj/help.vim
-    Bundle 'git://github.com/juanpabloaj/help.vim'
-    " gundo - https://github.com/sjl/gundo.vim
-    Bundle 'git://github.com/sjl/gundo.vim'
-    " syntastic - https://github.com/scrooloose/syntastic
-    Bundle 'git://github.com/scrooloose/syntastic'
-    " python.vim - https://github.com/zeekay/python.vim
-    Bundle 'git@github.com:zeekay/python.vim'
-    " vim-javascript - https://github.com/pangloss/vim-javascript
-    Bundle 'git://github.com/pangloss/vim-javascript'
-    " vim-coffees-script - https://github.com/kchmck/vim-coffee-script
-    Bundle 'git://github.com/kchmck/vim-coffee-script'
-    " vim-jade - https://github.com/digitaltoad/vim-jade.git
-    Bundle 'git://github.com/digitaltoad/vim-jade'
-    " vim-stylus - https://github.com/wavded/vim-stylus.git
-    Bundle 'git://github.com/wavded/vim-stylus'
-    " vim-html - https://github.com/tpope/vim-haml
-    Bundle 'git://github.com/tpope/vim-haml'
-    " ColorV - https://github.com/Rykka/ColorV
-    Bundle 'git://github.com/Rykka/ColorV'
-    " https://github.com/lvivski/vim-css-color.git
-    Bundle 'git://github.com/lvivski/vim-css-color.git'
-    " vim-fugitive - https://github.com/tpope/vim-fugitive
-    Bundle 'git://github.com/tpope/vim-fugitive'
-    " vim-lawrencium - Fork of https://bitbucket.org/ludovicchabant/vim-lawrencium
-    Bundle 'git@github.com:zeekay/vim-lawrencium.git'
-    " vim-powerline - Fork of https://github.com/Lokaltog/vim-powerline
-    Bundle 'git@github.com:zeekay/vim-powerline.git'
-    " vim-space - Fork of https://github.com/spiiph/vim-space
-    Bundle 'git@github.com:zeekay/vim-space.git'
-    " gist-vim - https://github.com/mattn/gist-vim.git
-    Bundle 'git://github.com/mattn/gist-vim'
-    " haskellmode-vim - https://github.com/zeekay/haskellmode-vim
-    Bundle 'git@github.com:zeekay/haskellmode-vim'
-    " vimtips - https://github.com/zeekay/vimtips
-    Bundle 'git@github.com:zeekay/vimtips'
+    set rtp+=~/.vim/bundle/vim-addon-manager
+    let addons = [
+        \'github:kien/ctrlp.vim',
+        \'github:mileszs/ack.vim',
+        \'github:tpope/vim-repeat',
+        \'github:tpope/vim-commentary',
+        \'github:juanpabloaj/help.vim',
+        \'github:sjl/gundo.vim',
+        \'github:scrooloose/syntastic',
+        \'hg:ssh://hg/python.vim',
+        \'github:pangloss/vim-javascript',
+        \'github:kchmck/vim-coffee-script',
+        \'github:digitaltoad/vim-jade',
+        \'github:wavded/vim-stylus',
+        \'github:tpope/vim-haml',
+        \'github:Rykka/ColorV',
+        \'github:lvivski/vim-css-color',
+        \'github:tpope/vim-fugitive',
+        \'hg:ssh://hg/vim-lawrencium',
+        \'github:zeekay/vim-powerline',
+        \'github:zeekay/vim-space',
+        \'github:mattn/gist-vim',
+        \'hg:ssh://hg/haskellmode-vim',
+        \'hg:ssh://hg/vimtips',
+    \]
 
     if version > 702
-        " https://github.com/vim-scripts/VimClojure
-        Bundle 'git://github.com/vim-scripts/VimClojure'
-        " tagbar - https://github.com/majutsushi/tagbar
-        Bundle 'git://github.com/majutsushi/tagbar'
-        " newcomplcache - https://github.com/Shougo/neocomplcache
-        Bundle 'git://github.com/Shougo/neocomplcache'
-        " newcomplcache-snippets-complete - https://github.com/Shougo/neocomplcache-snippets-complete
-        Bundle 'git://github.com/Shougo/neocomplcache-snippets-complete'
-        " clang_complete - https://github.com/Rip-Rip/clang_complete
-        " Bundle 'git://github.com/Rip-Rip/clang_complete'
-        " neocomplcache-clang_complete - https://github.com/osyo-manga/neocomplcache-clang_complete
-        " Bundle 'git://github.com/osyo-manga/neocomplcache-clang_complete'
-        " neco-ghc - https://github.com/ujihisa/neco-ghc
-        Bundle 'git://github.com/ujihisa/neco-ghc.git'
+    let addons += [
+        \'github:vim-scripts/VimClojure',
+        \'github:majutsushi/tagbar',
+        \'github:Shougo/neocomplcache',
+        \'github:Shougo/neocomplcache-snippets-complete',
+        \'github:Rip-Rip/clang_complete',
+        \'github:osyo-manga/neocomplcache-clang_complete',
+        \'github:ujihisa/neco-ghc.git',
+    \]
     endif
 
     if version > 702 && has('python')
-        " vim-python-mode - https://github.com/zeekay/vim-python-mode
-        Bundle 'git@github.com:zeekay/vim-python-mode.git'
+        let addons += ['hg:ssh://hg/vim-python-mode']
     endif
-" }}}
 
-" Disabled bundles {{{
-    " vim-ipython - Fork of https://github.com/ivanov/vim-ipython
-    " Bundle 'git://github.com/zeekay/vim-ipython'
-    " rope-omni - https://github.com/rygwdn/rope-omni.git
-    " Bundle 'git://github.com/rygwdn/rope-omni'
-    " supertab - https://github.com/ervandew/supertab
-    " Bundle 'git://github.com/ervandew/supertab'
-    " ultisnips - https://github.com/rygwdn/ultisnips
-    " Bundle 'git://github.com/rygwdn/ultisnips'
-    " pydoc.vim - Fork of https://github.com/fs111/pydoc.vim
-    " Bundle 'git@github.com:zeekay/pydoc.vim'
-    " vim-surround - https://github.com/tpope/vim-surround
-    " Bundle 'git://github.com/tpope/vim-surround'
-    " vim-easymotion - https://github.com/Lokaltog/vim-easymotion
-    " Bundle 'git://github.com/Lokaltog/vim-easymotion'
-    " chapa.vim - https://github.com/alfredodeza/chapa.vim
-    " Bundle 'git://github.com/alfredodeza/chapa.vim'
-    " tabular - https://github.com/godlygeek/tabular
-    " Bundle 'git://github.com/godlygeek/tabular'
-    " delimitMate - https://github.com/Raimondi/delimitMate
-    " Bundle 'git://github.com/Raimondi/delimitMate'
-    " AutoCloseTag - https://github.com/zeekay/vim-autoclose
-    " Bundle 'git@github.com:zeekay/vim-autoclose'
-    " SearchComplete - http://www.vim.org/scripts/script.php?script_id=474
-    " Bundle 'SearchComplete'
-    " vim-easytags - https://github.com/xolox/vim-easytags
-    " Bundle 'git://github.com/xolox/vim-easytags'
+    call vam#ActivateAddons(addons, {'auto_install': 0})
+
 " }}}
 
 " Basic/General Configuration {{{
-    syntax on
-    filetype plugin indent on
     set backup
     set backupdir=~/.vim/tmp/backup
     if version > 702

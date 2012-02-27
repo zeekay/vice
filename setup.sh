@@ -28,7 +28,7 @@ ln -s $basedir/vimpagerrc ~/.vimpagerrc
 echo '...cloning vundle'
 
 rm -rf $basedir/bundle/vundle
-git clone git://github.com/gmarik/vundle.git $basedir/bundle/vundle
+git clone git://github.com/MarcWeber/vim-addon-manager.git $basedir/bundle/vim-addon-manager
 
 echo '...installing bundles'
 vim -e -c 'BundleInstall!' -c 'qa'
