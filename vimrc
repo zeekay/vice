@@ -200,7 +200,6 @@
             " }}}
         endif
         " Common gui settings {{{
-            set fillchars=
             " set fillchars=diff:⣿
             " set listchars=tab:▸\ ,eol:¬,extends:❯,precedes:❮
             " set showbreak=↪
@@ -210,6 +209,7 @@
         " }}}
     else
         " Console {{{
+        set fillchars=
         set ttyfast
         colorscheme hornet
         " }}}
@@ -410,10 +410,15 @@
 " }}}
 
 " Clojure {{{
-    let g:vimclojure#SplitPos = "left"
-    let g:vimclojure#ParenRainbow = 1
+    let vimclojure#SplitPos = "left"
+    let vimclojure#HighlightBuiltins = 1
+    let vimclojure#HighlightContrib = 1
+    let vimclojure#ParenRainbow = 1
     let g:vimclojure#DynamicHighlighting = 1
-    " au BufRead,BufNewFile *.clj nmap xyz <Plug>ClojureEvalToplevel
+    if executable('ng')
+        let vimclojure#WantNailgun = 1
+    endif
+    au FileType clojure so ~/.vim/bundle/github-vim-scripts-VimClojure/plugin/clojure.vim
 " }}}
 
 " Haskell {{{
@@ -493,6 +498,7 @@
     " Enter normal mode quickly
     nnoremap ; :
     vnoremap ; :
+    inoremap <c-w> <c-o><c-w>
 
     " J/K move up down half pages
     nnoremap J <C-D>
@@ -534,8 +540,8 @@
     " \y and \p for clipboard yank/paste
     nnoremap <leader>y "*y
     vnoremap <leader>y "*y
-    nnoremap <leader>p "*P
-    vnoremap <leader>p "*P
+    " nnoremap <leader>p "*P
+    " vnoremap <leader>p "*P
     nnoremap <leader>Y "+y
     vnoremap <leader>Y "+y
     nnoremap <leader>P "+P
@@ -552,7 +558,6 @@
     nnoremap <leader>sb :ScrollbindToggle<cr>
 
     " \e \q \w \t
-    nnoremap <leader>e :Explore<cr>
     nnoremap <leader>q :q<cr>
     nnoremap <leader>s :s%//<left>
     vnoremap <leader>s :s//<left>
