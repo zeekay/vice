@@ -11,6 +11,8 @@
         \ 'github:mileszs/ack.vim',
         \ 'github:tpope/vim-repeat',
         \ 'github:tpope/vim-commentary',
+        \ 'github:junegunn/tabular',
+        \ 'github:Raimondi/delimitMate',
         \ 'github:tpope/vim-fugitive',
         \ 'hg:ssh://hg/vim-lawrencium',
         \ 'github:sjl/gundo.vim',
@@ -18,7 +20,8 @@
         \ 'github:Lokaltog/vim-powerline',
         \ 'github:zeekay/vim-space',
         \ 'github:mattn/gist-vim',
-        \ 'github:Rip-Rip/clang_complete',
+        \ 'github:Rykka/ColorV',
+        \ 'github:lvivski/vim-css-color',
         \ 'github:kchmck/vim-coffee-script',
         \ 'github:tpope/vim-haml',
         \ 'hg:ssh://hg/haskellmode-vim',
@@ -26,19 +29,18 @@
         \ 'github:pangloss/vim-javascript',
         \ 'hg:ssh://hg/python.vim',
         \ 'github:wavded/vim-stylus',
-        \ 'github:Rykka/ColorV',
-        \ 'github:lvivski/vim-css-color',
         \ 'github:juanpabloaj/help.vim',
         \ 'hg:ssh://hg/vimtips',
     \ ]
 
     if version > 702
         let addons += [
+            \ 'github:majutsushi/tagbar',
             \ 'github:Shougo/neocomplcache',
             \ 'github:Shougo/neocomplcache-snippets-complete',
+            \ 'github:Rip-Rip/clang_complete',
             \ 'github:osyo-manga/neocomplcache-clang_complete',
             \ 'github:ujihisa/neco-ghc',
-            \ 'github:majutsushi/tagbar',
             \ 'github:vim-scripts/VimClojure',
         \ ]
     endif
@@ -61,8 +63,9 @@
     endif
     set directory=~/.vim/tmp/swap
     set viewdir=~/.vim/tmp/view
-    set undolevels=1000
-    set history=1000
+    set viminfo='100,\"100,:100,h,n~/.vim/tmp/viminfo
+    set undolevels=100
+    set history=100
     " set autochdir
     set backspace=indent,eol,start
     set matchpairs+=<:>
@@ -83,6 +86,7 @@
     set virtualedit=block,onemore
     set switchbuf=usetab
     set splitright
+    set nomore
     " set clipboard=unnamed,unnamedplus
     " set pumheight=10
     " set scrolloff=10
@@ -90,7 +94,6 @@
     " set scrolljump=10
     " Disable folding
     " set foldminlines=99999
-    set viminfo='100,\"100,:100,h,n~/.vim/tmp/viminfo
     if exists('+breakindent')
         " compiled with breakindent patch
         set breakindent
@@ -257,10 +260,6 @@
     let g:delimitMate_balance_matchpairs = 1
     let g:delimitMate_excluded_ft = "mail,help"
     au FileType * let b:delimitMate_autoclose = 1
-" }}}
-
-" EasyMotion {{{
-    let g:EasyMotion_keys = ";,.pyfgcrl/aoeuidhtns-'qjkxbmwvz"
 " }}}
 
 " Tagbar {{{
@@ -434,8 +433,6 @@
 " }}}
 
 " Mapping {{{
-    map localleader ,
-
     " Real men don't use arrow keys!
     noremap <up> <nop>
     noremap <down> <nop>
