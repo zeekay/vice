@@ -1,11 +1,8 @@
 " Author: Zach Kelling
 " Source: https://bitbucket.org/zeekay/dot-vim / https://github.com/zeekay/dot-vim
 
-set nocompatible
-syntax on
-filetype plugin indent on
-
 " Plugins {{{
+    set nocompatible
     set rtp+=~/.vim/bundle/vim-addon-manager
 
     let addons = [
@@ -13,35 +10,22 @@ filetype plugin indent on
         \ 'github:mileszs/ack.vim',
         \ 'github:tpope/vim-repeat',
         \ 'github:tpope/vim-commentary',
-        \ 'github:juanpabloaj/help.vim',
-        \ 'github:sjl/gundo.vim',
-        \ 'github:scrooloose/syntastic',
-        \ 'hg:ssh://hg/python.vim',
-        \ 'github:pangloss/vim-javascript',
-        \ 'github:kchmck/vim-coffee-script',
-        \ 'github:digitaltoad/vim-jade',
-        \ 'github:wavded/vim-stylus',
-        \ 'github:tpope/vim-haml',
-        \ 'github:Rykka/ColorV',
-        \ 'github:lvivski/vim-css-color',
         \ 'github:tpope/vim-fugitive',
         \ 'hg:ssh://hg/vim-lawrencium',
+        \ 'github:sjl/gundo.vim',
+        \ 'github:scrooloose/syntastic',
         \ 'github:Lokaltog/vim-powerline',
         \ 'github:zeekay/vim-space',
         \ 'github:mattn/gist-vim',
-        \ 'hg:ssh://hg/haskellmode-vim',
+        \ 'github:juanpabloaj/help.vim',
         \ 'hg:ssh://hg/vimtips',
     \ ]
 
     if version > 702
         let addons += [
-            \ 'github:vim-scripts/VimClojure',
-            \ 'github:majutsushi/tagbar',
             \ 'github:Shougo/neocomplcache',
             \ 'github:Shougo/neocomplcache-snippets-complete',
-            \ 'github:Rip-Rip/clang_complete',
-            \ 'github:osyo-manga/neocomplcache-clang_complete',
-            \ 'github:ujihisa/neco-ghc.git',
+            \ 'github:majutsushi/tagbar',
         \ ]
     endif
 
@@ -53,7 +37,55 @@ filetype plugin indent on
 
 " }}}
 
+" FileType Plugins {{{
+    let ft_addons = {
+        \ 'c': [
+            \ 'github:Rip-Rip/clang_complete',
+            \ 'github:osyo-manga/neocomplcache-clang_complete',
+        \ ],
+        \ 'cpp': [
+            \ 'github:Rip-Rip/clang_complete',
+            \ 'github:osyo-manga/neocomplcache-clang_complete',
+        \ ],
+        \ 'clojure': [
+            \ 'github:vim-scripts/VimClojure',
+        \ ],
+        \ 'coffee': [
+            \ 'github:kchmck/vim-coffee-script',
+        \ ],
+        \ 'css': [
+            \ 'github:Rykka/ColorV',
+            \ 'github:lvivski/vim-css-color',
+        \ ],
+        \ 'haml': [
+            \ 'github:tpope/vim-haml',
+        \ ],
+        \ 'haskell': [
+            \ 'github:ujihisa/neco-ghc',
+            \ 'hg:ssh://hg/haskellmode-vim',
+        \ ],
+        \ 'jade': [
+            \ 'github:digitaltoad/vim-jade',
+        \ ],
+        \ 'javascript': [
+            \ 'github:pangloss/vim-javascript',
+        \ ],
+        \ 'python': [
+            \ 'hg:ssh://hg/python.vim',
+        \ ],
+        \ 'stylus': [
+            \ 'github:wavded/vim-stylus',
+            \ 'github:Rykka/ColorV',
+            \ 'github:lvivski/vim-css-color',
+        \ ],
+    \ }
+    au FileType * if has_key(ft_addons, expand('<amatch>')) && vam#ActivateAddons(ft_addons[expand('<amatch>')]) | endif
+    runtime! bundle/*/ftdetect/*.vim
+" }}}
+
 " Basic/General Configuration {{{
+    syntax on
+    filetype plugin indent on
     set backup
     set backupdir=~/.vim/tmp/backup
     if version > 702
@@ -327,7 +359,8 @@ filetype plugin indent on
 " Syntastic {{{
     let g:syntastic_enable_signs = 1
     let g:syntastic_auto_loc_list = 0
-    let g:syntastic_python_checker = 'flake8 --ignore=E221,E225,E231,E251,E302,E303,W391,E501,E702'
+    let g:syntastic_python_checker = 'flake8'
+    let g:syntastic_python_checker_args = '--ignore=E221,E225,E231,E251,E302,E303,W391,E501,E702'
     let g:syntastic_javascript_checker = 'jslint'
     let g:syntastic_enable_highlighting = 0
     let g:syntastic_stl_format = '⚡ %E{Err: %fe #%e}%B{, }%W{Warn: %fw #%w} ⚡'
@@ -370,7 +403,7 @@ filetype plugin indent on
 " }}}
 
 " CoffeeScript {{{
-    au Filetype coffee setlocal foldmethod=indent nofoldenable
+    au FileType coffee setlocal foldmethod=indent nofoldenable
     au FileType coffee map <leader>r :CoffeeRun<cr>
     au FileType coffee map <leader>c :CoffeeCompile watch vertical<cr>
     au FileType coffee imap <leader>r <c-o>:CoffeeRun<cr>
@@ -549,9 +582,9 @@ filetype plugin indent on
 " }}}
 
 " Quickfix / location list {{{
-    au Filetype qf setl nolist
-    au Filetype qf setl nocursorline
-    au Filetype qf setl nowrap
+    au FileType qf setl nolist
+    au FileType qf setl nocursorline
+    au FileType qf setl nowrap
     nnoremap ]q :cnext<cr>
     nnoremap [q :cprevious<cr>
     nnoremap ]l :lnext<cr>
