@@ -3,9 +3,10 @@
 
 " Plugins {{{
     set nocompatible
-    set rtp+=~/.vim/bundle/vim-addon-manager
+    set rtp+=~/.vim/addons/vim-addon-manager
 
     let addons = [
+        \ 'vim-addon-manager',
         \ 'github:kien/ctrlp.vim',
         \ 'github:mileszs/ack.vim',
         \ 'github:tpope/vim-repeat',
@@ -17,6 +18,16 @@
         \ 'github:Lokaltog/vim-powerline',
         \ 'github:zeekay/vim-space',
         \ 'github:mattn/gist-vim',
+        \ 'github:Rip-Rip/clang_complete',
+        \ 'github:kchmck/vim-coffee-script',
+        \ 'github:tpope/vim-haml',
+        \ 'hg:ssh://hg/haskellmode-vim',
+        \ 'github:digitaltoad/vim-jade',
+        \ 'github:pangloss/vim-javascript',
+        \ 'hg:ssh://hg/python.vim',
+        \ 'github:wavded/vim-stylus',
+        \ 'github:Rykka/ColorV',
+        \ 'github:lvivski/vim-css-color',
         \ 'github:juanpabloaj/help.vim',
         \ 'hg:ssh://hg/vimtips',
     \ ]
@@ -25,6 +36,8 @@
         let addons += [
             \ 'github:Shougo/neocomplcache',
             \ 'github:Shougo/neocomplcache-snippets-complete',
+            \ 'github:osyo-manga/neocomplcache-clang_complete',
+            \ 'github:ujihisa/neco-ghc',
             \ 'github:majutsushi/tagbar',
             \ 'github:vim-scripts/VimClojure',
         \ ]
@@ -35,49 +48,6 @@
     endif
 
     call vam#ActivateAddons(addons, {'auto_install': 1})
-" }}}
-
-" FileType Plugins {{{
-    let ft_addons = {
-        \ 'c': [
-            \ 'github:Rip-Rip/clang_complete',
-            \ 'github:osyo-manga/neocomplcache-clang_complete',
-        \ ],
-        \ 'cpp': [
-            \ 'github:Rip-Rip/clang_complete',
-            \ 'github:osyo-manga/neocomplcache-clang_complete',
-        \ ],
-        \ 'coffee': [
-            \ 'github:kchmck/vim-coffee-script',
-        \ ],
-        \ 'css': [
-            \ 'github:Rykka/ColorV',
-            \ 'github:lvivski/vim-css-color',
-        \ ],
-        \ 'haml': [
-            \ 'github:tpope/vim-haml',
-        \ ],
-        \ 'haskell': [
-            \ 'github:ujihisa/neco-ghc',
-            \ 'hg:ssh://hg/haskellmode-vim',
-        \ ],
-        \ 'jade': [
-            \ 'github:digitaltoad/vim-jade',
-        \ ],
-        \ 'javascript': [
-            \ 'github:pangloss/vim-javascript',
-        \ ],
-        \ 'python': [
-            \ 'hg:ssh://hg/python.vim',
-        \ ],
-        \ 'stylus': [
-            \ 'github:wavded/vim-stylus',
-            \ 'github:Rykka/ColorV',
-            \ 'github:lvivski/vim-css-color',
-        \ ],
-    \ }
-    au FileType * if has_key(ft_addons, expand('<amatch>')) && vam#ActivateAddons(ft_addons[expand('<amatch>')]) | endif
-    runtime! bundle/*/ftdetect/*.vim
 " }}}
 
 " Basic/General Configuration {{{
@@ -93,7 +63,7 @@
     set viewdir=~/.vim/tmp/view
     set undolevels=1000
     set history=1000
-    set autochdir
+    " set autochdir
     set backspace=indent,eol,start
     set matchpairs+=<:>
     set shortmess=aoOsTI
@@ -384,6 +354,7 @@
     let g:python_show_sync = 1
     let g:python_print_as_function = 1
     let g:pythonmode_enable_rope = 0
+    let g:pythonmode_enable_django = 1
     let ropevim_vim_completion = 1
     let ropevim_extended_complete = 1
     " au FileType python setlocal foldmethod=syntax
@@ -556,6 +527,7 @@
 
     " \e \q \w \t
     nnoremap <leader>q :q<cr>
+    nnoremap <leader>w <c-w>
     nnoremap <leader>s :s%//<left>
     vnoremap <leader>s :s//<left>
     nnoremap Q :q<cr>

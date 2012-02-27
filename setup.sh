@@ -27,11 +27,14 @@ ln -s $basedir/vimpagerrc ~/.vimpagerrc
 
 echo '...cloning vim-addon-manager'
 
-rm -rf $basedir/bundle/vim-addon-manager
-git clone git://github.com/MarcWeber/vim-addon-manager.git $basedir/bundle/vim-addon-manager
+rm -rf $basedir/addons/vim-addon-manager
+git clone git://github.com/MarcWeber/vim-addon-manager.git $basedir/addons/vim-addon-manager
+
+echo '...creating helptags'
+vim -c "helptags ~/.vim/addons/vim-addon-manager/doc"
 
 echo '...installing plugins'
-yes | vim -c 'q'
+yes | vim -c ':q'
 
 echo '...done!'
 

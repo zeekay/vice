@@ -1,5 +1,5 @@
 #!/bin/sh
 
-echo "Updated vim plugins"
+echo "Updating vim plugins"
 echo
-yes | vim -c "UpdateAddons" -c ":q"
+yes | vim -c "silent! UpdateAddons" -c "q"

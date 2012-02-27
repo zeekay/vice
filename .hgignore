@@ -1,5 +1,6 @@
 syntax: glob
 bundle/
+addons/
 tmp/
 .git/
 .gitignore
