@@ -75,16 +75,12 @@ filetype plugin indent on
     set termencoding=utf-8
     set ruler
     set linebreak
-    if exists('+breakindent')
-        " compiled with breakindent patch
-        set breakindent
-    endif
     set wrap
     set whichwrap=b,s,h,l,<,>,[,]
     " set clipboard=unnamed,unnamedplus
     set autoread
     set report=0
-    " set gdefault
+    set gdefault
     set showcmd
     set noshowmode
     set virtualedit=block,onemore
@@ -98,6 +94,10 @@ filetype plugin indent on
     " Disable folding
     " set foldminlines=99999
     set viminfo='100,\"100,:100,h,n~/.vim/tmp/viminfo
+    if exists('+breakindent')
+        " compiled with breakindent patch
+        set breakindent
+    endif
 " }}}
 
 " Indent {{{
@@ -138,14 +138,9 @@ filetype plugin indent on
 " Statusline {{{
     set laststatus=2
     set statusline=\(%n\)\ %f\ %*%#Modified#%m\ (%l/%L,\ %c)\ %P%=%h%w\ %y\ [%{&encoding}:%{&fileformat}]
-    set encoding=utf-8 " Necessary to show unicode glyphs
-    let g:Powerline_symbols = 'compatible'
-    let g:Powerline_theme = 'distinguished'
-    let g:Powerline_colorscheme = 'distinguished'
 " }}}
 
 " Colors/Gui {{{
-    " set fillchars+=vert:│
     set fillchars=
     if has("gui_running")
         if has('mac')
@@ -154,11 +149,9 @@ filetype plugin indent on
                 let macvim_hig_shift_movement = 1
                 let macvim_skip_cmd_opt_movement = 1
                 " set guifont=Dina-medium:h13
-                " set guifont=Monaco:h12
                 set guifont=Inconsolata:h14
+                " set guifont=Monaco:h12
                 set linespace=1
-                " change dir to open file
-                " lcd %:p:h
                 nnoremap <D-1> 1gt
                 nnoremap <D-2> 2gt
                 nnoremap <D-3> 3gt
@@ -172,11 +165,11 @@ filetype plugin indent on
             " }}}
         else
             " gVim {{{
-                " set guifont=MonteCarlo
                 " set guifont=Andale\ Mono\ 10
                 " set guifont=Bitstream\ Vera\ Sans\ Mono\ 10
                 set guifont=Dejavu\ LGC\ Sans\ Mono\ 8
                 " set guifont=Inconsolata\ 10
+                " set guifont=MonteCarlo
             " }}}
         endif
         " Common gui settings {{{
@@ -231,14 +224,12 @@ filetype plugin indent on
 
 " neocomplcache {{{
     if version > 702
-        " Disable AutoComplPop.
-        let g:acp_enableAtStartup = 0
         " Use neocomplcache.
         let g:neocomplcache_enable_at_startup = 1
         " Use smartcase.
         let g:neocomplcache_enable_smart_case = 1
         " Use camel case completion.
-        let g:neocomplcache_enable_camel_case_completion = 1
+        " let g:neocomplcache_enable_camel_case_completion = 1
         " Use underbar completion.
         " let g:neocomplcache_enable_underbar_completion = 1
         " Set minimum syntax keyword length.
@@ -260,18 +251,8 @@ filetype plugin indent on
         let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
 
         " Plugin key-mappings.
-        imap <C-l>    <Plug>(neocomplcache_snippets_expand)
-        smap <C-l>    <Plug>(neocomplcache_snippets_expand)
-        " inoremap <expr><C-g>     neocomplcache#undo_completion()
-        " inoremap <expr><C-l>     neocomplcache#complete_common_string()
-
-        " SuperTab like snippets behavior.
-        " imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ?
-                         " \ "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>"
-        " imap  <silent><expr><tab> neocomplcache#sources#snippets_complete#expandable() ?
-                         " \ "\<plug>(neocomplcache_snippets_expand)" : (pumvisible() ? "\<c-e>" : "\<tab>")
-        " smap  <tab>  <right><plug>(neocomplcache_snippets_jump)
-        " inoremap <expr><c-e>     neocomplcache#complete_common_string()
+        imap <C-l> <Plug>(neocomplcache_snippets_expand)
+        smap <C-l> <Plug>(neocomplcache_snippets_expand)
 
         " Recommended key-mappings.
         " <CR>: close popup and save indent.
