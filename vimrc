@@ -5,44 +5,44 @@ set nocompatible
 syntax on
 filetype plugin indent on
 
-" Enable plugins {{{
+" Plugins {{{
     set rtp+=~/.vim/bundle/vim-addon-manager
 
     let addons = [
-        \'github:kien/ctrlp.vim',
-        \'github:mileszs/ack.vim',
-        \'github:tpope/vim-repeat',
-        \'github:tpope/vim-commentary',
-        \'github:juanpabloaj/help.vim',
-        \'github:sjl/gundo.vim',
-        \'github:scrooloose/syntastic',
-        \'hg:ssh://hg/python.vim',
-        \'github:pangloss/vim-javascript',
-        \'github:kchmck/vim-coffee-script',
-        \'github:digitaltoad/vim-jade',
-        \'github:wavded/vim-stylus',
-        \'github:tpope/vim-haml',
-        \'github:Rykka/ColorV',
-        \'github:lvivski/vim-css-color',
-        \'github:tpope/vim-fugitive',
-        \'hg:ssh://hg/vim-lawrencium',
-        \'github:Lokaltog/vim-powerline',
-        \'github:zeekay/vim-space',
-        \'github:mattn/gist-vim',
-        \'hg:ssh://hg/haskellmode-vim',
-        \'hg:ssh://hg/vimtips',
-    \]
+        \ 'github:kien/ctrlp.vim',
+        \ 'github:mileszs/ack.vim',
+        \ 'github:tpope/vim-repeat',
+        \ 'github:tpope/vim-commentary',
+        \ 'github:juanpabloaj/help.vim',
+        \ 'github:sjl/gundo.vim',
+        \ 'github:scrooloose/syntastic',
+        \ 'hg:ssh://hg/python.vim',
+        \ 'github:pangloss/vim-javascript',
+        \ 'github:kchmck/vim-coffee-script',
+        \ 'github:digitaltoad/vim-jade',
+        \ 'github:wavded/vim-stylus',
+        \ 'github:tpope/vim-haml',
+        \ 'github:Rykka/ColorV',
+        \ 'github:lvivski/vim-css-color',
+        \ 'github:tpope/vim-fugitive',
+        \ 'hg:ssh://hg/vim-lawrencium',
+        \ 'github:Lokaltog/vim-powerline',
+        \ 'github:zeekay/vim-space',
+        \ 'github:mattn/gist-vim',
+        \ 'hg:ssh://hg/haskellmode-vim',
+        \ 'hg:ssh://hg/vimtips',
+    \ ]
 
     if version > 702
         let addons += [
-            \'github:vim-scripts/VimClojure',
-            \'github:majutsushi/tagbar',
-            \'github:Shougo/neocomplcache',
-            \'github:Shougo/neocomplcache-snippets-complete',
-            \'github:Rip-Rip/clang_complete',
-            \'github:osyo-manga/neocomplcache-clang_complete',
-            \'github:ujihisa/neco-ghc.git',
-        \]
+            \ 'github:vim-scripts/VimClojure',
+            \ 'github:majutsushi/tagbar',
+            \ 'github:Shougo/neocomplcache',
+            \ 'github:Shougo/neocomplcache-snippets-complete',
+            \ 'github:Rip-Rip/clang_complete',
+            \ 'github:osyo-manga/neocomplcache-clang_complete',
+            \ 'github:ujihisa/neco-ghc.git',
+        \ ]
     endif
 
     if version > 702 && has('python')
@@ -62,7 +62,6 @@ filetype plugin indent on
     endif
     set directory=~/.vim/tmp/swap
     set viewdir=~/.vim/tmp/view
-    " set nomodeline
     set undolevels=1000
     set history=1000
     set autochdir
@@ -77,7 +76,6 @@ filetype plugin indent on
     set linebreak
     set wrap
     set whichwrap=b,s,h,l,<,>,[,]
-    " set clipboard=unnamed,unnamedplus
     set autoread
     set report=0
     set gdefault
@@ -85,12 +83,12 @@ filetype plugin indent on
     set noshowmode
     set virtualedit=block,onemore
     set switchbuf=usetab
+    set splitright
+    " set clipboard=unnamed,unnamedplus
     " set pumheight=10
     " set scrolloff=10
     " set sidescrolloff=20
     " set scrolljump=10
-    set splitright
-    set nomore
     " Disable folding
     " set foldminlines=99999
     set viminfo='100,\"100,:100,h,n~/.vim/tmp/viminfo
@@ -113,7 +111,6 @@ filetype plugin indent on
     set showmatch
     set incsearch
     set ignorecase
-    " set hlsearch
 " }}}
 
 " Menu/Complete {{{
@@ -150,7 +147,7 @@ filetype plugin indent on
                 " set guifont=Dina-medium:h13
                 set guifont=Inconsolata:h14
                 " set guifont=Monaco:h12
-                set linespace=1
+                " set linespace=1
                 nnoremap <D-1> 1gt
                 nnoremap <D-2> 2gt
                 nnoremap <D-3> 3gt
@@ -179,71 +176,29 @@ filetype plugin indent on
             set mouse=a
             set guioptions=ace
             colorscheme molokai
-            " colorscheme pyte
-            " colorscheme solarized
-            " colorscheme proton
         " }}}
     else
         " Console {{{
         set ttyfast
         colorscheme hornet
-        " colorscheme molokai
-        " colorscheme github
-        " colorscheme jellybeans
         " }}}
     endif
-" }}}
-
-" Fast Escape {{{
-    augroup fastescape
-        au!
-        set notimeout
-        set ttimeout
-        set timeoutlen=10
-        au InsertEnter * set timeout
-        au InsertLeave * set notimeout
-    augroup END
-" }}}
-
-" Remove Trailing Whitespace {{{
-    function! s:StripTrailingWhitespace()
-        normal mZ
-        %s/\s\+$//e
-        normal `Z
-    endfunction
-    au FileType * au BufWritePre <buffer> :silent! call <SID>StripTrailingWhitespace()`
 " }}}
 
 " Netrw {{{
     let g:netrw_silent = 1
     let g:netrw_cursor = 0
     let g:netrw_banner = 0
-    " let g:netrw_menu = 0
     let g:netrw_liststyle = 1
     let g:netrw_list_hide='\.swp$,\.pyc$,\.pyo$,^\.hg$,^\$,^\.svn$,^\.o$,.Trash,.DS_Store,.CFUserTextEncoding'
 " }}}
 
 " neocomplcache {{{
     if version > 702
-        " Use neocomplcache.
         let g:neocomplcache_enable_at_startup = 1
-        " Use smartcase.
         let g:neocomplcache_enable_smart_case = 1
-        " Use camel case completion.
-        " let g:neocomplcache_enable_camel_case_completion = 1
-        " Use underbar completion.
-        " let g:neocomplcache_enable_underbar_completion = 1
-        " Set minimum syntax keyword length.
         let g:neocomplcache_min_syntax_length = 3
-        " let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
         let g:neocomplcache_source_disable = {'include_complete' : 0, 'filename_complete' : 0}
-
-        " Define dictionary.
-        " let g:neocomplcache_dictionary_filetype_lists = {
-        "     \ 'default' : '',
-        "     \ 'vimshell' : $HOME.'/.vimshell_hist',
-        "     \ 'scheme' : $HOME.'/.gosh_completions'
-        "     \ }
 
         " Define keyword.
         if !exists('g:neocomplcache_keyword_patterns')
@@ -255,32 +210,22 @@ filetype plugin indent on
         imap <C-l> <Plug>(neocomplcache_snippets_expand)
         smap <C-l> <Plug>(neocomplcache_snippets_expand)
 
-        " Recommended key-mappings.
         " <CR>: close popup and save indent.
         inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
+
         " <TAB>: completion.
         inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+
         " <C-h>, <BS>: close popup and delete backword char.
         inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
         inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
         inoremap <expr><C-y>  neocomplcache#close_popup()
         inoremap <expr><C-e>  neocomplcache#cancel_popup()
 
-        " AutoComplPop like behavior.
-        " let g:neocomplcache_enable_auto_select = 1
-
-        " Shell like behavior(not recommended).
-        " set completeopt+=longest
-        " let g:neocomplcache_enable_auto_select = 1
-        " let g:neocomplcache_disable_auto_complete = 1
-        " inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<TAB>"
-        " inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
-
         " Enable heavy omni completion.
         if !exists('g:neocomplcache_omni_patterns')
           let g:neocomplcache_omni_patterns = {}
         endif
-        " let g:neocomplcache_omni_patterns.python = '[^. \t]\.\w*'
         let g:neocomplcache_omni_patterns.coffee = '[^. \t]\.\%(\h\w*\)\?'
         let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
         let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
@@ -293,32 +238,9 @@ filetype plugin indent on
 " Ack.vim {{{
     let g:ackprg="ack -i -H --nocolor --nogroup --column --text"
     nnoremap <leader>a :Ack!<space>
-    " let g:ackhighlight = 1
-
-    " function! s:CopyMotionForType(type)
-    "     if a:type ==# 'v'
-    "         silent execute "normal! `<" . a:type . "`>y"
-    "     elseif a:type ==# 'char'
-    "         silent execute "normal! `[v`]y"
-    "     endif
-    " endfunction
-
-    " function! s:AckMotion(type) abort
-    "     let reg_save = @@
-
-    "     call s:CopyMotionForType(a:type)
-
-    "     execute "normal! :Ack! --literal " . shellescape(@@) . "\<cr>"
-
-    "     let @@ = reg_save
-    " endfunction
-
-    " nnoremap <silent> <leader>a :set opfunc=<SID>AckMotion<CR>g@
-    " xnoremap <silent> <leader>a :<C-U>call <SID>AckMotion(visualmode())<CR>
 " }}}
 
 " Gundo {{{
-    " nnoremap <F11> :GundoToggle<CR>
     let g:gundo_right = 1
     let g:gundo_width = 50
 " }}}
@@ -335,13 +257,6 @@ filetype plugin indent on
     let g:delimitMate_balance_matchpairs = 1
     let g:delimitMate_excluded_ft = "mail,help"
     au FileType * let b:delimitMate_autoclose = 1
-    " If using html auto complete (complete closing tag)
-    " au FileType xml,html,xhtml let b:delimitMate_matchpairs = "(:),[:],{:}"
-" }}}
-
-" AutoCloseTag {{{
-    " Make it so AutoCloseTag works for xml and xhtml files as well
-    au FileType xhtml,xml ru ftplugin/html/autoclosetag.vim
 " }}}
 
 " EasyMotion {{{
@@ -369,7 +284,7 @@ filetype plugin indent on
                 \ 'f': 'object',
                 \ 'o': 'object'
             \ }
-        \}
+        \ }
     endif
     if executable('lushtags')
         let g:tagbar_type_haskell = {
@@ -410,38 +325,12 @@ filetype plugin indent on
 " }}}
 
 " Syntastic {{{
-    " reorder runtimepath so my custom syntax plugins are used
-    set rtp-=~/.vim/bundle/syntastic
-    set rtp+=~/.vim/syntastic,~/.vim/bundle/syntastic
     let g:syntastic_enable_signs = 1
     let g:syntastic_auto_loc_list = 0
     let g:syntastic_python_checker = 'flake8 --ignore=E221,E225,E231,E251,E302,E303,W391,E501,E702'
     let g:syntastic_javascript_checker = 'jslint'
     let g:syntastic_enable_highlighting = 0
     let g:syntastic_stl_format = '⚡ %E{Err: %fe #%e}%B{, }%W{Warn: %fw #%w} ⚡'
-" }}}
-
-" UltiSnips {{{
-    let g:UltiSnipsSnippetDirectories=["UltiSnips"]
-    let g:UltiSnipsExpandTrigger = '<tab>'
-    " let g:UltiSnipsListSnippets = '<c-s>'
-    let g:UltiSnipsJumpForwardTrigger = '<tab>'
-    let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
-    " let g:UltiSnipsJumpForwardTrigger = '<c-j>'
-    " let g:UltiSnipsJumpBackwardTrigger = '<c-k>'
-" }}}
-
-" SuperTab {{{
-    " let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
-    let g:SuperTabDefaultCompletionType = "context"
-    let g:SuperTabCompletionContexts = ['s:ContextText', 's:ContextDiscover']
-    let g:SuperTabContextTextOmniPrecedence = ['&omnifunc', '&completefunc']
-    let g:SuperTabContextDiscoverDiscovery =
-        \ ["&completefunc:<c-x><c-u>", "&omnifunc:<c-x><c-o>"]
-    let g:SuperTabMappingForward = '<tab>'
-    let g:SuperTabMappingBackward = '<s-tab>'
-    " let g:SuperTabMappingForward = '<c-j>'
-    " let g:SuperTabMappingBackward = '<c-k>'
 " }}}
 
 " CtrlP {{{
@@ -464,9 +353,9 @@ filetype plugin indent on
     let g:python_highlight_all = 1
     let g:python_show_sync = 1
     let g:python_print_as_function = 1
-    " let g:pythonmode_enable_rope = 1
-    " let ropevim_vim_completion = 1
-    " let ropevim_extended_complete = 1
+    let g:pythonmode_enable_rope = 0
+    let ropevim_vim_completion = 1
+    let ropevim_extended_complete = 1
     " au FileType python setlocal foldmethod=syntax
 " }}}
 
@@ -495,6 +384,27 @@ filetype plugin indent on
 " Misc Filetypes {{{
     autocmd BufNewFile,BufRead *.{md,mkd,mkdn,mark*} set filetype=markdown
 " }}}
+
+" Fast Escape {{{
+    augroup fastescape
+        au!
+        set notimeout
+        set ttimeout
+        set timeoutlen=10
+        au InsertEnter * set timeout
+        au InsertLeave * set notimeout
+    augroup END
+" }}}
+
+" Remove Trailing Whitespace {{{
+    function! s:StripTrailingWhitespace()
+        normal mZ
+        %s/\s\+$//e
+        normal `Z
+    endfunction
+    au FileType * au BufWritePre <buffer> :silent! call <SID>StripTrailingWhitespace()`
+" }}}
+
 
 " Pasta {{{
     function! s:MakePasta(filename)
@@ -567,20 +477,13 @@ filetype plugin indent on
     vnoremap <silent> <PageDown> <C-D><C-D>
     inoremap <silent> <PageDown> <C-\><C-O><C-D><C-\><C-O><C-D>
 
-    " ctrl+w switch window in insert mode
-    inoremap <c-w> <c-o><c-w>
-
     " ctrl-h/l to switch between tabs
-    " nnoremap <c-h> :tabp<CR>
-    " nnoremap <c-l> :tabn<CR>
-    " inoremap <c-h> <c-o>:tabp<CR>
-    " inoremap <c-l> <c-o>:tabn<CR>
+    nnoremap <c-h> :tabp<CR>
+    nnoremap <c-l> :tabn<CR>
 
     " ctrl-j/k to switch between buffers
     nnoremap <c-k> :bn<cr>
     nnoremap <c-j> :bp<cr>
-    inoremap <c-k> <c-o>:bn<cr>
-    inoremap <c-j> <c-o>:bp<cr>
 
     " Fast window resizing
     if bufwinnr(1)
@@ -615,12 +518,11 @@ filetype plugin indent on
     nnoremap <leader>n :set relativenumber!<cr>
 
     " \sb toggles scrollbind
-    nnoremap <leader>sb :ScrollBindToggle<cr>
+    nnoremap <leader>sb :ScrollbindToggle<cr>
 
     " \e \q \w \t
-    nnoremap <leader>e :ExploreToggle<cr>
+    nnoremap <leader>e :Explore<cr>
     nnoremap <leader>q :q<cr>
-    nnoremap <leader>w <c-w>
     nnoremap <leader>s :s%//<left>
     vnoremap <leader>s :s//<left>
     nnoremap Q :q<cr>
@@ -629,11 +531,12 @@ filetype plugin indent on
     nnoremap go :CtrlP<cr>
 
     " open urls
-    nnoremap <leader>o :silent !open -a "Google Chrome" <c-r>=expand("<cWORD>")<cr><cr>:redraw!<cr>
+    nnoremap <leader>o :py import webbrowser; webbrowser.open(<c-r>='"'.expand("<cWORD>").'"'<cr>)<cr>
+
     " Identify vim syntax highlight group under cursor
     map <leader>hi :echo "hi: " . synIDattr(synID(line("."),col("."),1),"name") . ', trans: '
-                             \ . synIDattr(synID(line("."),col("."),0),"name") . ", lo: "
-                             \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name")<CR>
+                              \ . synIDattr(synID(line("."),col("."),0),"name") . ", lo: "
+                              \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name")<CR>
 " }}}
 
 " Cmdline Editing {{{
