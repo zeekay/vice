@@ -26,6 +26,7 @@
             \ 'github:Shougo/neocomplcache',
             \ 'github:Shougo/neocomplcache-snippets-complete',
             \ 'github:majutsushi/tagbar',
+            \ 'github:vim-scripts/VimClojure',
         \ ]
     endif
 
@@ -45,9 +46,6 @@
         \ 'cpp': [
             \ 'github:Rip-Rip/clang_complete',
             \ 'github:osyo-manga/neocomplcache-clang_complete',
-        \ ],
-        \ 'clojure': [
-            \ 'github:vim-scripts/VimClojure',
         \ ],
         \ 'coffee': [
             \ 'github:kchmck/vim-coffee-script',
@@ -418,7 +416,6 @@
     if executable('ng')
         let vimclojure#WantNailgun = 1
     endif
-    au FileType clojure so ~/.vim/bundle/github-vim-scripts-VimClojure/plugin/clojure.vim
 " }}}
 
 " Haskell {{{
