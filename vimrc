@@ -49,7 +49,7 @@ filetype plugin indent on
         let addons += ['hg:ssh://hg/vim-python-mode']
     endif
 
-    call vam#ActivateAddons(addons, {'auto_install': 0})
+    call vam#ActivateAddons(addons, {'auto_install': 'yes'})
 
 " }}}
 
