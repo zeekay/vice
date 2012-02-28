@@ -92,7 +92,7 @@
     set switchbuf=usetab
     set splitright
     set nomore
-    set clipboard=unnamed,unnamedplus
+    " set clipboard=unnamed,unnamedplus
     set foldminlines=99999
     silent! set breakindent
 " }}}
@@ -209,20 +209,20 @@
         let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
 
         " Plugin key-mappings.
-        " imap <C-l> <Plug>(neocomplcache_snippets_expand)
-        " smap <C-l> <Plug>(neocomplcache_snippets_expand)
+        imap <C-l> <Plug>(neocomplcache_snippets_expand)
+        smap <C-l> <Plug>(neocomplcache_snippets_expand)
 
         " <CR>: close popup and save indent.
-        " inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
+        inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
 
         " <TAB>: completion.
-        " inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+        inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
         " <C-h>, <BS>: close popup and delete backword char.
-        " inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
-        " inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
-        " inoremap <expr><C-y>  neocomplcache#close_popup()
-        " inoremap <expr><C-e>  neocomplcache#cancel_popup()
+        inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
+        inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
+        inoremap <expr><C-y>  neocomplcache#close_popup()
+        inoremap <expr><C-e>  neocomplcache#cancel_popup()
 
         " Enable heavy omni completion.
         if !exists('g:neocomplcache_omni_patterns')
@@ -501,8 +501,8 @@
     " \y and \p for clipboard yank/paste
     nnoremap <leader>y "*y
     vnoremap <leader>y "*y
-    " nnoremap <leader>p "*P
-    " vnoremap <leader>p "*P
+    nnoremap <leader>p "*P
+    vnoremap <leader>p "*P
     nnoremap <leader>Y "+y
     vnoremap <leader>Y "+y
     nnoremap <leader>P "+P

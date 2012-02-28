@@ -16,7 +16,7 @@ Clone this repository and run `setup.sh`.
 
 Optional Requirements
 ---------------------
-Not strictly required for a good experience but highly recommended:
+Not strictly required but for a good experience highly recommended:
 
 * There are a few extra niceties (especially for Python development) assuming you have compiled Vim with Python support.
 * I also compile Vim with the [neato breakindent patch](https://retracile.net/wiki/VimBreakIndent]).
