@@ -2,9 +2,6 @@
 " Source: https://bitbucket.org/zeekay/dot-vim / https://github.com/zeekay/dot-vim
 
 " Plugins {{{
-    set nocompatible
-    set rtp+=~/.vim/addons/vim-addon-manager
-
     let addons = [
         \ 'vim-addon-manager',
         \ 'github:kien/ctrlp.vim',
@@ -14,23 +11,23 @@
         \ 'github:junegunn/tabular',
         \ 'github:Raimondi/delimitMate',
         \ 'github:tpope/vim-fugitive',
-        \ 'hg:ssh://hg/vim-lawrencium',
+        \ 'hg:https://bitbucket.org/zeekay/vim-lawrencium',
         \ 'github:sjl/gundo.vim',
         \ 'github:scrooloose/syntastic',
         \ 'github:Lokaltog/vim-powerline',
         \ 'github:zeekay/vim-space',
-        \ 'github:mattn/gist-vim',
         \ 'github:Rykka/ColorV',
         \ 'github:lvivski/vim-css-color',
         \ 'github:kchmck/vim-coffee-script',
         \ 'github:tpope/vim-haml',
-        \ 'hg:ssh://hg/haskellmode-vim',
+        \ 'hg:https://bitbucket.org/zeekay/haskellmode-vim',
         \ 'github:digitaltoad/vim-jade',
         \ 'github:pangloss/vim-javascript',
-        \ 'hg:ssh://hg/python.vim',
+        \ 'hg:https://bitbucket.org/zeekay/python.vim',
         \ 'github:wavded/vim-stylus',
+        \ 'github:mattn/gist-vim',
         \ 'github:juanpabloaj/help.vim',
-        \ 'hg:ssh://hg/vimtips',
+        \ 'hg:https://bitbucket.org/zeekay/vimtips',
     \ ]
 
     if version > 702
@@ -46,8 +43,16 @@
     endif
 
     if version > 702 && has('python')
-        let addons += ['hg:ssh://hg/vim-python-mode']
+        let addons += ['hg:https://bitbucket.org/zeekay/vim-python-mode']
     endif
+
+    set nocompatible
+    if has('win32') || ('win64')
+        let $VIMHOME = expand('~/vimfiles')
+    else
+        let $VIMHOME = expand('~/.vim')
+    endif
+    let &runtimepath.=','.$VIMHOME.expand('/addons/vim-addon-manager')
 
     call vam#ActivateAddons(addons, {'auto_install': 1})
 " }}}
@@ -55,15 +60,13 @@
 " Basic/General Configuration {{{
     syntax on
     filetype plugin indent on
+    set backupdir=$VIMHOME/tmp/backup
     set backup
-    set backupdir=~/.vim/tmp/backup
-    if version > 702
-        set undofile
-        set undodir=~/.vim/tmp/undo
-    endif
-    set directory=~/.vim/tmp/swap
-    set viewdir=~/.vim/tmp/view
-    set viminfo='100,\"100,:100,h,n~/.vim/tmp/viminfo
+    silent! set undofile
+    silent! set undodir=$VIMHOME/tmp/undo
+    set directory=$VIMHOME/tmp/swap
+    set viewdir=$VIMHOME/tmp/view
+    let &viminfo="'100,\"100,:100,h,n".expand($VIMHOME.'/tmp/viminfo')
     set undolevels=100
     set history=100
     set autochdir
@@ -89,15 +92,8 @@
     set splitright
     set nomore
     set clipboard=unnamed,unnamedplus
-    set pumheight=10
-    set scrolloff=5
-    set sidescrolloff=5
-    set scrolljump=5
     set foldminlines=99999
-    if exists('+breakindent')
-        " compiled with breakindent patch
-        set breakindent
-    endif
+    silent! set breakindent
 " }}}
 
 " Indent {{{
@@ -161,8 +157,12 @@
                 nnoremap <D-9> 9gt
                 nnoremap <D-0> 10gt
             " }}}
+        elseif has('windows')
+            " Windows gVim {{{
+            set guifont=Consolas
+            " }}}
         else
-            " gVim {{{
+            " UNIX gVim {{{
                 " set guifont=Andale\ Mono\ 10
                 " set guifont=Bitstream\ Vera\ Sans\ Mono\ 10
                 set guifont=Dejavu\ LGC\ Sans\ Mono\ 8
@@ -208,20 +208,20 @@
         let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
 
         " Plugin key-mappings.
-        imap <C-l> <Plug>(neocomplcache_snippets_expand)
-        smap <C-l> <Plug>(neocomplcache_snippets_expand)
+        " imap <C-l> <Plug>(neocomplcache_snippets_expand)
+        " smap <C-l> <Plug>(neocomplcache_snippets_expand)
 
         " <CR>: close popup and save indent.
-        inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
+        " inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
 
         " <TAB>: completion.
-        inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+        " inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
         " <C-h>, <BS>: close popup and delete backword char.
-        inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
-        inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
-        inoremap <expr><C-y>  neocomplcache#close_popup()
-        inoremap <expr><C-e>  neocomplcache#cancel_popup()
+        " inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
+        " inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
+        " inoremap <expr><C-y>  neocomplcache#close_popup()
+        " inoremap <expr><C-e>  neocomplcache#cancel_popup()
 
         " Enable heavy omni completion.
         if !exists('g:neocomplcache_omni_patterns')
@@ -342,12 +342,12 @@
     let g:ctrlp_user_command = ['.git/', 'cd %s && git ls-files']
     let g:ctrlp_user_command = ['.hg/', 'hg --cwd %s locate --fullpath -I .']
     let g:ctrlp_open_new_file = 1
-    let g:ctrlp_cache_dir = '~/.vim/tmp/ctrlp_cache'
+    let g:ctrlp_cache_dir = expand($VIMHOME."/tmp/ctrlp_cache")
     let g:ctrlp_open_multi = '1t'
 " }}}
 
 " Python {{{
-    let g:virtualenv_directory = '~/ve'
+    let g:virtualenv_directory = expand($HOME."/ve")
     let g:python_highlight_all = 1
     let g:python_show_sync = 1
     let g:python_print_as_function = 1
