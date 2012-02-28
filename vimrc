@@ -46,7 +46,6 @@
         let addons += ['hg:https://bitbucket.org/zeekay/vim-python-mode']
     endif
 
-    set nocompatible
     if has('win32') || ('win64')
         let $VIMHOME = expand('~/vimfiles')
     else
@@ -54,12 +53,14 @@
     endif
     let &runtimepath.=','.$VIMHOME.expand('/addons/vim-addon-manager')
 
+    set nocompatible
+    syntax on
+    filetype plugin indent on
+
     call vam#ActivateAddons(addons, {'auto_install': 1})
 " }}}
 
 " Basic/General Configuration {{{
-    syntax on
-    filetype plugin indent on
     set backupdir=$VIMHOME/tmp/backup
     set backup
     silent! set undofile
