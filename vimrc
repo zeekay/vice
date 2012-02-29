@@ -11,6 +11,8 @@
         \ 'github:tpope/vim-fugitive',
         \ 'hg:https://bitbucket.org/zeekay/vim-lawrencium',
         \ 'github:sjl/gundo.vim',
+        \ 'github:scrooloose/nerdtree',
+        \ 'github:jistr/vim-nerdtree-tabs',
         \ 'github:scrooloose/syntastic',
         \ 'github:Lokaltog/vim-powerline',
         \ 'github:zeekay/vim-space',
@@ -119,6 +121,8 @@
     set wildmenu
     set wildmode=list:longest,full
     set wildignore=*.o,*.obj,*.bak,*.exe,*.aux,*.dvi,*.dll,*.pyc,*.pyo,*.zwc,*.zwc.old
+    set wildignore+=*/.git/*,*/.hg/*,*/.svn/*  " Linux/MacOSX
+    set wildignore+=.git\*,.hg\*,.svn\*        " Windows
     set completeopt=menuone,menu,longest
 " }}}
 
@@ -144,8 +148,8 @@
         if has('mac')
             " MacVim {{{
                 set fuoptions=maxvert,maxhorz
-                let macvim_hig_shift_movement = 1
-                let macvim_skip_cmd_opt_movement = 1
+                let g:macvim_hig_shift_movement = 1
+                let g:macvim_skip_cmd_opt_movement = 1
                 " set guifont=Dina-medium:h13
                 set guifont=Inconsolata:h14
                 " set guifont=Monaco:h12
@@ -243,6 +247,17 @@
 " Ack.vim {{{
     let g:ackprg="ack -i -H --nocolor --nogroup --column --text"
     nnoremap <leader>a :Ack!<space>
+" }}}
+
+" Nerdtree {{{
+    "" Auto open nerd tree on startup
+    let g:nerdtree_tabs_open_on_gui_startup = 0
+    " Focus in the main content window
+    let g:nerdtree_tabs_focus_on_files = 1
+    " Make nerdtree look nice
+    let NERDTreeMinimalUI = 1
+    let NERDTreeDirArrows = 1
+    let g:NERDTreeWinSize = 30
 " }}}
 
 " Gundo {{{
@@ -357,8 +372,8 @@
     let g:python_print_as_function = 1
     let g:pythonmode_enable_django = 1
     let g:pythonmode_enable_rope = 0
-    let ropevim_vim_completion = 1
-    let ropevim_extended_complete = 1
+    let g:ropevim_vim_completion = 1
+    let g:ropevim_extended_complete = 1
     " au FileType python setlocal foldmethod=syntax
 " }}}
 
@@ -381,10 +396,10 @@
 " }}}
 
 " Clojure {{{
-    let vimclojure#SplitPos = "left"
-    let vimclojure#HighlightBuiltins = 1
-    let vimclojure#HighlightContrib = 1
-    let vimclojure#ParenRainbow = 1
+    let g:vimclojure#SplitPos = "left"
+    let g:vimclojure#HighlightBuiltins = 1
+    let g:vimclojure#HighlightContrib = 1
+    let g:vimclojure#ParenRainbow = 1
     let g:vimclojure#DynamicHighlighting = 1
     if executable('ng')
         let vimclojure#WantNailgun = 1
