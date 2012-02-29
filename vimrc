@@ -8,8 +8,6 @@
         \ 'github:mileszs/ack.vim',
         \ 'github:tpope/vim-repeat',
         \ 'github:tpope/vim-commentary',
-        \ 'github:junegunn/tabular',
-        \ 'github:Raimondi/delimitMate',
         \ 'github:tpope/vim-fugitive',
         \ 'hg:https://bitbucket.org/zeekay/vim-lawrencium',
         \ 'github:sjl/gundo.vim',
@@ -46,6 +44,12 @@
         let addons += ['hg:https://bitbucket.org/zeekay/vim-python-mode']
     endif
 
+    " I no longer use these regularly but keep them around for convenience
+    let exiled_plugins = [
+        \ 'github:junegunn/tabular',
+        \ 'github:Raimondi/delimitMate',
+    \ ]
+
     if has('win32') || ('win64')
         let $VIMHOME = expand('~/vimfiles')
     else
@@ -53,14 +57,13 @@
     endif
     let &runtimepath.=','.$VIMHOME.expand('/addons/vim-addon-manager')
 
-    set nocompatible
-    syntax on
-    filetype plugin indent on
-
     call vam#ActivateAddons(addons, {'auto_install': 1})
 " }}}
 
 " Basic/General Configuration {{{
+    set nocompatible
+    syntax on
+    filetype plugin indent on
     set backupdir=$VIMHOME/tmp/backup
     set backup
     silent! set undofile
