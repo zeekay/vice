@@ -526,7 +526,8 @@
     nnoremap <leader>P "+P
     vnoremap <leader>P "+P
 
-    " \u \t toggle Gundo/Tagbar
+    "\e \u \t toggles
+    nnoremap <Leader>e :NERDTreeTabsToggle<cr>
     nnoremap <leader>u :GundoToggle<cr>
     nnoremap <leader>t :TagbarToggle<cr>
 
