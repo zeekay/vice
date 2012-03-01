@@ -8,3 +8,5 @@ tmp/
 view
 haskellmode.config
 .netrwhist
+plugin/eclim.vim
+eclim/*

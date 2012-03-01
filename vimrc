@@ -3,39 +3,40 @@
 
 " Plugins {{{
     let addons = [
-        \ 'vim-addon-manager',
-        \ 'github:kien/ctrlp.vim',
-        \ 'github:mileszs/ack.vim',
-        \ 'github:tpope/vim-repeat',
-        \ 'github:tpope/vim-commentary',
-        \ 'github:tpope/vim-fugitive',
-        \ 'hg:https://bitbucket.org/zeekay/vim-lawrencium',
-        \ 'github:sjl/gundo.vim',
-        \ 'github:scrooloose/nerdtree',
-        \ 'github:jistr/vim-nerdtree-tabs',
-        \ 'github:scrooloose/syntastic',
         \ 'github:Lokaltog/vim-powerline',
-        \ 'github:zeekay/vim-space',
+        \ 'github:MarcWeber/vim-addon-manager',
         \ 'github:Rykka/ColorV',
-        \ 'github:lvivski/vim-css-color',
-        \ 'github:kchmck/vim-coffee-script',
-        \ 'github:tpope/vim-haml',
-        \ 'hg:https://bitbucket.org/zeekay/haskellmode-vim',
         \ 'github:digitaltoad/vim-jade',
-        \ 'github:pangloss/vim-javascript',
-        \ 'hg:https://bitbucket.org/zeekay/python.vim',
-        \ 'github:wavded/vim-stylus',
-        \ 'github:mattn/gist-vim',
+        \ 'github:jistr/vim-nerdtree-tabs',
         \ 'github:juanpabloaj/help.vim',
+        \ 'github:kchmck/vim-coffee-script',
+        \ 'github:kien/ctrlp.vim',
+        \ 'github:lvivski/vim-css-color',
+        \ 'github:mattn/gist-vim',
+        \ 'github:mileszs/ack.vim',
+        \ 'github:pangloss/vim-javascript',
+        \ 'github:scrooloose/nerdtree',
+        \ 'github:scrooloose/syntastic',
+        \ 'github:sjl/gundo.vim',
+        \ 'github:tpope/vim-commentary',
+        \ 'github:tpope/vim-eunuch',
+        \ 'github:tpope/vim-fugitive',
+        \ 'github:tpope/vim-haml',
+        \ 'github:tpope/vim-repeat',
+        \ 'github:wavded/vim-stylus',
+        \ 'github:zeekay/vim-space',
+        \ 'hg:https://bitbucket.org/zeekay/haskellmode-vim',
+        \ 'hg:https://bitbucket.org/zeekay/python.vim',
+        \ 'hg:https://bitbucket.org/zeekay/vim-lawrencium',
         \ 'hg:https://bitbucket.org/zeekay/vimtips',
     \ ]
 
     if version > 702
         let addons += [
-            \ 'github:majutsushi/tagbar',
+            \ 'github:Rip-Rip/clang_complete',
             \ 'github:Shougo/neocomplcache',
             \ 'github:Shougo/neocomplcache-snippets-complete',
-            \ 'github:Rip-Rip/clang_complete',
+            \ 'github:majutsushi/tagbar',
             \ 'github:osyo-manga/neocomplcache-clang_complete',
             \ 'github:ujihisa/neco-ghc',
             \ 'github:vim-scripts/VimClojure',
@@ -48,8 +49,8 @@
 
     " I no longer use these regularly but keep them around for convenience
     let exiled_plugins = [
-        \ 'github:junegunn/tabular',
         \ 'github:Raimondi/delimitMate',
+        \ 'github:junegunn/tabular',
     \ ]
 
     if has('win32') || ('win64')
@@ -74,13 +75,14 @@
     set viewdir=$VIMHOME/tmp/view
     let &viminfo="'100,\"100,:100,h,n".expand($VIMHOME.'/tmp/viminfo')
     set undolevels=100
-    set history=100
+    set history=1000
     set autochdir
     set backspace=indent,eol,start
     set matchpairs+=<:>
     set shortmess=aoOsTI
     set hidden
     set confirm
+    set fileformat=unix
     set encoding=utf-8
     set termencoding=utf-8
     set ruler
@@ -245,31 +247,34 @@
 " }}}
 
 " Ack.vim {{{
-    let g:ackprg="ack -i -H --nocolor --nogroup --column --text"
+    if has('win32') || has('win64')
+      let g:ackprg="ack.bat -i -H --nocolor --nogroup --column --text"
+    else
+      let g:ackprg="ack -i -H --nocolor --nogroup --column --text"
+    endif
     nnoremap <leader>a :Ack!<space>
 " }}}
 
-" Nerdtree {{{
-    "" Auto open nerd tree on startup
-    let g:nerdtree_tabs_open_on_gui_startup = 0
-    " Focus in the main content window
-    let g:nerdtree_tabs_focus_on_files = 1
-    " Make nerdtree look nice
-    let NERDTreeMinimalUI = 1
-    let NERDTreeDirArrows = 1
-    let g:NERDTreeWinSize = 30
+" Commentary {{{
+    au FileType cfg set commentstring=#\ %s
+    au FileType cpp set commentstring=/\/\ %s
+    au FileType python set commentstring=#\ %s
+    au FileType lisp set commentstring=;;\ %s
 " }}}
 
-" Gundo {{{
-    let g:gundo_help = 0
-    let g:gundo_right = 1
-    let g:gundo_width = 50
-" }}}
-
-" Tabularize {{{
-    vnoremap <silent> <Leader>t> :Tabularize /=><CR>
-    vnoremap <silent> <Leader>t= :Tabularize /=<CR>
-    vnoremap <silent> <Leader>t, :Tabularize /,<CR>
+" CtrlP {{{
+    " let g:ctrlp_user_command = 'find %s -type f'       " MacOSX/Linux
+    " let g:ctrlp_map = '<c-p>'
+    " nnoremap <c-b> :CtrlPBuffer<cr>
+    let g:ctrlp_jump_to_buffer = 2
+    let g:ctrlp_working_path_mode = 2
+    let g:ctrlp_use_caching = 1
+    let g:ctrlp_clear_cache_on_exit = 1
+    let g:ctrlp_user_command = ['.git/', 'cd %s && git ls-files']
+    let g:ctrlp_user_command = ['.hg/', 'hg --cwd %s locate --fullpath -I .']
+    let g:ctrlp_open_new_file = 1
+    let g:ctrlp_cache_dir = expand($VIMHOME."/tmp/ctrlp_cache")
+    let g:ctrlp_open_multi = '1t'
 " }}}
 
 " delimitMate {{{
@@ -278,6 +283,30 @@
     let g:delimitMate_balance_matchpairs = 1
     let g:delimitMate_excluded_ft = "mail,help"
     au FileType * let b:delimitMate_autoclose = 1
+" }}}
+
+" Gundo {{{
+    let g:gundo_help = 0
+    let g:gundo_right = 1
+    let g:gundo_width = 50
+" }}}
+
+" Nerdtree {{{
+    "" Auto open nerd tree on startup
+    let g:nerdtree_tabs_open_on_gui_startup = 0
+    " Focus in the main content window
+    let g:nerdtree_tabs_focus_on_files = 1
+    " Make nerdtree look nice
+    let g:NERDTreeMinimalUI = 1
+    let g:NERDTreeDirArrows = 1
+    let g:NERDTreeWinSize = 30
+    let g:NERDTreeMouseMode = 3
+" }}}
+
+" Tabularize {{{
+    vnoremap <silent> <Leader>t> :Tabularize /=><CR>
+    vnoremap <silent> <Leader>t= :Tabularize /=<CR>
+    vnoremap <silent> <Leader>t, :Tabularize /,<CR>
 " }}}
 
 " Tagbar {{{
@@ -333,13 +362,6 @@
     endif
 " }}}
 
-" vim-commentary {{{
-    au FileType cfg set commentstring=#\ %s
-    au FileType cpp set commentstring=/\/\ %s
-    au FileType python set commentstring=#\ %s
-    au FileType lisp set commentstring=;;\ %s
-" }}}
-
 " Syntastic {{{
     let g:syntastic_enable_signs = 1
     let g:syntastic_auto_loc_list = 0
@@ -350,49 +372,9 @@
     let g:syntastic_stl_format = '⚡ %E{Err: %fe #%e}%B{, }%W{Warn: %fw #%w} ⚡'
 " }}}
 
-" CtrlP {{{
-    " let g:ctrlp_user_command = 'find %s -type f'       " MacOSX/Linux
-    " let g:ctrlp_map = '<c-p>'
-    " nnoremap <c-b> :CtrlPBuffer<cr>
-    let g:ctrlp_jump_to_buffer = 2
-    let g:ctrlp_working_path_mode = 2
-    let g:ctrlp_use_caching = 1
-    let g:ctrlp_clear_cache_on_exit = 1
-    let g:ctrlp_user_command = ['.git/', 'cd %s && git ls-files']
-    let g:ctrlp_user_command = ['.hg/', 'hg --cwd %s locate --fullpath -I .']
-    let g:ctrlp_open_new_file = 1
-    let g:ctrlp_cache_dir = expand($VIMHOME."/tmp/ctrlp_cache")
-    let g:ctrlp_open_multi = '1t'
-" }}}
-
-" Python {{{
-    let g:virtualenv_directory = expand($HOME."/ve")
-    let g:python_highlight_all = 1
-    let g:python_show_sync = 1
-    let g:python_print_as_function = 1
-    let g:pythonmode_enable_django = 1
-    let g:pythonmode_enable_rope = 0
-    let g:ropevim_vim_completion = 1
-    let g:ropevim_extended_complete = 1
-    " au FileType python setlocal foldmethod=syntax
-" }}}
-
-" Javascript {{{
-    " Quick and dirty javascript run current file
-    function! s:RunInNode()
-        w
-        !node %
-    endfunction
-    au FileType javascript command! RunInNode call s:RunInNode()
-    au FileType javascript map <leader>r :RunInNode<cr>
-" }}}
-
-" CoffeeScript {{{
-    au FileType coffee setlocal foldmethod=indent nofoldenable
-    au FileType coffee map <leader>r :CoffeeRun<cr>
-    au FileType coffee map <leader>c :CoffeeCompile watch vertical<cr>
-    au FileType coffee imap <leader>r <c-o>:CoffeeRun<cr>
-    au FileType coffee imap <leader>c <c-o>:CoffeeCompile watch vertical<cr>
+" Eclim {{{
+  let g:EclimDisabled = 1
+  let g:EclimTaglistEnabled = 0
 " }}}
 
 " Clojure {{{
@@ -406,12 +388,42 @@
     endif
 " }}}
 
+" CoffeeScript {{{
+    au FileType coffee setlocal foldmethod=indent nofoldenable
+    au FileType coffee map <leader>r :CoffeeRun<cr>
+    au FileType coffee map <leader>c :CoffeeCompile watch vertical<cr>
+    au FileType coffee imap <leader>r <c-o>:CoffeeRun<cr>
+    au FileType coffee imap <leader>c <c-o>:CoffeeCompile watch vertical<cr>
+" }}}
+
 " Haskell {{{
     let g:haddock_browser="/usr/bin/firefox"
 " }}}
 
+" Javascript {{{
+    " Quick and dirty javascript run current file
+    function! s:RunInNode()
+        w
+        !node %
+    endfunction
+    au FileType javascript command! RunInNode call s:RunInNode()
+    au FileType javascript map <leader>r :RunInNode<cr>
+" }}}
+
 " Markdown {{{
     autocmd BufNewFile,BufRead *.{md,mkd,mkdn,mark*} set filetype=markdown
+" }}}
+
+" Python {{{
+    let g:virtualenv_directory = expand($HOME."/ve")
+    let g:python_highlight_all = 1
+    let g:python_show_sync = 1
+    let g:python_print_as_function = 1
+    let g:pythonmode_enable_django = 1
+    let g:pythonmode_enable_rope = 0
+    let g:ropevim_vim_completion = 1
+    let g:ropevim_extended_complete = 1
+    " au FileType python setlocal foldmethod=syntax
 " }}}
 
 " Fast Escape {{{
@@ -432,22 +444,6 @@
         normal `Z
     endfunction
     au FileType * au BufWritePre <buffer> :silent! call <SID>StripTrailingWhitespace()`
-" }}}
-
-" Scrollbind Toggle {{{
-    function! s:ScrollbindToggle()
-        set scrollbind!
-        " switch to other window
-        wincmd w
-        set scrollbind!
-        " switch back
-        wincmd w
-    endfunction
-    command! ScrollbindToggle call s:ScrollbindToggle()
-" }}}
-
-" Commands {{{
-    command! Sudowrite :execute ':silent w !sudo tee % > /dev/null' | :edit!
 " }}}
 
 " Mapping {{{
@@ -565,6 +561,15 @@
     cnoremap <C-l> <Right>
 " }}}
 
+" Diff {{{
+    set diffopt+=iwhite,context:3
+    if &diff
+        nmap u u :diffu<cr>
+        nmap Q :qa<cr>
+        nmap <leader>q :qa<cr>
+    endif
+" }}}
+
 " Quickfix / location list {{{
     au FileType qf setl nolist
     au FileType qf setl nocursorline
@@ -573,15 +578,6 @@
     nnoremap [q :cprevious<cr>
     nnoremap ]l :lnext<cr>
     nnoremap [l :lprevious<cr>
-" }}}
-
-" Vimdiff {{{
-    set diffopt+=iwhite,context:3
-    if &diff
-        nmap u u :diffu<cr>
-        nmap Q :qa<cr>
-        nmap <leader>q :qa<cr>
-    endif
 " }}}
 
 " vim: fdm=marker foldlevel=1 nofoldenable
