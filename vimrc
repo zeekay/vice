@@ -182,13 +182,13 @@
             " set fillchars=diff:⣿
             " set listchars=tab:▸\ ,eol:¬,extends:❯,precedes:❮
             " set showbreak=↪
-            set mouse=a
             set guioptions=ace
             colorscheme molokai
         " }}}
     else
         " Console {{{
         set ttyfast
+        set mouse=a
         colorscheme hornet
         " }}}
     endif
