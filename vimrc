@@ -3,42 +3,43 @@
 
 " Plugins {{{
     let addons = [
-        \ 'vim-addon-manager',
+        \ 'github:Lokaltog/vim-powerline',
+        \ 'github:Rykka/ColorV',
+        \ 'github:digitaltoad/vim-jade',
+        \ 'github:jistr/vim-nerdtree-tabs',
+        \ 'github:juanpabloaj/help.vim',
+        \ 'github:kchmck/vim-coffee-script',
         \ 'github:kien/ctrlp.vim',
+        \ 'github:lvivski/vim-css-color',
+        \ 'github:mattn/gist-vim',
         \ 'github:mileszs/ack.vim',
-        \ 'github:tpope/vim-repeat',
+        \ 'github:pangloss/vim-javascript',
+        \ 'github:scrooloose/nerdtree',
+        \ 'github:scrooloose/syntastic',
         \ 'github:tpope/vim-commentary',
         \ 'github:tpope/vim-fugitive',
-        \ 'hg:https://bitbucket.org/zeekay/vim-lawrencium',
-        \ 'github:sjl/gundo.vim',
-        \ 'github:scrooloose/nerdtree',
-        \ 'github:jistr/vim-nerdtree-tabs',
-        \ 'github:scrooloose/syntastic',
-        \ 'github:Lokaltog/vim-powerline',
-        \ 'github:zeekay/vim-space',
-        \ 'github:Rykka/ColorV',
-        \ 'github:lvivski/vim-css-color',
-        \ 'github:kchmck/vim-coffee-script',
         \ 'github:tpope/vim-haml',
-        \ 'hg:https://bitbucket.org/zeekay/haskellmode-vim',
-        \ 'github:digitaltoad/vim-jade',
-        \ 'github:pangloss/vim-javascript',
-        \ 'hg:https://bitbucket.org/zeekay/python.vim',
+        \ 'github:tpope/vim-repeat',
         \ 'github:wavded/vim-stylus',
-        \ 'github:mattn/gist-vim',
-        \ 'github:juanpabloaj/help.vim',
+        \ 'github:zeekay/vim-space',
+        \ 'hg:https://bitbucket.org/sjl/slimv',
+        \ 'hg:https://bitbucket.org/sjl/badwolf',
+        \ 'hg:https://bitbucket.org/sjl/gundo.vim',
+        \ 'hg:https://bitbucket.org/zeekay/haskellmode-vim',
+        \ 'hg:https://bitbucket.org/zeekay/python.vim',
+        \ 'hg:https://bitbucket.org/zeekay/vim-lawrencium',
         \ 'hg:https://bitbucket.org/zeekay/vimtips',
     \ ]
 
     if version > 702
         let addons += [
-            \ 'github:majutsushi/tagbar',
+            \ 'github:Rip-Rip/clang_complete',
             \ 'github:Shougo/neocomplcache',
             \ 'github:Shougo/neocomplcache-snippets-complete',
-            \ 'github:Rip-Rip/clang_complete',
+            \ 'github:majutsushi/tagbar',
             \ 'github:osyo-manga/neocomplcache-clang_complete',
             \ 'github:ujihisa/neco-ghc',
-            \ 'github:vim-scripts/VimClojure',
+            \ 'hg:https://bitbucket.org/kotarak/vimclojure',
         \ ]
     endif
 
@@ -48,8 +49,8 @@
 
     " I no longer use these regularly but keep them around for convenience
     let exiled_plugins = [
-        \ 'github:junegunn/tabular',
         \ 'github:Raimondi/delimitMate',
+        \ 'github:junegunn/tabular',
     \ ]
 
     if has('win32') || ('win64')
@@ -118,12 +119,23 @@
 " }}}
 
 " Menu/Complete {{{
+    set completeopt=menuone,menu,longest
     set wildmenu
     set wildmode=list:longest,full
-    set wildignore=*.o,*.obj,*.bak,*.exe,*.aux,*.dvi,*.dll,*.pyc,*.pyo,*.zwc,*.zwc.old
-    set wildignore+=*/.git/*,*/.hg/*,*/.svn/*  " Linux/MacOSX
-    set wildignore+=.git\*,.hg\*,.svn\*        " Windows
-    set completeopt=menuone,menu,longest
+    set wildignore+=*.DS_Store                       " OSX bullshit
+    set wildignore+=*.aux,*.out,*.toc                " LaTeX intermediate files
+    set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg   " binary images
+    set wildignore+=*.luac                           " Lua byte code
+    set wildignore+=*.o,*.obj,*.exe,*.dll,*.manifest " compiled object files
+    set wildignore+=*.orig                           " Merge resolution files
+    set wildignore+=*.pyc,*.pyo                      " Python byte code
+    set wildignore+=*.spl                            " compiled spelling word lists
+    set wildignore+=*.sw?                            " Vim swap files
+    set wildignore+=*/.git/*,*/.hg/*,*/.svn/*        " Version control - Linux/MacOSX
+    set wildignore+=.git\*,.hg\*,.svn\*              " Version control - Windows
+    set wildignore+=classes,lib                      " Clojure/leiningen
+    set wildignore+=migrations                       " Django migrations
+    set wildignore+=*.zwc,*.zwc.old                  " ZSH
 " }}}
 
 " Enable omnicomplete {{{
@@ -189,7 +201,7 @@
         " Console {{{
         set ttyfast
         set mouse=a
-        colorscheme hornet
+        colorscheme badwolf
         " }}}
     endif
 " }}}
@@ -396,14 +408,89 @@
 " }}}
 
 " Clojure {{{
+    " VimClojure
     let g:vimclojure#SplitPos = "left"
     let g:vimclojure#HighlightBuiltins = 1
     let g:vimclojure#HighlightContrib = 1
     let g:vimclojure#ParenRainbow = 1
     let g:vimclojure#DynamicHighlighting = 1
     if executable('ng')
-        let vimclojure#WantNailgun = 1
+        let g:vimclojure#WantNailgun = 1
     endif
+    " noremap  <up>    <Plug>ClojureReplUpHistory
+    " noremap  <down>  <Plug>ClojureReplDownHistory
+    " inoremap OA    <Plug>ClojureReplUpHistory
+    " inoremap OB    <Plug>ClojureReplDownHistory
+    " inoremap <up>    <Plug>ClojureReplUpHistory
+    " inoremap <down>  <Plug>ClojureReplDownHistory
+    " noremap  <c-c-r> <Plug>ClojureReplEnterHook
+    " noremap  <c-r>   <Plug>ClojureReplEvaluate
+    " inoremap <c-c-r> <Plug>ClojureReplEnterHook
+    " inoremap <c-r>   <Plug>ClojureReplEvaluate
+
+    augroup ft_clojure
+        au!
+
+        " au FileType clojure call TurnOnClojureFolding()
+        au FileType clojure compiler clojure
+        au FileType clojure setlocal report=100000
+
+        au BufWinEnter            SLIMV.REPL setlocal winfixwidth nolist
+        au BufNewFile,BufReadPost SLIMV.REPL setlocal nowrap foldlevel=99
+        au BufNewFile,BufReadPost SLIMV.REPL nnoremap <buffer> A GA
+        au BufNewFile,BufReadPost SLIMV.REPL nnoremap <buffer> <localleader>R :emenu REPL.<Tab>
+
+        " Fix the eval mappings.
+        au FileType clojure nnoremap <buffer> <localleader>ef :<c-u>call SlimvEvalExp()<cr>
+        au FileType clojure nnoremap <buffer> <localleader>ee :<c-u>call SlimvEvalDefun()<cr>
+
+        " And the inspect mapping.
+        au FileType clojure nmap <buffer> \i \di
+
+        " Indent top-level form.
+        au FileType clojure nmap <buffer> <localleader>= v((((((((((((=%
+    augroup END
+
+    augroup ft_clojurescript
+        au!
+
+        au BufNewFile,BufRead *.cljs set filetype=clojurescript
+        au FileType clojurescript call TurnOnClojureFolding()
+
+        " Send current toplevel form to dtach.
+        au FileType clojurescript nnoremap <buffer> \ee mz:call SelectToplevelForm()<cr>:call SendToDtach(1)<cr>`z
+    augroup END
+
+    " slimv
+    let g:slimv_leader = '\'
+    let g:slimv_keybindings = 2
+    let g:slimv_repl_name = 'SLIMV.REPL'
+    let g:slimv_repl_split = 4
+    let g:slimv_repl_syntax = 1
+    let g:slimv_repl_wrap = 0
+
+    " Use a swank command that works, and doesn't require new app windows.
+    let g:slimv_swank_clojure = '!dtach -n /tmp/dtach-swank.sock -r winch lein swank'
+
+    function! SendToDtach(visual)
+        if a:visual
+            silent '<,'>w !dtach -s /tmp/target
+            silent !echo \| dtach -s /tmp/target
+        else
+            normal! ^vg_
+            silent '<,'>w !dtach -s /tmp/target
+            execute "normal! <esc>"
+        endif
+    endfunction
+
+    function! SelectToplevelForm()
+        " lol
+        silent! normal vabababababababababababababababababababababababababab
+    endfunction
+
+    nnoremap <localleader>ee :call SendToDtach(0)
+    vnoremap <localleader>ee :call SendToDtach(1)
+    nnoremap <localleader>eb mqggvG:call SendToDtach(1)`q
 " }}}
 
 " Haskell {{{
@@ -451,16 +538,6 @@
 " }}}
 
 " Mapping {{{
-    " Real men don't use arrow keys!
-    noremap <up> <nop>
-    noremap <down> <nop>
-    noremap <left> <nop>
-    noremap <right> <nop>
-    inoremap OA <nop>
-    inoremap OB <nop>
-    inoremap OD <nop>
-    inoremap OC <nop>
-
     " prevent cursor from moving when leavng insert mode
     inoremap <Esc> <Esc>`^
 
@@ -502,12 +579,12 @@
     nnoremap <c-j> :bp<cr>
 
     " Fast window resizing
-    if bufwinnr(1)
-        map <c-up> <C-W>-
-        map <c-down> <C-W>+
-        map <c-left> <C-W><
-        map <c-right> <C-W>>
-    endif
+    " if bufwinnr(1)
+    "     map <c-up> <C-W>-
+    "     map <c-down> <C-W>+
+    "     map <c-left> <C-W><
+    "     map <c-right> <C-W>>
+    " endif
 
     " p replace selection in visual mode
     vnoremap p "_dP
@@ -527,7 +604,7 @@
     vnoremap <leader>P "+P
 
     "\e \u \t toggles
-    nnoremap <Leader>e :NERDTreeTabsToggle<cr>
+    " nnoremap <Leader>e :NERDTreeTabsToggle<cr>
     nnoremap <leader>u :GundoToggle<cr>
     nnoremap <leader>t :TagbarToggle<cr>
 
