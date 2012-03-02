@@ -3,17 +3,20 @@
 
 " Plugins {{{
     let addons = [
+        \ 'github:Lokaltog/vim-easymotion',
         \ 'github:Lokaltog/vim-powerline',
         \ 'github:MarcWeber/vim-addon-manager',
         \ 'github:Rykka/ColorV',
         \ 'github:digitaltoad/vim-jade',
-        \ 'github:jistr/vim-nerdtree-tabs',
+        \ 'github:gregsexton/MatchTag',
         \ 'github:juanpabloaj/help.vim',
         \ 'github:kchmck/vim-coffee-script',
         \ 'github:kien/ctrlp.vim',
         \ 'github:lvivski/vim-css-color',
         \ 'github:mattn/gist-vim',
         \ 'github:mileszs/ack.vim',
+        \ 'github:othree/html5.vim',
+        \ 'github:othree/html5.vim',
         \ 'github:pangloss/vim-javascript',
         \ 'github:scrooloose/nerdtree',
         \ 'github:scrooloose/syntastic',
@@ -24,9 +27,9 @@
         \ 'github:tpope/vim-repeat',
         \ 'github:wavded/vim-stylus',
         \ 'github:zeekay/vim-space',
-        \ 'hg:https://bitbucket.org/sjl/slimv',
         \ 'hg:https://bitbucket.org/sjl/badwolf',
         \ 'hg:https://bitbucket.org/sjl/gundo.vim',
+        \ 'hg:https://bitbucket.org/sjl/slimv',
         \ 'hg:https://bitbucket.org/zeekay/haskellmode-vim',
         \ 'hg:https://bitbucket.org/zeekay/python.vim',
         \ 'hg:https://bitbucket.org/zeekay/vim-lawrencium',
@@ -51,6 +54,7 @@
     " I no longer use these regularly but keep them around for convenience
     let exiled_plugins = [
         \ 'github:Raimondi/delimitMate',
+        \ 'github:jistr/vim-nerdtree-tabs',
         \ 'github:junegunn/tabular',
         \ 'github:vim-scripts/VimClojure',
         \ 'hg:https://bitbucket.org/kotarak/vimclojure',
@@ -113,7 +117,8 @@
     set expandtab
     set smarttab
     set smartindent
-    au FileType coffee,javascript,xml,xhtml,html,htmldjango,haml set shiftwidth=2
+    au FileType javascript,xml,xhtml,html,htmldjango set shiftwidth=4
+    au FileType coffee,haml,stylus,jade set shiftwidth=2
 " }}}
 
 " Search/Highlight {{{
@@ -208,6 +213,11 @@
         colorscheme hornet
         " }}}
     endif
+" }}}
+
+" EasyMotion {{{
+    let g:EasyMotion_keys = ";,.pyfgcrl/aoeuidhtns-'qjkxbmwvz"
+    let g:EasyMotion_leader_key = '<Leader>e'
 " }}}
 
 " Netrw {{{
@@ -315,6 +325,7 @@
     let g:NERDTreeDirArrows = 1
     let g:NERDTreeWinSize = 30
     let g:NERDTreeMouseMode = 3
+    let g:NERDTreeCaseSensitiveSort = 1
 " }}}
 
 " Tabularize {{{
@@ -530,6 +541,22 @@
     au FileType * au BufWritePre <buffer> :silent! call <SID>StripTrailingWhitespace()`
 " }}}
 
+" Fix broken vim regexes when searching {{{
+    " http://stevelosh.com/blog/2010/09/coming-home-to-vim/#important-vimrc-lines
+    function! VerymagicSearchCommand()
+        " Checks if we already specified that we're using very magic regexps
+        " in the search command
+        if match(getcmdline(), '\\v') == -1
+            return 's/\v'
+        endif
+
+        return 's/'
+    endfunction
+    nnoremap / /\v
+    vnoremap / /\v
+    cnoremap s/ <C-R>=VerymagicSearchCommand()<CR>
+" }}}
+
 " Mapping {{{
     " prevent cursor from moving when leavng insert mode
     inoremap <Esc> <Esc>`^
@@ -586,6 +613,16 @@
     nnoremap <leader>b "_
     vnoremap <silent> <leader>b "_
 
+    " Buffer mappings {{{
+    nnoremap <silent> <Leader>d :bd<CR>
+
+    " Quick edit .vimrc {{{
+    nnoremap <silent> <Leader>ev :edit $MYVIMRC<CR>
+    nnoremap <silent> <Leader>sv :source $MYVIMRC<CR>
+
+    " close html tags
+    inoremap \c </<c-x><c-o>
+
     " \y and \p for clipboard yank/paste
     nnoremap <leader>y "*y
     vnoremap <leader>y "*y
@@ -597,21 +634,19 @@
     vnoremap <leader>P "+P
 
     "\e \u \t toggles
-    " nnoremap <Leader>e :NERDTreeTabsToggle<cr>
     nnoremap <leader>u :GundoToggle<cr>
     nnoremap <leader>t :TagbarToggle<cr>
+    nnoremap <leader>n :NERDTreeToggle<cr>
 
-    " \r toggles relatie number
+    " \n toggles relatie number
     nnoremap <leader>n :set relativenumber!<cr>
-
-    " \sb toggles scrollbind
-    nnoremap <leader>sb :ScrollbindToggle<cr>
 
     " \e \q \w \t
     nnoremap <leader>q :q<cr>
-    nnoremap <leader>w <c-w>
+    nnoremap <leader>w <c-w><c-w>
     nnoremap <leader>s :s%//<left>
     vnoremap <leader>s :s//<left>
+    nnoremap <leader>d :bd<cr>
     nnoremap Q :q<cr>
     nnoremap W :w<cr>
     nnoremap gb :CtrlPBuffer<cr>
