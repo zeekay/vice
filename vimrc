@@ -41,7 +41,6 @@
             \ 'github:majutsushi/tagbar',
             \ 'github:osyo-manga/neocomplcache-clang_complete',
             \ 'github:ujihisa/neco-ghc',
-            \ 'hg:https://bitbucket.org/kotarak/vimclojure',
         \ ]
     endif
 
@@ -53,6 +52,8 @@
     let exiled_plugins = [
         \ 'github:Raimondi/delimitMate',
         \ 'github:junegunn/tabular',
+        \ 'github:vim-scripts/VimClojure',
+        \ 'hg:https://bitbucket.org/kotarak/vimclojure',
     \ ]
 
     if has('win32') || ('win64')
