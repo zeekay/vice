@@ -40,8 +40,9 @@ echo '...done!'
 
 echo
 echo 'You also might want to install a few external programs for syntax checking.'
-echo 'For Haskell, Javascript and Python I recommend:'
+echo 'For Clojure, Haskell, Javascript and Python I recommend:'
 echo
+echo 'lein plugin install org.clojars.ibdknox/lein-nailgun 1.1.1'
 echo 'cabal install ghc-mod'
 echo 'npm install -g jslint'
 echo 'pip install flake8'

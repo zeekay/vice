@@ -3,7 +3,6 @@
 
 " Plugins {{{
     let addons = [
-        \ 'github:Lokaltog/vim-easymotion',
         \ 'github:Lokaltog/vim-powerline',
         \ 'github:MarcWeber/vim-addon-manager',
         \ 'github:Rykka/ColorV',
@@ -16,7 +15,7 @@
         \ 'github:mattn/gist-vim',
         \ 'github:mileszs/ack.vim',
         \ 'github:othree/html5.vim',
-        \ 'github:othree/html5.vim',
+        \ 'github:othree/xml.vim',
         \ 'github:pangloss/vim-javascript',
         \ 'github:scrooloose/nerdtree',
         \ 'github:scrooloose/syntastic',
@@ -29,7 +28,6 @@
         \ 'github:zeekay/vim-space',
         \ 'hg:https://bitbucket.org/sjl/badwolf',
         \ 'hg:https://bitbucket.org/sjl/gundo.vim',
-        \ 'hg:https://bitbucket.org/sjl/slimv',
         \ 'hg:https://bitbucket.org/zeekay/haskellmode-vim',
         \ 'hg:https://bitbucket.org/zeekay/python.vim',
         \ 'hg:https://bitbucket.org/zeekay/vim-lawrencium',
@@ -44,6 +42,7 @@
             \ 'github:majutsushi/tagbar',
             \ 'github:osyo-manga/neocomplcache-clang_complete',
             \ 'github:ujihisa/neco-ghc',
+            \ 'github:vim-scripts/VimClojure',
         \ ]
     endif
 
@@ -53,11 +52,11 @@
 
     " I no longer use these regularly but keep them around for convenience
     let exiled_plugins = [
+        \ 'github:Lokaltog/vim-easymotion',
         \ 'github:Raimondi/delimitMate',
         \ 'github:jistr/vim-nerdtree-tabs',
         \ 'github:junegunn/tabular',
-        \ 'github:vim-scripts/VimClojure',
-        \ 'hg:https://bitbucket.org/kotarak/vimclojure',
+        \ 'hg:https://bitbucket.org/sjl/slimv',
     \ ]
 
     if has('win32') || ('win64')
@@ -66,7 +65,6 @@
         let $VIMHOME = expand('~/.vim')
     endif
     let &runtimepath.=','.$VIMHOME.expand('/addons/vim-addon-manager')
-
     call vam#ActivateAddons(addons, {'auto_install': 1})
 " }}}
 
@@ -101,7 +99,6 @@
     set gdefault
     set showcmd
     set noshowmode
-    set fillchars=
     set virtualedit=block,onemore
     set switchbuf=usetab
     set splitright
@@ -159,22 +156,31 @@
     au FileType ruby,eruby setlocal omnifunc=rubycomplete#Complete
 " }}}
 
-" Statusline {{{
+" Statusline / Powerline {{{
     set laststatus=2
     set statusline=\(%n\)\ %f\ %*%#Modified#%m\ (%l/%L,\ %c)\ %P%=%h%w\ %y\ [%{&encoding}:%{&fileformat}]
+    let g:Powerline_symbols_override = {
+        \ 'BRANCH': [0x2213],
+        \ 'LINE': 'LN',
+        \ }
 " }}}
 
 " Colors/Gui {{{
     if has("gui_running")
         if has('mac')
             " MacVim {{{
+                let $PATH='~/.bin:/usr/local/bin:/usr/local/share/python:/usr/bin:/bin'
+                set macmeta
                 set fuoptions=maxvert,maxhorz
                 let g:macvim_hig_shift_movement = 1
                 let g:macvim_skip_cmd_opt_movement = 1
-                " set guifont=Dina-medium:h13
+                set guifontwide=DejaVu\ Sans\ Mono:h11
+                set guifont=DejaVu\ Sans\ Mono:h12
+                " set guifont=Dina:h13
                 set guifont=Inconsolata:h14
                 " set guifont=Monaco:h12
-                " set linespace=1
+                " set guifont=MonteCarlo
+                set linespace=1
                 nnoremap <D-1> 1gt
                 nnoremap <D-2> 2gt
                 nnoremap <D-3> 3gt
@@ -200,8 +206,8 @@
             " }}}
         endif
         " Common gui settings {{{
-            " set fillchars=diff:⣿
-            " set listchars=tab:▸\ ,eol:¬,extends:❯,precedes:❮
+            set fillchars=diff:⣿
+            set listchars=tab:▸\ ,eol:¬,extends:❯,precedes:❮
             " set showbreak=↪
             set guioptions=ace
             colorscheme molokai
@@ -412,6 +418,8 @@
     if executable('ng')
         let g:vimclojure#WantNailgun = 1
     endif
+    au BufNewFile,BufRead *.cljs set filetype=clojure
+
     " noremap  <up>    <Plug>ClojureReplUpHistory
     " noremap  <down>  <Plug>ClojureReplDownHistory
     " inoremap OA    <Plug>ClojureReplUpHistory
@@ -423,65 +431,64 @@
     " inoremap <c-c-r> <Plug>ClojureReplEnterHook
     " inoremap <c-r>   <Plug>ClojureReplEvaluate
 
-    augroup ft_clojure
-        au!
+    " augroup ft_clojure
+    "     au!
+    "     " au FileType clojure call TurnOnClojureFolding()
+    "     au FileType clojure compiler clojure
+    "     au FileType clojure setlocal report=100000
 
-        " au FileType clojure call TurnOnClojureFolding()
-        au FileType clojure compiler clojure
-        au FileType clojure setlocal report=100000
+    "     au BufWinEnter            SLIMV.REPL setlocal winfixwidth nolist
+    "     au BufNewFile,BufReadPost SLIMV.REPL setlocal nowrap foldlevel=99
+    "     au BufNewFile,BufReadPost SLIMV.REPL nnoremap <buffer> A GA
+    "     au BufNewFile,BufReadPost SLIMV.REPL nnoremap <buffer> <localleader>R :emenu REPL.<Tab>
 
-        au BufWinEnter            SLIMV.REPL setlocal winfixwidth nolist
-        au BufNewFile,BufReadPost SLIMV.REPL setlocal nowrap foldlevel=99
-        au BufNewFile,BufReadPost SLIMV.REPL nnoremap <buffer> A GA
-        au BufNewFile,BufReadPost SLIMV.REPL nnoremap <buffer> <localleader>R :emenu REPL.<Tab>
+    "     " Fix the eval mappings.
+    "     au FileType clojure nnoremap <buffer> <localleader>ef :<c-u>call SlimvEvalExp()<cr>
+    "     au FileType clojure nnoremap <buffer> <localleader>ee :<c-u>call SlimvEvalDefun()<cr>
 
-        " Fix the eval mappings.
-        au FileType clojure nnoremap <buffer> <localleader>ef :<c-u>call SlimvEvalExp()<cr>
-        au FileType clojure nnoremap <buffer> <localleader>ee :<c-u>call SlimvEvalDefun()<cr>
+    "     " And the inspect mapping.
+    "     au FileType clojure nmap <buffer> \i \di
 
-        " And the inspect mapping.
-        au FileType clojure nmap <buffer> \i \di
+    "     " Indent top-level form.
+    "     au FileType clojure nmap <buffer> <localleader>= v((((((((((((=%
+    " augroup END
 
-        " Indent top-level form.
-        au FileType clojure nmap <buffer> <localleader>= v((((((((((((=%
-    augroup END
+    " augroup ft_clojurescript
+    "     au!
 
-    augroup ft_clojurescript
-        au!
+    "     au BufNewFile,BufRead *.cljs set filetype=clojurescript
+    "     " au FileType clojurescript call TurnOnClojureFolding()
 
-        au BufNewFile,BufRead *.cljs set filetype=clojurescript
-        au FileType clojurescript call TurnOnClojureFolding()
+    "     " Send current toplevel form to dtach.
+    "     au FileType clojurescript nnoremap <buffer> \ee mz:call SelectToplevelForm()<cr>:call SendToDtach(1)<cr>`z
+    " augroup END
 
-        " Send current toplevel form to dtach.
-        au FileType clojurescript nnoremap <buffer> \ee mz:call SelectToplevelForm()<cr>:call SendToDtach(1)<cr>`z
-    augroup END
+    " " slimv
+    " let g:slimv_leader = '\'
+    " let g:slimv_keybindings = 2
+    " let g:slimv_repl_name = 'SLIMV.REPL'
+    " let g:slimv_repl_split = 4
+    " let g:slimv_repl_syntax = 1
+    " let g:slimv_repl_wrap = 0
 
-    " slimv
-    let g:slimv_leader = '\'
-    let g:slimv_keybindings = 2
-    let g:slimv_repl_name = 'SLIMV.REPL'
-    let g:slimv_repl_split = 4
-    let g:slimv_repl_syntax = 1
-    let g:slimv_repl_wrap = 0
+    " " Use a swank command that works, and doesn't require new app windows.
+    " let g:slimv_swank_clojure = '!dtach -n /tmp/dtach-swank.sock -r winch lein swank'
 
-    " Use a swank command that works, and doesn't require new app windows.
-    let g:slimv_swank_clojure = '!dtach -n /tmp/dtach-swank.sock -r winch lein swank'
+    " function! SendToDtach(visual)
+    "     if a:visual
+    "         silent '<,'>w !dtach -s /tmp/target
+    "         silent !echo \| dtach -s /tmp/target
+    "     else
+    "         normal! ^vg_
+    "         silent '<,'>w !dtach -s /tmp/target
+    "         execute "normal! <esc>"
+    "     endif
+    " endfunction
 
-    function! SendToDtach(visual)
-        if a:visual
-            silent '<,'>w !dtach -s /tmp/target
-            silent !echo \| dtach -s /tmp/target
-        else
-            normal! ^vg_
-            silent '<,'>w !dtach -s /tmp/target
-            execute "normal! <esc>"
-        endif
-    endfunction
-
-    function! SelectToplevelForm()
-        " lol
-        silent! normal vabababababababababababababababababababababababababab
-    endfunction
+    " function! SelectToplevelForm()
+    "     " lol
+    "     silent! normal vabababababababababababababababababababababababababab
+    " endfunction
 
 " CoffeeScript {{{
     au FileType coffee setlocal foldmethod=indent nofoldenable
@@ -521,6 +528,10 @@
     " au FileType python setlocal foldmethod=syntax
 " }}}
 
+" VimL {{{
+    nnoremap <leader>rf :w<cr> <bar> :so %<cr>
+" }}}
+
 " Fast Escape {{{
     augroup fastescape
         au!
@@ -539,22 +550,6 @@
         normal `Z
     endfunction
     au FileType * au BufWritePre <buffer> :silent! call <SID>StripTrailingWhitespace()`
-" }}}
-
-" Fix broken vim regexes when searching {{{
-    " http://stevelosh.com/blog/2010/09/coming-home-to-vim/#important-vimrc-lines
-    function! VerymagicSearchCommand()
-        " Checks if we already specified that we're using very magic regexps
-        " in the search command
-        if match(getcmdline(), '\\v') == -1
-            return 's/\v'
-        endif
-
-        return 's/'
-    endfunction
-    nnoremap / /\v
-    vnoremap / /\v
-    cnoremap s/ <C-R>=VerymagicSearchCommand()<CR>
 " }}}
 
 " Mapping {{{
@@ -617,8 +612,8 @@
     nnoremap <silent> <Leader>d :bd<CR>
 
     " Quick edit .vimrc {{{
-    nnoremap <silent> <Leader>ev :edit $MYVIMRC<CR>
-    nnoremap <silent> <Leader>sv :source $MYVIMRC<CR>
+    " nnoremap <silent> <Leader>ev :edit $MYVIMRC<CR>
+    " nnoremap <silent> <Leader>sv :source $MYVIMRC<CR>
 
     " close html tags
     inoremap \c </<c-x><c-o>
@@ -626,8 +621,8 @@
     " \y and \p for clipboard yank/paste
     nnoremap <leader>y "*y
     vnoremap <leader>y "*y
-    nnoremap <leader>p "*P
-    vnoremap <leader>p "*P
+    " nnoremap <leader>p "*P
+    " vnoremap <leader>p "*P
     nnoremap <leader>Y "+y
     vnoremap <leader>Y "+y
     nnoremap <leader>P "+P
@@ -639,13 +634,20 @@
     nnoremap <leader>n :NERDTreeToggle<cr>
 
     " \n toggles relatie number
-    nnoremap <leader>n :set relativenumber!<cr>
+    nnoremap <leader>rn :set relativenumber!<cr>
 
     " \e \q \w \t
     nnoremap <leader>q :q<cr>
-    nnoremap <leader>w <c-w><c-w>
-    nnoremap <leader>s :s%//<left>
-    vnoremap <leader>s :s//<left>
+    nnoremap <leader>ww <c-w><c-w>
+    nnoremap <leader>ws <c-w>s
+    nnoremap <leader>wv <c-w>v
+    nnoremap <leader>wn <c-w>n
+    nnoremap <leader>wh <c-w>h
+    nnoremap <leader>wj <c-w>j
+    nnoremap <leader>wk <c-w>k
+    nnoremap <leader>wl <c-w>l
+    " nnoremap <leader>s :s%//<left>
+    " vnoremap <leader>s :s//<left>
     nnoremap <leader>d :bd<cr>
     nnoremap Q :q<cr>
     nnoremap W :w<cr>
