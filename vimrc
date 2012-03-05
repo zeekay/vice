@@ -31,7 +31,7 @@
         \ 'hg:https://bitbucket.org/zeekay/python.vim',
         \ 'hg:https://bitbucket.org/zeekay/vim-lawrencium',
         \ 'hg:https://bitbucket.org/zeekay/vimtips',
-        \ 'github:zeekay/vim-powerline',
+        \ 'hg:https://bitbucket.org/zeekay/vim-powerline-custom',
         \ 'github:Lokaltog/vim-powerline',
     \ ]
 
