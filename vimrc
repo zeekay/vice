@@ -661,8 +661,9 @@ endfunction
     nnoremap gb :CtrlPBuffer<cr>
     nnoremap go :CtrlP<cr>
 
-    " open urls
-    nnoremap <leader>o :py import webbrowser; webbrowser.open(<c-r>='"'.expand("<cWORD>").'"'<cr>)<cr>
+    " open things
+    nnoremap <leader>ow :py import webbrowser; webbrowser.open(<c-r>='"'.expand("<cWORD>").'"'<cr>)<cr>
+    nnoremap <leader>of :py import webbrowser; webbrowser.open(<c-r>='"'.'file://'.expand('%:p').'"'<cr>)<cr>
 
     " Identify vim syntax highlight group under cursor
     map <leader>hi :echo "hi: " . synIDattr(synID(line("."),col("."),1),"name") . ', trans: '
