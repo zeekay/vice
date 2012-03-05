@@ -3,7 +3,6 @@
 
 " Plugins {{{
     let addons = [
-        \ 'github:Lokaltog/vim-powerline',
         \ 'github:MarcWeber/vim-addon-manager',
         \ 'github:Rykka/ColorV',
         \ 'github:digitaltoad/vim-jade',
@@ -32,6 +31,8 @@
         \ 'hg:https://bitbucket.org/zeekay/python.vim',
         \ 'hg:https://bitbucket.org/zeekay/vim-lawrencium',
         \ 'hg:https://bitbucket.org/zeekay/vimtips',
+        \ 'github:zeekay/vim-powerline',
+        \ 'github:Lokaltog/vim-powerline',
     \ ]
 
     if version > 702
@@ -156,6 +157,10 @@
     au FileType ruby,eruby setlocal omnifunc=rubycomplete#Complete
 " }}}
 
+function! Butts()
+    return 'butts'
+endfunction
+
 " Statusline / Powerline {{{
     set laststatus=2
     set statusline=\(%n\)\ %f\ %*%#Modified#%m\ (%l/%L,\ %c)\ %P%=%h%w\ %y\ [%{&encoding}:%{&fileformat}]
@@ -163,6 +168,8 @@
         \ 'BRANCH': [0x2213],
         \ 'LINE': 'LN',
         \ }
+    let g:Powerline_dividers_override = ['', '>', '', '<']
+    call Pl#Theme#InsertSegment('lawrencium:branch', 'after', 'fugitive:branch')
 " }}}
 
 " Colors/Gui {{{
