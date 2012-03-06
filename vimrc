@@ -601,12 +601,12 @@ endfunction
     nnoremap <c-j> :bp<cr>
 
     " Fast window resizing
-    " if bufwinnr(1)
-    "     map <c-up> <C-W>-
-    "     map <c-down> <C-W>+
-    "     map <c-left> <C-W><
-    "     map <c-right> <C-W>>
-    " endif
+    if bufwinnr(1)
+        map <c-up> <C-W>-
+        map <c-down> <C-W>+
+        map <c-left> <C-W><
+        map <c-right> <C-W>>
+    endif
 
     " p replace selection in visual mode
     vnoremap p "_dP
