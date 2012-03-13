@@ -43,7 +43,7 @@
             \ 'github:majutsushi/tagbar',
             \ 'github:osyo-manga/neocomplcache-clang_complete',
             \ 'github:ujihisa/neco-ghc',
-            \ 'github:vim-scripts/VimClojure',
+            \ 'hg:https://bitbucket.org/sjl/slimv',
         \ ]
     endif
 
@@ -57,7 +57,7 @@
         \ 'github:Raimondi/delimitMate',
         \ 'github:jistr/vim-nerdtree-tabs',
         \ 'github:junegunn/tabular',
-        \ 'hg:https://bitbucket.org/sjl/slimv',
+        \ 'github:vim-scripts/VimClojure',
     \ ]
 
     if has('win32') || ('win64')
@@ -72,7 +72,7 @@
 " Basic/General Configuration {{{
     set nocompatible
     syntax on
-    filetype plugin indent on
+    filetype indent plugin on
     set backupdir=$VIMHOME/tmp/backup
     set backup
     silent! set undofile
@@ -157,10 +157,6 @@
     au FileType ruby,eruby setlocal omnifunc=rubycomplete#Complete
 " }}}
 
-function! Butts()
-    return 'butts'
-endfunction
-
 " Statusline / Powerline {{{
     set laststatus=2
     set statusline=\(%n\)\ %f\ %*%#Modified#%m\ (%l/%L,\ %c)\ %P%=%h%w\ %y\ [%{&encoding}:%{&fileformat}]
@@ -168,7 +164,7 @@ endfunction
         \ 'BRANCH': [0x2213],
         \ 'LINE': 'LN',
         \ }
-    let g:Powerline_dividers_override = ['', '>', '', '<']
+    let g:Powerline_dividers_override = ['', '/', '', '/']
     call Pl#Theme#InsertSegment('lawrencium:branch', 'after', 'fugitive:branch')
 " }}}
 
@@ -416,86 +412,63 @@ endfunction
 " }}}
 
 " Clojure {{{
-    " VimClojure
-    let g:vimclojure#SplitPos = "left"
-    let g:vimclojure#HighlightBuiltins = 1
-    let g:vimclojure#HighlightContrib = 1
-    let g:vimclojure#ParenRainbow = 1
-    let g:vimclojure#DynamicHighlighting = 1
-    if executable('ng')
-        let g:vimclojure#WantNailgun = 1
-    endif
-    au BufNewFile,BufRead *.cljs set filetype=clojure
+    augroup ft_clojure
+        au!
 
-    " noremap  <up>    <Plug>ClojureReplUpHistory
-    " noremap  <down>  <Plug>ClojureReplDownHistory
-    " inoremap OA    <Plug>ClojureReplUpHistory
-    " inoremap OB    <Plug>ClojureReplDownHistory
-    " inoremap <up>    <Plug>ClojureReplUpHistory
-    " inoremap <down>  <Plug>ClojureReplDownHistory
-    " noremap  <c-c-r> <Plug>ClojureReplEnterHook
-    " noremap  <c-r>   <Plug>ClojureReplEvaluate
-    " inoremap <c-c-r> <Plug>ClojureReplEnterHook
-    " inoremap <c-r>   <Plug>ClojureReplEvaluate
+        au FileType clojure call TurnOnClojureFolding()
+        au FileType clojure compiler clojure
+        au FileType clojure setlocal report=100000
 
-    " augroup ft_clojure
-    "     au!
-    "     " au FileType clojure call TurnOnClojureFolding()
-    "     au FileType clojure compiler clojure
-    "     au FileType clojure setlocal report=100000
+        au BufWinEnter            SLIMV.REPL setlocal winfixwidth nolist
+        au BufNewFile,BufReadPost SLIMV.REPL setlocal nowrap foldlevel=99
+        au BufNewFile,BufReadPost SLIMV.REPL nnoremap <buffer> A GA
+        au BufNewFile,BufReadPost SLIMV.REPL nnoremap <buffer> <localleader>R :emenu REPL.<Tab>
 
-    "     au BufWinEnter            SLIMV.REPL setlocal winfixwidth nolist
-    "     au BufNewFile,BufReadPost SLIMV.REPL setlocal nowrap foldlevel=99
-    "     au BufNewFile,BufReadPost SLIMV.REPL nnoremap <buffer> A GA
-    "     au BufNewFile,BufReadPost SLIMV.REPL nnoremap <buffer> <localleader>R :emenu REPL.<Tab>
+        " Fix the eval mappings.
+        au FileType clojure nnoremap <buffer> <localleader>ef :<c-u>call SlimvEvalExp()<cr>
+        au FileType clojure nnoremap <buffer> <localleader>ee :<c-u>call SlimvEvalDefun()<cr>
 
-    "     " Fix the eval mappings.
-    "     au FileType clojure nnoremap <buffer> <localleader>ef :<c-u>call SlimvEvalExp()<cr>
-    "     au FileType clojure nnoremap <buffer> <localleader>ee :<c-u>call SlimvEvalDefun()<cr>
+        " And the inspect mapping.
+        au FileType clojure nmap <buffer> \i \di
 
-    "     " And the inspect mapping.
-    "     au FileType clojure nmap <buffer> \i \di
+        " Indent top-level form.
+        au FileType clojure nmap <buffer> <localleader>= v((((((((((((=%
+    augroup END
 
-    "     " Indent top-level form.
-    "     au FileType clojure nmap <buffer> <localleader>= v((((((((((((=%
-    " augroup END
+    " }}}
+    " Clojurescript {{{
 
-    " augroup ft_clojurescript
-    "     au!
+    augroup ft_clojurescript
+        au!
 
-    "     au BufNewFile,BufRead *.cljs set filetype=clojurescript
-    "     " au FileType clojurescript call TurnOnClojureFolding()
+        au BufNewFile,BufRead *.cljs set filetype=clojurescript
+        au FileType clojurescript call TurnOnClojureFolding()
+    augroup END
 
-    "     " Send current toplevel form to dtach.
-    "     au FileType clojurescript nnoremap <buffer> \ee mz:call SelectToplevelForm()<cr>:call SendToDtach(1)<cr>`z
-    " augroup END
+    " VimClojure {{{
+        let g:vimclojure#SplitPos = "left"
+        let g:vimclojure#HighlightBuiltins = 1
+        let g:vimclojure#HighlightContrib = 1
+        let g:vimclojure#ParenRainbow = 1
+        let g:vimclojure#DynamicHighlighting = 1
+        if executable('ng')
+            let g:vimclojure#WantNailgun = 1
+        endif
+    " }}}
 
-    " " slimv
-    " let g:slimv_leader = '\'
-    " let g:slimv_keybindings = 2
-    " let g:slimv_repl_name = 'SLIMV.REPL'
-    " let g:slimv_repl_split = 4
-    " let g:slimv_repl_syntax = 1
-    " let g:slimv_repl_wrap = 0
+    " SlimV {{{
+        let g:slimv_leader = '\'
+        let g:slimv_keybindings = 2
+        let g:slimv_repl_name = 'SLIMV.REPL'
+        let g:slimv_repl_split = 4
+        let g:slimv_repl_syntax = 1
+        let g:slimv_repl_wrap = 0
 
-    " " Use a swank command that works, and doesn't require new app windows.
-    " let g:slimv_swank_clojure = '!dtach -n /tmp/dtach-swank.sock -r winch lein swank'
+        " Use a swank command that works, and doesn't require new app windows.
+        let g:slimv_swank_clojure = '!dtach -n /tmp/dtach-swank.sock -r winch lein swank'
+    " }}}
 
-    " function! SendToDtach(visual)
-    "     if a:visual
-    "         silent '<,'>w !dtach -s /tmp/target
-    "         silent !echo \| dtach -s /tmp/target
-    "     else
-    "         normal! ^vg_
-    "         silent '<,'>w !dtach -s /tmp/target
-    "         execute "normal! <esc>"
-    "     endif
-    " endfunction
-
-    " function! SelectToplevelForm()
-    "     " lol
-    "     silent! normal vabababababababababababababababababababababababababab
-    " endfunction
+" }}}
 
 " CoffeeScript {{{
     au FileType coffee setlocal foldmethod=indent nofoldenable
