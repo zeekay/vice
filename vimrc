@@ -350,6 +350,7 @@
     let g:tagbar_compact = 1
     let g:tagbar_ctags_bin = 'ctags'
     let g:tagbar_expand = 1
+    let g:tagbar_iconchars = ['▸','▾']
     if executable('coffeetags')
         let g:tagbar_type_coffee = {
             \ 'ctagsbin': 'coffeetags',
@@ -415,12 +416,10 @@
     augroup ft_clojure
         au!
 
-        au FileType clojure call TurnOnClojureFolding()
         au FileType clojure compiler clojure
         au FileType clojure setlocal report=100000
 
         au BufWinEnter            SLIMV.REPL setlocal winfixwidth nolist
-        au BufNewFile,BufReadPost SLIMV.REPL setlocal nowrap foldlevel=99
         au BufNewFile,BufReadPost SLIMV.REPL nnoremap <buffer> A GA
         au BufNewFile,BufReadPost SLIMV.REPL nnoremap <buffer> <localleader>R :emenu REPL.<Tab>
 
@@ -442,7 +441,6 @@
         au!
 
         au BufNewFile,BufRead *.cljs set filetype=clojurescript
-        au FileType clojurescript call TurnOnClojureFolding()
     augroup END
 
     " VimClojure {{{
