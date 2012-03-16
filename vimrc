@@ -499,16 +499,16 @@
 
     if executable('bebop') && has('python')
         " Use Bebop to eval javascript
-            py import bebop.vimbop
-            au FileType javascript command! -nargs=1 BebopComplete   py bebop.vimbop.complete(<f-args>)
-            au FileType javascript command! -nargs=* BebopEval     py bebop.vimbop.eval_js(<f-args>)
-            au FileType javascript command! -nargs=0 BebopEvalLine   py bebop.vimbop.eval_line()
-            au FileType javascript command! -nargs=0 BebopEvalBuffer py bebop.vimbop.eval_buffer()
-            au FileType javascript nnoremap <leader>ee :BebopEval<space>
-            au FileType javascript nnoremap <leader>el :BebopEvalLine<cr>
-            au FileType javascript vnoremap <leader>er :py bebop.vimbop.eval_range()<cr>
-            au FileType javascript nnoremap <leader>eb :BebopEvalBuffer<cr>
-            au FileType javascript nnoremap <leader>ef :BebopEvalBuffer<cr>
+        py import bebop.vimbop
+        au FileType javascript command! -nargs=1 BebopComplete   py bebop.vimbop.complete(<f-args>)
+        au FileType javascript command! -nargs=* BebopEval     py bebop.vimbop.eval_js(<f-args>)
+        au FileType javascript command! -nargs=0 BebopEvalLine   py bebop.vimbop.eval_line()
+        au FileType javascript command! -nargs=0 BebopEvalBuffer py bebop.vimbop.eval_buffer()
+        au FileType javascript nnoremap <leader>ee :BebopEval<space>
+        au FileType javascript nnoremap <leader>el :BebopEvalLine<cr>
+        au FileType javascript vnoremap <leader>er :py bebop.vimbop.eval_range()<cr>
+        au FileType javascript nnoremap <leader>eb :BebopEvalBuffer<cr>
+        au FileType javascript nnoremap <leader>ef :BebopEvalBuffer<cr>
     endif
 " }}}
 
