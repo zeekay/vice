@@ -32,39 +32,20 @@
     endif
 
     let ft_addons = {
-        \ 'c': [
-            \ 'github:Rip-Rip/clang_complete',
-            \ 'github:osyo-manga/neocomplcache-clang_complete',
-        \ ],
-        \ 'cpp': [
-            \ 'github:Rip-Rip/clang_complete',
-            \ 'github:osyo-manga/neocomplcache-clang_complete',
-        \ ],
-        \ 'css': ['github:Rykka/ColorV', 'github:lvivski/vim-css-color'],
-        \ 'coffee': ['github:kchmck/vim-coffee-script'],
-        \ 'clojure': ['hg:https://bitbucket.org/sjl/slimv'],
-        \ 'haml': ['github:tpope/vim-haml'],
-        \ 'haskell': [
-            \ 'github:ujihisa/neco-ghc',
-            \ 'hg:https://bitbucket.org/zeekay/haskellmode-vim',
-        \ ],
-        \ 'html': [
-            \ 'github:othree/html5.vim',
-            \ 'github:gregsexton/MatchTag',
-        \ ],
-        \ 'jade': ['github:digitaltoad/vim-jade'],
+        \ 'c':          ['github:Rip-Rip/clang_complete', 'github:osyo-manga/neocomplcache-clang_complete'],
+        \ 'cpp':        ['github:Rip-Rip/clang_complete', 'github:osyo-manga/neocomplcache-clang_complete'],
+        \ 'css':        ['github:Rykka/ColorV', 'github:lvivski/vim-css-color'],
+        \ 'coffee':     ['github:kchmck/vim-coffee-script'],
+        \ 'clojure':    ['hg:https://bitbucket.org/sjl/slimv'],
+        \ 'haml':       ['github:tpope/vim-haml'],
+        \ 'haskell':    ['github:ujihisa/neco-ghc', 'hg:https://bitbucket.org/zeekay/haskellmode-vim'],
+        \ 'html':       ['github:othree/html5.vim', 'github:gregsexton/MatchTag'],
+        \ 'jade':       ['github:digitaltoad/vim-jade'],
         \ 'javascript': ['github:pangloss/vim-javascript'],
-        \ 'sass': ['github:Rykka/ColorV', 'github:lvivski/vim-css-color'],
-        \ 'stylus': [
-            \ 'github:Rykka/ColorV',
-            \ 'github:lvivski/vim-css-color',
-            \ 'github:wavded/vim-stylus',
-        \ ],
-        \ 'xml': [
-            \ 'github:othree/xml.vim',
-            \ 'github:gregsexton/MatchTag',
-        \ ],
-        \ 'python': ['hg:https://bitbucket.org/zeekay/python.vim'],
+        \ 'sass':       ['github:Rykka/ColorV', 'github:lvivski/vim-css-color'],
+        \ 'stylus':     ['github:Rykka/ColorV', 'github:lvivski/vim-css-color', 'github:wavded/vim-stylus'],
+        \ 'xml':        ['github:othree/xml.vim', 'github:gregsexton/MatchTag'],
+        \ 'python':     ['hg:https://bitbucket.org/zeekay/python.vim'],
     \ }
 
     if version > 702 && has('python')
@@ -75,9 +56,7 @@
     let exiled_plugins = [
         \ 'github:Lokaltog/vim-easymotion',
         \ 'github:Raimondi/delimitMate',
-        \ 'github:jistr/vim-nerdtree-tabs',
         \ 'github:junegunn/tabular',
-        \ 'github:vim-scripts/VimClojure',
     \ ]
 
     if has('win32') || ('win64')
@@ -89,7 +68,6 @@
     let &runtimepath.=','.$VIMHOME.expand('/addons/vim-addon-manager')
     call vam#ActivateAddons(addons, {'auto_install': 1})
     au FileType * for l in values(filter(copy(ft_addons), string(expand('<amatch>')).' =~ v:key')) | call vam#ActivateAddons(l, {'force_loading_plugins_now':1}) | endfor
-
 " }}}
 
 " Basic/General Configuration {{{
@@ -166,15 +144,6 @@
     set wildignore+=classes,lib                      " Clojure/leiningen
     set wildignore+=migrations                       " Django migrations
     set wildignore+=*.zwc,*.zwc.old                  " ZSH
-" }}}
-
-" Extra filetypes {{{
-    au BufNewFile,BufRead *.haml set filetype=haml
-    au BufNewFile,BufRead *.jade set filetype=jade
-    au BufNewFile,BufRead *.sass set filetype=sass
-    au BufNewFile,BufRead *.scss set filetype=scss
-    au BufNewFile,BufRead *.styl set filetype=stylus
-    au BufNewFile,BufRead *.coffee set filetype=coffee
 " }}}
 
 " Enable omnicomplete {{{
@@ -444,7 +413,16 @@
   let g:EclimTaglistEnabled = 0
 " }}}
 
-" Clojure {{{
+" Filetypes {{{
+    au BufNewFile,BufRead *.haml set filetype=haml
+    au BufNewFile,BufRead *.jade set filetype=jade
+    au BufNewFile,BufRead *.sass set filetype=sass
+    au BufNewFile,BufRead *.scss set filetype=scss
+    au BufNewFile,BufRead *.styl set filetype=stylus
+    au BufNewFile,BufRead *.coffee set filetype=coffee
+" }}}
+
+" Clojure/ClojureScript {{{
     augroup ft_clojure
         au!
 
@@ -466,12 +444,8 @@
         au FileType clojure nmap <buffer> <localleader>= v((((((((((((=%
     augroup END
 
-    " }}}
-    " Clojurescript {{{
-
     augroup ft_clojurescript
         au!
-
         au BufNewFile,BufRead *.cljs set filetype=clojurescript
     augroup END
 
@@ -513,7 +487,6 @@
 " }}}
 
 " Javascript {{{
-
     if executable('node')
         " Quick and dirty javascript run current file
         function! s:RunInNode()
@@ -537,7 +510,6 @@
             au FileType javascript nnoremap <leader>eb :BebopEvalBuffer<cr>
             au FileType javascript nnoremap <leader>ef :BebopEvalBuffer<cr>
     endif
-
 " }}}
 
 " Markdown {{{
