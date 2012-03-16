@@ -4,31 +4,19 @@
 " Plugins {{{
     let addons = [
         \ 'github:MarcWeber/vim-addon-manager',
-        \ 'github:Rykka/ColorV',
-        \ 'github:digitaltoad/vim-jade',
-        \ 'github:gregsexton/MatchTag',
         \ 'github:juanpabloaj/help.vim',
-        \ 'github:kchmck/vim-coffee-script',
         \ 'github:kien/ctrlp.vim',
-        \ 'github:lvivski/vim-css-color',
         \ 'github:mattn/gist-vim',
         \ 'github:mileszs/ack.vim',
-        \ 'github:othree/html5.vim',
-        \ 'github:othree/xml.vim',
-        \ 'github:pangloss/vim-javascript',
         \ 'github:scrooloose/nerdtree',
         \ 'github:scrooloose/syntastic',
         \ 'github:tpope/vim-commentary',
         \ 'github:tpope/vim-eunuch',
         \ 'github:tpope/vim-fugitive',
-        \ 'github:tpope/vim-haml',
         \ 'github:tpope/vim-repeat',
-        \ 'github:wavded/vim-stylus',
         \ 'github:zeekay/vim-space',
         \ 'hg:https://bitbucket.org/sjl/badwolf',
         \ 'hg:https://bitbucket.org/sjl/gundo.vim',
-        \ 'hg:https://bitbucket.org/zeekay/haskellmode-vim',
-        \ 'hg:https://bitbucket.org/zeekay/python.vim',
         \ 'hg:https://bitbucket.org/zeekay/vim-lawrencium',
         \ 'hg:https://bitbucket.org/zeekay/vimtips',
         \ 'hg:https://bitbucket.org/zeekay/vim-powerline-custom',
@@ -37,15 +25,47 @@
 
     if version > 702
         let addons += [
-            \ 'github:Rip-Rip/clang_complete',
             \ 'github:Shougo/neocomplcache',
             \ 'github:Shougo/neocomplcache-snippets-complete',
             \ 'github:majutsushi/tagbar',
-            \ 'github:osyo-manga/neocomplcache-clang_complete',
-            \ 'github:ujihisa/neco-ghc',
-            \ 'hg:https://bitbucket.org/sjl/slimv',
         \ ]
     endif
+
+    let ft_addons = {
+        \ 'c': [
+            \ 'github:Rip-Rip/clang_complete',
+            \ 'github:osyo-manga/neocomplcache-clang_complete',
+        \ ],
+        \ 'cpp': [
+            \ 'github:Rip-Rip/clang_complete',
+            \ 'github:osyo-manga/neocomplcache-clang_complete',
+        \ ],
+        \ 'css': ['github:Rykka/ColorV', 'github:lvivski/vim-css-color'],
+        \ 'coffee': ['github:kchmck/vim-coffee-script'],
+        \ 'clojure': ['hg:https://bitbucket.org/sjl/slimv'],
+        \ 'haml': ['github:tpope/vim-haml'],
+        \ 'haskell': [
+            \ 'github:ujihisa/neco-ghc',
+            \ 'hg:https://bitbucket.org/zeekay/haskellmode-vim',
+        \ ],
+        \ 'html': [
+            \ 'github:othree/html5.vim',
+            \ 'github:gregsexton/MatchTag',
+        \ ],
+        \ 'jade': ['github:digitaltoad/vim-jade'],
+        \ 'javascript': ['github:pangloss/vim-javascript'],
+        \ 'sass': ['github:Rykka/ColorV', 'github:lvivski/vim-css-color'],
+        \ 'stylus': [
+            \ 'github:Rykka/ColorV',
+            \ 'github:lvivski/vim-css-color',
+            \ 'github:wavded/vim-stylus',
+        \ ],
+        \ 'xml': [
+            \ 'github:othree/xml.vim',
+            \ 'github:gregsexton/MatchTag',
+        \ ],
+        \ 'python': ['hg:https://bitbucket.org/zeekay/python.vim'],
+    \ }
 
     if version > 702 && has('python')
         let addons += ['hg:https://bitbucket.org/zeekay/vim-python-mode']
@@ -65,8 +85,11 @@
     else
         let $VIMHOME = expand('~/.vim')
     endif
+
     let &runtimepath.=','.$VIMHOME.expand('/addons/vim-addon-manager')
     call vam#ActivateAddons(addons, {'auto_install': 1})
+    au FileType * for l in values(filter(copy(ft_addons), string(expand('<amatch>')).' =~ v:key')) | call vam#ActivateAddons(l, {'force_loading_plugins_now':1}) | endfor
+
 " }}}
 
 " Basic/General Configuration {{{
@@ -143,6 +166,15 @@
     set wildignore+=classes,lib                      " Clojure/leiningen
     set wildignore+=migrations                       " Django migrations
     set wildignore+=*.zwc,*.zwc.old                  " ZSH
+" }}}
+
+" Extra filetypes {{{
+    au BufNewFile,BufRead *.haml set filetype=haml
+    au BufNewFile,BufRead *.jade set filetype=jade
+    au BufNewFile,BufRead *.sass set filetype=sass
+    au BufNewFile,BufRead *.scss set filetype=scss
+    au BufNewFile,BufRead *.styl set filetype=stylus
+    au BufNewFile,BufRead *.coffee set filetype=coffee
 " }}}
 
 " Enable omnicomplete {{{
@@ -481,13 +513,31 @@
 " }}}
 
 " Javascript {{{
-    " Quick and dirty javascript run current file
-    function! s:RunInNode()
-        w
-        !node %
-    endfunction
-    au FileType javascript command! RunInNode call s:RunInNode()
-    au FileType javascript map <leader>r :RunInNode<cr>
+
+    if executable('node')
+        " Quick and dirty javascript run current file
+        function! s:RunInNode()
+            w
+            !node %
+        endfunction
+        au FileType javascript command! RunInNode call s:RunInNode()
+        au FileType javascript map <leader>r :RunInNode<cr>
+    endif
+
+    if executable('bebop') && has('python')
+        " Use Bebop to eval javascript
+            py import bebop.vimbop
+            au FileType javascript command! -nargs=1 BebopComplete   py bebop.vimbop.complete(<f-args>)
+            au FileType javascript command! -nargs=* BebopEval     py bebop.vimbop.eval_js(<f-args>)
+            au FileType javascript command! -nargs=0 BebopEvalLine   py bebop.vimbop.eval_line()
+            au FileType javascript command! -nargs=0 BebopEvalBuffer py bebop.vimbop.eval_buffer()
+            au FileType javascript nnoremap <leader>ee :BebopEval<space>
+            au FileType javascript nnoremap <leader>el :BebopEvalLine<cr>
+            au FileType javascript vnoremap <leader>er :py bebop.vimbop.eval_range()<cr>
+            au FileType javascript nnoremap <leader>eb :BebopEvalBuffer<cr>
+            au FileType javascript nnoremap <leader>ef :BebopEvalBuffer<cr>
+    endif
+
 " }}}
 
 " Markdown {{{
@@ -507,7 +557,7 @@
 " }}}
 
 " VimL {{{
-    nnoremap <leader>rf :w<cr> <bar> :so %<cr>
+    au FileType vim nnoremap <leader>r :w<cr> <bar> :so %<cr>
 " }}}
 
 " Fast Escape {{{
