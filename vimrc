@@ -488,7 +488,7 @@
 
 " Javascript {{{
     if executable('node')
-        " Quick and dirty javascript run current file
+        " Run current file in node for quick evaluation
         function! s:RunInNode()
             w
             !node %
