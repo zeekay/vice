@@ -141,7 +141,7 @@
     set wildignore+=*.sw?                            " Vim swap files
     set wildignore+=*/.git/*,*/.hg/*,*/.svn/*        " Version control - Linux/MacOSX
     set wildignore+=.git\*,.hg\*,.svn\*              " Version control - Windows
-    set wildignore+=classes,lib                      " Clojure/leiningen
+    set wildignore+=classes                          " Clojure/leiningen
     set wildignore+=migrations                       " Django migrations
     set wildignore+=*.zwc,*.zwc.old                  " ZSH
 " }}}
