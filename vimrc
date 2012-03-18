@@ -3,6 +3,7 @@
 
 " Plugins {{{
     let addons = [
+        \ 'github:Lokaltog/vim-powerline',
         \ 'github:MarcWeber/vim-addon-manager',
         \ 'github:juanpabloaj/help.vim',
         \ 'github:kien/ctrlp.vim',
@@ -18,9 +19,8 @@
         \ 'hg:https://bitbucket.org/sjl/badwolf',
         \ 'hg:https://bitbucket.org/sjl/gundo.vim',
         \ 'hg:https://bitbucket.org/zeekay/vim-lawrencium',
-        \ 'hg:https://bitbucket.org/zeekay/vimtips',
         \ 'hg:https://bitbucket.org/zeekay/vim-powerline-custom',
-        \ 'github:Lokaltog/vim-powerline',
+        \ 'hg:https://bitbucket.org/zeekay/vimtips',
     \ ]
 
     if version > 702
@@ -33,26 +33,25 @@
 
     let ft_addons = {
         \ 'c':          ['github:Rip-Rip/clang_complete', 'github:osyo-manga/neocomplcache-clang_complete'],
+        \ 'clojure':    ['hg:https://bitbucket.org/sjl/slimv'],
+        \ 'coffee':     ['github:kchmck/vim-coffee-script'],
         \ 'cpp':        ['github:Rip-Rip/clang_complete', 'github:osyo-manga/neocomplcache-clang_complete'],
         \ 'css':        ['github:Rykka/ColorV', 'github:lvivski/vim-css-color'],
-        \ 'coffee':     ['github:kchmck/vim-coffee-script'],
-        \ 'clojure':    ['hg:https://bitbucket.org/sjl/slimv'],
         \ 'haml':       ['github:tpope/vim-haml'],
         \ 'haskell':    ['github:ujihisa/neco-ghc', 'hg:https://bitbucket.org/zeekay/haskellmode-vim'],
         \ 'html':       ['github:othree/html5.vim', 'github:gregsexton/MatchTag'],
         \ 'jade':       ['github:digitaltoad/vim-jade'],
         \ 'javascript': ['github:pangloss/vim-javascript'],
+        \ 'python':     ['hg:https://bitbucket.org/zeekay/python.vim'],
         \ 'sass':       ['github:Rykka/ColorV', 'github:lvivski/vim-css-color'],
         \ 'stylus':     ['github:Rykka/ColorV', 'github:lvivski/vim-css-color', 'github:wavded/vim-stylus'],
         \ 'xml':        ['github:othree/xml.vim', 'github:gregsexton/MatchTag'],
-        \ 'python':     ['hg:https://bitbucket.org/zeekay/python.vim'],
     \ }
 
     if version > 702 && has('python')
         let addons += ['hg:https://bitbucket.org/zeekay/vim-python-mode']
     endif
 
-    " I no longer use these regularly but keep them around for convenience
     let exiled_plugins = [
         \ 'github:Lokaltog/vim-easymotion',
         \ 'github:Raimondi/delimitMate',
@@ -169,59 +168,49 @@
     call Pl#Theme#InsertSegment('lawrencium:branch', 'after', 'fugitive:branch')
 " }}}
 
-" Colors/Gui {{{
-    if has("gui_running")
-        if has('mac')
-            " MacVim {{{
-                let $PATH='~/.bin:/usr/local/bin:/usr/local/share/python:/usr/bin:/bin'
-                set macmeta
-                set fuoptions=maxvert,maxhorz
-                let g:macvim_hig_shift_movement = 1
-                let g:macvim_skip_cmd_opt_movement = 1
-                set guifontwide=DejaVu\ Sans\ Mono:h11
-                set guifont=DejaVu\ Sans\ Mono:h12
-                " set guifont=Dina:h13
-                set guifont=Inconsolata:h14
-                " set guifont=Monaco:h12
-                " set guifont=MonteCarlo
-                set linespace=1
-                nnoremap <D-1> 1gt
-                nnoremap <D-2> 2gt
-                nnoremap <D-3> 3gt
-                nnoremap <D-4> 4gt
-                nnoremap <D-5> 5gt
-                nnoremap <D-6> 6gt
-                nnoremap <D-7> 7gt
-                nnoremap <D-8> 8gt
-                nnoremap <D-9> 9gt
-                nnoremap <D-0> 10gt
-            " }}}
-        elseif has('windows')
-            " Windows gVim {{{
-            set guifont=Consolas
-            " }}}
-        else
-            " UNIX gVim {{{
-                " set guifont=Andale\ Mono\ 10
-                " set guifont=Bitstream\ Vera\ Sans\ Mono\ 10
-                set guifont=Dejavu\ LGC\ Sans\ Mono\ 8
-                " set guifont=Inconsolata\ 10
-                " set guifont=MonteCarlo
-            " }}}
-        endif
-        " Common gui settings {{{
-            set fillchars=diff:⣿
-            set listchars=tab:▸\ ,eol:¬,extends:❯,precedes:❮
-            " set showbreak=↪
-            set guioptions=ace
-            colorscheme molokai
-        " }}}
-    else
-        " Console {{{
-        set ttyfast
-        set mouse=a
-        colorscheme hornet
-        " }}}
+" Console {{{
+    colorscheme hornet
+    set ttyfast
+    set mouse=a
+" }}}
+
+" Gui {{{
+    if has('gui_running')
+        colorscheme molokai
+        set guioptions=ace
+        set fillchars=diff:⣿
+        set listchars=tab:▸\ ,eol:¬,extends:❯,precedes:❮
+        " set showbreak=↪
+        set guifont=Dejavu\ Sans\ Mono\ 8
+    endif
+" }}}
+
+" MacVim {{{
+    if has("gui_running") && has('mac')
+        let $PATH='~/.bin:/usr/local/bin:/usr/local/share/python:/usr/bin:/bin'
+        set macmeta
+        set fuoptions=maxvert,maxhorz
+        let g:macvim_hig_shift_movement = 1
+        let g:macvim_skip_cmd_opt_movement = 1
+        set guifontwide=DejaVu\ Sans\ Mono:h11
+        set guifont=Inconsolata:h14
+        set linespace=1
+        nnoremap <D-1> 1gt
+        nnoremap <D-2> 2gt
+        nnoremap <D-3> 3gt
+        nnoremap <D-4> 4gt
+        nnoremap <D-5> 5gt
+        nnoremap <D-6> 6gt
+        nnoremap <D-7> 7gt
+        nnoremap <D-8> 8gt
+        nnoremap <D-9> 9gt
+        nnoremap <D-0> 10gt
+    endif
+" }}}
+
+" Windows gVim {{{
+    if has('gui_running') && has('win32') || has('win64')
+        set guifont=Consolas
     endif
 " }}}
 
