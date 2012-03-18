@@ -651,9 +651,7 @@
     map <leader>hi :echo "hi: " . synIDattr(synID(line("."),col("."),1),"name") . ', trans: '
                               \ . synIDattr(synID(line("."),col("."),0),"name") . ", lo: "
                               \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name")<CR>
-" }}}
-
-" Cmdline Editing {{{
+    " Cmdline Editing
     cnoremap <C-A> <Home>
     cnoremap <C-E> <End>
     cnoremap <C-k> <Up>
