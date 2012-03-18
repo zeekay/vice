@@ -105,7 +105,7 @@
     set splitright
     set nomore
     " set clipboard=unnamed,unnamedplus
-    set foldminlines=99999
+    " set foldminlines=99999
     silent! set breakindent
 " }}}
 
