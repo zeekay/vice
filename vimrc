@@ -22,38 +22,36 @@
         \ 'hg:https://bitbucket.org/zeekay/vimtips',
     \ ]
 
+    " Add vim-powerline last, so that vim-powerline-custom is sourced first.
+    let addons += ['github:Lokaltog/vim-powerline']
+
     if version > 702
         let addons += [
             \ 'github:Shougo/neocomplcache',
             \ 'github:Shougo/neocomplcache-snippets-complete',
             \ 'github:majutsushi/tagbar',
+            \ 'github:ujihisa/neco-ghc',
         \ ]
     endif
 
     " Filetype-specific addons
     let ft_addons = {
-        \ 'c':          ['github:Rip-Rip/clang_complete', 'github:osyo-manga/neocomplcache-clang_complete'],
+        \ 'c\|cpp':     ['github:Rip-Rip/clang_complete', 'github:osyo-manga/neocomplcache-clang_complete'],
         \ 'clojure':    ['hg:https://bitbucket.org/sjl/slimv'],
         \ 'coffee':     ['github:kchmck/vim-coffee-script'],
-        \ 'cpp':        ['github:Rip-Rip/clang_complete', 'github:osyo-manga/neocomplcache-clang_complete'],
-        \ 'css':        ['github:Rykka/ColorV', 'github:lvivski/vim-css-color'],
+        \ 'css\|haml\|html\|jade\|sass\|stylus': ['github:Rykka/ColorV', 'github:lvivski/vim-css-color'],
         \ 'haml':       ['github:tpope/vim-haml'],
-        \ 'haskell':    ['github:ujihisa/neco-ghc', 'hg:https://bitbucket.org/zeekay/haskellmode-vim'],
-        \ 'html':       ['github:othree/html5.vim', 'github:gregsexton/MatchTag'],
+        \ 'haskell':    ['hg:https://bitbucket.org/zeekay/haskellmode-vim'],
+        \ 'html\|xml':  ['github:othree/html5.vim', 'github:othree/xml.vim', 'github:gregsexton/MatchTag'],
         \ 'jade':       ['github:digitaltoad/vim-jade'],
         \ 'javascript': ['github:pangloss/vim-javascript'],
         \ 'python':     ['hg:https://bitbucket.org/zeekay/python.vim'],
-        \ 'sass':       ['github:Rykka/ColorV', 'github:lvivski/vim-css-color'],
-        \ 'stylus':     ['github:Rykka/ColorV', 'github:lvivski/vim-css-color', 'github:wavded/vim-stylus'],
-        \ 'xml':        ['github:othree/xml.vim', 'github:gregsexton/MatchTag'],
+        \ 'stylus':     ['github:wavded/vim-stylus'],
     \ }
 
     if version > 702 && has('python')
         let addons += ['hg:https://bitbucket.org/zeekay/vim-python-mode']
     endif
-
-    " Must add vim-powerline last, so my customizations are sourced first.
-    let addons += ['github:Lokaltog/vim-powerline']
 
     " This are no longer used regularly, but kept around for convenience.
     let exiled_plugins = [
@@ -179,7 +177,7 @@
 
 " MacVim {{{
     if has("gui_running") && has('mac')
-        let $PATH='~/.bin:/usr/local/bin:/usr/local/share/python:/usr/bin:/bin'
+        let $PATH=expand('~/.bin').':/usr/local/bin:/usr/local/share/python:/usr/bin:/bin'
         set macmeta
         set fuoptions=maxvert,maxhorz
         let g:macvim_hig_shift_movement = 1
@@ -276,6 +274,12 @@
         let g:neocomplcache_omni_patterns.c = '\%(\.\|->\)\h\w*'
         let g:neocomplcache_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
         let g:neocomplcache_omni_patterns.go = '\h\w*\%.'
+
+        " add neocomplcache option
+        let g:neocomplcache_force_overwrite_completefunc=1
+
+        " add clang_complete option
+        let g:clang_complete_auto=1
     endif
 " }}}
 
@@ -485,6 +489,7 @@
 
 " Haskell {{{
     let g:haddock_browser="open"
+    au FileType haskell setlocal omnifunc=necoghc#omnifunc
 " }}}
 
 " Javascript {{{
