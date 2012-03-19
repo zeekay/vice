@@ -3,7 +3,6 @@
 
 " Plugins {{{
     let addons = [
-        \ 'github:Lokaltog/vim-powerline',
         \ 'github:MarcWeber/vim-addon-manager',
         \ 'github:juanpabloaj/help.vim',
         \ 'github:kien/ctrlp.vim',
@@ -31,6 +30,7 @@
         \ ]
     endif
 
+    " Filetype-specific addons
     let ft_addons = {
         \ 'c':          ['github:Rip-Rip/clang_complete', 'github:osyo-manga/neocomplcache-clang_complete'],
         \ 'clojure':    ['hg:https://bitbucket.org/sjl/slimv'],
@@ -52,6 +52,10 @@
         let addons += ['hg:https://bitbucket.org/zeekay/vim-python-mode']
     endif
 
+    " Must add vim-powerline last, so my customizations are sourced first.
+    let addons += ['github:Lokaltog/vim-powerline']
+
+    " This are no longer used regularly, but kept around for convenience.
     let exiled_plugins = [
         \ 'github:Lokaltog/vim-easymotion',
         \ 'github:Raimondi/delimitMate',
@@ -157,17 +161,6 @@
     au FileType ruby,eruby setlocal omnifunc=rubycomplete#Complete
 " }}}
 
-" Statusline / Powerline {{{
-    set laststatus=2
-    set statusline=\(%n\)\ %f\ %*%#Modified#%m\ (%l/%L,\ %c)\ %P%=%h%w\ %y\ [%{&encoding}:%{&fileformat}]
-    let g:Powerline_symbols_override = {
-        \ 'BRANCH': [0x2213],
-        \ 'LINE': 'LN',
-        \ }
-    let g:Powerline_dividers_override = ['', '/', '', '/']
-    call Pl#Theme#InsertSegment('lawrencium:branch', 'after', 'fugitive:branch')
-" }}}
-
 " Console {{{
     colorscheme hornet
     set ttyfast
@@ -181,7 +174,6 @@
         set fillchars=diff:⣿
         set listchars=tab:▸\ ,eol:¬,extends:❯,precedes:❮
         " set showbreak=↪
-        set guifont=Dejavu\ Sans\ Mono\ 8
     endif
 " }}}
 
@@ -208,10 +200,27 @@
     endif
 " }}}
 
+" Linux gVim {{{
+    if has('gui_running') && !has('mac') && !has('win32') && !has('win64')
+        set guifont=DejaVu\ Sans\ Mono\ 8
+    endif
+" }}}
+
 " Windows gVim {{{
     if has('gui_running') && has('win32') || has('win64')
         set guifont=Consolas
     endif
+" }}}
+
+" Statusline / Powerline {{{
+    set laststatus=2
+    set statusline=\(%n\)\ %f\ %*%#Modified#%m\ (%l/%L,\ %c)\ %P%=%h%w\ %y\ [%{&encoding}:%{&fileformat}]
+    let g:Powerline_symbols_override = {
+        \ 'BRANCH': [0x2213],
+        \ 'LINE': 'LN',
+        \ }
+    let g:Powerline_dividers_override = ['', '/', '', '/']
+    call Pl#Theme#InsertSegment('lawrencium:branch', 'after', 'fugitive:branch')
 " }}}
 
 " EasyMotion {{{
@@ -260,6 +269,7 @@
         if !exists('g:neocomplcache_omni_patterns')
           let g:neocomplcache_omni_patterns = {}
         endif
+
         let g:neocomplcache_omni_patterns.coffee = '[^. \t]\.\%(\h\w*\)\?'
         let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
         let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
@@ -271,9 +281,9 @@
 
 " Ack.vim {{{
     if has('win32') || has('win64')
-      let g:ackprg="ack.bat -i -H --nocolor --nogroup --column --text"
+        let g:ackprg="ack.bat -i -H --nocolor --nogroup --column --text"
     else
-    let g:ackprg="ack -i -H --nocolor --nogroup --column --text"
+        let g:ackprg="ack -i -H --nocolor --nogroup --column --text"
     endif
     nnoremap <leader>a :Ack!<space>
 " }}}
@@ -287,7 +297,7 @@
 
 " CtrlP {{{
     " let g:ctrlp_user_command = 'find %s -type f'       " MacOSX/Linux
-    " let g:ctrlp_map = '<c-p>'
+    let g:ctrlp_map = "go"
     " nnoremap <c-b> :CtrlPBuffer<cr>
     let g:ctrlp_jump_to_buffer = 2
     let g:ctrlp_working_path_mode = 2
@@ -341,6 +351,7 @@
     let g:tagbar_ctags_bin = 'ctags'
     let g:tagbar_expand = 1
     let g:tagbar_iconchars = ['▸','▾']
+
     if executable('coffeetags')
         let g:tagbar_type_coffee = {
             \ 'ctagsbin': 'coffeetags',
@@ -356,6 +367,7 @@
             \ }
         \ }
     endif
+
     if executable('lushtags')
         let g:tagbar_type_haskell = {
             \ 'ctagsbin': 'lushtags',
@@ -398,8 +410,8 @@
 " }}}
 
 " Eclim {{{
-  let g:EclimDisabled = 1
-  let g:EclimTaglistEnabled = 0
+    let g:EclimDisabled = 1
+    let g:EclimTaglistEnabled = 0
 " }}}
 
 " Filetypes {{{
@@ -472,7 +484,7 @@
 " }}}
 
 " Haskell {{{
-    let g:haddock_browser="/usr/bin/firefox"
+    let g:haddock_browser="open"
 " }}}
 
 " Javascript {{{
@@ -487,9 +499,23 @@
     endif
 
     if executable('bebop') && has('python')
-        " Use Bebop to eval javascript
-        py import bebop.vimbop
-        au FileType javascript command! -nargs=1 BebopComplete   py bebop.vimbop.complete(<f-args>)
+        " Use Bebop javascript completion and eval
+        py import bebop.vimbop, vim
+
+        function! BebopComplete(findstart, base)
+            if a:findstart
+                let line = getline('.')
+                let start = col('.') - 1
+                while start >= 0 && line[start - 1] =~ '\k'
+                    let start -= 1
+                endwhile
+                return start
+            else
+                py vim.command('return ' + bebop.vimbop.complete(vim.eval('a:base')))
+            endif
+        endfunction
+
+        au FileType javascript setlocal omnifunc=BebopComplete
         au FileType javascript command! -nargs=* BebopEval     py bebop.vimbop.eval_js(<f-args>)
         au FileType javascript command! -nargs=0 BebopEvalLine   py bebop.vimbop.eval_line()
         au FileType javascript command! -nargs=0 BebopEvalBuffer py bebop.vimbop.eval_buffer()
@@ -497,7 +523,6 @@
         au FileType javascript nnoremap <leader>el :BebopEvalLine<cr>
         au FileType javascript vnoremap <leader>er :py bebop.vimbop.eval_range()<cr>
         au FileType javascript nnoremap <leader>eb :BebopEvalBuffer<cr>
-        au FileType javascript nnoremap <leader>ef :BebopEvalBuffer<cr>
     endif
 " }}}
 
@@ -567,9 +592,9 @@
     vnoremap K <C-U>
 
     " make pageup/pagedown move up/down half pages
-    nnoremap <silent> <PageUp> <C-U><C-U>
-    vnoremap <silent> <PageUp> <C-U><C-U>
-    inoremap <silent> <PageUp> <C-\><C-O><C-U><C-\><C-O><C-U>
+    nnoremap <silent> <PageUp>   <C-U><C-U>
+    vnoremap <silent> <PageUp>   <C-U><C-U>
+    inoremap <silent> <PageUp>   <C-\><C-O><C-U><C-\><C-O><C-U>
     nnoremap <silent> <PageDown> <C-D><C-D>
     vnoremap <silent> <PageDown> <C-D><C-D>
     inoremap <silent> <PageDown> <C-\><C-O><C-D><C-\><C-O><C-D>
@@ -584,9 +609,9 @@
 
     " Fast window resizing
     if bufwinnr(1)
-        map <c-up> <C-W>-
-        map <c-down> <C-W>+
-        map <c-left> <C-W><
+        map <c-up>    <C-W>-
+        map <c-down>  <C-W>+
+        map <c-left>  <C-W><
         map <c-right> <C-W>>
     endif
 
@@ -651,7 +676,7 @@
     map <leader>hi :echo "hi: " . synIDattr(synID(line("."),col("."),1),"name") . ', trans: '
                               \ . synIDattr(synID(line("."),col("."),0),"name") . ", lo: "
                               \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name")<CR>
-    " Cmdline Editing
+    " Cmdline
     cnoremap <C-A> <Home>
     cnoremap <C-E> <End>
     cnoremap <C-k> <Up>
