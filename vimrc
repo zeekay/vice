@@ -70,7 +70,7 @@
 
     let &runtimepath.=','.$VIMHOME.expand('/addons/vim-addon-manager')
     call vam#ActivateAddons(addons, {'auto_install': 1})
-    au FileType * for l in values(filter(copy(ft_addons), string(expand('<amatch>')).' =~ v:key')) | call vam#ActivateAddons(l, {'force_loading_plugins_now':1}) | endfor
+    au FileType * for l in values(filter(copy(ft_addons), string(expand('<amatch>')).' =~ v:key')) | call vam#ActivateAddons(l, {'auto_install': 1, 'force_loading_plugins_now': 1}) | endfor
 " }}}
 
 " Basic/General Configuration {{{
