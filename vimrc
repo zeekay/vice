@@ -14,7 +14,6 @@
         \ 'github:tpope/vim-eunuch',
         \ 'github:tpope/vim-fugitive',
         \ 'github:tpope/vim-repeat',
-        \ 'github:zeekay/vim-space',
         \ 'hg:https://bitbucket.org/sjl/badwolf',
         \ 'hg:https://bitbucket.org/sjl/gundo.vim',
         \ 'hg:https://bitbucket.org/zeekay/vim-lawrencium',
@@ -28,7 +27,6 @@
     if version > 702
         let addons += [
             \ 'github:Shougo/neocomplcache',
-            \ 'github:Shougo/neocomplcache-snippets-complete',
             \ 'github:majutsushi/tagbar',
             \ 'github:ujihisa/neco-ghc',
         \ ]
@@ -50,7 +48,10 @@
     \ }
 
     if version > 702 && has('python')
-        let addons += ['hg:https://bitbucket.org/zeekay/vim-python-mode']
+        let addons += [
+            \ 'hg:https://bitbucket.org/zeekay/vim-python-mode',
+            \ 'github:rygwdn/ultisnips',
+        \ ]
     endif
 
     " This are no longer used regularly, but kept around for convenience.
@@ -114,6 +115,7 @@
 " Indent {{{
     set tabstop=4
     set shiftwidth=4
+    set softtabstop=4
     set expandtab
     set smarttab
     set smartindent
@@ -207,6 +209,7 @@
 " Windows gVim {{{
     if has('gui_running') && has('win32') || has('win64')
         set guifont=Consolas
+        cd ~
     endif
 " }}}
 
@@ -239,7 +242,8 @@
         let g:neocomplcache_enable_at_startup = 1
         let g:neocomplcache_enable_smart_case = 1
         let g:neocomplcache_min_syntax_length = 3
-        let g:neocomplcache_source_disable = {'include_complete' : 0, 'filename_complete' : 0}
+        let g:neocomplcache_source_disable = {'include_complete' : 1, 'filename_complete' : 0, 'snippets_complete': 1}
+        let g:neocomplcache_snippets_disable_runtime_snippets = 1
 
         " Define keyword.
         if !exists('g:neocomplcache_keyword_patterns')
@@ -247,21 +251,15 @@
         endif
         let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
 
-        " Plugin key-mappings.
-        imap <C-l> <Plug>(neocomplcache_snippets_expand)
-        smap <C-l> <Plug>(neocomplcache_snippets_expand)
-
+        " this makes tab cycle through all the completion options
+        inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
         " <CR>: close popup and save indent.
         inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
-
-        " <TAB>: completion.
-        inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-
         " <C-h>, <BS>: close popup and delete backword char.
-        inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
-        inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
-        inoremap <expr><C-y>  neocomplcache#close_popup()
-        inoremap <expr><C-e>  neocomplcache#cancel_popup()
+        inoremap <expr><BS>   neocomplcache#smart_close_popup()."\<C-h>"
+
+        " we don't want the completion menu to auto pop-up when we are in text files
+        let g:neocomplcache_lock_buffer_name_pattern = '\v(\.md|\.txt)'
 
         " Enable heavy omni completion.
         if !exists('g:neocomplcache_omni_patterns')
@@ -276,18 +274,26 @@
         let g:neocomplcache_omni_patterns.go = '\h\w*\%.'
 
         " add neocomplcache option
-        let g:neocomplcache_force_overwrite_completefunc=1
+        " let g:neocomplcache_force_overwrite_completefunc=1
 
         " add clang_complete option
         let g:clang_complete_auto=1
     endif
 " }}}
 
+" Ultisnips {{{
+    let g:UltiSnipsExpandTrigger       = "<c-l>"
+    let g:UltiSnipsJumpForwardTrigger  = "<c-l>"
+    let g:UltiSnipsJumpBackwardTrigger = "<c-h>"
+    let g:UltiSnipsSnippetsDir         = $VIMHOME.'/addons/github-rygwdn-ultisnips/UltiSnips'
+" }}}
+
 " Ack.vim {{{
+    let ack_options=" -i -H --nocolor --nogroup --column --text"
     if has('win32') || has('win64')
-        let g:ackprg="ack.bat -i -H --nocolor --nogroup --column --text"
+        let g:ackprg="ack.bat".ack_options
     else
-        let g:ackprg="ack -i -H --nocolor --nogroup --column --text"
+        let g:ackprg="ack".ack_options
     endif
     nnoremap <leader>a :Ack!<space>
 " }}}
@@ -325,7 +331,7 @@
 " Gundo {{{
     let g:gundo_help = 0
     let g:gundo_right = 1
-    let g:gundo_width = 50
+    let g:gundo_width = 30
 " }}}
 
 " Nerdtree {{{
@@ -348,14 +354,13 @@
 " }}}
 
 " Tagbar {{{
-    let g:tagbar_singleclick = 1
-    let g:tagbar_width = 50
     let g:tagbar_autofocus = 1
     let g:tagbar_compact = 1
     let g:tagbar_ctags_bin = 'ctags'
-    let g:tagbar_expand = 1
+    let g:tagbar_expand = 0
     let g:tagbar_iconchars = ['▸','▾']
-
+    let g:tagbar_singleclick = 1
+    let g:tagbar_width = 30
     if executable('coffeetags')
         let g:tagbar_type_coffee = {
             \ 'ctagsbin': 'coffeetags',
