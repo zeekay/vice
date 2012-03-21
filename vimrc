@@ -44,6 +44,7 @@
         \ 'haskell':    ['hg:https://bitbucket.org/zeekay/haskellmode-vim'],
         \ 'html\|xml':  ['github:othree/html5.vim', 'github:othree/xml.vim', 'github:gregsexton/MatchTag'],
         \ 'jade':       ['github:digitaltoad/vim-jade'],
+        \ 'javascript\|python': ['github:alfredodeza/chapa.vim'],
         \ 'javascript': ['github:pangloss/vim-javascript'],
         \ 'python':     ['hg:https://bitbucket.org/zeekay/python.vim'],
         \ 'stylus':     ['github:wavded/vim-stylus'],
@@ -60,7 +61,7 @@
         \ 'github:junegunn/tabular',
     \ ]
 
-    if has('win32') || ('win64')
+    if has('win32') || has('win64')
         let $VIMHOME = expand('~/vimfiles')
     else
         let $VIMHOME = expand('~/.vim')
@@ -195,6 +196,7 @@
         nnoremap <D-8> 8gt
         nnoremap <D-9> 9gt
         nnoremap <D-0> 10gt
+        nnoremap <D-CR> :set fullscreen!<cr>
     endif
 " }}}
 
@@ -290,6 +292,11 @@
         let g:ackprg="ack -i -H --nocolor --nogroup --column --text"
     endif
     nnoremap <leader>a :Ack!<space>
+" }}}
+
+" Chapa.vim {{{
+    let g:chapa_no_repeat_mappings = 1
+    let g:chapa_default_mappings = 1
 " }}}
 
 " Commentary {{{
