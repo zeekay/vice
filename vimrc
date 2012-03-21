@@ -14,6 +14,7 @@
         \ 'github:tpope/vim-eunuch',
         \ 'github:tpope/vim-fugitive',
         \ 'github:tpope/vim-repeat',
+        \ 'github:zeekay/vim-space',
         \ 'hg:https://bitbucket.org/sjl/badwolf',
         \ 'hg:https://bitbucket.org/sjl/gundo.vim',
         \ 'hg:https://bitbucket.org/zeekay/vim-lawrencium',
@@ -32,6 +33,13 @@
         \ ]
     endif
 
+    if version > 702 && has('python')
+        let addons += [
+            \ 'hg:https://bitbucket.org/zeekay/vim-python-mode',
+            \ 'github:rygwdn/ultisnips',
+        \ ]
+    endif
+
     " Filetype-specific addons
     let ft_addons = {
         \ 'c\|cpp':     ['github:Rip-Rip/clang_complete', 'github:osyo-manga/neocomplcache-clang_complete'],
@@ -47,13 +55,6 @@
         \ 'python':     ['hg:https://bitbucket.org/zeekay/python.vim'],
         \ 'stylus':     ['github:wavded/vim-stylus'],
     \ }
-
-    if version > 702 && has('python')
-        let addons += [
-            \ 'hg:https://bitbucket.org/zeekay/vim-python-mode',
-            \ 'github:rygwdn/ultisnips',
-        \ ]
-    endif
 
     " This are no longer used regularly, but kept around for convenience.
     let exiled_plugins = [
