@@ -8,17 +8,16 @@ If you are still trying to survive with just `cmd.exe` give [Console](http://sou
 
 Git
 ---
-Install [git](http://code.google.com/p/msysgit/downloads/list?can=3) which will provide basic UNIX executables, ls, curl, etc. Make sure `Git\bin` is added to `%PATH%`.
-
+Install [Git](http://code.google.com/p/msysgit/downloads/list?can=3) which will provide basic UNIX executables, ls, curl, etc. Make sure it's added to `%PATH%`.
 
 Mercurial
 ---------
-Install [mercurial](http://mercurial.selenic.com/downloads/) and verify it's added to your `%PATH`.
+Install [Mercurial](http://mercurial.selenic.com/downloads/) and verify it's added to `%PATH%`.
 
 
 Python
 ------
-Install [python](http://python.org/download/releases/2.7.2/) and make sure to add `C:\Python27` and `C:\Python27\Scripts` to `%PATH%`. I bootstrap every Python install with distribute & pip, you should too.
+Install [Python](http://python.org/download/releases/2.7.2/) and make sure to add `C:\Python27` and `C:\Python27\Scripts` to `%PATH%`. I bootstrap every Python install with distribute & pip, you should too:
 
     curl -O http://python-distribute.org/distribute_setup.py
     python distribute_setup.py
@@ -31,14 +30,14 @@ Install `flake8` for Python syntax checking.
 
 Node
 ----
-Install [node](http://nodejs.org/#download) and use npm to install CoffeeScript and jslint:
+Install [node](http://nodejs.org/#download) and use `npm` to install CoffeeScript and jslint:
 
     npm install -g coffee-script jslint
 
 
 Ruby
 ----
-Install [ruby](http://rubyinstaller.org/), check all boxes during install. Use `gem` to install CoffeeTags:
+Install [Ruby](http://rubyinstaller.org/), make sure and have have it added to `%PATH%`. Use `gem` to install CoffeeTags:
 
     gem install CoffeeTags
 
