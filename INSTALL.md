@@ -4,6 +4,7 @@ I use the [Vim installer](http://sourceforge.net/projects/cream/files/Vim) provi
 
 To get everything working smoothly on Windows I usually install Git, Mercurial, etc first. The repos for the addons I use both Merucial and git so you'll need to install both for my vimrc to work out of the box. You could also strip out the vim-addon-manager stuff and use Vundle or something else instead and just stick with git.
 
+If you are still trying to survive with just `cmd.exe` give [Console](http://sourceforge.net/projects/console/) a try.
 
 Git
 ---
@@ -43,8 +44,8 @@ Install [ruby](http://rubyinstaller.org/), check all boxes during install. Use `
 
 
 Bin
-----------
-Create `%HOME%/bin` if it doesn't exist. You should dump miscellaneous scripts here. You'll want to add [ctags.exe](http://prdownloads.sourceforge.net/ctags/ctags58.zip) and [ack standalone](http://betterthangrep.com/ack-standalone) there. Create the following bat files:
+---
+Create `%HOME%/bin` if it doesn't exist and add it to %PATH%. You should dump miscellaneous scripts here. You'll want to add [ctags.exe](http://prdownloads.sourceforge.net/ctags/ctags58.zip) and [ack standalone](http://betterthangrep.com/ack-standalone) there. Create the following bat files:
 
 *ack.bat*
 
