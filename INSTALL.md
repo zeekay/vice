@@ -44,7 +44,7 @@ Install [Ruby](http://rubyinstaller.org/), make sure and have have it added to `
 
 Bin
 ---
-Create `%HOME%/bin` if it doesn't exist and add it to %PATH%. You should dump miscellaneous scripts here. You'll want to add [ctags.exe](http://prdownloads.sourceforge.net/ctags/ctags58.zip) and [ack standalone](http://betterthangrep.com/ack-standalone) there. Create the following bat files:
+Create `%HOME%/bin` if it doesn't exist and add it to `%PATH%`. You should dump miscellaneous scripts here. You'll want to add [ctags.exe](http://prdownloads.sourceforge.net/ctags/ctags58.zip) and [ack standalone](http://betterthangrep.com/ack-standalone) there. I use the following bat files to wrap `ack` and `flake8`:
 
 *ack.bat*
 
