@@ -42,19 +42,19 @@ Install [ruby](http://rubyinstaller.org/), check all boxes during install. Use `
     gem install CoffeeTags
 
 
-%HOME%/bin
+Bin
 ----------
-I generally create a bin folder in `%HOME%` and add it to `%PATH` and install miscellaneous scripts there. You'll want to download [ctags](http://prdownloads.sourceforge.net/ctags/ctags58.zip) and drop [ack](http://betterthangrep.com/ack-standalone) there. Create the following bat files:
+Create `%HOME%/bin` if it doesn't exist. You should dump miscellaneous scripts here. You'll want to add [ctags.exe](http://prdownloads.sourceforge.net/ctags/ctags58.zip) and [ack standalone](http://betterthangrep.com/ack-standalone) there. Create the following bat files:
 
-ack.bat
+*ack.bat*
 
     @C:\Program Files\Git\bin\perl %HOME%\bin\ack.pl %*
 
-flake8.bat
+*flake8.bat*
 
     @C:\Python27\python.exe C:\Python27\Scripts\flake8 %*
 
 
 Installing on Everything Else
 =============================
-Install is pretty straight-forward just run `setup.sh`. You can use `update.sh` to update your addons. Pretty much everything is optional, so you can install whatever you want as you need it.
+Installing anywhere else is simple just run `setup.sh`. I provide `update.sh` which (unsurprisingly) updates your addons. Pretty much everything is optional, so you can install whatever you want as you need it.
