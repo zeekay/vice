@@ -292,12 +292,7 @@
 " }}}
 
 " Ack.vim {{{
-    let ack_options=" -i -H --nocolor --nogroup --column --text"
-    if has('win32') || has('win64')
-        let g:ackprg="ack.bat".ack_options
-    else
-        let g:ackprg="ack".ack_options
-    endif
+    let g:ackprg="ack -i -H --nocolor --nogroup --column --text"
     nnoremap <leader>a :Ack!<space>
 " }}}
 
