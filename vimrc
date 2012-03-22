@@ -230,7 +230,7 @@
 
 " EasyMotion {{{
     let g:EasyMotion_keys = ";,.pyfgcrl/aoeuidhtns-'qjkxbmwvz"
-    let g:EasyMotion_leader_key = '<Leader>e'
+    let g:EasyMotion_leader_key = '<leader>e'
 " }}}
 
 " Netrw {{{
@@ -350,9 +350,9 @@
 " }}}
 
 " Tabularize {{{
-    vnoremap <silent> <Leader>t> :Tabularize /=><CR>
-    vnoremap <silent> <Leader>t= :Tabularize /=<CR>
-    vnoremap <silent> <Leader>t, :Tabularize /,<CR>
+    vnoremap <silent> <leader>t> :Tabularize /=><cr>
+    vnoremap <silent> <leader>t= :Tabularize /=<cr>
+    vnoremap <silent> <leader>t, :Tabularize /,<cr>
 " }}}
 
 " Tagbar {{{
@@ -363,6 +363,7 @@
     let g:tagbar_iconchars = ['▸','▾']
     let g:tagbar_singleclick = 1
     let g:tagbar_width = 30
+
     if executable('coffeetags')
         let g:tagbar_type_coffee = {
             \ 'ctagsbin': 'coffeetags',
@@ -415,8 +416,6 @@
     let g:syntastic_auto_loc_list = 0
     let g:syntastic_python_checker = 'flake8'
     let g:syntastic_python_checker_args = '--ignore=E221,E225,E231,E251,E302,E303,W391,E501,E702'
-    " let g:syntastic_javascript_checker = 'jslint'
-    " let g:syntastic_javascript_jslint_conf = "--noes5 --white --undef --nomen --regexp --plusplus --bitwise --newcap --sloppy --vars"
     let g:syntastic_javascript_checker = 'jshint'
     let g:syntastic_javascript_jshint_conf = $VIMHOME.'/jshint.json'
     let g:syntastic_enable_highlighting = 0
@@ -626,11 +625,11 @@
     vnoremap <leader>p "*P
     vnoremap <leader>y "*y
 
-    " ctrl-h/l to switch between tabs
+    " Ctrl-h/l to switch between tabs
     nnoremap <c-h> :tabp<CR>
     nnoremap <c-l> :tabn<CR>
 
-    " ctrl-j/k to switch between buffers
+    " Ctrl-j/k to switch between buffers
     nnoremap <c-k> :bn<cr>
     nnoremap <c-j> :bp<cr>
 
@@ -640,7 +639,7 @@
     vnoremap J <c-d>
     vnoremap K <c-u>
 
-    " make pageup/pagedown move up/down half pages
+    " Make pageup/pagedown move up/down half pages
     nnoremap <silent> <PageUp>   <c-u><c-u>
     vnoremap <silent> <PageUp>   <c-u><c-u>
     inoremap <silent> <PageUp>   <c-\><c-o><c-u><c-\><c-o><c-u>
@@ -651,7 +650,7 @@
     " Buffer mappings {{{
     nnoremap <silent> <Leader>d :bd<CR>
 
-    " window mappings
+    " Window mappings
     inoremap <c-w> <c-o><c-w>
     nnoremap <leader>wh <c-w>h
     nnoremap <leader>wj <c-w>j
@@ -674,7 +673,7 @@
     nnoremap gb :CtrlPBuffer<cr>
     nnoremap go :CtrlP<cr>
 
-    " toggle Gundo, tagbar, nerdtree
+    " Toggle Gundo, tagbar, nerdtree
     nnoremap <leader>u :GundoToggle<cr>
     nnoremap <leader>t :TagbarToggle<cr>
     nnoremap <leader>n :NERDTreeToggle<cr>
