@@ -611,6 +611,7 @@
     vnoremap p "_dP
 
     " Quit/Write quickly
+    nnoremap <leader>q :q<cr>
     nnoremap Q :q<cr>
     nnoremap W :w<cr>
 
