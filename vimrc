@@ -182,6 +182,7 @@
 " MacVim {{{
     if has("gui_running") && has('mac')
         let $PATH=expand('~/.bin').':/usr/local/bin:/usr/local/share/python:/usr/bin:/bin'
+        let $NODE_PATH='/usr/local/lib/jsctags/:'.$NODE_PATH
         set macmeta
         set fuoptions=maxvert,maxhorz
         let g:macvim_hig_shift_movement = 1
@@ -276,10 +277,8 @@
         let g:neocomplcache_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
         let g:neocomplcache_omni_patterns.go = '\h\w*\%.'
 
-        " add neocomplcache option
-        " let g:neocomplcache_force_overwrite_completefunc=1
-
-        " add clang_complete option
+        " Enable clang_complete
+        let g:neocomplcache_force_overwrite_completefunc=1
         let g:clang_complete_auto=1
     endif
 " }}}
@@ -416,7 +415,10 @@
     let g:syntastic_auto_loc_list = 0
     let g:syntastic_python_checker = 'flake8'
     let g:syntastic_python_checker_args = '--ignore=E221,E225,E231,E251,E302,E303,W391,E501,E702'
-    let g:syntastic_javascript_checker = 'jslint'
+    " let g:syntastic_javascript_checker = 'jslint'
+    " let g:syntastic_javascript_jslint_conf = "--noes5 --white --undef --nomen --regexp --plusplus --bitwise --newcap --sloppy --vars"
+    let g:syntastic_javascript_checker = 'jshint'
+    let g:syntastic_javascript_jshint_conf = $VIMHOME.'/jshint.json'
     let g:syntastic_enable_highlighting = 0
     let g:syntastic_stl_format = '⚡ %E{Err: %fe #%e}%B{, }%W{Warn: %fw #%w} ⚡'
 " }}}
@@ -580,37 +582,49 @@
 " }}}
 
 " Mapping {{{
-    " prevent cursor from moving when leavng insert mode
-    inoremap <Esc> <Esc>`^
-
-    " stay in visual mode after indentation change
-    vnoremap > >gv
-    vnoremap < <gv
-    vnoremap <tab> >gv
-    vnoremap <s-tab> <gv
-
-    " make G go to *end* of last line
-    nnoremap G G$
-    vnoremap G G$
-
     " Enter normal mode quickly
     nnoremap ; :
     vnoremap ; :
-    inoremap <c-w> <c-o><c-w>
 
-    " J/K move up down half pages
-    nnoremap J <C-D>
-    nnoremap K <C-U>
-    vnoremap J <C-D>
-    vnoremap K <C-U>
+    " Prevent cursor from moving when leavng insert mode
+    inoremap <Esc> <Esc>`^
 
-    " make pageup/pagedown move up/down half pages
-    nnoremap <silent> <PageUp>   <C-U><C-U>
-    vnoremap <silent> <PageUp>   <C-U><C-U>
-    inoremap <silent> <PageUp>   <C-\><C-O><C-U><C-\><C-O><C-U>
-    nnoremap <silent> <PageDown> <C-D><C-D>
-    vnoremap <silent> <PageDown> <C-D><C-D>
-    inoremap <silent> <PageDown> <C-\><C-O><C-D><C-\><C-O><C-D>
+    " Stay in visual mode after indentation change
+    vnoremap > >gv
+    vnoremap < <gv
+    vnoremap <Tab> >gv
+    vnoremap <S-Tab> <gv
+
+    " G goes to end of last line
+    nnoremap G G$
+    vnoremap G G$
+
+    " Cmdline
+    cnoremap <c-a> <Home>
+    cnoremap <c-e> <End>
+    cnoremap <c-h> <Left>
+    cnoremap <c-j> <Down>
+    cnoremap <c-k> <Up>
+    cnoremap <c-l> <Right>
+
+    " Blackhole register
+    nnoremap <leader>b "_
+    vnoremap <silent> <leader>b "_
+    vnoremap p "_dP
+
+    " Quit/Write quickly
+    nnoremap Q :q<cr>
+    nnoremap W :w<cr>
+
+    " \y and \p for clipboard yank/paste
+    nnoremap <leader>P "+P
+    nnoremap <leader>Y "+yy
+    nnoremap <leader>p "*P
+    nnoremap <leader>y "*yy
+    vnoremap <leader>P "+P
+    vnoremap <leader>Y "+y
+    vnoremap <leader>p "*P
+    vnoremap <leader>y "*y
 
     " ctrl-h/l to switch between tabs
     nnoremap <c-h> :tabp<CR>
@@ -620,82 +634,67 @@
     nnoremap <c-k> :bn<cr>
     nnoremap <c-j> :bp<cr>
 
-    " Fast window resizing
-    if bufwinnr(1)
-        map <c-up>    <C-W>-
-        map <c-down>  <C-W>+
-        map <c-left>  <C-W><
-        map <c-right> <C-W>>
-    endif
+    " J/K move up down half pages
+    nnoremap J <c-d>
+    nnoremap K <c-u>
+    vnoremap J <c-d>
+    vnoremap K <c-u>
 
-    " p replace selection in visual mode
-    vnoremap p "_dP
-
-    " \b for blackhole register
-    nnoremap <leader>b "_
-    vnoremap <silent> <leader>b "_
+    " make pageup/pagedown move up/down half pages
+    nnoremap <silent> <PageUp>   <c-u><c-u>
+    vnoremap <silent> <PageUp>   <c-u><c-u>
+    inoremap <silent> <PageUp>   <c-\><c-o><c-u><c-\><c-o><c-u>
+    nnoremap <silent> <PageDown> <c-d><c-d>
+    vnoremap <silent> <PageDown> <c-d><c-d>
+    inoremap <silent> <PageDown> <c-\><c-o><c-d><c-\><c-o><c-d>
 
     " Buffer mappings {{{
     nnoremap <silent> <Leader>d :bd<CR>
 
-    " Quick edit .vimrc {{{
-    " nnoremap <silent> <Leader>ev :edit $MYVIMRC<CR>
-    " nnoremap <silent> <Leader>sv :source $MYVIMRC<CR>
-
-    " close html tags
-    inoremap \c </<c-x><c-o>
-
-    " \y and \p for clipboard yank/paste
-    nnoremap <leader>y "*y
-    vnoremap <leader>y "*y
-    " nnoremap <leader>p "*P
-    " vnoremap <leader>p "*P
-    nnoremap <leader>Y "+y
-    vnoremap <leader>Y "+y
-    nnoremap <leader>P "+P
-    vnoremap <leader>P "+P
-
-    "\e \u \t toggles
-    nnoremap <leader>u :GundoToggle<cr>
-    nnoremap <leader>t :TagbarToggle<cr>
-    nnoremap <leader>n :NERDTreeToggle<cr>
-
-    " \n toggles relatie number
-    nnoremap <leader>rn :set relativenumber!<cr>
-
-    " \e \q \w \t
-    nnoremap <leader>q :q<cr>
-    nnoremap <leader>ww <c-w><c-w>
-    nnoremap <leader>ws <c-w>s
-    nnoremap <leader>wv <c-w>v
-    nnoremap <leader>wn <c-w>n
+    " window mappings
+    inoremap <c-w> <c-o><c-w>
     nnoremap <leader>wh <c-w>h
     nnoremap <leader>wj <c-w>j
     nnoremap <leader>wk <c-w>k
     nnoremap <leader>wl <c-w>l
-    " nnoremap <leader>s :s%//<left>
-    " vnoremap <leader>s :s//<left>
-    nnoremap <leader>d :bd<cr>
-    nnoremap Q :q<cr>
-    nnoremap W :w<cr>
+    nnoremap <leader>wn <c-w>n
+    nnoremap <leader>ws <c-w>s
+    nnoremap <leader>wv <c-w>v
+    nnoremap <leader>ww <c-w><c-w>
+
+    " Fast window resizing
+    if bufwinnr(1)
+        map <c-up>    <c-w>-
+        map <c-down>  <c-w>+
+        map <c-left>  <c-w><
+        map <c-right> <c-w>>
+    endif
+
+    " CtrlP mappings
     nnoremap gb :CtrlPBuffer<cr>
     nnoremap go :CtrlP<cr>
 
-    " open things
-    nnoremap <leader>ow :py import webbrowser; webbrowser.open(<c-r>='"'.expand("<cWORD>").'"'<cr>)<cr>
+    " toggle Gundo, tagbar, nerdtree
+    nnoremap <leader>u :GundoToggle<cr>
+    nnoremap <leader>t :TagbarToggle<cr>
+    nnoremap <leader>n :NERDTreeToggle<cr>
+
+    " Quick edit .vimrc {{{
+    nnoremap <silent> <leader>ve :edit ~/.vim/vimrc<cr>
+    nnoremap <silent> <leader>vs :source ~/.vim/vimrc<cr>
+
+    " Fast substitute
+    nnoremap <leader>s :s\v%//<left>
+    vnoremap <leader>s :s\v//<left>
+
+    " Open in browser
     nnoremap <leader>of :py import webbrowser; webbrowser.open(<c-r>='"'.'file://'.expand('%:p').'"'<cr>)<cr>
+    nnoremap <leader>ow :py import webbrowser; webbrowser.open(<c-r>='"'.expand("<cWORD>").'"'<cr>)<cr>
 
     " Identify vim syntax highlight group under cursor
-    map <leader>hi :echo "hi: " . synIDattr(synID(line("."),col("."),1),"name") . ', trans: '
-                              \ . synIDattr(synID(line("."),col("."),0),"name") . ", lo: "
-                              \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name")<CR>
-    " Cmdline
-    cnoremap <C-A> <Home>
-    cnoremap <C-E> <End>
-    cnoremap <C-k> <Up>
-    cnoremap <C-j> <Down>
-    cnoremap <C-h> <Left>
-    cnoremap <C-l> <Right>
+    map <leader>hi :echo "hi: " . synIDattr(synID(line("."), col("."), 1), "name") . ", trans: "
+                              \ . synIDattr(synID(line("."), col("."), 0), "name") . ", lo: "
+                              \ . synIDattr(synIDtrans(synID(line("."), col("."), 1)), "name")<CR>
 " }}}
 
 " Diff {{{

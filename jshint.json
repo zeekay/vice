@@ -1,0 +1,22 @@
+{
+    // enforce
+    "curly": false,
+    "forin": false,
+
+    // relax
+    "eqnull": true,
+    "evil": true,
+
+    // globals
+    "browser": true,
+    "console": true,
+    "devel": true,
+    "node": true,
+
+    "predef": [
+        "DEBUG",
+        "TEST",
+        "define",
+        "require"
+    ]
+}
