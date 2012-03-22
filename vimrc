@@ -1,5 +1,5 @@
 " Author: Zach Kelling
-" Source: https://bitbucket.org/zeekay/dot-vim / https://github.com/zeekay/dot-vim
+" Source: bitbucket.org/zeekay/dot-vim || github.com/zeekay/dot-vim
 
 " Plugins {{{
     let addons = [
@@ -22,7 +22,7 @@
         \ 'hg:https://bitbucket.org/zeekay/vimtips',
     \ ]
 
-    " Add vim-powerline last, so that vim-powerline-custom is sourced first.
+    " Ensure vim-powerline-custom is sourced before vim-powerline
     let addons += ['github:Lokaltog/vim-powerline']
 
     if version > 702
@@ -50,8 +50,8 @@
         \ 'haskell':    ['hg:https://bitbucket.org/zeekay/haskellmode-vim'],
         \ 'html\|xml':  ['github:othree/html5.vim', 'github:othree/xml.vim', 'github:gregsexton/MatchTag'],
         \ 'jade':       ['github:digitaltoad/vim-jade'],
-        \ 'javascript\|python': ['github:alfredodeza/chapa.vim'],
         \ 'javascript': ['github:pangloss/vim-javascript'],
+        \ 'javascript\|python': ['github:alfredodeza/chapa.vim'],
         \ 'python':     ['hg:https://bitbucket.org/zeekay/python.vim'],
         \ 'stylus':     ['github:wavded/vim-stylus'],
     \ }
@@ -175,7 +175,6 @@
         set guioptions=ace
         set fillchars=diff:⣿
         set listchars=tab:▸\ ,eol:¬,extends:❯,precedes:❮
-        " set showbreak=↪
     endif
 " }}}
 
@@ -221,9 +220,10 @@
     set laststatus=2
     set statusline=\(%n\)\ %f\ %*%#Modified#%m\ (%l/%L,\ %c)\ %P%=%h%w\ %y\ [%{&encoding}:%{&fileformat}]
     let g:Powerline_symbols_override = {
-        \ 'BRANCH': [0x2213],
+        \ 'FUGITIVE': '∓',
+        \ 'LAWRENCIUM': '☿',
         \ 'LINE': 'LN',
-        \ }
+    \ }
     let g:Powerline_dividers_override = ['', '/', '', '/']
     call Pl#Theme#InsertSegment('lawrencium:branch', 'after', 'fugitive:branch')
 " }}}
