@@ -220,9 +220,8 @@
     set laststatus=2
     set statusline=\(%n\)\ %f\ %*%#Modified#%m\ (%l/%L,\ %c)\ %P%=%h%w\ %y\ [%{&encoding}:%{&fileformat}]
     let g:Powerline_symbols_override = {
-        \ 'FUGITIVE': '∓',
-        \ 'LAWRENCIUM': '☿',
-        \ 'LINE': 'LN',
+        \ 'FUGITIVE': '∓ ',
+        \ 'LAWRENCIUM': '☿ ',
     \ }
     let g:Powerline_dividers_override = ['', '/', '', '/']
     call Pl#Theme#InsertSegment('lawrencium:branch', 'after', 'fugitive:branch')
