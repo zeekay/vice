@@ -56,6 +56,11 @@
         \ 'stylus':     ['github:wavded/vim-stylus'],
     \ }
 
+    if has('python') && executable('bebop')
+        let ft_addons['javascript'] += ['hg:https://bitbucket.org/zeekay/vim-bebop']
+        let ft_addons['coffee'] += ['hg:https://bitbucket.org/zeekay/vim-bebop']
+    endif
+
     " This are no longer used regularly, but kept around for convenience.
     let exiled_plugins = [
         \ 'github:Lokaltog/vim-easymotion',
@@ -180,7 +185,6 @@
 
 " MacVim {{{
     if has("gui_running") && has('mac')
-        let $PATH=expand('~/.bin').':/usr/local/bin:/usr/local/share/python:/usr/bin:/bin'
         let $NODE_PATH='/usr/local/lib/jsctags/:'.$NODE_PATH
         set macmeta
         set fuoptions=maxvert,maxhorz
@@ -366,7 +370,7 @@
     if executable('coffeetags')
         let g:tagbar_type_coffee = {
             \ 'ctagsbin': 'coffeetags',
-            \ 'ctagsargs': '--include-vars ',
+            \ 'ctagsargs': '',
             \ 'sro' : ".",
             \ 'kinds': [
                 \ 'f:functions',
@@ -509,33 +513,6 @@
         endfunction
         au FileType javascript command! RunInNode call s:RunInNode()
         au FileType javascript map <leader>r :RunInNode<cr>
-    endif
-
-    if executable('bebop') && has('python')
-        " Use Bebop javascript completion and eval
-        py import bebop.vimbop, vim
-
-        function! BebopComplete(findstart, base)
-            if a:findstart
-                let line = getline('.')
-                let start = col('.') - 1
-                while start >= 0 && line[start - 1] =~ '\k'
-                    let start -= 1
-                endwhile
-                return start
-            else
-                py vim.command('return ' + bebop.vimbop.complete(vim.eval('a:base')))
-            endif
-        endfunction
-
-        au FileType javascript setlocal omnifunc=BebopComplete
-        au FileType javascript command! -nargs=* BebopEval     py bebop.vimbop.eval_js(<f-args>)
-        au FileType javascript command! -nargs=0 BebopEvalLine   py bebop.vimbop.eval_line()
-        au FileType javascript command! -nargs=0 BebopEvalBuffer py bebop.vimbop.eval_buffer()
-        au FileType javascript nnoremap <leader>ee :BebopEval<space>
-        au FileType javascript nnoremap <leader>el :BebopEvalLine<cr>
-        au FileType javascript vnoremap <leader>er :py bebop.vimbop.eval_range()<cr>
-        au FileType javascript nnoremap <leader>eb :BebopEvalBuffer<cr>
     endif
 " }}}
 
