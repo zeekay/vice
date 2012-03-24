@@ -290,7 +290,7 @@
     let g:UltiSnipsExpandTrigger       = "<c-l>"
     let g:UltiSnipsJumpForwardTrigger  = "<c-l>"
     let g:UltiSnipsJumpBackwardTrigger = "<c-h>"
-    let g:UltiSnipsSnippetsDir         = $VIMHOME.'/addons/github-rygwdn-ultisnips/UltiSnips'
+    let g:UltiSnipsSnippetDirectories=["UltiSnips", "snippets"]
 " }}}
 
 " Ack.vim {{{
