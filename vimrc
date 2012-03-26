@@ -633,6 +633,10 @@
     nnoremap <leader>wj <c-w>j
     nnoremap <leader>wk <c-w>k
     nnoremap <leader>wl <c-w>l
+    nnoremap <leader>wH <c-w>H
+    nnoremap <leader>wJ <c-w>J
+    nnoremap <leader>wK <c-w>K
+    nnoremap <leader>wL <c-w>L
     nnoremap <leader>wn <c-w>n
     nnoremap <leader>ws <c-w>s
     nnoremap <leader>wv <c-w>v
