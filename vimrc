@@ -87,7 +87,8 @@
     set backup
     silent! set undofile
     silent! set undodir=$VIMHOME/tmp/undo
-    set directory=$VIMHOME/tmp/swap
+    " set directory=$VIMHOME/tmp/swap
+    set noswapfile
     set viewdir=$VIMHOME/tmp/view
     let &viminfo="'100,\"100,:100,h,n".expand($VIMHOME.'/tmp/viminfo')
     set undolevels=100
