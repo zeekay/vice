@@ -192,7 +192,7 @@
         let g:macvim_skip_cmd_opt_movement = 1
         set guifontwide=DejaVu\ Sans\ Mono:h11
         set guifont=Inconsolata:h14
-        set linespace=1
+        set linespace=0
         nnoremap <D-1> 1gt
         nnoremap <D-2> 2gt
         nnoremap <D-3> 3gt
@@ -660,8 +660,8 @@
     nnoremap <leader>n :NERDTreeToggle<cr>
 
     " Quick edit .vimrc {{{
-    nnoremap <silent> <leader>ve :edit ~/.vim/vimrc<cr>
-    nnoremap <silent> <leader>vs :source ~/.vim/vimrc<cr>
+    nnoremap <silent> <leader>ev :edit ~/.vim/vimrc<cr>
+    au FileType vim nnoremap <buffer> <leader>ef :w<cr>:source %<cr>
 
     " Fast substitute
     nnoremap <leader>s :s\v%//<left>
