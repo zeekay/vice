@@ -637,19 +637,24 @@
     nnoremap <leader>wH <c-w>H
     nnoremap <leader>wJ <c-w>J
     nnoremap <leader>wK <c-w>K
-    nnoremap <leader>wL <c-w>L
+    nnoremap <leader>wR <c-w>R
+    nnoremap <leader>wx <c-w>x
+    nnoremap <leader>wT <c-w>T
     nnoremap <leader>wn <c-w>n
     nnoremap <leader>ws <c-w>s
     nnoremap <leader>wv <c-w>v
     nnoremap <leader>ww <c-w><c-w>
+    nnoremap <leader>w= <c-w>=
 
     " Fast window resizing
-    if bufwinnr(1)
-        map <c-up>    <c-w>-
-        map <c-down>  <c-w>+
-        map <c-left>  <c-w><
-        map <c-right> <c-w>>
-    endif
+    map è <c-w><
+    map ê <c-w>+
+    map ë <c-w>-
+    map ì <c-w>>
+    map <c-up>    <c-w>-
+    map <c-down>  <c-w>+
+    map <c-left>  <c-w><
+    map <c-right> <c-w>>
 
     " CtrlP mappings
     nnoremap gb :CtrlPBuffer<cr>
