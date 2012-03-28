@@ -76,12 +76,19 @@
 
     let &runtimepath.=','.$VIMHOME.expand('/addons/vim-addon-manager')
 
-    function! vam#PluginDirFromName(name)
+    func! vam#PluginDirFromName(name)
         return $VIMHOME.'/addons/'.split(a:name, '/')[-1]
-    endfunction
+    endf
+
+    func! ActivateFtAddons(ft_addons, ft)
+        for l in values(filter(copy(a:ft_addons), string(a:ft).' =~ v:key'))
+            call vam#ActivateAddons(l, {'auto_install': 1, 'force_loading_plugins_now': 1})
+        endfor
+    endf
 
     call vam#ActivateAddons(addons, {'auto_install': 1})
-    au FileType * for l in values(filter(copy(ft_addons), string(expand('<amatch>')).' =~ v:key')) | call vam#ActivateAddons(l, {'auto_install': 1, 'force_loading_plugins_now': 1}) | endfor " }}}
+    au FileType * call ActivateFtAddons(ft_addons, expand('<amatch>'))
+" }}}
 
 " Basic/General Configuration {{{
     set nocompatible
@@ -121,7 +128,8 @@
     set nomore
     " set clipboard=unnamed,unnamedplus
     " set foldminlines=99999
-    silent! set breakindent " }}}
+    silent! set breakindent
+" }}}
 
 " Indent {{{
     set tabstop=4
@@ -131,12 +139,14 @@
     set smarttab
     set smartindent
     au FileType javascript,xml,xhtml,html,htmldjango set shiftwidth=4
-    au FileType coffee,haml,stylus,jade set shiftwidth=2 " }}}
+    au FileType coffee,haml,stylus,jade set shiftwidth=2
+" }}}
 
 " Search/Highlight {{{
     set showmatch
     set incsearch
-    set ignorecase " }}}
+    set ignorecase
+" }}}
 
 " Menu/Complete {{{
     set completeopt=menuone,menu,longest
@@ -155,7 +165,8 @@
     set wildignore+=.git\*,.hg\*,.svn\* " Version control - Windows
     set wildignore+=classes " Clojure/leiningen
     set wildignore+=migrations " Django migrations
-    set wildignore+=*.zwc,*.zwc.old " ZSH " }}}
+    set wildignore+=*.zwc,*.zwc.old " ZSH
+" }}}
 
 " Enable omnicomplete {{{
     au FileType python setlocal omnifunc=pythoncomplete#Complete
@@ -166,12 +177,13 @@
     au FileType php setlocal omnifunc=phpcomplete#CompletePHP
     au FileType c setlocal omnifunc=ccomplete#Complete
     au FileType cpp setlocal omnifunc=omni#cpp#complete#Main
-    au FileType ruby,eruby setlocal omnifunc=rubycomplete#Complete " }}}
+    au FileType ruby,eruby setlocal omnifunc=rubycomplete#Complete
+" }}}
 
 " Console {{{
     colorscheme hornet
     set ttyfast
-    set mouse=a " }}}
+" }}}
 
 " Gui {{{
     if has('gui_running')
@@ -179,7 +191,8 @@
         set guioptions=ace
         set fillchars=diff:⣿
         set listchars=tab:▸\ ,eol:¬,extends:❯,precedes:❮
-    endif " }}}
+    endif
+" }}}
 
 " MacVim {{{
     if has("gui_running") && has('mac')
@@ -202,18 +215,21 @@
         nnoremap <D-9> 9gt
         nnoremap <D-0> 10gt
         nnoremap <D-CR> :set fullscreen!<cr>
-    endif " }}}
+    endif
+" }}}
 
 " Linux gVim {{{
     if has('gui_running') && !has('mac') && !has('win32') && !has('win64')
         set guifont=DejaVu\ Sans\ Mono\ 8
-    endif " }}}
+    endif
+" }}}
 
 " Windows gVim {{{
     if has('gui_running') && has('win32') || has('win64')
         set guifont=Consolas
         cd ~
-    endif " }}}
+    endif
+" }}}
 
 " Statusline / Powerline {{{
     set laststatus=2
@@ -223,18 +239,21 @@
         \ 'LAWRENCIUM': '☿ ',
     \ }
     let g:Powerline_dividers_override = ['', '/', '', '/']
-    call Pl#Theme#InsertSegment('lawrencium:branch', 'after', 'fugitive:branch') " }}}
+    call Pl#Theme#InsertSegment('lawrencium:branch', 'after', 'fugitive:branch')
+" }}}
 
 " EasyMotion {{{
     let g:EasyMotion_keys = ";,.pyfgcrl/aoeuidhtns-'qjkxbmwvz"
-    let g:EasyMotion_leader_key = '<leader>e' " }}}
+    let g:EasyMotion_leader_key = '<leader>e'
+" }}}
 
 " Netrw {{{
     let g:netrw_silent = 1
     let g:netrw_cursor = 0
     let g:netrw_banner = 0
     let g:netrw_liststyle = 1
-    let g:netrw_list_hide='\.swp$,\.pyc$,\.pyo$,^\.hg$,^\$,^\.svn$,^\.o$,.Trash,.DS_Store,.CFUserTextEncoding' " }}}
+    let g:netrw_list_hide='\.swp$,\.pyc$,\.pyo$,^\.hg$,^\$,^\.svn$,^\.o$,.Trash,.DS_Store,.CFUserTextEncoding'
+" }}}
 
 " neocomplcache {{{
     if version > 702
@@ -275,27 +294,32 @@
         " Enable clang_complete
         let g:neocomplcache_force_overwrite_completefunc=1
         let g:clang_complete_auto=1
-    endif " }}}
+    endif
+" }}}
 
 " Ultisnips {{{
     let g:UltiSnipsExpandTrigger = "<c-l>"
     let g:UltiSnipsJumpForwardTrigger = "<c-l>"
     let g:UltiSnipsJumpBackwardTrigger = "<c-h>"
-    let g:UltiSnipsSnippetDirectories=["UltiSnips", "snippets"] " }}}
+    let g:UltiSnipsSnippetDirectories=["UltiSnips", "snippets"]
+" }}}
 
 " Ack.vim {{{
     let g:ackprg="ack -i -H --nocolor --nogroup --column --text"
-    nnoremap <leader>a :Ack!<space> " }}}
+    nnoremap <leader>a :Ack!<space>
+" }}}
 
 " Chapa.vim {{{
     let g:chapa_no_repeat_mappings = 1
-    let g:chapa_default_mappings = 1 " }}}
+    let g:chapa_default_mappings = 1
+" }}}
 
 " Commentary {{{
     au FileType cfg set commentstring=#\ %s
     au FileType cpp set commentstring=/\/\ %s
     au FileType python set commentstring=#\ %s
-    au FileType lisp set commentstring=;;\ %s " }}}
+    au FileType lisp set commentstring=;;\ %s
+" }}}
 
 " CtrlP {{{
     " let g:ctrlp_user_command = 'find %s -type f' " MacOSX/Linux
@@ -309,19 +333,22 @@
     let g:ctrlp_user_command = ['.hg/', 'hg --cwd %s locate --fullpath -I .']
     let g:ctrlp_open_new_file = 1
     let g:ctrlp_cache_dir = expand($VIMHOME."/tmp/ctrlp_cache")
-    let g:ctrlp_open_multi = '1t' " }}}
+    let g:ctrlp_open_multi = '1t'
+" }}}
 
 " delimitMate {{{
     let g:delimitMate_expand_cr = 1
     let g:delimitMate_expand_space = 1
     let g:delimitMate_balance_matchpairs = 1
     let g:delimitMate_excluded_ft = "mail,help"
-    au FileType * let b:delimitMate_autoclose = 1 " }}}
+    au FileType * let b:delimitMate_autoclose = 1
+" }}}
 
 " Gundo {{{
     let g:gundo_help = 0
     let g:gundo_right = 1
-    let g:gundo_width = 30 " }}}
+    let g:gundo_width = 30
+" }}}
 
 " Nerdtree {{{
     "" Auto open nerd tree on startup
@@ -333,12 +360,14 @@
     let g:NERDTreeDirArrows = 1
     let g:NERDTreeWinSize = 30
     let g:NERDTreeMouseMode = 3
-    let g:NERDTreeCaseSensitiveSort = 1 " }}}
+    let g:NERDTreeCaseSensitiveSort = 1
+" }}}
 
 " Tabularize {{{
     vnoremap <silent> <leader>t> :Tabularize /=><cr>
     vnoremap <silent> <leader>t= :Tabularize /=<cr>
-    vnoremap <silent> <leader>t, :Tabularize /,<cr> " }}}
+    vnoremap <silent> <leader>t, :Tabularize /,<cr>
+" }}}
 
 " Tagbar {{{
     let g:tagbar_autofocus = 1
@@ -393,7 +422,8 @@
                 \ 'type': 't'
             \ }
         \ }
-    endif " }}}
+    endif
+" }}}
 
 " Syntastic {{{
     let g:syntastic_enable_signs = 1
@@ -403,11 +433,13 @@
     let g:syntastic_javascript_checker = 'jshint'
     let g:syntastic_javascript_jshint_conf = $VIMHOME.'/jshint.json'
     let g:syntastic_enable_highlighting = 0
-    let g:syntastic_stl_format = '⚡ %E{Err: %fe #%e}%B{, }%W{Warn: %fw #%w} ⚡' " }}}
+    let g:syntastic_stl_format = '⚡ %E{Err: %fe #%e}%B{, }%W{Warn: %fw #%w} ⚡'
+" }}}
 
 " Eclim {{{
     let g:EclimDisabled = 1
-    let g:EclimTaglistEnabled = 0 " }}}
+    let g:EclimTaglistEnabled = 0
+" }}}
 
 " Filetypes {{{
     au BufNewFile,BufRead *.haml set filetype=haml
@@ -415,7 +447,8 @@
     au BufNewFile,BufRead *.sass set filetype=sass
     au BufNewFile,BufRead *.scss set filetype=scss
     au BufNewFile,BufRead *.styl set filetype=stylus
-    au BufNewFile,BufRead *.coffee set filetype=coffee " }}}
+    au BufNewFile,BufRead *.coffee set filetype=coffee
+" }}}
 
 " Clojure/ClojureScript {{{
     augroup ft_clojure
@@ -474,25 +507,29 @@
     au FileType coffee map <leader>r :CoffeeRun<cr>
     au FileType coffee map <leader>c :CoffeeCompile watch vertical<cr>
     au FileType coffee imap <leader>r <c-o>:CoffeeRun<cr>
-    au FileType coffee imap <leader>c <c-o>:CoffeeCompile watch vertical<cr> " }}}
+    au FileType coffee imap <leader>c <c-o>:CoffeeCompile watch vertical<cr>
+" }}}
 
 " Haskell {{{
     let g:haddock_browser="open"
-    au FileType haskell setlocal omnifunc=necoghc#omnifunc " }}}
+    au FileType haskell setlocal omnifunc=necoghc#omnifunc
+" }}}
 
 " Javascript {{{
     if executable('node')
         " Run current file in node for quick evaluation
-        function! s:RunInNode()
+        func! s:RunInNode()
             w
             !node %
-        endfunction
+        endf
         au FileType javascript command! RunInNode call s:RunInNode()
         au FileType javascript map <leader>r :RunInNode<cr>
-    endif " }}}
+    endif
+" }}}
 
 " Markdown {{{
-    autocmd BufNewFile,BufRead *.{md,mkd,mkdn,mark*} set filetype=markdown " }}}
+    autocmd BufNewFile,BufRead *.{md,mkd,mkdn,mark*} set filetype=markdown
+" }}}
 
 " Python {{{
     let g:virtualenv_directory = expand($HOME."/ve")
@@ -503,10 +540,12 @@
     let g:pythonmode_enable_rope = 0
     let g:ropevim_vim_completion = 1
     let g:ropevim_extended_complete = 1
-    " au FileType python setlocal foldmethod=syntax " }}}
+    " au FileType python setlocal foldmethod=syntax
+" }}}
 
 " VimL {{{
-    au FileType vim nnoremap <leader>r :w<cr> <bar> :so %<cr> " }}}
+    au FileType vim nnoremap <leader>r :w<cr> <bar> :so %<cr>
+" }}}
 
 " Fast Escape {{{
     augroup fastescape
@@ -516,15 +555,17 @@
         set timeoutlen=10
         au InsertEnter * set timeout
         au InsertLeave * set notimeout
-    augroup END " }}}
+    augroup END
+" }}}
 
 " Remove Trailing Whitespace {{{
-    function! s:StripTrailingWhitespace()
+    func! s:StripTrailingWhitespace()
         normal mZ
         %s/\s\+$//e
         normal `Z
-    endfunction
-    au FileType * au BufWritePre <buffer> :silent! call <SID>StripTrailingWhitespace()` " }}}
+    endf
+    au FileType * au BufWritePre <buffer> :silent! call <SID>StripTrailingWhitespace()`
+" }}}
 
 " Mapping {{{
     " Enter normal mode quickly
@@ -649,7 +690,8 @@
     " Identify vim syntax highlight group under cursor
     map <leader>hi :echo "hi: " . synIDattr(synID(line("."), col("."), 1), "name") . ", trans: "
                               \ . synIDattr(synID(line("."), col("."), 0), "name") . ", lo: "
-                              \ . synIDattr(synIDtrans(synID(line("."), col("."), 1)), "name")<CR> " }}}
+                              \ . synIDattr(synIDtrans(synID(line("."), col("."), 1)), "name")<CR>
+" }}}
 
 " Diff {{{
     set diffopt+=iwhite,context:3
@@ -657,7 +699,8 @@
         nmap u u :diffu<cr>
         nmap Q :qa<cr>
         nmap <leader>q :qa<cr>
-    endif " }}}
+    endif
+" }}}
 
 " Quickfix / location list {{{
     au FileType qf setl nolist
@@ -666,6 +709,7 @@
     nnoremap ]q :cnext<cr>
     nnoremap [q :cprevious<cr>
     nnoremap ]l :lnext<cr>
-    nnoremap [l :lprevious<cr> " }}}
+    nnoremap [l :lprevious<cr>
+" }}}
 
 " vim: fdm=marker foldlevel=1 nofoldenable
