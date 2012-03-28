@@ -1,4 +1,5 @@
-" Author: Zach Kelling " Source: bitbucket.org/zeekay/dot-vim || github.com/zeekay/dot-vim
+" Author: Zach Kelling "
+" Source: bitbucket.org/zeekay/dot-vim || github.com/zeekay/dot-vim
 
 " Plugins {{{
     let addons = [
