@@ -170,7 +170,7 @@
 
 " Enable omnicomplete {{{
     au FileType python setlocal omnifunc=pythoncomplete#Complete
-    au FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+    au FileType javascript,coffee setlocal omnifunc=javascriptcomplete#CompleteJS
     au FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
     au FileType css setlocal omnifunc=csscomplete#CompleteCSS
     au FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
