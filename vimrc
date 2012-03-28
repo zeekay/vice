@@ -57,6 +57,7 @@
     \ }
 
     if has('python') && executable('bebop')
+        let ft_addons['css\|haml\|html\|jade\|sass\|stylus'] += ['hg:https://bitbucket.org/zeekay/vim-bebop']
         let ft_addons['javascript'] += ['hg:https://bitbucket.org/zeekay/vim-bebop']
         let ft_addons['coffee'] += ['hg:https://bitbucket.org/zeekay/vim-bebop']
     endif
