@@ -216,6 +216,8 @@
         nnoremap <D-9> 9gt
         nnoremap <D-0> 10gt
         nnoremap <D-CR> :set fullscreen!<cr>
+        " For the life of me I can't get MacVim to start with the proper $PATH unless it's opened from the terminal.
+        let $PATH='~/.cabal/bin:~/Library/Haskell/bin:/usr/local/share/ruby:/usr/local/share/python:~/.zsh/plugins/osx/lib:/usr/sbin:~/.dotfiles/scripts:~/.bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Developer/usr/bin:~/.zsh/plugins/clojure/bin'
     endif
 " }}}
 
