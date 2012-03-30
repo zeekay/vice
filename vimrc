@@ -585,8 +585,8 @@
     vnoremap <S-Tab> <gv
 
     " G goes to end of last line
-    nnoremap G G$
-    vnoremap G G$
+    " nnoremap G G$
+    " vnoremap G G$
 
     " Cmdline
     cnoremap <c-a> <Home>
@@ -650,6 +650,8 @@
     nnoremap <leader>wH <c-w>H
     nnoremap <leader>wJ <c-w>J
     nnoremap <leader>wK <c-w>K
+    nnoremap <leader>wL <c-w>L
+    nnoremap <leader>wr <c-w>r
     nnoremap <leader>wR <c-w>R
     nnoremap <leader>wx <c-w>x
     nnoremap <leader>wT <c-w>T
