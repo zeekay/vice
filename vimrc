@@ -1,4 +1,5 @@
-" Author: Zach Kelling "" Source: bitbucket.org/zeekay/dot-vim || github.com/zeekay/dot-vim
+" Author: Zach Kelling
+" Source: bitbucket.org/zeekay/dot-vim || github.com/zeekay/dot-vim
 
 " Plugins {{{
     let addons = [
@@ -136,9 +137,11 @@
     " set clipboard=unnamed,unnamedplus
     " set foldminlines=99999
     silent! set breakindent
+
 " }}}
 
 " Indent {{{
+
     set tabstop=4
     set shiftwidth=4
     set softtabstop=4
@@ -588,10 +591,6 @@
     vnoremap < <gv
     vnoremap <Tab> >gv
     vnoremap <S-Tab> <gv
-
-    " G goes to end of last line
-    " nnoremap G G$
-    " vnoremap G G$
 
     " Cmdline
     cnoremap <c-a> <Home>
