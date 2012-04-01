@@ -1,5 +1,4 @@
-" Author: Zach Kelling "
-" Source: bitbucket.org/zeekay/dot-vim || github.com/zeekay/dot-vim
+" Author: Zach Kelling "" Source: bitbucket.org/zeekay/dot-vim || github.com/zeekay/dot-vim
 
 " Plugins {{{
     let addons = [
@@ -28,46 +27,53 @@
     if version > 702
         let addons += [
             \ 'github:Shougo/neocomplcache',
-            \ 'github:majutsushi/tagbar',
-            \ 'github:ujihisa/neco-ghc',
+            \ 'github:majutsushi/tagbar'
         \ ]
     endif
 
     if version > 702 && has('python')
         let addons += [
-            \ 'hg:https://bitbucket.org/zeekay/vim-python-mode',
             \ 'github:rygwdn/ultisnips',
+            \ 'hg:https://bitbucket.org/zeekay/vim-python-mode'
         \ ]
     endif
 
     " Filetype-specific addons
     let ft_addons = {
-        \ 'c\|cpp': ['github:Rip-Rip/clang_complete', 'github:osyo-manga/neocomplcache-clang_complete'],
-        \ 'clojure': ['hg:https://bitbucket.org/sjl/slimv'],
-        \ 'coffee': ['github:kchmck/vim-coffee-script'],
-        \ 'css\|haml\|html\|jade\|sass\|stylus': ['github:Rykka/ColorV', 'github:lvivski/vim-css-color'],
-        \ 'haml': ['github:tpope/vim-haml'],
-        \ 'haskell': ['hg:https://bitbucket.org/zeekay/haskellmode-vim'],
-        \ 'html\|xml': ['github:othree/html5.vim', 'github:othree/xml.vim', 'github:gregsexton/MatchTag'],
-        \ 'jade': ['github:digitaltoad/vim-jade'],
-        \ 'javascript': ['github:pangloss/vim-javascript'],
-        \ 'javascript\|python': ['github:alfredodeza/chapa.vim'],
-        \ 'python': ['hg:https://bitbucket.org/zeekay/python.vim'],
-        \ 'stylus': ['github:wavded/vim-stylus'],
+        \ 'c$\|cpp': [
+            \ 'github:Rip-Rip/clang_complete',
+            \ 'github:osyo-manga/neocomplcache-clang_complete'],
+        \ 'clojure': [
+            \ 'hg:https://bitbucket.org/sjl/slimv'],
+        \ 'coffee': [
+            \ 'github:kchmck/vim-coffee-script'],
+        \ 'css\|html\|jade\|stylus': [
+            \ 'github:Rykka/ColorV',
+            \ 'github:lvivski/vim-css-color'],
+        \ 'haml': [
+            \ 'github:tpope/vim-haml'],
+        \ 'haskell': [
+            \ 'hg:https://bitbucket.org/zeekay/haskellmode-vim',
+            \ 'github:ujihisa/neco-ghc'],
+        \ 'html\|xml': [
+            \ 'github:othree/html5.vim',
+            \ 'github:othree/xml.vim',
+            \ 'github:gregsexton/MatchTag'],
+        \ 'jade': [
+            \ 'github:digitaltoad/vim-jade'],
+        \ 'javascript': [
+            \ 'github:pangloss/vim-javascript'],
+        \ 'javascript\|python': [
+            \ 'github:alfredodeza/chapa.vim'],
+        \ 'python': [
+            \ 'hg:https://bitbucket.org/zeekay/python.vim'],
+        \ 'stylus': [
+            \ 'github:wavded/vim-stylus'],
     \ }
 
     if has('python')
-        let ft_addons['css\|haml\|html\|jade\|sass\|stylus'] += ['hg:https://bitbucket.org/zeekay/vim-bebop']
-        let ft_addons['javascript'] += ['hg:https://bitbucket.org/zeekay/vim-bebop']
-        let ft_addons['coffee'] += ['hg:https://bitbucket.org/zeekay/vim-bebop']
+        let ft_addons['coffee\|javascript\|css\|html\|jade\|stylus'] = ['hg:https://bitbucket.org/zeekay/vim-bebop']
     endif
-
-    " This are no longer used regularly, but kept around for convenience.
-    let exiled_plugins = [
-        \ 'github:Lokaltog/vim-easymotion',
-        \ 'github:Raimondi/delimitMate',
-        \ 'github:junegunn/tabular',
-    \ ]
 
     if has('win32') || has('win64')
         let $VIMHOME = expand('~/vimfiles')
@@ -197,7 +203,6 @@
 
 " MacVim {{{
     if has("gui_running") && has('mac')
-        let $NODE_PATH='/usr/local/lib/jsctags/:'.$NODE_PATH
         set macmeta
         set fuoptions=maxvert,maxhorz
         let g:macvim_hig_shift_movement = 1
@@ -216,8 +221,8 @@
         nnoremap <D-9> 9gt
         nnoremap <D-0> 10gt
         nnoremap <D-CR> :set fullscreen!<cr>
-        " For the life of me I can't get MacVim to start with the proper $PATH unless it's opened from the terminal.
-        let $PATH='~/.cabal/bin:~/Library/Haskell/bin:/usr/local/share/ruby:/usr/local/share/python:~/.zsh/plugins/osx/lib:/usr/sbin:~/.dotfiles/scripts:~/.bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Developer/usr/bin:~/.zsh/plugins/clojure/bin'
+        let $PATH=substitute('~/.cabal/bin:~/Library/Haskell/bin:/usr/local/share/ruby:/usr/local/share/python:~/.zsh/plugins/osx/lib:/usr/sbin:~/.dotfiles/scripts:~/.bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Developer/usr/bin:~/.zsh/plugins/clojure/bin', '\~', $HOME, 'g')
+        let $NODE_PATH='/usr/local/lib/jsctags/:'.$NODE_PATH
     endif
 " }}}
 
