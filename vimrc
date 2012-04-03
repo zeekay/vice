@@ -35,45 +35,57 @@
     if version > 702 && has('python')
         let addons += [
             \ 'github:rygwdn/ultisnips',
-            \ 'hg:https://bitbucket.org/zeekay/vim-python-mode'
         \ ]
     endif
 
-    " Filetype-specific addons
+    " filetype-specific addons
     let ft_addons = {
         \ 'c$\|cpp': [
-            \ 'github:Rip-Rip/clang_complete',
-            \ 'github:osyo-manga/neocomplcache-clang_complete'],
+            \ 'github:rip-rip/clang_complete',
+            \ 'github:osyo-manga/neocomplcache-clang_complete',
+            \ ],
         \ 'clojure': [
-            \ 'hg:https://bitbucket.org/sjl/slimv'],
+            \ 'hg:https://bitbucket.org/sjl/slimv',
+            \ ],
         \ 'coffee': [
-            \ 'github:kchmck/vim-coffee-script'],
+            \ 'github:kchmck/vim-coffee-script',
+            \ ],
         \ 'css\|html\|jade\|stylus': [
-            \ 'github:Rykka/ColorV',
-            \ 'github:lvivski/vim-css-color'],
+            \ 'github:rykka/colorv',
+            \ 'github:lvivski/vim-css-color',
+            \ ],
         \ 'haml': [
-            \ 'github:tpope/vim-haml'],
+            \ 'github:tpope/vim-haml',
+            \ ],
         \ 'haskell': [
             \ 'hg:https://bitbucket.org/zeekay/haskellmode-vim',
-            \ 'github:ujihisa/neco-ghc'],
+            \ 'github:ujihisa/neco-ghc',
+            \ ],
         \ 'html\|xml': [
             \ 'github:othree/html5.vim',
             \ 'github:othree/xml.vim',
-            \ 'github:gregsexton/MatchTag'],
+            \ 'github:gregsexton/matchtag',
+            \ ],
         \ 'jade': [
-            \ 'github:digitaltoad/vim-jade'],
+            \ 'github:digitaltoad/vim-jade',
+            \ ],
         \ 'javascript': [
-            \ 'github:pangloss/vim-javascript'],
+            \ 'github:pangloss/vim-javascript',
+            \ ],
         \ 'javascript\|python': [
-            \ 'github:alfredodeza/chapa.vim'],
+            \ 'github:alfredodeza/chapa.vim',
+            \ ],
         \ 'python': [
-            \ 'hg:https://bitbucket.org/zeekay/python.vim'],
+            \ 'hg:https://bitbucket.org/zeekay/python.vim',
+            \ ],
         \ 'stylus': [
-            \ 'github:wavded/vim-stylus'],
+            \ 'github:wavded/vim-stylus',
+            \ ]
     \ }
 
     if has('python')
         let ft_addons['coffee\|javascript\|css\|html\|jade\|stylus'] = ['hg:https://bitbucket.org/zeekay/vim-bebop']
+        let ft_addons['python'] += ['hg:https://bitbucket.org/zeekay/vim-python-mode']
     endif
 
     if has('win32') || has('win64')
@@ -82,7 +94,7 @@
         let $VIMHOME = expand('~/.vim')
     endif
 
-    let &runtimepath.=','.$VIMHOME.expand('/addons/vim-addon-manager')
+    let &runtimepath.=','.$VIMHOME.'/addons/vim-addon-manager'
 
     func! vam#PluginDirFromName(name)
         return $VIMHOME.'/addons/'.split(a:name, '/')[-1]
@@ -137,7 +149,6 @@
     " set clipboard=unnamed,unnamedplus
     " set foldminlines=99999
     silent! set breakindent
-
 " }}}
 
 " Indent {{{
@@ -645,24 +656,25 @@
     " Buffer mappings {{{
     nnoremap <silent> <Leader>d :bd<CR>
 
-    " Window mappings
+    " Wincmd mappings
     inoremap <c-w> <c-o><c-w>
     nnoremap <leader>wh <c-w>h
     nnoremap <leader>wj <c-w>j
     nnoremap <leader>wk <c-w>k
     nnoremap <leader>wl <c-w>l
+    nnoremap <leader>wn <c-w>n
+    nnoremap <leader>wq <c-w>q
+    nnoremap <leader>wr <c-w>r
+    nnoremap <leader>ws <c-w>s
+    nnoremap <leader>wv <c-w>v
+    nnoremap <leader>ww <c-w>w
+    nnoremap <leader>wx <c-w>x
     nnoremap <leader>wH <c-w>H
     nnoremap <leader>wJ <c-w>J
     nnoremap <leader>wK <c-w>K
     nnoremap <leader>wL <c-w>L
-    nnoremap <leader>wr <c-w>r
     nnoremap <leader>wR <c-w>R
-    nnoremap <leader>wx <c-w>x
     nnoremap <leader>wT <c-w>T
-    nnoremap <leader>wn <c-w>n
-    nnoremap <leader>ws <c-w>s
-    nnoremap <leader>wv <c-w>v
-    nnoremap <leader>ww <c-w><c-w>
     nnoremap <leader>w= <c-w>=
 
     " Fast window resizing
