@@ -62,9 +62,9 @@
             \ 'github:ujihisa/neco-ghc',
             \ ],
         \ 'html\|xml': [
-            \ 'github:othree/html5.vim',
-            \ 'github:othree/xml.vim',
             \ 'github:gregsexton/matchtag',
+            \ 'github:othree/html5.vim',
+            \ 'github:zeekay/xml.vim',
             \ ],
         \ 'jade': [
             \ 'github:digitaltoad/vim-jade',
