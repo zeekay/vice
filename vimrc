@@ -40,6 +40,9 @@
 
     " filetype-specific addons
     let ft_addons = {
+        \ 'actionscript': [
+            \ 'github:endel/actionscript.vim',
+            \ ],
         \ 'c$\|cpp': [
             \ 'github:rip-rip/clang_complete',
             \ 'github:osyo-manga/neocomplcache-clang_complete',
@@ -464,12 +467,13 @@
 " }}}
 
 " Filetypes {{{
+    au BufNewFile,BufRead *.as set filetype=actionscript
+    au BufNewFile,BufRead *.coffee set filetype=coffee
     au BufNewFile,BufRead *.haml set filetype=haml
     au BufNewFile,BufRead *.jade set filetype=jade
     au BufNewFile,BufRead *.sass set filetype=sass
     au BufNewFile,BufRead *.scss set filetype=scss
     au BufNewFile,BufRead *.styl set filetype=stylus
-    au BufNewFile,BufRead *.coffee set filetype=coffee
 " }}}
 
 " Clojure/ClojureScript {{{
