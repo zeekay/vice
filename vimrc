@@ -590,6 +590,11 @@
 " }}}
 
 " Mapping {{{
+    map <Left> :echo "no!"<cr>
+    map <Right> :echo "no!"<cr>
+    map <Up> :echo "no!"<cr>
+    map <Down> :echo "no!"<cr>
+
     " Enter normal mode quickly
     nnoremap ; :
     vnoremap ; :
