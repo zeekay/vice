@@ -594,6 +594,10 @@
     map <Right> :echo "no!"<cr>
     map <Up> :echo "no!"<cr>
     map <Down> :echo "no!"<cr>
+    map OD :echo "no!"<cr>
+    map OC :echo "no!"<cr>
+    map OA :echo "no!"<cr>
+    map OB :echo "no!"<cr>
 
     " Enter normal mode quickly
     nnoremap ; :
