@@ -15,6 +15,7 @@
         \ 'github:tpope/vim-fugitive',
         \ 'github:tpope/vim-repeat',
         \ 'github:zeekay/vim-space',
+        \ 'github:kana/vim-smartinput',
         \ 'hg:https://bitbucket.org/sjl/badwolf',
         \ 'hg:https://bitbucket.org/sjl/gundo.vim',
         \ 'hg:https://bitbucket.org/zeekay/vim-lawrencium',
