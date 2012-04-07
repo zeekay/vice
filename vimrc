@@ -5,6 +5,7 @@
     let addons = [
         \ 'github:MarcWeber/vim-addon-manager',
         \ 'github:juanpabloaj/help.vim',
+        \ 'github:kana/vim-smartinput',
         \ 'github:kien/ctrlp.vim',
         \ 'github:mattn/gist-vim',
         \ 'github:mileszs/ack.vim',
@@ -15,7 +16,6 @@
         \ 'github:tpope/vim-fugitive',
         \ 'github:tpope/vim-repeat',
         \ 'github:zeekay/vim-space',
-        \ 'github:kana/vim-smartinput',
         \ 'hg:https://bitbucket.org/sjl/badwolf',
         \ 'hg:https://bitbucket.org/sjl/gundo.vim',
         \ 'hg:https://bitbucket.org/zeekay/vim-lawrencium',
