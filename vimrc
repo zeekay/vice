@@ -185,8 +185,8 @@
     set wildignore+=*.pyc,*.pyo " Python byte code
     set wildignore+=*.spl " compiled spelling word lists
     set wildignore+=*.sw?  " Vim swap files
-    set wildignore+=*/.git/*,*/.hg/*,*/.svn/* " Version control - Linux/MacOSX
-    set wildignore+=.git\*,.hg\*,.svn\* " Version control - Windows
+    set wildignore+=*/.svn/* " SVN Version control - Linux/MacOSX
+    set wildignore+=.svn\* " SVN Version control - Windows
     set wildignore+=classes " Clojure/leiningen
     set wildignore+=migrations " Django migrations
     set wildignore+=*.zwc,*.zwc.old " ZSH
