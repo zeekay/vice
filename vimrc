@@ -4,6 +4,7 @@
 " Plugins {{{
     let addons = [
         \ 'github:MarcWeber/vim-addon-manager',
+        \ 'github:int3/vim-extradite',
         \ 'github:juanpabloaj/help.vim',
         \ 'github:kana/vim-smartinput',
         \ 'github:kien/ctrlp.vim',
@@ -14,6 +15,7 @@
         \ 'github:tpope/vim-commentary',
         \ 'github:tpope/vim-eunuch',
         \ 'github:tpope/vim-fugitive',
+        \ 'github:tpope/vim-git',
         \ 'github:tpope/vim-repeat',
         \ 'github:zeekay/vim-space',
         \ 'hg:https://bitbucket.org/sjl/badwolf',
@@ -743,8 +745,12 @@
     au FileType qf setl nowrap
     nnoremap ]q :cnext<cr>
     nnoremap [q :cprevious<cr>
+    nnoremap ]Q :clast<cr>
+    nnoremap [Q :cfirst<cr>
     nnoremap ]l :lnext<cr>
     nnoremap [l :lprevious<cr>
+    nnoremap ]L :llast<cr>
+    nnoremap [L :lfirst<cr>
 " }}}
 
 " vim: fdm=marker foldlevel=1 nofoldenable
