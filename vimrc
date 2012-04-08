@@ -18,6 +18,7 @@
         \ 'github:tpope/vim-git',
         \ 'github:tpope/vim-repeat',
         \ 'github:zeekay/vim-space',
+        \ 'github:vim-scripts/AnsiEsc.vim',
         \ 'hg:https://bitbucket.org/sjl/badwolf',
         \ 'hg:https://bitbucket.org/sjl/gundo.vim',
         \ 'hg:https://bitbucket.org/zeekay/vim-lawrencium',
@@ -273,6 +274,10 @@
 " EasyMotion {{{
     let g:EasyMotion_keys = ";,.pyfgcrl/aoeuidhtns-'qjkxbmwvz"
     let g:EasyMotion_leader_key = '<leader>e'
+" }}}
+
+" Extradite {{{
+    let g:extradite_showhash = 1
 " }}}
 
 " Netrw {{{

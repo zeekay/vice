@@ -247,4 +247,10 @@ fun! s:End()
   so ~/.vim/vimrc
   set noreadonly
 endfun
+
+so ~/.vim/addons/AnsiEsc.vim/autoload/AnsiEsc.vim
+so ~/.vim/addons/AnsiEsc.vim/plugin/AnsiEscPlugin.vim
+so ~/.vim/addons/AnsiEsc.vim/plugin/cecutil.vim
+AnsiEsc
+set nowrap
 " vim: sw=2
