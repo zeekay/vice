@@ -6,7 +6,6 @@
         \ 'github:MarcWeber/vim-addon-manager',
         \ 'github:int3/vim-extradite',
         \ 'github:juanpabloaj/help.vim',
-        \ 'github:kana/vim-smartinput',
         \ 'github:kien/ctrlp.vim',
         \ 'github:mattn/gist-vim',
         \ 'github:mileszs/ack.vim',
@@ -601,7 +600,7 @@
     au FileType * au BufWritePre <buffer> :silent! call <SID>StripTrailingWhitespace()`
 " }}}
 
-" Mapping {{{
+" Mappings {{{
     map <Left> :echo "no!"<cr>
     map <Right> :echo "no!"<cr>
     map <Up> :echo "no!"<cr>
@@ -636,6 +635,7 @@
     nnoremap <leader>b "_
     vnoremap <silent> <leader>b "_
     vnoremap p "_dP
+    vnoremap <leader>p "_d*P
 
     " Quit/Write quickly
     nnoremap <leader>q :q<cr>
