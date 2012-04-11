@@ -130,7 +130,7 @@
     let &viminfo="'100,\"100,:100,h,n".expand($VIMHOME.'/tmp/viminfo')
     set undolevels=100
     set history=1000
-    set autochdir
+    " set autochdir
     set backspace=indent,eol,start
     set matchpairs+=<:>
     set shortmess=aoOsTI
@@ -393,6 +393,7 @@
     let g:NERDTreeWinSize = 30
     let g:NERDTreeMouseMode = 3
     let g:NERDTreeCaseSensitiveSort = 1
+    let g:NERDTreeChDirMode = 2
 " }}}
 
 " Tabularize {{{
