@@ -142,7 +142,7 @@
     set termencoding=utf-8
     set ruler
     set linebreak
-    set wrap
+    set nowrap
     set whichwrap=b,s,h,l,<,>,[,]
     set autoread
     set report=0
