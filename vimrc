@@ -209,6 +209,7 @@
 " }}}
 
 " Console {{{
+    set t_Co=256
     colorscheme hornet
     set ttyfast
 " }}}
