@@ -18,6 +18,7 @@
         \ 'github:tpope/vim-repeat',
         \ 'github:zeekay/vim-space',
         \ 'github:vim-scripts/AnsiEsc.vim',
+        \ 'github:kight/CSS3-syntax-file-for-vim',
         \ 'hg:https://bitbucket.org/sjl/badwolf',
         \ 'hg:https://bitbucket.org/sjl/gundo.vim',
         \ 'hg:https://bitbucket.org/zeekay/vim-lawrencium',
@@ -91,7 +92,7 @@
 
     if has('python')
         let ft_addons['coffee\|javascript\|css\|html\|jade\|stylus'] = ['hg:https://bitbucket.org/zeekay/vim-bebop']
-        let ft_addons['python'] += ['hg:https://bitbucket.org/zeekay/vim-python-mode']
+        let ft_addons['python'] += ['hg:https://bitbucket.org/zeekay/vim-python']
     endif
 
     if has('win32') || has('win64')
@@ -476,7 +477,7 @@
 
 " Filetypes {{{
     au BufNewFile,BufRead *.as set filetype=actionscript
-    au BufNewFile,BufRead *.coffee set filetype=coffee
+    au BufNewFile,BufRead Cakefile,*.coffee set filetype=coffee
     au BufNewFile,BufRead *.haml set filetype=haml
     au BufNewFile,BufRead *.jade set filetype=jade
     au BufNewFile,BufRead *.sass set filetype=sass
@@ -717,6 +718,9 @@
     nnoremap <leader>u :GundoToggle<cr>
     nnoremap <leader>t :TagbarToggle<cr>
     nnoremap <leader>n :NERDTreeToggle<cr>
+
+    " Quickly change to directory of open file
+    nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
 
     " Quick edit .vimrc {{{
     nnoremap <silent> <leader>ev :edit ~/.vim/vimrc<cr>
