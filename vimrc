@@ -563,6 +563,13 @@
     endif
 " }}}
 
+" Bebop {{{
+    nnoremap <leader>br BebopReload
+    nnoremap <leader>bR BebopReload!
+    nnoremap <leader>bs BebopSwitch
+    nnoremap <leader>bc BebopConnect
+" }}}
+
 " Markdown {{{
     autocmd BufNewFile,BufRead *.{md,mkd,mkdn,mark*} set filetype=markdown
 " }}}
@@ -634,9 +641,6 @@
     cnoremap <c-k> <Up>
     cnoremap <c-l> <Right>
 
-    " Blackhole register
-    nnoremap <leader>b "_
-    vnoremap <silent> <leader>b "_
     vnoremap p "_dP
     vnoremap <leader>p "_d*P
 
