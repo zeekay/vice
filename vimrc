@@ -563,13 +563,6 @@
     endif
 " }}}
 
-" Bebop {{{
-    nnoremap <leader>br BebopReload
-    nnoremap <leader>bR BebopReload!
-    nnoremap <leader>bs BebopSwitch
-    nnoremap <leader>bc BebopConnect
-" }}}
-
 " Markdown {{{
     autocmd BufNewFile,BufRead *.{md,mkd,mkdn,mark*} set filetype=markdown
 " }}}
