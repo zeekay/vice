@@ -306,9 +306,11 @@
         " this makes tab cycle through all the completion options
         inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
         " <CR>: close popup and save indent.
-        inoremap <expr><CR> neocomplcache#smart_close_popup() . "\<CR>"
+        inoremap <expr><CR> pumvisible() ? neocomplcache#smart_close_popup()."\<CR>" : "\<CR>"
         " <C-h>, <BS>: close popup and delete backword char.
-        inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
+        inoremap <expr><BS> pumvisible() ? neocomplcache#smart_close_popup()."\<C-h>" : "\<C-h>"
+        " <space> just closes the popup
+        inoremap <expr><space> pumvisible() ? neocomplcache#smart_close_popup()."\<space>" : "\<space>"
 
         " we don't want the completion menu to auto pop-up when we are in text files
         let g:neocomplcache_lock_buffer_name_pattern = '\v(\.md|\.txt)'
@@ -357,8 +359,7 @@
 
 " CtrlP {{{
     " let g:ctrlp_user_command = 'find %s -type f' " MacOSX/Linux
-    let g:ctrlp_map = "go"
-    " nnoremap <c-b> :CtrlPBuffer<cr>
+    let g:ctrlp_map = ""
     let g:ctrlp_jump_to_buffer = 2
     let g:ctrlp_working_path_mode = 2
     let g:ctrlp_use_caching = 1
@@ -711,6 +712,7 @@
     " CtrlP mappings
     nnoremap gb :CtrlPBuffer<cr>
     nnoremap go :CtrlP<cr>
+    nnoremap gr :CtrlPMRUFiles<cr>
 
     " Toggle Gundo, tagbar, nerdtree
     nnoremap <leader>u :GundoToggle<cr>
