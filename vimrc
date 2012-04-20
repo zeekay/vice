@@ -57,10 +57,6 @@
         \ 'coffee': [
             \ 'github:kchmck/vim-coffee-script',
             \ ],
-        \ 'css\|html\|jade\|stylus': [
-            \ 'github:rykka/colorv',
-            \ 'github:lvivski/vim-css-color',
-            \ ],
         \ 'haml': [
             \ 'github:tpope/vim-haml',
             \ ],
