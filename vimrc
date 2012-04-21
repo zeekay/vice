@@ -8,6 +8,7 @@
         \ 'github:juanpabloaj/help.vim',
         \ 'github:kien/ctrlp.vim',
         \ 'github:mattn/gist-vim',
+        \ 'github:mattn/webapi-vim',
         \ 'github:mileszs/ack.vim',
         \ 'github:scrooloose/nerdtree',
         \ 'github:scrooloose/syntastic',
