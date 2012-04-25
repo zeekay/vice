@@ -276,7 +276,8 @@
         \ 'FUGITIVE': '∓ ',
         \ 'LAWRENCIUM': '☿ ',
     \ }
-    let g:Powerline_dividers_override = ['', '❯', '', '❮']
+
+    let g:Powerline_dividers_override = ['', '⏐', '', '⏐']
     call Pl#Theme#InsertSegment('lawrencium:branch', 'after', 'fugitive:branch')
 " }}}
 
