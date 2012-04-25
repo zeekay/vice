@@ -51,7 +51,7 @@
             \ 'github:rip-rip/clang_complete',
             \ 'github:osyo-manga/neocomplcache-clang_complete',
             \ ],
-        \ 'css': [
+        \ 'css\|sass\|scss\|stylus': [
             \ 'github:hail2u/vim-css3-syntax',
             \ ],
         \ 'clojure': [
@@ -60,7 +60,7 @@
         \ 'coffee': [
             \ 'github:kchmck/vim-coffee-script',
             \ ],
-        \ 'haml': [
+        \ 'haml\|sass\|scss': [
             \ 'github:tpope/vim-haml',
             \ ],
         \ 'haskell': [
@@ -198,7 +198,7 @@
 " Enable omnicomplete {{{
     au FileType python setlocal omnifunc=pythoncomplete#Complete
     au FileType javascript,coffee setlocal omnifunc=javascriptcomplete#CompleteJS
-    au FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+    au FileType html setlocal omnifunc=htmlcomplete#CompleteTags
     au FileType css setlocal omnifunc=csscomplete#CompleteCSS
     au FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
     au FileType php setlocal omnifunc=phpcomplete#CompletePHP
