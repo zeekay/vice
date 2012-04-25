@@ -252,6 +252,7 @@ so ~/.vim/addons/AnsiEsc.vim/autoload/AnsiEsc.vim
 so ~/.vim/addons/AnsiEsc.vim/plugin/AnsiEscPlugin.vim
 so ~/.vim/addons/AnsiEsc.vim/plugin/cecutil.vim
 AnsiEsc
+
 hi ansiWhite ctermfg=245
 set nowrap
 " vim: sw=2

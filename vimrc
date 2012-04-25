@@ -7,7 +7,6 @@
         \ 'github:int3/vim-extradite',
         \ 'github:juanpabloaj/help.vim',
         \ 'github:kien/ctrlp.vim',
-        \ 'github:kight/CSS3-syntax-file-for-vim',
         \ 'github:mattn/gist-vim',
         \ 'github:mattn/webapi-vim',
         \ 'github:mileszs/ack.vim',
@@ -18,8 +17,8 @@
         \ 'github:tpope/vim-fugitive',
         \ 'github:tpope/vim-git',
         \ 'github:tpope/vim-repeat',
-        \ 'github:vim-scripts/AnsiEsc.vim',
         \ 'github:zeekay/vim-space',
+        \ 'github:vim-scripts/AnsiEsc.vim',
         \ 'hg:https://bitbucket.org/sjl/badwolf',
         \ 'hg:https://bitbucket.org/sjl/gundo.vim',
         \ 'hg:https://bitbucket.org/zeekay/vim-lawrencium',
@@ -33,7 +32,7 @@
     if version > 702
         let addons += [
             \ 'github:Shougo/neocomplcache',
-            \ 'github:majutsushi/tagbar'
+            \ 'github:majutsushi/tagbar',
         \ ]
     endif
 
@@ -51,6 +50,9 @@
         \ 'c$\|cpp': [
             \ 'github:rip-rip/clang_complete',
             \ 'github:osyo-manga/neocomplcache-clang_complete',
+            \ ],
+        \ 'css': [
+            \ 'github:hail2u/vim-css3-syntax',
             \ ],
         \ 'clojure': [
             \ 'hg:https://bitbucket.org/sjl/slimv',
@@ -84,7 +86,7 @@
             \ ],
         \ 'stylus': [
             \ 'github:wavded/vim-stylus',
-            \ ]
+            \ ],
     \ }
 
     if has('python')
@@ -274,7 +276,7 @@
         \ 'FUGITIVE': '∓ ',
         \ 'LAWRENCIUM': '☿ ',
     \ }
-    let g:Powerline_dividers_override = ['', '/', '', '/']
+    let g:Powerline_dividers_override = ['', '❯', '', '❮']
     call Pl#Theme#InsertSegment('lawrencium:branch', 'after', 'fugitive:branch')
 " }}}
 
