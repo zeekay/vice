@@ -240,6 +240,15 @@
         nnoremap <D-9> 9gt
         nnoremap <D-0> 10gt
         nnoremap <D-CR> :set fullscreen!<cr>
+        nnoremap <D-d> :vsplit<cr>
+        nnoremap <D-D> :split<cr>
+        nnoremap <D-[> <c-w>W
+        nnoremap <D-]> <c-w>w
+        nnoremap <D-up> <c-w>k
+        nnoremap <D-down> <c-w>j
+        nnoremap <D-left> <c-w>h
+        nnoremap <D-right> <c-w>l
+
         let $PATH=substitute('~/.cabal/bin:~/Library/Haskell/bin:/usr/local/share/ruby:/usr/local/share/python:~/.zsh/plugins/osx/lib:/usr/sbin:~/.dotfiles/scripts:~/.bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Developer/usr/bin:~/.zsh/plugins/clojure/bin', '\~', $HOME, 'g')
         let $NODE_PATH='/usr/local/lib/jsctags/:'.$NODE_PATH
     endif
@@ -677,24 +686,31 @@
 
     " Wincmd mappings
     inoremap <c-w> <c-o><c-w>
+    nnoremap <leader>w= <c-w>=
+    nnoremap <leader>wH <c-w>H
+    nnoremap <leader>wJ <c-w>J
+    nnoremap <leader>wK <c-w>K
+    nnoremap <leader>wL <c-w>L
+    nnoremap <leader>wP <c-w>P
+    nnoremap <leader>wR <c-w>R
+    nnoremap <leader>wT <c-w>T
+    nnoremap <leader>wb <c-w>b
+    nnoremap <leader>wc <c-w>c
     nnoremap <leader>wh <c-w>h
     nnoremap <leader>wj <c-w>j
     nnoremap <leader>wk <c-w>k
     nnoremap <leader>wl <c-w>l
     nnoremap <leader>wn <c-w>n
+    nnoremap <leader>wo <c-w>o
+    nnoremap <leader>wp <c-w>p
     nnoremap <leader>wq <c-w>q
     nnoremap <leader>wr <c-w>r
+    nnoremap <leader>wr <c-w>r
     nnoremap <leader>ws <c-w>s
+    nnoremap <leader>wt <c-w>t
     nnoremap <leader>wv <c-w>v
     nnoremap <leader>ww <c-w>w
     nnoremap <leader>wx <c-w>x
-    nnoremap <leader>wH <c-w>H
-    nnoremap <leader>wJ <c-w>J
-    nnoremap <leader>wK <c-w>K
-    nnoremap <leader>wL <c-w>L
-    nnoremap <leader>wR <c-w>R
-    nnoremap <leader>wT <c-w>T
-    nnoremap <leader>w= <c-w>=
 
     " Fast window resizing
     map è <c-w><
