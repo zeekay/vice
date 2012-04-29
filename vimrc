@@ -37,9 +37,7 @@
     endif
 
     if version > 702 && has('python')
-        let addons += [
-            \ 'github:rygwdn/ultisnips',
-        \ ]
+        let addons += ['github:rygwdn/ultisnips']
     endif
 
     " filetype-specific addons
@@ -613,14 +611,23 @@
 " }}}
 
 " Mappings {{{
+    " No arrow keys
     map <Left> :echo "no!"<cr>
     map <Right> :echo "no!"<cr>
     map <Up> :echo "no!"<cr>
     map <Down> :echo "no!"<cr>
+    imap <Left> <c-o>:echo "no!"<cr>
+    imap <Right> <c-o>:echo "no!"<cr>
+    imap <Up> <c-o>:echo "no!"<cr>
+    imap <Down> <c-o>:echo "no!"<cr>
     map OD :echo "no!"<cr>
     map OC :echo "no!"<cr>
     map OA :echo "no!"<cr>
     map OB :echo "no!"<cr>
+    imap OD <c-o>:echo "no!"<cr>
+    imap OC <c-o>:echo "no!"<cr>
+    imap OA <c-o>:echo "no!"<cr>
+    imap OB <c-o>:echo "no!"<cr>
 
     " Enter normal mode quickly
     nnoremap ; :
