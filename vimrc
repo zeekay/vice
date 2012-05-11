@@ -162,8 +162,8 @@
     set expandtab
     set smarttab
     set smartindent
-    au FileType javascript,xml,xhtml,html,htmldjango set shiftwidth=4
-    au FileType coffee,haml,stylus,jade set shiftwidth=2
+    au FileType xml,xhtml,html,htmldjango set shiftwidth=4
+    au FileType coffee,haml,stylus,jade,javascript set shiftwidth=2
 " }}}
 
 " Search/Highlight {{{
