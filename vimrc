@@ -51,6 +51,8 @@
             \ ],
         \ 'css\|sass\|scss\|stylus': [
             \ 'github:hail2u/vim-css3-syntax',
+            \ 'github:Rykka/colorv.vim',
+            \ 'github:skammer/vim-css-color',
             \ ],
         \ 'clojure': [
             \ 'hg:https://bitbucket.org/sjl/slimv',
@@ -66,7 +68,7 @@
             \ 'github:ujihisa/neco-ghc',
             \ ],
         \ 'html\|xml': [
-            \ 'github:gregsexton/matchtag',
+            \ 'github:gregsexton/MatchTag',
             \ 'github:othree/html5.vim',
             \ 'github:zeekay/xml.vim',
             \ ],
