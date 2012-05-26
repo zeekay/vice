@@ -245,11 +245,6 @@
         nnoremap <D-D> :split<cr>
         nnoremap <D-[> <c-w>W
         nnoremap <D-]> <c-w>w
-        nnoremap <D-up> <c-w>k
-        nnoremap <D-down> <c-w>j
-        nnoremap <D-left> <c-w>h
-        nnoremap <D-right> <c-w>l
-
         let $PATH=substitute('~/.cabal/bin:~/Library/Haskell/bin:/usr/local/share/ruby:/usr/local/share/python:~/.zsh/plugins/osx/lib:/usr/sbin:~/.dotfiles/scripts:~/.bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Developer/usr/bin:~/.zsh/plugins/clojure/bin', '\~', $HOME, 'g')
         let $NODE_PATH='/usr/local/lib/jsctags/:'.$NODE_PATH
     endif
@@ -707,10 +702,12 @@
     nnoremap <leader>wT <c-w>T
     nnoremap <leader>wb <c-w>b
     nnoremap <leader>wc <c-w>c
-    nnoremap <leader>wh <c-w>h
-    nnoremap <leader>wj <c-w>j
-    nnoremap <leader>wk <c-w>k
-    nnoremap <leader>wl <c-w>l
+
+    nnoremap <m-h> <c-w>h
+    nnoremap <m-j> <c-w>j
+    nnoremap <m-k> <c-w>k
+    nnoremap <m-l> <c-w>l
+
     nnoremap <leader>wn <c-w>n
     nnoremap <leader>wo <c-w>o
     nnoremap <leader>wp <c-w>p
@@ -723,15 +720,15 @@
     nnoremap <leader>ww <c-w>w
     nnoremap <leader>wx <c-w>x
 
-    " Fast window resizing
-    map è <c-w><
-    map ê <c-w>+
-    map ë <c-w>-
-    map ì <c-w>>
-    map <c-up> <c-w>-
-    map <c-down> <c-w>+
-    map <c-left> <c-w><
-    map <c-right> <c-w>>
+    " Fast window moving/resizing
+    map è <c-w>h
+    map ê <c-w>j
+    map ë <c-w>k
+    map ì <c-w>l
+    map È <c-w>H
+    map Ê <c-w>J
+    map Ë <c-w>K
+    map Ì <c-w>L
 
     " CtrlP mappings
     nnoremap gb :CtrlPBuffer<cr>
