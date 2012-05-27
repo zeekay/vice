@@ -762,6 +762,8 @@
 " }}}
 
 " Diff {{{
+    " Automatically show diff in git window
+    autocmd FileType gitcommit DiffGitCached -p | wincmd L
     set diffopt+=iwhite,context:3
     if &diff
         nmap u u :diffu<cr>
