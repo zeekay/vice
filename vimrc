@@ -693,6 +693,10 @@
     " Wincmd mappings
     inoremap <c-w> <c-o><c-w>
     nnoremap <leader>w= <c-w>=
+    nnoremap <leader>wh <c-w>h
+    nnoremap <leader>wj <c-w>j
+    nnoremap <leader>wk <c-w>k
+    nnoremap <leader>wl <c-w>l
     nnoremap <leader>wH <c-w>H
     nnoremap <leader>wJ <c-w>J
     nnoremap <leader>wK <c-w>K
@@ -702,12 +706,6 @@
     nnoremap <leader>wT <c-w>T
     nnoremap <leader>wb <c-w>b
     nnoremap <leader>wc <c-w>c
-
-    nnoremap <m-h> <c-w>h
-    nnoremap <m-j> <c-w>j
-    nnoremap <m-k> <c-w>k
-    nnoremap <m-l> <c-w>l
-
     nnoremap <leader>wn <c-w>n
     nnoremap <leader>wo <c-w>o
     nnoremap <leader>wp <c-w>p
