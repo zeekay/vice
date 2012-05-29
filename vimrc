@@ -718,7 +718,15 @@
     nnoremap <leader>ww <c-w>w
     nnoremap <leader>wx <c-w>x
 
-    " Fast window moving/resizing
+    " Fast window moving/resizing with alt/meta + h/j/k/l
+    map h <c-w>h
+    map j <c-w>j
+    map k <c-w>k
+    map l <c-w>l
+    map H <c-w>H
+    map J <c-w>J
+    map K <c-w>K
+    map L <c-w>L
     map è <c-w>h
     map ê <c-w>j
     map ë <c-w>k
