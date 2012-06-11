@@ -12,11 +12,12 @@
         \ 'github:mileszs/ack.vim',
         \ 'github:scrooloose/nerdtree',
         \ 'github:scrooloose/syntastic',
+        \ 'github:tpope/vim-repeat',
         \ 'github:tpope/vim-commentary',
         \ 'github:tpope/vim-eunuch',
         \ 'github:tpope/vim-fugitive',
         \ 'github:tpope/vim-git',
-        \ 'github:tpope/vim-repeat',
+        \ 'github:tpope/vim-speeddating',
         \ 'github:vim-scripts/AnsiEsc.vim',
         \ 'github:zeekay/vim-space',
         \ 'hg:https://bitbucket.org/sjl/badwolf',
@@ -152,6 +153,7 @@
     set switchbuf=usetab
     set splitright
     set nomore
+    set nrformats=hex,octal,alpha
     " set clipboard=unnamed,unnamedplus
     " set foldminlines=99999
     silent! set breakindent
@@ -164,8 +166,8 @@
     set expandtab
     set smarttab
     set smartindent
-    au FileType xml,xhtml,html,htmldjango set shiftwidth=4
-    au FileType coffee,haml,stylus,jade,javascript set shiftwidth=2
+    au FileType xml,xhtml,htmldjango set shiftwidth=4
+    au FileType html,coffee,haml,stylus,jade,javascript set shiftwidth=2
 " }}}
 
 " Search/Highlight {{{
@@ -473,6 +475,10 @@
     let g:syntastic_javascript_jshint_conf = $VIMHOME.'/jshint.json'
     let g:syntastic_enable_highlighting = 0
     let g:syntastic_stl_format = '⚡ %E{Err: %fe #%e}%B{, }%W{Warn: %fw #%w} ⚡'
+" }}}
+
+" Bebop {{{
+  let g:bebop_enabled = 0
 " }}}
 
 " Eclim {{{
@@ -790,6 +796,10 @@
     nnoremap [l :lprevious<cr>
     nnoremap ]L :llast<cr>
     nnoremap [L :lfirst<cr>
+" }}}
+
+" Hax {{{
+    au FileChangedRO * set noro
 " }}}
 
 " vim: fdm=marker foldlevel=1 nofoldenable
