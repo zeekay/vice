@@ -699,6 +699,10 @@
     " Wincmd mappings
     inoremap <c-w> <c-o><c-w>
     nnoremap <leader>w= <c-w>=
+    nnoremap <leader>w+ <c-w>+
+    nnoremap <leader>w- <c-w>-
+    nnoremap <leader>w> <c-w>>
+    nnoremap <leader>w< <c-w><
     nnoremap <leader>wh <c-w>h
     nnoremap <leader>wj <c-w>j
     nnoremap <leader>wk <c-w>k
@@ -741,6 +745,10 @@
     map Ê <c-w>J
     map Ë <c-w>K
     map Ì <c-w>L
+    nnoremap <c-up> <c-w>+
+    nnoremap <c-down> <c-w>-
+    nnoremap <c-left> <c-w>>
+    nnoremap <c-right> <c-w><
 
     " CtrlP mappings
     nnoremap gb :CtrlPBuffer<cr>
