@@ -615,22 +615,22 @@
 
 " Mappings {{{
     " No arrow keys
-    map <Left> :echo "no!"<cr>
-    map <Right> :echo "no!"<cr>
-    map <Up> :echo "no!"<cr>
-    map <Down> :echo "no!"<cr>
-    imap <Left> <c-o>:echo "no!"<cr>
-    imap <Right> <c-o>:echo "no!"<cr>
-    imap <Up> <c-o>:echo "no!"<cr>
-    imap <Down> <c-o>:echo "no!"<cr>
-    map OD :echo "no!"<cr>
-    map OC :echo "no!"<cr>
-    map OA :echo "no!"<cr>
-    map OB :echo "no!"<cr>
-    imap OD <c-o>:echo "no!"<cr>
-    imap OC <c-o>:echo "no!"<cr>
-    imap OA <c-o>:echo "no!"<cr>
-    imap OB <c-o>:echo "no!"<cr>
+    map <Left> :echo<cr>
+    map <Right> :echo<cr>
+    map <Up> :echo<cr>
+    map <Down> :echo<cr>
+    imap <Left> <c-o>:echo<cr>
+    imap <Right> <c-o>:echo<cr>
+    imap <Up> <c-o>:echo<cr>
+    imap <Down> <c-o>:echo<cr>
+    map OD :echo<cr>
+    map OC :echo<cr>
+    map OA :echo<cr>
+    map OB :echo"<cr>
+    imap OD <c-o>:echo<cr>
+    imap OC <c-o>:echo<cr>
+    imap OA <c-o>:echo<cr>
+    imap OB <c-o>:echo<cr>
 
     " Enter normal mode quickly
     nnoremap ; :
