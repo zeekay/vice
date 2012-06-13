@@ -31,10 +31,11 @@
     let addons += ['github:Lokaltog/vim-powerline']
 
     if version > 702
-        let addons += [
-            \ 'github:Shougo/neocomplcache',
-            \ 'github:majutsushi/tagbar',
-        \ ]
+        let addons += ['github:Shougo/neocomplcache']
+    endif
+
+    if version > 702 && executable('ctags')
+        let addons += ['github:majutsushi/tagbar']
     endif
 
     if version > 702 && has('python')
@@ -413,7 +414,6 @@
 " Tagbar {{{
     let g:tagbar_autofocus = 1
     let g:tagbar_compact = 1
-    let g:tagbar_ctags_bin = 'ctags'
     let g:tagbar_expand = 0
     let g:tagbar_iconchars = ['▸','▾']
     let g:tagbar_singleclick = 1
