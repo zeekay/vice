@@ -232,7 +232,7 @@
         let g:macvim_hig_shift_movement = 1
         let g:macvim_skip_cmd_opt_movement = 1
         set guifont=Inconsolata:h14
-        set linespace=1
+        " set linespace=1
         set transparency=3
         nnoremap <D-1> 1gt
         nnoremap <D-2> 2gt
@@ -370,9 +370,13 @@
     let g:ctrlp_jump_to_buffer = 2
     let g:ctrlp_working_path_mode = 2
     let g:ctrlp_use_caching = 1
-    let g:ctrlp_clear_cache_on_exit = 1
-    let g:ctrlp_user_command = ['.git/', 'cd %s && git ls-files']
-    let g:ctrlp_user_command = ['.hg/', 'hg --cwd %s locate --fullpath -I .']
+    let g:ctrlp_clear_cache_on_exit = 0
+    let g:ctrlp_user_command = {
+	\ 'types': {
+		\ 1: ['.git/', 'cd %s && git ls-files'],
+		\ 2: ['.hg/', 'hg --cwd %s locate -I .'],
+		\ }
+	\ }
     let g:ctrlp_open_new_file = 1
     let g:ctrlp_cache_dir = expand($VIMHOME."/tmp/ctrlp_cache")
     let g:ctrlp_open_multi = '1t'
