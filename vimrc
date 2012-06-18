@@ -48,7 +48,7 @@
             \ 'github:endel/actionscript.vim',
             \ ],
         \ 'c$\|cpp': [
-            \ 'github:rip-rip/clang_complete',
+            \ 'github:Rip-Rip/clang_complete',
             \ 'github:osyo-manga/neocomplcache-clang_complete',
             \ ],
         \ 'css\|sass\|scss\|stylus': [
