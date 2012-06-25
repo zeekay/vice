@@ -39,7 +39,7 @@
     endif
 
     if version > 702 && has('python')
-        let addons += ['github:rygwdn/ultisnips']
+        let addons += ['github:SirVer/ultisnips']
     endif
 
     " filetype-specific addons
