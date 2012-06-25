@@ -56,6 +56,7 @@
             \ 'github:skammer/vim-css-color',
             \ ],
         \ 'clojure': [
+            \ 'github:zeekay/VimClojure-custom',
             \ 'github:vim-scripts/VimClojure',
             \ ],
         \ 'coffee': [
@@ -501,6 +502,7 @@
 " }}}
 
 " Clojure {{{
+    au BufNewFile,BufRead *.clj set filetype=clojure
     let g:vimclojure#SplitPos = "left"
     let g:vimclojure#HighlightBuiltins = 1
     let g:vimclojure#HighlightContrib = 1
