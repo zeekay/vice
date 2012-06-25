@@ -2,4 +2,14 @@
 
 echo "Updating vim plugins"
 echo
-vim -c "for a in values(ft_addons) | silent! call vam#install#Update(a) | endfor" -c "silent! UpdateActivatedAddons" -c "q"
+for dir in `ls ~/.vim/addons/`; do
+    cd ~/.vim/addons/$dir
+
+    if [ -e '.git' ]; then
+        git pull
+    fi
+
+    if [ -e '.hg' ]; then
+        hg pull && hg up
+    fi
+done
