@@ -20,11 +20,10 @@
         \ 'github:tpope/vim-speeddating',
         \ 'github:vim-scripts/AnsiEsc.vim',
         \ 'github:zeekay/vim-space',
-        \ 'hg:https://bitbucket.org/sjl/badwolf',
-        \ 'hg:https://bitbucket.org/sjl/gundo.vim',
-        \ 'hg:https://bitbucket.org/zeekay/vim-lawrencium',
-        \ 'hg:https://bitbucket.org/zeekay/vim-powerline-custom',
-        \ 'hg:https://bitbucket.org/zeekay/vimtips',
+        \ 'github:sjl/gundo.vim',
+        \ 'github:zeekay/vim-lawrencium',
+        \ 'github:zeekay/vim-powerline-custom',
+        \ 'github:zeekay/vimtips',
     \ ]
 
     " Ensure vim-powerline-custom is sourced before vim-powerline
@@ -57,7 +56,7 @@
             \ 'github:skammer/vim-css-color',
             \ ],
         \ 'clojure': [
-            \ 'hg:https://bitbucket.org/sjl/slimv',
+            \ 'github:vim-scripts/VimClojure',
             \ ],
         \ 'coffee': [
             \ 'github:kchmck/vim-coffee-script',
@@ -66,7 +65,7 @@
             \ 'github:tpope/vim-haml',
             \ ],
         \ 'haskell': [
-            \ 'hg:https://bitbucket.org/zeekay/haskellmode-vim',
+            \ 'github:zeekay/haskellmode-vim',
             \ 'github:ujihisa/neco-ghc',
             \ ],
         \ 'html\|xml': [
@@ -85,7 +84,7 @@
             \ 'github:alfredodeza/chapa.vim',
             \ ],
         \ 'python': [
-            \ 'hg:https://bitbucket.org/zeekay/python.vim',
+            \ 'github:zeekay/python.vim',
             \ ],
         \ 'stylus': [
             \ 'github:wavded/vim-stylus',
@@ -93,8 +92,8 @@
     \ }
 
     if has('python')
-        let ft_addons['coffee\|javascript\|css\|html\|jade\|stylus'] = ['hg:https://bitbucket.org/zeekay/vim-bebop']
-        let ft_addons['python'] += ['hg:https://bitbucket.org/zeekay/vim-python']
+        let ft_addons['coffee\|javascript\|css\|html\|jade\|stylus'] = ['github:zeekay/vim-bebop']
+        let ft_addons['python'] += ['github:zeekay/vim-python']
     endif
 
     if has('win32') || has('win64')
@@ -501,55 +500,16 @@
     au BufNewFile,BufRead *.styl set filetype=stylus
 " }}}
 
-" Clojure/ClojureScript {{{
-    augroup ft_clojure
-        au!
-
-        au FileType clojure compiler clojure
-        au FileType clojure setlocal report=100000
-
-        au BufWinEnter SLIMV.REPL setlocal winfixwidth nolist
-        au BufNewFile,BufReadPost SLIMV.REPL nnoremap <buffer> A GA
-        au BufNewFile,BufReadPost SLIMV.REPL nnoremap <buffer> <localleader>R :emenu REPL.<Tab>
-
-        " Fix the eval mappings.
-        au FileType clojure nnoremap <buffer> <localleader>ef :<c-u>call SlimvEvalExp()<cr>
-        au FileType clojure nnoremap <buffer> <localleader>ee :<c-u>call SlimvEvalDefun()<cr>
-
-        " And the inspect mapping.
-        au FileType clojure nmap <buffer> \i \di
-
-        " Indent top-level form.
-        au FileType clojure nmap <buffer> <localleader>= v((((((((((((=%
-    augroup END
-
-    augroup ft_clojurescript
-        au!
-        au BufNewFile,BufRead *.cljs set filetype=clojurescript
-    augroup END
-
-    " VimClojure {{{
-        let g:vimclojure#SplitPos = "left"
-        let g:vimclojure#HighlightBuiltins = 1
-        let g:vimclojure#HighlightContrib = 1
-        let g:vimclojure#ParenRainbow = 1
-        let g:vimclojure#DynamicHighlighting = 1
-        if executable('ng')
-            let g:vimclojure#WantNailgun = 1
-        endif
-    " }}}
-
-    " SlimV {{{
-        let g:slimv_leader = '\'
-        let g:slimv_keybindings = 2
-        let g:slimv_repl_name = 'SLIMV.REPL'
-        let g:slimv_repl_split = 4
-        let g:slimv_repl_syntax = 1
-        let g:slimv_repl_wrap = 0
-
-        " Use a swank command that works, and doesn't require new app windows.
-        let g:slimv_swank_clojure = '!dtach -n /tmp/dtach-swank.sock -r winch lein swank'
-    " }}}
+" Clojure {{{
+    let g:vimclojure#SplitPos = "left"
+    let g:vimclojure#HighlightBuiltins = 1
+    let g:vimclojure#HighlightContrib = 1
+    let g:vimclojure#ParenRainbow = 1
+    let g:vimclojure#DynamicHighlighting = 1
+    if executable('ng')
+        let g:vimclojure#WantNailgun = 1
+    endif
+" }}}
 
 " }}}
 
