@@ -1,4 +1,4 @@
-My vim setup. Tried & tested on Linux, Mac OSX, FreeBSD, Windows, and Cygwin. I recommend Vim 7.3, but it should work with any version of Vim 7.
+My vim config. Tested on Linux, Mac OSX, FreeBSD, Windows, and Cygwin. Designed for Vim 7.3, but should work with older versions of Vim as well.
 
 Highlights
 ----------
