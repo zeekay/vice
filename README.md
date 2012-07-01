@@ -12,7 +12,9 @@ Highlights
 
 Install
 -------
-Clone this repository and run `setup.sh`.
+Clone and run `setup.sh` or install as part of [ellipsis](https://github.com/zeekay/ellipsis). One-liner for the lazy:
+
+    git clone https://github.com/zeekay/dot-vim ~/.vim && ~/.vim/setup.sh
 
 Optional Requirements
 ---------------------
