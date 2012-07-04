@@ -22,11 +22,13 @@ vnoremap G G$
 nnoremap ; :
 vnoremap ; :
 nnoremap h h
-" set noloadplugins
+set noloadplugins
 let vimpager_disable_x11 = 1
 let vimpager_scrolloff = 0
-" Escape Ansi colors
 function s:Escape()
+    so ~/.vim/addons/AnsiEsc.vim/plugin/cecutil.vim
+    so ~/.vim/addons/AnsiEsc.vim/plugin/AnsiEscPlugin.vim
+    so ~/.vim/addons/AnsiEsc.vim/autoload/AnsiEsc.vim
     AnsiEsc
     AnsiEsc
 endfunction
