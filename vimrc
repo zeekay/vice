@@ -12,6 +12,7 @@
         \ 'github:mileszs/ack.vim',
         \ 'github:scrooloose/nerdtree',
         \ 'github:scrooloose/syntastic',
+        \ 'github:sjl/gundo.vim',
         \ 'github:tpope/vim-commentary',
         \ 'github:tpope/vim-eunuch',
         \ 'github:tpope/vim-fugitive',
@@ -19,10 +20,9 @@
         \ 'github:tpope/vim-repeat',
         \ 'github:tpope/vim-speeddating',
         \ 'github:vim-scripts/AnsiEsc.vim',
-        \ 'github:zeekay/vim-space',
-        \ 'github:sjl/gundo.vim',
         \ 'github:zeekay/vim-lawrencium',
         \ 'github:zeekay/vim-powerline-custom',
+        \ 'github:zeekay/vim-space',
         \ 'github:zeekay/vimtips',
     \ ]
 
