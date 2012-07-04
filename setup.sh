@@ -44,5 +44,5 @@ echo 'For Clojure, Haskell, Javascript and Python I recommend:'
 echo
 echo 'lein plugin install org.clojars.ibdknox/lein-nailgun 1.1.1'
 echo 'cabal install ghc-mod'
-echo 'npm install -g jslint'
+echo 'npm install -g jhlint'
 echo 'pip install flake8'
