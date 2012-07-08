@@ -6,6 +6,10 @@
     // relax
     "eqnull": true,
     "evil": true,
+    "laxcomma": true
+    "loopfunc": true,
+    "globalstrict": true,
+    "strict": false,
 
     // globals
     "browser": true,
