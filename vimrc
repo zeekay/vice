@@ -5,6 +5,7 @@
     let addons = [
         \ 'github:MarcWeber/vim-addon-manager',
         \ 'github:Raimondi/delimitMate',
+        \ 'github:int3/vim-extradite',
         \ 'github:juanpabloaj/help.vim',
         \ 'github:kien/ctrlp.vim',
         \ 'github:scrooloose/syntastic',
@@ -32,7 +33,6 @@
     " These plugins are sourced lazily when the commands are used"
     let lazy_addons = {
         \ 'Ack': ['github:mileszs/ack.vim'],
-        \ 'Extradite': ['github:int3/vim-extradite'],
         \ 'Gist': ['github:mattn/gist-vim', 'github:mattn/webapi-vim'],
         \ 'GundoToggle': ['github:sjl/gundo.vim'],
         \ 'NERDTreeToggle': ['github:scrooloose/nerdtree'],
