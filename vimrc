@@ -4,26 +4,18 @@
 " Plugins {{{
     let addons = [
         \ 'github:MarcWeber/vim-addon-manager',
-        \ 'github:int3/vim-extradite',
+        \ 'github:Raimondi/delimitMate',
         \ 'github:juanpabloaj/help.vim',
         \ 'github:kien/ctrlp.vim',
-        \ 'github:mattn/gist-vim',
-        \ 'github:mattn/webapi-vim',
-        \ 'github:mileszs/ack.vim',
-        \ 'github:scrooloose/nerdtree',
         \ 'github:scrooloose/syntastic',
-        \ 'github:sjl/gundo.vim',
         \ 'github:tpope/vim-commentary',
         \ 'github:tpope/vim-eunuch',
         \ 'github:tpope/vim-fugitive',
         \ 'github:tpope/vim-git',
         \ 'github:tpope/vim-repeat',
-        \ 'github:tpope/vim-speeddating',
-        \ 'github:vim-scripts/AnsiEsc.vim',
-        \ 'github:zeekay/vim-lawrencium',
+        \ 'github:tpope/vim-surround',
         \ 'github:zeekay/vim-powerline-custom',
         \ 'github:zeekay/vim-space',
-        \ 'github:zeekay/vimtips',
     \ ]
 
     " Ensure vim-powerline-custom is sourced before vim-powerline
@@ -33,12 +25,21 @@
         let addons += ['github:Shougo/neocomplcache']
     endif
 
-    if version > 702 && executable('ctags')
-        let addons += ['github:majutsushi/tagbar']
-    endif
+    " if version > 702 && has('python')
+    "     let addons += ['github:SirVer/ultisnips']
+    " endif
 
-    if version > 702 && has('python')
-        let addons += ['github:SirVer/ultisnips']
+    " These plugins are sourced lazily when the commands are used"
+    let lazy_addons = {
+        \ 'Ack': ['github:mileszs/ack.vim'],
+        \ 'Extradite': ['github:int3/vim-extradite'],
+        \ 'Gist': ['github:mattn/gist-vim', 'github:mattn/webapi-vim'],
+        \ 'GundoToggle': ['github:sjl/gundo.vim'],
+        \ 'NERDTreeToggle': ['github:scrooloose/nerdtree'],
+    \ }
+
+    if version > 702 && executable('ctags')
+        let lazy_addons.TagbarToggle = ['github:majutsushi/tagbar']
     endif
 
     " filetype-specific addons
@@ -84,6 +85,9 @@
         \ 'javascript\|python': [
             \ 'github:alfredodeza/chapa.vim',
             \ ],
+        \ 'ruby': [
+            \ 'github:tpope/vim-endwise',
+            \ ],
         \ 'python': [
             \ 'github:zeekay/python.vim',
             \ ],
@@ -117,6 +121,15 @@
 
     call vam#ActivateAddons(addons, {'auto_install': 1})
     au FileType * call ActivateFtAddons(ft_addons, expand('<amatch>'))
+
+    func! s:LazyInit(name, plugins, bang, ...)
+        call vam#ActivateAddons(a:plugins, {'auto_install': 1})
+        exe a:name.a:bang.' '.join(a:000)
+    endfunc
+
+    for [key, val] in items(lazy_addons)
+        exe 'command -nargs=* -bang '.key.' call s:LazyInit("'.key.'", '.string(val).', "<bang>", <f-args>)'
+    endfor
 " }}}
 
 " Basic/General Configuration {{{
