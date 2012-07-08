@@ -16,6 +16,36 @@ Clone and run `setup.sh` or install as part of [ellipsis](https://github.com/zee
 
     git clone https://github.com/zeekay/dot-vim ~/.vim && ~/.vim/setup.sh
 
+Configuration
+-------------
+I recommend keeping all local customizations in `~/.vimrc` and sourcing my vimrc from there. You can override the plugins used by setting `g:addons`, `g:ft_addons` and `g:lazy_addons`.
+A custom `~/.vimrc` might look something like this:
+
+```vimscript
+" Enable various addons
+let g:addons = [
+    \ 'github:MarcWeber/vim-addon-manager',
+    \ 'github:Raimondi/delimitMate',
+    \ 'github:int3/vim-extradite',
+    \ 'github:juanpabloaj/help.vim',
+    \ 'github:kien/ctrlp.vim',
+    \ 'github:scrooloose/syntastic',
+    \ 'github:tpope/vim-commentary',
+    \ 'github:tpope/vim-eunuch',
+    \ 'github:tpope/vim-fugitive',
+    \ 'github:tpope/vim-git',
+    \ 'github:tpope/vim-repeat',
+    \ 'github:tpope/vim-surround',
+\ ]
+
+" Disable file-type addons and lazy addons.
+let g:ft_addons = {}
+let g:lazy_addons = {}
+
+" Load rest of vimrc
+so ~/.vim/vimrc
+```
+
 Optional Requirements
 ---------------------
 Not strictly required but for a good experience highly recommended:
