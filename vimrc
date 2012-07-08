@@ -777,8 +777,4 @@
     au FileChangedRO * set noro
 " }}}
 
-" Source localrc if it exists
-if filereadable(expand('~/.vim/localrc'))
-    so ~/.vim/localrc
-endif
 " vim: fdm=marker foldlevel=1 nofoldenable
