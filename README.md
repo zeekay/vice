@@ -21,7 +21,7 @@ Configuration
 I recommend keeping all local customizations in `~/.vimrc` and sourcing my vimrc from there. You can override the plugins used by setting `g:addons`, `g:ft_addons` and `g:lazy_addons`.
 A custom `~/.vimrc` might look something like this:
 
-```vimscript
+```vim
 " Enable various addons
 let g:addons = [
     \ 'github:MarcWeber/vim-addon-manager',
