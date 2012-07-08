@@ -2,103 +2,109 @@
 " Source: bitbucket.org/zeekay/dot-vim || github.com/zeekay/dot-vim
 
 " Plugins {{{
-    let addons = [
-        \ 'github:MarcWeber/vim-addon-manager',
-        \ 'github:Raimondi/delimitMate',
-        \ 'github:int3/vim-extradite',
-        \ 'github:juanpabloaj/help.vim',
-        \ 'github:kien/ctrlp.vim',
-        \ 'github:scrooloose/syntastic',
-        \ 'github:tpope/vim-commentary',
-        \ 'github:tpope/vim-eunuch',
-        \ 'github:tpope/vim-fugitive',
-        \ 'github:tpope/vim-git',
-        \ 'github:tpope/vim-repeat',
-        \ 'github:tpope/vim-surround',
-        \ 'github:zeekay/vim-powerline-custom',
-        \ 'github:zeekay/vim-space',
-    \ ]
+    if !exists('g:addons')
+        let g:addons = [
+            \ 'github:MarcWeber/vim-addon-manager',
+            \ 'github:Raimondi/delimitMate',
+            \ 'github:int3/vim-extradite',
+            \ 'github:juanpabloaj/help.vim',
+            \ 'github:kien/ctrlp.vim',
+            \ 'github:scrooloose/syntastic',
+            \ 'github:tpope/vim-commentary',
+            \ 'github:tpope/vim-eunuch',
+            \ 'github:tpope/vim-fugitive',
+            \ 'github:tpope/vim-git',
+            \ 'github:tpope/vim-repeat',
+            \ 'github:tpope/vim-surround',
+            \ 'github:zeekay/vim-powerline-custom',
+            \ 'github:zeekay/vim-space',
+        \ ]
 
-    " Ensure vim-powerline-custom is sourced before vim-powerline
-    let addons += ['github:Lokaltog/vim-powerline']
+        " Ensure vim-powerline-custom is sourced before vim-powerline
+        let g:addons += ['github:Lokaltog/vim-powerline']
 
-    if version > 702
-        let addons += ['github:Shougo/neocomplcache']
+        if version > 702
+            let g:addons += ['github:Shougo/neocomplcache']
+        endif
+
+        " if version > 702 && has('python')
+        "     let g:addons += ['github:SirVer/ultisnips']
+        " endif
     endif
 
-    " if version > 702 && has('python')
-    "     let addons += ['github:SirVer/ultisnips']
-    " endif
+    if !exists('g:lazy_addons')
+        " These plugins are sourced lazily when the commands are used"
+        let g:lazy_addons = {
+            \ 'Ack': ['github:mileszs/ack.vim'],
+            \ 'Gist': ['github:mattn/gist-vim', 'github:mattn/webapi-vim'],
+            \ 'GundoToggle': ['github:sjl/gundo.vim'],
+            \ 'NERDTreeToggle': ['github:scrooloose/nerdtree'],
+        \ }
 
-    " These plugins are sourced lazily when the commands are used"
-    let lazy_addons = {
-        \ 'Ack': ['github:mileszs/ack.vim'],
-        \ 'Gist': ['github:mattn/gist-vim', 'github:mattn/webapi-vim'],
-        \ 'GundoToggle': ['github:sjl/gundo.vim'],
-        \ 'NERDTreeToggle': ['github:scrooloose/nerdtree'],
-    \ }
-
-    if version > 702 && executable('ctags')
-        let lazy_addons.TagbarToggle = ['github:majutsushi/tagbar']
+        if version > 702 && executable('ctags')
+            let g:lazy_addons.TagbarToggle = ['github:majutsushi/tagbar']
+        endif
     endif
 
-    " filetype-specific addons
-    let ft_addons = {
-        \ 'actionscript': [
-            \ 'github:endel/actionscript.vim',
-            \ ],
-        \ 'c$\|cpp': [
-            \ 'github:Rip-Rip/clang_complete',
-            \ 'github:osyo-manga/neocomplcache-clang_complete',
-            \ ],
-        \ 'css\|sass\|scss\|stylus': [
-            \ 'github:hail2u/vim-css3-syntax',
-            \ 'github:Rykka/colorv.vim',
-            \ 'github:skammer/vim-css-color',
-            \ ],
-        \ 'clojure': [
-            \ 'github:zeekay/VimClojure-custom',
-            \ 'github:vim-scripts/VimClojure',
-            \ ],
-        \ 'coffee': [
-            \ 'github:kchmck/vim-coffee-script',
-            \ ],
-        \ 'haml\|sass\|scss': [
-            \ 'github:tpope/vim-haml',
-            \ ],
-        \ 'haskell': [
-            \ 'github:zeekay/haskellmode-vim',
-            \ 'github:ujihisa/neco-ghc',
-            \ ],
-        \ 'html\|xml': [
-            \ 'github:gregsexton/MatchTag',
-            \ 'github:othree/html5.vim',
-            \ 'github:zeekay/xml.vim',
-            \ ],
-        \ 'jade': [
-            \ 'github:digitaltoad/vim-jade',
-            \ ],
-        \ 'javascript': [
-            \ 'github:pangloss/vim-javascript',
-            \ 'github:zeekay/vim-js2coffee',
-            \ ],
-        \ 'javascript\|python': [
-            \ 'github:alfredodeza/chapa.vim',
-            \ ],
-        \ 'ruby': [
-            \ 'github:tpope/vim-endwise',
-            \ ],
-        \ 'python': [
-            \ 'github:zeekay/python.vim',
-            \ ],
-        \ 'stylus': [
-            \ 'github:wavded/vim-stylus',
-            \ ],
-    \ }
+    if !exists('g:ft_addons')
+        " filetype-specific addons
+        let g:ft_addons = {
+            \ 'actionscript': [
+                \ 'github:endel/actionscript.vim',
+                \ ],
+            \ 'c$\|cpp': [
+                \ 'github:Rip-Rip/clang_complete',
+                \ 'github:osyo-manga/neocomplcache-clang_complete',
+                \ ],
+            \ 'css\|sass\|scss\|stylus': [
+                \ 'github:hail2u/vim-css3-syntax',
+                \ 'github:Rykka/colorv.vim',
+                \ 'github:skammer/vim-css-color',
+                \ ],
+            \ 'clojure': [
+                \ 'github:zeekay/VimClojure-custom',
+                \ 'github:vim-scripts/VimClojure',
+                \ ],
+            \ 'coffee': [
+                \ 'github:kchmck/vim-coffee-script',
+                \ ],
+            \ 'haml\|sass\|scss': [
+                \ 'github:tpope/vim-haml',
+                \ ],
+            \ 'haskell': [
+                \ 'github:zeekay/haskellmode-vim',
+                \ 'github:ujihisa/neco-ghc',
+                \ ],
+            \ 'html\|xml': [
+                \ 'github:gregsexton/MatchTag',
+                \ 'github:othree/html5.vim',
+                \ 'github:zeekay/xml.vim',
+                \ ],
+            \ 'jade': [
+                \ 'github:digitaltoad/vim-jade',
+                \ ],
+            \ 'javascript': [
+                \ 'github:pangloss/vim-javascript',
+                \ 'github:zeekay/vim-js2coffee',
+                \ ],
+            \ 'javascript\|python': [
+                \ 'github:alfredodeza/chapa.vim',
+                \ ],
+            \ 'ruby': [
+                \ 'github:tpope/vim-endwise',
+                \ ],
+            \ 'python': [
+                \ 'github:zeekay/python.vim',
+                \ ],
+            \ 'stylus': [
+                \ 'github:wavded/vim-stylus',
+                \ ],
+        \ }
 
-    if has('python')
-        let ft_addons['coffee\|javascript\|css\|html\|jade\|stylus'] = ['github:zeekay/vim-bebop']
-        let ft_addons['python'] += ['github:zeekay/vim-python']
+        if has('python')
+            let g:ft_addons['coffee\|javascript\|css\|html\|jade\|stylus'] = ['github:zeekay/vim-bebop']
+            let g:ft_addons['python'] += ['github:zeekay/vim-python']
+        endif
     endif
 
     if has('win32') || has('win64')
@@ -119,15 +125,15 @@
         endfor
     endf
 
-    call vam#ActivateAddons(addons, {'auto_install': 1})
-    au FileType * call ActivateFtAddons(ft_addons, expand('<amatch>'))
+    call vam#ActivateAddons(g:addons, {'auto_install': 1})
+    au FileType * call ActivateFtAddons(g:ft_addons, expand('<amatch>'))
 
     func! s:LazyInit(name, plugins, bang, ...)
         call vam#ActivateAddons(a:plugins, {'auto_install': 1})
         exe a:name.a:bang.' '.join(a:000)
     endfunc
 
-    for [key, val] in items(lazy_addons)
+    for [key, val] in items(g:lazy_addons)
         exe 'command -nargs=* -bang '.key.' call s:LazyInit("'.key.'", '.string(val).', "<bang>", <f-args>)'
     endfor
 " }}}
