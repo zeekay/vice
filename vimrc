@@ -3,6 +3,7 @@
 
 " Plugins {{{
     if !exists('g:addons')
+        " Enable the following addons by default. Be careful as the ordering as vim-powerline-custom should be enabled before vim-powerline.
         let g:addons = [
             \ 'github:Raimondi/delimitMate',
             \ 'github:int3/vim-extradite',
@@ -30,7 +31,7 @@
     endif
 
     if !exists('g:lazy_addons')
-        " These plugins are sourced lazily when the commands are used"
+        " These plugins are sourced lazily as the commands are used"
         let g:lazy_addons = {
             \ 'Ack': ['github:mileszs/ack.vim'],
             \ 'ColorV': ['github:Rykka/colorv.vim'],
@@ -235,7 +236,6 @@
 " Console {{{
     set t_Co=256
     colorscheme hornet
-    set ttyfast
 " }}}
 
 " Gui {{{
