@@ -4,7 +4,6 @@
 " Plugins {{{
     if !exists('g:addons')
         let g:addons = [
-            \ 'github:MarcWeber/vim-addon-manager',
             \ 'github:Raimondi/delimitMate',
             \ 'github:int3/vim-extradite',
             \ 'github:juanpabloaj/help.vim',
@@ -18,28 +17,26 @@
             \ 'github:tpope/vim-surround',
             \ 'github:zeekay/vim-powerline-custom',
             \ 'github:zeekay/vim-space',
+            \ 'github:Lokaltog/vim-powerline'
         \ ]
-
-        " Ensure vim-powerline-custom is sourced before vim-powerline
-        let g:addons += ['github:Lokaltog/vim-powerline']
 
         if version > 702
             let g:addons += ['github:Shougo/neocomplcache']
         endif
 
-        " if version > 702 && has('python')
-        "     let g:addons += ['github:SirVer/ultisnips']
-        " endif
+        if version > 702 && has('python')
+            let g:addons += ['github:SirVer/ultisnips']
+        endif
     endif
 
     if !exists('g:lazy_addons')
         " These plugins are sourced lazily when the commands are used"
         let g:lazy_addons = {
             \ 'Ack': ['github:mileszs/ack.vim'],
+            \ 'ColorV': ['github:Rykka/colorv.vim'],
             \ 'Gist': ['github:mattn/gist-vim', 'github:mattn/webapi-vim'],
             \ 'GundoToggle': ['github:sjl/gundo.vim'],
             \ 'NERDTreeToggle': ['github:scrooloose/nerdtree'],
-            \ 'ColorV': ['github:Rykka/colorv.vim'],
         \ }
 
         if version > 702 && executable('ctags')
@@ -47,8 +44,8 @@
         endif
     endif
 
+    " filetype-specific addons
     if !exists('g:ft_addons')
-        " filetype-specific addons
         let g:ft_addons = {
             \ 'actionscript': [
                 \ 'github:endel/actionscript.vim',
@@ -107,31 +104,37 @@
         endif
     endif
 
+    " Set VIMHOME
     if has('win32') || has('win64')
         let $VIMHOME = expand('~/vimfiles')
     else
         let $VIMHOME = expand('~/.vim')
     endif
 
+    " Add vim-addon-manager to rtp
     let &runtimepath.=','.$VIMHOME.'/addons/vim-addon-manager'
 
+    " Redefine PluginDirFromName to use /addons
     func! vam#PluginDirFromName(name)
         return $VIMHOME.'/addons/'.split(a:name, '/')[-1]
     endf
 
-    func! ActivateFtAddons(ft_addons, ft)
+    " Helper functions to activate ft_addons and lazy_addons
+    func! s:ActivateFtAddons(ft_addons, ft)
         for l in values(filter(copy(a:ft_addons), string(a:ft).' =~ v:key'))
             call vam#ActivateAddons(l, {'auto_install': 1, 'force_loading_plugins_now': 1})
         endfor
     endf
 
-    call vam#ActivateAddons(g:addons, {'auto_install': 1})
-    au FileType * call ActivateFtAddons(g:ft_addons, expand('<amatch>'))
-
     func! s:LazyInit(name, plugins, bang, ...)
         call vam#ActivateAddons(a:plugins, {'auto_install': 1})
         exe a:name.a:bang.' '.join(a:000)
-    endfunc
+    endf
+
+    " Activate addons
+    call vam#ActivateAddons(g:addons, {'auto_install': 1})
+
+    au FileType * call s:ActivateFtAddons(g:ft_addons, expand('<amatch>'))
 
     for [key, val] in items(g:lazy_addons)
         exe 'command -nargs=* -bang '.key.' call s:LazyInit("'.key.'", '.string(val).', "<bang>", <f-args>)'
@@ -295,7 +298,6 @@
     \ }
 
     let g:Powerline_dividers_override = ['', '⏐', '', '⏐']
-    call Pl#Theme#InsertSegment('lawrencium:branch', 'after', 'fugitive:branch')
 " }}}
 
 " EasyMotion {{{
