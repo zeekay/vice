@@ -16,6 +16,7 @@
             \ 'github:tpope/vim-git',
             \ 'github:tpope/vim-repeat',
             \ 'github:tpope/vim-surround',
+            \ 'github:zeekay/vim-lawrencium',
             \ 'github:zeekay/vim-powerline-custom',
             \ 'github:zeekay/vim-space',
             \ 'github:Lokaltog/vim-powerline'
@@ -298,6 +299,10 @@
     \ }
 
     let g:Powerline_dividers_override = ['', '⏐', '', '⏐']
+
+    if exists('g:loaded_lawrencium') && exists(':Powerline') > 0
+        call Pl#Theme#InsertSegment('lawrencium:branch', 'after', 'fugitive:branch')
+    endif
 " }}}
 
 " EasyMotion {{{
