@@ -604,6 +604,12 @@
     au FileType * au BufWritePre <buffer> :silent! call <SID>StripTrailingWhitespace()`
 " }}}
 
+
+" Commands {{{
+    " Quickly change to directory of open file
+    command Cdhere cd %:p:h | pwd
+"}}}
+
 " Mappings {{{
     " No arrow keys
     map <Left> :echo<cr>
@@ -644,23 +650,13 @@
     cnoremap <c-k> <Up>
     cnoremap <c-l> <Right>
 
+    " Paste in visual mode without yanking replaced text
     vnoremap p "_dP
-    vnoremap <leader>p "_d*P
 
     " Quit/Write quickly
     nnoremap <leader>q :q<cr>
     nnoremap Q :q<cr>
     nnoremap W :w<cr>
-
-    " \y and \p for clipboard yank/paste
-    nnoremap <leader>P "+P
-    nnoremap <leader>Y "+yy
-    nnoremap <leader>p "*P
-    nnoremap <leader>y "*yy
-    vnoremap <leader>P "+P
-    vnoremap <leader>Y "+y
-    vnoremap <leader>p "*P
-    vnoremap <leader>y "*y
 
     " Ctrl-h/l to switch between tabs
     nnoremap <c-h> :tabp<CR>
@@ -747,16 +743,9 @@
     nnoremap gr :CtrlPMRUFiles<cr>
 
     " Toggle Gundo, tagbar, nerdtree
-    nnoremap <leader>u :GundoToggle<cr>
-    nnoremap <leader>t :TagbarToggle<cr>
     nnoremap <leader>n :NERDTreeToggle<cr>
-
-    " Quickly change to directory of open file
-    nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
-
-    " Quick edit .vimrc {{{
-    nnoremap <silent> <leader>ev :edit ~/.vim/vimrc<cr>
-    au FileType vim nnoremap <buffer> <leader>ef :w<cr>:source %<cr>
+    nnoremap <leader>t :TagbarToggle<cr>
+    nnoremap <leader>u :GundoToggle<cr>
 
     " Fast substitute
     nnoremap <leader>s :s\v%//<left>
