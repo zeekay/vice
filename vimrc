@@ -39,6 +39,7 @@
             \ 'Gist': ['github:mattn/gist-vim', 'github:mattn/webapi-vim'],
             \ 'GundoToggle': ['github:sjl/gundo.vim'],
             \ 'NERDTreeToggle': ['github:scrooloose/nerdtree'],
+            \ 'ColorV': ['github:Rykka/colorv.vim'],
         \ }
 
         if version > 702 && executable('ctags')
@@ -58,7 +59,6 @@
                 \ ],
             \ 'css\|sass\|scss\|stylus': [
                 \ 'github:hail2u/vim-css3-syntax',
-                \ 'github:Rykka/colorv.vim',
                 \ 'github:skammer/vim-css-color',
                 \ ],
             \ 'clojure': [
