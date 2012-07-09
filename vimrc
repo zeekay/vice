@@ -338,8 +338,6 @@
 
         " this makes tab cycle through all the completion options
         inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
-        " <CR>: close popup and save indent.
-        inoremap <expr><CR> pumvisible() ? neocomplcache#smart_close_popup()."\<CR>" : "\<CR>"
         " <C-h>, <BS>: close popup and delete backword char.
         inoremap <expr><BS> pumvisible() ? neocomplcache#smart_close_popup()."\<C-h>" : "\<C-h>"
         " <space> just closes the popup
