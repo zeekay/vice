@@ -57,7 +57,7 @@
                 \ ],
             \ 'css\|sass\|scss\|stylus': [
                 \ 'github:hail2u/vim-css3-syntax',
-                \ 'github:skammer/vim-css-color',
+                \ 'github:ap/vim-css-color',
                 \ ],
             \ 'clojure': [
                 \ 'github:zeekay/VimClojure-custom',
