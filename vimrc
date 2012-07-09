@@ -89,7 +89,7 @@
             \ 'javascript\|python': [
                 \ 'github:alfredodeza/chapa.vim',
                 \ ],
-            \ 'ruby': [
+            \ 'lua\|ruby\|sh\|vim\|zsh': [
                 \ 'github:tpope/vim-endwise',
                 \ ],
             \ 'python': [
