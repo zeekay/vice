@@ -39,16 +39,19 @@ function s:Escape()
 
     set laststatus=0
 
-    so ~/.vim/addons/AnsiEsc.vim/plugin/cecutil.vim
-    so ~/.vim/addons/AnsiEsc.vim/plugin/AnsiEscPlugin.vim
-    so ~/.vim/addons/AnsiEsc.vim/autoload/AnsiEsc.vim
+    " Use AnsiEsc for highlighting if ft is not detected.
+    if &ft == ''
+        " Load AnsiEsc
+        so ~/.vim/addons/AnsiEsc.vim/plugin/cecutil.vim
+        so ~/.vim/addons/AnsiEsc.vim/plugin/AnsiEscPlugin.vim
+        so ~/.vim/addons/AnsiEsc.vim/autoload/AnsiEsc.vim
 
-    " Initalize AnsiEsc highlighting
-    AnsiEsc
-    AnsiEsc
+        " Initialize highlighting
+        AnsiEsc
 
-    " Change default for ansiWhite
-    hi ansiWhite ctermfg=245
+        " Change default for ansiWhite
+        hi ansiWhite ctermfg=245
+    endif
 endfunction
 
 au BufReadPost * call s:Escape()
