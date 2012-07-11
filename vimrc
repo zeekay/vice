@@ -763,7 +763,15 @@
 
 " Diff {{{
     " Automatically show diff in git window
-    autocmd FileType gitcommit DiffGitCached -p | wincmd L
+    function! s:GitCommit()
+        " Display diff
+        silent! DiffGitCached -p
+        " Switch back to commit message window
+        wincmd L
+        " Disable neocomplcache
+        let g:neocomplcache_disable_auto_complete = 1
+    endfunction
+    autocmd FileType gitcommit call s:GitCommit()
     set diffopt+=iwhite,context:3
     if &diff
         nmap u u :diffu<cr>
