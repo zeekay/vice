@@ -770,6 +770,9 @@
         wincmd L
         " Disable neocomplcache
         let g:neocomplcache_disable_auto_complete = 1
+        if line('$') == 1 && getline(1) == ''
+            wincmd q
+        endif
     endfunction
     autocmd FileType gitcommit call s:GitCommit()
     set diffopt+=iwhite,context:3
