@@ -30,7 +30,7 @@ let vimpager_scrolloff = 0
 
 function s:Escape()
     let g:addons = [
-        \ 'github:vim-scripts/AnsiEsc.vim'
+        \ 'github:zeekay/AnsiEsc.vim'
     \ ]
     let g:ft_addons = {}
     let g:lazy_addons = {}
