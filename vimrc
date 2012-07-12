@@ -139,7 +139,7 @@
     au FileType * call s:ActivateFtAddons(g:ft_addons, expand('<amatch>'))
 
     for [key, val] in items(g:lazy_addons)
-        exe 'command -nargs=* -bang '.key.' call s:LazyInit("'.key.'", '.string(val).', "<bang>", <f-args>)'
+        exe 'command! -nargs=* -bang '.key.' call s:LazyInit("'.key.'", '.string(val).', "<bang>", <f-args>)'
     endfor
 " }}}
 
@@ -336,11 +336,14 @@
         endif
         let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
 
-        " this makes tab cycle through all the completion options
+        " <CR>: close popup and save indent.
+        inoremap <expr><CR> neocomplcache#smart_close_popup()."\<cr>"
+
+        " <TAB>: completion.
         inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
         " <C-h>, <BS>: close popup and delete backword char.
-        inoremap <expr><BS> pumvisible() ? neocomplcache#smart_close_popup()."\<C-h>" : "\<C-h>"
-        " <space> just closes the popup
+        inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
+        inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
         inoremap <expr><space> pumvisible() ? neocomplcache#smart_close_popup()."\<space>" : "\<space>"
 
         " we don't want the completion menu to auto pop-up when we are in text files
@@ -604,34 +607,31 @@
     au FileType * au BufWritePre <buffer> :silent! call <SID>StripTrailingWhitespace()`
 " }}}
 
-
 " Commands {{{
     " Quickly change to directory of open file
-    command Cdhere cd %:p:h | pwd
+    command! Cdhere cd %:p:h | pwd
 "}}}
 
 " Mappings {{{
-    " No arrow keys
-    map <Left> :echo<cr>
-    map <Right> :echo<cr>
-    map <Up> :echo<cr>
-    map <Down> :echo<cr>
-    imap <Left> <c-o>:echo<cr>
-    imap <Right> <c-o>:echo<cr>
-    imap <Up> <c-o>:echo<cr>
-    imap <Down> <c-o>:echo<cr>
-    map OD :echo<cr>
-    map OC :echo<cr>
-    map OA :echo<cr>
-    map OB :echo"<cr>
-    imap OD <c-o>:echo<cr>
-    imap OC <c-o>:echo<cr>
-    imap OA <c-o>:echo<cr>
-    imap OB <c-o>:echo<cr>
-
-    " Enter normal mode quickly
-    nnoremap ; :
-    vnoremap ; :
+    if exists('g:disable_arrow_keys') && g:disable_arrow_keys
+        " No arrow keys
+        map <Left> :echo<cr>
+        map <Right> :echo<cr>
+        map <Up> :echo<cr>
+        map <Down> :echo<cr>
+        imap <Left> <c-o>:echo<cr>
+        imap <Right> <c-o>:echo<cr>
+        imap <Up> <c-o>:echo<cr>
+        imap <Down> <c-o>:echo<cr>
+        map OD :echo<cr>
+        map OC :echo<cr>
+        map OA :echo<cr>
+        map OB :echo<cr>
+        imap OD <c-o>:echo<cr>
+        imap OC <c-o>:echo<cr>
+        imap OA <c-o>:echo<cr>
+        imap OB <c-o>:echo<cr>
+    endif
 
     " Prevent cursor from moving when leavng insert mode
     inoremap <Esc> <Esc>`^
@@ -653,11 +653,6 @@
     " Paste in visual mode without yanking replaced text
     vnoremap p "_dP
 
-    " Quit/Write quickly
-    nnoremap <leader>q :q<cr>
-    nnoremap Q :q<cr>
-    nnoremap W :w<cr>
-
     " Ctrl-h/l to switch between tabs
     nnoremap <c-h> :tabp<CR>
     nnoremap <c-l> :tabn<CR>
@@ -665,12 +660,6 @@
     " Ctrl-j/k to switch between buffers
     nnoremap <c-k> :bn<cr>
     nnoremap <c-j> :bp<cr>
-
-    " J/K move up down half pages
-    nnoremap J <c-d>
-    nnoremap K <c-u>
-    vnoremap J <c-d>
-    vnoremap K <c-u>
 
     " Make pageup/pagedown move up/down half pages
     nnoremap <silent> <PageUp> <c-u><c-u>
