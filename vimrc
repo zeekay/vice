@@ -10,6 +10,7 @@
             \ 'github:int3/vim-extradite',
             \ 'github:juanpabloaj/help.vim',
             \ 'github:kien/ctrlp.vim',
+            \ 'github:scrooloose/nerdtree',
             \ 'github:scrooloose/syntastic',
             \ 'github:tpope/vim-commentary',
             \ 'github:tpope/vim-eunuch',
@@ -38,7 +39,6 @@
             \ 'ColorV': ['github:Rykka/colorv.vim'],
             \ 'Gist': ['github:mattn/gist-vim', 'github:mattn/webapi-vim'],
             \ 'GundoToggle': ['github:sjl/gundo.vim'],
-            \ 'NERDTreeToggle': ['github:scrooloose/nerdtree'],
         \ }
 
         if version > 702 && executable('ctags')
