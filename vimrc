@@ -338,9 +338,7 @@
         let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
 
         " <CR>: close popup and save indent.
-        function SmartClosePopup()
-            " Call smart_close_popup twice due to weird edge case.
-            call neocomplcache#smart_close_popup()
+        function AutoClosePopup()
             call neocomplcache#smart_close_popup()
             " If delimitMate_expand_cr is set, call manually
             if exists('g:delimitMate_expand_cr') && eval('g:delimitMate_expand_cr')
@@ -351,7 +349,7 @@
             endif
             return "\<CR>"
         endfunction
-        inoremap <expr><CR> SmartClosePopup()
+        inoremap <expr><CR> AutoClosePopup()
 
         " <TAB>: completion.
         inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
@@ -746,8 +744,8 @@
     nnoremap go :CtrlP<cr>
     nnoremap gr :CtrlPMRUFiles<cr>
 
-    " Toggle Gundo, tagbar, nerdtree
-    nnoremap <leader>n :NERDTreeToggle<cr>
+    " Gundo, NERDTree, Tagbar
+    nnoremap <leader>n :NERDTree %:p:h<cr>
     nnoremap <leader>t :TagbarToggle<cr>
     nnoremap <leader>u :GundoToggle<cr>
 
@@ -768,6 +766,7 @@
 " Diff {{{
     " Automatically show diff in git window
     function! s:GitCommit()
+        set textwidth=80
         " Display diff
         silent! DiffGitCached -p
         " Switch back to commit message window
