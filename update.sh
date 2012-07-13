@@ -3,6 +3,7 @@
 echo "Updating vim plugins"
 echo
 for dir in `ls ~/.vim/addons/`; do
+    echo Updating $dir
     cd ~/.vim/addons/$dir
 
     if [ -e '.git' ]; then

@@ -17,12 +17,6 @@ set smartcase
 set laststatus=0
 colorscheme hornet
 set mouse-=a
-nnoremap G G$
-vnoremap G G$
-nnoremap ; :
-vnoremap ; :
-nnoremap h h
-
 set noloadplugins
 
 let vimpager_disable_x11 = 1
@@ -32,28 +26,35 @@ function s:Escape()
     let g:addons = [
         \ 'github:zeekay/AnsiEsc.vim'
     \ ]
-    let g:ft_addons = {}
     let g:lazy_addons = {}
-
+    let g:ft_addons = {}
     silent! so ~/.vim/vimrc
+    so ~/.vim/addons/AnsiEsc.vim/plugin/cecutil.vim
+    so ~/.vim/addons/AnsiEsc.vim/plugin/AnsiEscPlugin.vim
+    so ~/.vim/addons/AnsiEsc.vim/autoload/AnsiEsc.vim
 
     set laststatus=0
 
     " Use AnsiEsc for highlighting if ft is not detected.
     if &ft == ''
-        " Load AnsiEsc
-        so ~/.vim/addons/AnsiEsc.vim/plugin/cecutil.vim
-        so ~/.vim/addons/AnsiEsc.vim/plugin/AnsiEscPlugin.vim
-        so ~/.vim/addons/AnsiEsc.vim/autoload/AnsiEsc.vim
-
         " Initialize highlighting
         AnsiEsc
-
         " Change default for ansiWhite
         hi ansiWhite ctermfg=245
     endif
 endfunction
 
 au BufReadPost * call s:Escape()
+
+map <cr> <cr>
+map <c-d> <c-d>
+map <c-u> <c-u>
+map J <c-d>
+map K <c-u>
+map j <cr>
+map k k
+map h h
+map l l
+map Q :q<cr>
 
 " vim:set filetype=vim:
