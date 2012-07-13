@@ -4,7 +4,7 @@
 
 " Plugins {{{
     if !exists('g:addons')
-        " Enable the following addons by default. Be careful as the ordering as vim-powerline-custom should be enabled before vim-powerline.
+        " Enable the following addons by default. Be careful as the ordering as vim-powerline-hax should be enabled before vim-powerline.
         let g:addons = [
             \ 'github:Raimondi/delimitMate',
             \ 'github:int3/vim-extradite',
@@ -18,7 +18,8 @@
             \ 'github:tpope/vim-git',
             \ 'github:tpope/vim-repeat',
             \ 'github:tpope/vim-surround',
-            \ 'github:zeekay/vim-powerline-custom',
+            \ 'github:zeekay/nerdtree-hax',
+            \ 'github:zeekay/vim-powerline-hax',
             \ 'github:zeekay/vim-space',
             \ 'github:Lokaltog/vim-powerline'
         \ ]
@@ -61,7 +62,7 @@
                 \ 'github:ap/vim-css-color',
                 \ ],
             \ 'clojure': [
-                \ 'github:zeekay/VimClojure-custom',
+                \ 'github:zeekay/VimClojure-hax',
                 \ 'github:vim-scripts/VimClojure',
                 \ ],
             \ 'coffee': [
@@ -448,17 +449,6 @@
     let g:NERDTreeMouseMode = 3
     let g:NERDTreeCaseSensitiveSort = 1
     let g:NERDTreeChDirMode = 2
-
-    " Silently toggle Nerdtree, changing cwd to file toggle is executed from.
-    function! NERDTreeToggle()
-        echo
-        if exists('b:NERDTreeRoot') == 1
-            NERDTreeClose
-        else
-            silent! NERDTree %:p:h
-        endif
-        pwd
-    endfunction
 " }}}
 
 " Tabularize {{{
@@ -751,7 +741,7 @@
     nnoremap gr :CtrlPMRUFiles<cr>
 
     " Gundo, NERDTree, Tagbar
-    nnoremap <leader>n :call NERDTreeToggle()<cr>
+    nnoremap <leader>n :NERDTreeQuietToggle<cr>
     nnoremap <leader>t :TagbarToggle<cr>
     nnoremap <leader>u :GundoToggle<cr>
 
@@ -804,6 +794,11 @@
     nnoremap [l :lprevious<cr>
     nnoremap ]L :llast<cr>
     nnoremap [L :lfirst<cr>
+" }}}
+
+" Command-line window {{{
+    au CmdwinEnter * map <buffer> q :quit<cr>:echo<cr>
+    au CmdwinEnter * map <buffer> Q :quit<cr>:echo<cr>
 " }}}
 
 " Hax {{{
