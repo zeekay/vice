@@ -645,6 +645,9 @@
     " Prevent cursor from moving when leavng insert mode
     inoremap <Esc> <Esc>`^
 
+    " Quit quickly
+    map <leader>q :q<cr>
+
     " Stay in visual mode after indentation change
     vnoremap > >gv
     vnoremap < <gv
