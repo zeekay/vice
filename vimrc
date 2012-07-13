@@ -338,7 +338,7 @@
         let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
 
         " <CR>: close popup and save indent.
-        function AutoClosePopup()
+        function! AutoClosePopup()
             call neocomplcache#smart_close_popup()
             " If delimitMate_expand_cr is set, call manually
             if exists('g:delimitMate_expand_cr') && eval('g:delimitMate_expand_cr')
@@ -448,6 +448,17 @@
     let g:NERDTreeMouseMode = 3
     let g:NERDTreeCaseSensitiveSort = 1
     let g:NERDTreeChDirMode = 2
+
+    " Silently toggle Nerdtree, changing cwd to file toggle is executed from.
+    function! NERDTreeToggle()
+        echo
+        if exists('b:NERDTreeRoot') == 1
+            NERDTreeClose
+        else
+            silent! NERDTree %:p:h
+        endif
+        pwd
+    endfunction
 " }}}
 
 " Tabularize {{{
@@ -620,11 +631,6 @@
     au FileType * au BufWritePre <buffer> :silent! call <SID>StripTrailingWhitespace()`
 " }}}
 
-" Commands {{{
-    " Quickly change to directory of open file
-    command! Cdhere cd %:p:h | pwd
-"}}}
-
 " Mappings {{{
     if exists('g:disable_arrow_keys') && g:disable_arrow_keys
         " No arrow keys
@@ -745,7 +751,7 @@
     nnoremap gr :CtrlPMRUFiles<cr>
 
     " Gundo, NERDTree, Tagbar
-    nnoremap <leader>n :NERDTree %:p:h<cr>
+    nnoremap <leader>n :call NERDTreeToggle()<cr>
     nnoremap <leader>t :TagbarToggle<cr>
     nnoremap <leader>u :GundoToggle<cr>
 
