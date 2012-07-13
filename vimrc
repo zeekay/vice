@@ -337,7 +337,16 @@
         let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
 
         " <CR>: close popup and save indent.
-        inoremap <expr><CR> neocomplcache#smart_close_popup()."\<cr>"
+        function SmartClosePopup()
+            call neocomplcache#smart_close_popup()
+            if delimitMate#WithinEmptyPair()
+                call delimitMate#FlushBuffer()
+                return "\<Esc>a\<CR>\<Esc>zvO"
+            else
+                return "\<CR>"
+            endif
+        endfunction
+        inoremap <expr><CR> SmartClosePopup()
 
         " <TAB>: completion.
         inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
