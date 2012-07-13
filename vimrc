@@ -339,6 +339,7 @@
         " <CR>: close popup and save indent.
         function SmartClosePopup()
             call neocomplcache#smart_close_popup()
+            call neocomplcache#smart_close_popup()
             if delimitMate#WithinEmptyPair()
                 call delimitMate#FlushBuffer()
                 return "\<Esc>a\<CR>\<Esc>zvO"
