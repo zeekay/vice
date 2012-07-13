@@ -180,6 +180,7 @@
     set splitright
     set nomore
     set nrformats=hex,octal,alpha
+    set textwidth=80
     " set clipboard=unnamed,unnamedplus
     " set foldminlines=99999
     silent! set breakindent
