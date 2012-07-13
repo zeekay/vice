@@ -1,3 +1,4 @@
+
 " Author: Zach Kelling
 " Source: bitbucket.org/zeekay/dot-vim || github.com/zeekay/dot-vim
 
@@ -16,7 +17,6 @@
             \ 'github:tpope/vim-git',
             \ 'github:tpope/vim-repeat',
             \ 'github:tpope/vim-surround',
-            \ 'github:zeekay/vim-lawrencium',
             \ 'github:zeekay/vim-powerline-custom',
             \ 'github:zeekay/vim-space',
             \ 'github:Lokaltog/vim-powerline'
@@ -338,19 +338,23 @@
 
         " <CR>: close popup and save indent.
         function SmartClosePopup()
+            " Call smart_close_popup twice due to weird edge case.
             call neocomplcache#smart_close_popup()
             call neocomplcache#smart_close_popup()
-            if delimitMate#WithinEmptyPair()
-                call delimitMate#FlushBuffer()
-                return "\<Esc>a\<CR>\<Esc>zvO"
-            else
-                return "\<CR>"
+            " If delimitMate_expand_cr is set, call manually
+            if exists('g:delimitMate_expand_cr') && eval('g:delimitMate_expand_cr')
+                if delimitMate#WithinEmptyPair()
+                    call delimitMate#FlushBuffer()
+                    return "\<Esc>a\<CR>\<Esc>zvO"
+                endif
             endif
+            return "\<CR>"
         endfunction
         inoremap <expr><CR> SmartClosePopup()
 
         " <TAB>: completion.
         inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+
         " <C-h>, <BS>: close popup and delete backword char.
         inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
         inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
