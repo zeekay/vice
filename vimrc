@@ -420,6 +420,7 @@
     let g:ctrlp_open_new_file = 1
     let g:ctrlp_cache_dir = expand($VIMHOME."/tmp/ctrlp_cache")
     let g:ctrlp_open_multi = '1t'
+    let g:ctrlp_extensions = ['mixed', 'line', 'tag']
 " }}}
 
 " delimitMate {{{
@@ -740,6 +741,8 @@
     nnoremap <c-right> <c-w><
 
     " CtrlP mappings
+    nnoremap gm :CtrlPMixed<cr>
+    nnoremap gl :CtrlPLine<cr>
     nnoremap gb :CtrlPBuffer<cr>
     nnoremap go :CtrlP<cr>
     nnoremap gr :CtrlPMRUFiles<cr>
