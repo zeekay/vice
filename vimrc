@@ -151,13 +151,12 @@
     set backup
     silent! set undofile
     silent! set undodir=$VIMHOME/tmp/undo
-    " set directory=$VIMHOME/tmp/swap
+    set directory=$VIMHOME/tmp/swap
     set noswapfile
     set viewdir=$VIMHOME/tmp/view
     let &viminfo="'100,\"100,:100,h,n".expand($VIMHOME.'/tmp/viminfo')
     set undolevels=100
     set history=1000
-    " set autochdir
     set backspace=indent,eol,start
     set matchpairs+=<:>
     set shortmess=aoOsTI
@@ -181,8 +180,7 @@
     set nomore
     set nrformats=hex,octal,alpha
     set textwidth=80
-    " set clipboard=unnamed,unnamedplus
-    " set foldminlines=99999
+    set clipboard=unnamed,unnamedplus
     silent! set breakindent
 " }}}
 
@@ -408,7 +406,6 @@
 " }}}
 
 " CtrlP {{{
-    " let g:ctrlp_user_command = 'find %s -type f' " MacOSX/Linux
     let g:ctrlp_map = ""
     let g:ctrlp_jump_to_buffer = 2
     let g:ctrlp_working_path_mode = 2
