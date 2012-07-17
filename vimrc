@@ -1,4 +1,3 @@
-
 " Author: Zach Kelling
 " Source: bitbucket.org/zeekay/dot-vim || github.com/zeekay/dot-vim
 
@@ -193,6 +192,8 @@
     set softtabstop=4
     set expandtab
     set smarttab
+    set autoindent
+    set copyindent
     set smartindent
     au FileType xml,xhtml,htmldjango set shiftwidth=4
     au FileType html,coffee,haml,stylus,jade,javascript set shiftwidth=2
@@ -329,6 +330,7 @@
         let g:neocomplcache_enable_at_startup = 1
         let g:neocomplcache_enable_smart_case = 1
         let g:neocomplcache_min_syntax_length = 3
+        let g:neocomplcache_auto_completion_start_length = 3
         let g:neocomplcache_source_disable = {'include_complete' : 1, 'filename_complete' : 0, 'snippets_complete': 1}
         let g:neocomplcache_snippets_disable_runtime_snippets = 1
 
@@ -424,11 +426,13 @@
 " }}}
 
 " delimitMate {{{
+    let g:delimitMate_autoclose = 1
     let g:delimitMate_expand_cr = 1
     let g:delimitMate_expand_space = 1
+    let g:delimitMate_smart_quotes = 1
+    let g:delimitMate_smart_matchpairs = 1
     let g:delimitMate_balance_matchpairs = 1
     let g:delimitMate_excluded_ft = "mail,help"
-    au FileType * let b:delimitMate_autoclose = 1
 " }}}
 
 " Gundo {{{
