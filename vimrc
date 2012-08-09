@@ -95,6 +95,10 @@
             \ 'python': [
                 \ 'github:zeekay/python.vim',
                 \ ],
+            \ 'php': [
+                \ 'github:shawncplus/php.vim',
+                \ 'github:techlivezheng/tagbar-phpctags',
+                \ ],
             \ 'stylus': [
                 \ 'github:wavded/vim-stylus',
                 \ ],
@@ -643,12 +647,6 @@
         imap OA <c-o>:echo<cr>
         imap OB <c-o>:echo<cr>
     endif
-
-    " Prevent cursor from moving when leavng insert mode
-    inoremap <Esc> <Esc>`^
-
-    " Quit quickly
-    map <leader>q :q<cr>
 
     " Stay in visual mode after indentation change
     vnoremap > >gv

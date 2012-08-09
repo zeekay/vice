@@ -46,6 +46,7 @@ endfunction
 
 au BufReadPost * call s:Escape()
 
+map ; :
 map <cr> <cr>
 map <c-d> <c-d>
 map <c-u> <c-u>

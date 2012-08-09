@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 echo "setting up vim config"
 
@@ -17,11 +17,38 @@ if [ "$basedir" != "$HOME/.vim" ]; then
     ln -s $basedir ~/.vim
 fi
 
-echo "...linking ~/.vimrc, ~/.gvimrc and ~/.vimpagerrc"
-rm ~/.vimrc
+echo -n "create default ~/.vimrc? (y/n) "
+read input
+if [ "$input" = "y" ]; then
+    echo "...creating default vimrc"
+
+    cat > ~/.vimrc << EOF
+so ~/.vim/vimrc
+
+nnoremap ; :
+vnoremap ; :
+
+" Prevent cursor from moving when leavng insert mode
+inoremap <Esc> <Esc>\`^
+
+map <leader>q :q<cr>
+nnoremap J <c-d>
+nnoremap K <c-u>
+vnoremap J <c-d>
+vnoremap K <c-u>
+nnoremap W :w<cr>
+nnoremap Q ZQ
+au CmdwinEnter * unmap q;
+au CmdwinLeave * map q; q:
+
+nnoremap <c-cr> :BebopJsEvalLine<cr>
+vnoremap <c-cr> :py vimbop.js.eval_range()<cr>
+EOF
+fi
+
+echo "...linking ~/.gvimrc and ~/.vimpagerrc"
 rm ~/.gvimrc
 rm ~/.vimpagerrc
-ln -s $basedir/vimrc ~/.vimrc
 ln -s $basedir/gvimrc ~/.gvimrc
 ln -s $basedir/vimpagerrc ~/.vimpagerrc
 
@@ -39,7 +66,7 @@ yes | vim -c ':q'
 echo '...done!'
 
 echo
-echo 'You also might want to install a few external programs for syntax checking.'
+ccho 'You also might want to install a few external programs for syntax checking.'
 echo 'For Clojure, Haskell, Javascript and Python I recommend:'
 echo
 echo 'lein plugin install org.clojars.ibdknox/lein-nailgun 1.1.1'
