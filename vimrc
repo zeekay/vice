@@ -67,6 +67,9 @@
             \ 'coffee': [
                 \ 'github:kchmck/vim-coffee-script',
                 \ ],
+            \ 'go': [
+                \ 'github:jnwhiteh/vim-golang',
+                \ ],
             \ 'haml\|sass\|scss': [
                 \ 'github:tpope/vim-haml',
                 \ ],
@@ -540,7 +543,8 @@
 
 " Filetypes {{{
     au BufNewFile,BufRead *.as set filetype=actionscript
-    au BufNewFile,BufRead Cakefile,*.coffee set filetype=coffee
+    au BufNewFile,BufRead *.coffee,Cakefile set filetype=coffee
+    au BufNewFile,BufRead *.go set filetype=go
     au BufNewFile,BufRead *.haml set filetype=haml
     au BufNewFile,BufRead *.jade set filetype=jade
     au BufNewFile,BufRead *.sass set filetype=sass
