@@ -32,6 +32,8 @@ vnoremap ; :
 inoremap <Esc> <Esc>\`^
 
 map <leader>q :q<cr>
+vnoremap q: :q<cr>
+nnoremap q: :q<cr>
 nnoremap J <c-d>
 nnoremap K <c-u>
 vnoremap J <c-d>
