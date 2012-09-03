@@ -6,14 +6,13 @@
     // relax
     "eqnull": true,
     "evil": true,
-    "laxcomma": true
+    "laxcomma": true,
     "loopfunc": true,
     "globalstrict": true,
     "strict": false,
 
     // globals
     "browser": true,
-    "console": true,
     "devel": true,
     "node": true,
 

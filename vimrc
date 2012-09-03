@@ -529,7 +529,7 @@
     let g:syntastic_javascript_checker = 'jshint'
     let g:syntastic_javascript_jshint_conf = $VIMHOME.'/jshint.json'
     let g:syntastic_enable_highlighting = 0
-    let g:syntastic_stl_format = '⚡ %E{Err: %fe #%e}%B{, }%W{Warn: %fw #%w} ⚡'
+	let g:syntastic_stl_format = '⚡︎ line %F, 1 of %t ⚡︎'
 " }}}
 
 " Bebop {{{
