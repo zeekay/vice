@@ -238,7 +238,7 @@
     au FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
     au FileType php setlocal omnifunc=phpcomplete#CompletePHP
     au FileType c setlocal omnifunc=ccomplete#Complete
-    au FileType cpp setlocal omnifunc=omni#cpp#complete#Main
+    " au FileType cpp setlocal omnifunc=omni#cpp#complete#Main
     au FileType ruby,eruby setlocal omnifunc=rubycomplete#Complete
 " }}}
 
@@ -382,9 +382,23 @@
         let g:neocomplcache_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
         let g:neocomplcache_omni_patterns.go = '\h\w*\%.'
 
-        " Enable clang_complete
-        let g:neocomplcache_force_overwrite_completefunc=1
-        let g:clang_complete_auto=1
+        " Enable clang
+        let g:neocomplcache_force_overwrite_completefunc = 1
+        let g:clang_complete_auto = 1
+        let g:clang_auto_select = 1
+        let g:clang_complete_auto = 0
+        let g:clang_complete_copen = 1
+        let g:clang_hl_errors = 1
+        let g:clang_periodic_quickfix = 0
+        let g:clang_snippets = 0
+        let g:clang_exec = "clang"
+        let g:clang_user_options = ""
+        let g:clang_auto_user_options = "path, .clang_complete"
+        let g:clang_use_library = 1
+        let g:clang_library_path = "/usr/local/lib"
+        let g:clang_sort_algo = "priority"
+        let g:clang_complete_macros = 1
+        let g:clang_complete_patterns = 0
     endif
 " }}}
 
@@ -392,11 +406,11 @@
     let g:UltiSnipsExpandTrigger = "<c-l>"
     let g:UltiSnipsJumpForwardTrigger = "<c-l>"
     let g:UltiSnipsJumpBackwardTrigger = "<c-h>"
-    let g:UltiSnipsSnippetDirectories=["UltiSnips", "snippets"]
+    let g:UltiSnipsSnippetDirectories = ["UltiSnips", "snippets"]
 " }}}
 
 " Ack.vim {{{
-    let g:ackprg="ack -i -H --nocolor --nogroup --column --text"
+    let g:ackprg = "ack -i -H --nocolor --nogroup --column --text"
     nnoremap <leader>a :Ack!<space>
 " }}}
 
@@ -562,8 +576,6 @@
     if executable('ng')
         let g:vimclojure#WantNailgun = 1
     endif
-" }}}
-
 " }}}
 
 " CoffeeScript {{{
@@ -750,7 +762,8 @@
     nnoremap gr :CtrlPMRUFiles<cr>
 
     " Gundo, NERDTree, Tagbar
-    nnoremap <leader>n :NERDTreeQuietToggle<cr>
+    nnoremap <leader>n :NERDTreeToggle<cr>
+    nnoremap <leader>N :NERDTreeCD<cr>
     nnoremap <leader>t :TagbarToggle<cr>
     nnoremap <leader>u :GundoToggle<cr>
 
