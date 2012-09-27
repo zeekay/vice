@@ -85,6 +85,10 @@
             \ 'jade': [
                 \ 'github:digitaltoad/vim-jade',
                 \ ],
+            \ 'javascript\|css\|html': [
+                \ 'github:maksimr/vim-jsbeautify',
+                \ 'github:einars/js-beautify',
+                \ ],
             \ 'javascript': [
                 \ 'github:pangloss/vim-javascript',
                 \ 'github:zeekay/vim-js2coffee',
@@ -320,6 +324,18 @@
 
 " Extradite {{{
     let g:extradite_showhash = 1
+" }}}
+
+" Beautify {{{
+  let g:jsbeautify_file = $VIMHOME."/addons/js-beautify/beautify.js"
+  let g:htmlbeautify_file = $VIMHOME."/addons/js-beautify/beautify-html.js"
+  let g:cssbeautify_file = $VIMHOME."/addons/js-beautify/beautify-css.js"
+  let g:jsbeautify = {'indent_size': 2, 'indent_char': ' '}
+  let g:htmlbeautify = {'indent_size': 2, 'indent_char': ' ', 'max_char': 78, 'brace_style': 'expand', 'unformatted': ['a', 'sub', 'sup', 'b', 'i', 'u']}
+  let g:cssbeautify = {'indent_size': 2, 'indent_char': ' '}
+  au FileType javascript command! JsBeautify call JsBeautify()
+  au FileType css command! CssBeautify call CSSBeautify()
+  au FileType html command! HtmlBeautify call HtmlBeautify()
 " }}}
 
 " Netrw {{{
