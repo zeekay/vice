@@ -698,8 +698,8 @@
     vnoremap p "_dP
 
     " Ctrl-h/l to switch between tabs
-    nnoremap <c-h> :tabp<CR>
-    nnoremap <c-l> :tabn<CR>
+    " nnoremap <c-h> :tabp<CR>
+    " nnoremap <c-l> :tabn<CR>
 
     " Ctrl-j/k to switch between buffers
     nnoremap <c-k> :bn<cr>
