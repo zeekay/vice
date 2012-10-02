@@ -333,9 +333,9 @@
   let g:jsbeautify = {'indent_size': 2, 'indent_char': ' ', 'max_preserve_newlines': 2, 'unescape_strings': 1, 'keep_array_indentation': 1}
   let g:htmlbeautify = {'indent_size': 2, 'indent_char': ' ', 'max_char': 78, 'brace_style': 'expand', 'unformatted': ['a', 'sub', 'sup', 'b', 'i', 'u']}
   let g:cssbeautify = {'indent_size': 2, 'indent_char': ' '}
-  au FileType javascript command! JsBeautify call JsBeautify()
-  au FileType css command! CssBeautify call CSSBeautify()
-  au FileType html command! HtmlBeautify call HtmlBeautify()
+  au FileType javascript command! Beautify call JsBeautify()
+  au FileType css command! Beautify call CSSBeautify()
+  au FileType html command! Beautify call HtmlBeautify()
 " }}}
 
 " Netrw {{{
@@ -698,8 +698,8 @@
     vnoremap p "_dP
 
     " Ctrl-h/l to switch between tabs
-    " nnoremap <c-h> :tabp<CR>
-    " nnoremap <c-l> :tabn<CR>
+    nnoremap <c-h> :tabp<CR>
+    nnoremap <c-l> :tabn<CR>
 
     " Ctrl-j/k to switch between buffers
     nnoremap <c-k> :bn<cr>
