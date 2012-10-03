@@ -327,15 +327,20 @@
 " }}}
 
 " Beautify {{{
-  let g:jsbeautify_file = $VIMHOME."/addons/js-beautify/beautify.js"
-  let g:htmlbeautify_file = $VIMHOME."/addons/js-beautify/beautify-html.js"
-  let g:cssbeautify_file = $VIMHOME."/addons/js-beautify/beautify-css.js"
-  let g:jsbeautify = {'indent_size': 2, 'indent_char': ' ', 'max_preserve_newlines': 2, 'unescape_strings': 1, 'keep_array_indentation': 1}
-  let g:htmlbeautify = {'indent_size': 2, 'indent_char': ' ', 'max_char': 78, 'brace_style': 'expand', 'unformatted': ['a', 'sub', 'sup', 'b', 'i', 'u']}
-  let g:cssbeautify = {'indent_size': 2, 'indent_char': ' '}
-  au FileType javascript command! Beautify call JsBeautify()
-  au FileType css command! Beautify call CSSBeautify()
-  au FileType html command! Beautify call HtmlBeautify()
+    let g:jsbeautify_file = $VIMHOME."/addons/js-beautify/beautify.js"
+    let g:htmlbeautify_file = $VIMHOME."/addons/js-beautify/beautify-html.js"
+    let g:cssbeautify_file = $VIMHOME."/addons/js-beautify/beautify-css.js"
+    let g:jsbeautify = {'indent_size': 2, 'indent_char': ' ', 'max_preserve_newlines': 2, 'unescape_strings': 1, 'keep_array_indentation': 1}
+    let g:htmlbeautify = {'indent_size': 2, 'indent_char': ' ', 'max_char': 78, 'brace_style': 'expand', 'unformatted': ['a', 'sub', 'sup', 'b', 'i', 'u']}
+    let g:cssbeautify = {'indent_size': 2, 'indent_char': ' '}
+    au FileType javascript command! Beautify call JsBeautify()
+    func! s:CssBeautify()
+        " Remove all leading indentation first, since js-beautify doesn't
+        exe '%le'
+        call CSSBeautify()
+    endfunc
+    au FileType css command! Beautify call s:CssBeautify()
+    au FileType html command! Beautify call HtmlBeautify()
 " }}}
 
 " Netrw {{{

@@ -4,6 +4,8 @@
     "forin": false,
 
     // relax
+    "asi": true,
+    "boss": true,
     "eqnull": true,
     "evil": true,
     "laxcomma": true,
