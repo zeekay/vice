@@ -6,6 +6,7 @@
         " Enable the following addons by default. Be careful as the ordering as vim-powerline-hax should be enabled before vim-powerline.
         let g:addons = [
             \ 'github:Raimondi/delimitMate',
+            \ 'github:gregsexton/gitv',
             \ 'github:int3/vim-extradite',
             \ 'github:juanpabloaj/help.vim',
             \ 'github:kien/ctrlp.vim',
