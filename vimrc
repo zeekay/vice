@@ -322,8 +322,6 @@
     let g:Gitv_WipeAllOnClose = 1
     let g:Gitv_OpenPreviewOnLaunch = 1
     let g:Gitv_DoNotMapCtrlKey = 1
-    " highlight diffAdded guifg=#00bf00
-    " highlight diffRemoved guifg=#bf0000
     cabbrev git Git
     set lazyredraw
     augroup git
