@@ -104,7 +104,7 @@
                 \ 'github:zeekay/python.vim',
                 \ ],
             \ 'php': [
-                \ 'github:shawncplus/php.vim',
+                \ 'github:spf13/PIV',
                 \ 'github:techlivezheng/tagbar-phpctags',
                 \ ],
             \ 'stylus': [
@@ -316,6 +316,20 @@
     if exists('g:loaded_lawrencium') && exists(':Powerline') > 0
         call Pl#Theme#InsertSegment('lawrencium:branch', 'after', 'fugitive:branch')
     endif
+" }}}
+
+" Gitv {{{
+    let g:Gitv_WipeAllOnClose = 1
+    let g:Gitv_OpenPreviewOnLaunch = 1
+    let g:Gitv_DoNotMapCtrlKey = 1
+    " highlight diffAdded guifg=#00bf00
+    " highlight diffRemoved guifg=#bf0000
+    cabbrev git Git
+    set lazyredraw
+    augroup git
+        au!
+        autocmd FileType git :setlocal foldlevel=99
+    augroup END
 " }}}
 
 " EasyMotion {{{
