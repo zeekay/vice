@@ -6,22 +6,32 @@
         " Enable the following addons by default. Be careful as the ordering as vim-powerline-hax should be enabled before vim-powerline.
         let g:addons = [
             \ 'github:Raimondi/delimitMate',
-            \ 'github:gregsexton/gitv',
-            \ 'github:int3/vim-extradite',
             \ 'github:juanpabloaj/help.vim',
             \ 'github:kien/ctrlp.vim',
-            \ 'github:scrooloose/nerdtree',
             \ 'github:scrooloose/syntastic',
             \ 'github:tpope/vim-commentary',
             \ 'github:tpope/vim-eunuch',
-            \ 'github:tpope/vim-fugitive',
             \ 'github:tpope/vim-git',
             \ 'github:tpope/vim-repeat',
             \ 'github:tpope/vim-surround',
-            \ 'github:zeekay/nerdtree-hax',
-            \ 'github:zeekay/vim-powerline-hax',
             \ 'github:zeekay/vim-space',
-            \ 'github:Lokaltog/vim-powerline'
+        \ ]
+
+        " Order is significant in these cases, so for clarity they are grouped
+        " individually
+        let g:addons += [
+            \ 'github:tpope/vim-fugitive',
+            \ 'github:gregsexton/gitv',
+        \ ]
+
+        let g:addons += [
+            \ 'github:zeekay/vim-powerline-hax',
+            \ 'github:Lokaltog/vim-powerline',
+        \ ]
+
+        let g:addons += [
+            \ 'github:scrooloose/nerdtree',
+            \ 'github:zeekay/nerdtree-hax',
         \ ]
 
         if version > 702
