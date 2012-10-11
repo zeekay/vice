@@ -68,7 +68,7 @@ yes | vim -c ':q'
 echo '...done!'
 
 echo
-ccho 'You also might want to install a few external programs for syntax checking.'
+echo 'You also might want to install a few external programs for syntax checking.'
 echo 'For Clojure, Haskell, Javascript and Python I recommend:'
 echo
 echo 'lein plugin install org.clojars.ibdknox/lein-nailgun 1.1.1'
