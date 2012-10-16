@@ -17,19 +17,12 @@
             \ 'github:zeekay/vim-space',
         \ ]
 
-        " Order is significant in these cases, so for clarity they are grouped
-        " individually
+        " Order is significant for these addons, so they are grouped for clarity
         let g:addons += [
             \ 'github:tpope/vim-fugitive',
             \ 'github:gregsexton/gitv',
-        \ ]
-
-        let g:addons += [
             \ 'github:zeekay/vim-powerline-hax',
             \ 'github:Lokaltog/vim-powerline',
-        \ ]
-
-        let g:addons += [
             \ 'github:scrooloose/nerdtree',
             \ 'github:zeekay/nerdtree-hax',
         \ ]
@@ -41,6 +34,10 @@
         if version > 702 && has('python')
             let g:addons += ['github:SirVer/ultisnips']
         endif
+    endif
+
+    if exists('g:addons_extra')
+        let g:addons += g:addons_extra
     endif
 
     if !exists('g:lazy_addons')
@@ -55,6 +52,12 @@
         if version > 702 && executable('ctags')
             let g:lazy_addons.TagbarToggle = ['github:majutsushi/tagbar']
         endif
+    endif
+
+    if exists('g:lazy_addons_extra')
+        for [key, val] in items(g:lazy_addons_extra)
+            let g:lazy_addons[key] = val
+        endfor
     endif
 
     " filetype-specific addons
@@ -88,7 +91,7 @@
                 \ 'github:zeekay/haskellmode-vim',
                 \ 'github:ujihisa/neco-ghc',
                 \ ],
-            \ 'html\|xml': [
+            \ 'html\|xhtml\|xml': [
                 \ 'github:gregsexton/MatchTag',
                 \ 'github:othree/html5.vim',
                 \ 'github:zeekay/xml.vim',
@@ -96,7 +99,7 @@
             \ 'jade': [
                 \ 'github:digitaltoad/vim-jade',
                 \ ],
-            \ 'javascript\|css\|html': [
+            \ 'javascript\|css\|html\|xhtml\|xml': [
                 \ 'github:maksimr/vim-jsbeautify',
                 \ 'github:zeekay/js-beautify',
                 \ ],
@@ -123,9 +126,15 @@
         \ }
 
         if has('python')
-            let g:ft_addons['coffee\|javascript\|css\|html\|jade\|stylus'] = ['github:zeekay/vim-bebop']
+            let g:ft_addons['coffee\|javascript\|css\|html\|xhtml\|jade\|stylus'] = ['github:zeekay/vim-bebop']
             let g:ft_addons['python'] += ['github:zeekay/vim-python']
         endif
+    endif
+
+    if exists('g:ft_addons_extra')
+        for [key, val] in items(g:ft_addons_extra)
+            let g:ft_addons[key] = val
+        endfor
     endif
 
     " Set VIMHOME
@@ -248,7 +257,7 @@
 " Enable omnicomplete {{{
     au FileType python setlocal omnifunc=pythoncomplete#Complete
     au FileType javascript,coffee setlocal omnifunc=javascriptcomplete#CompleteJS
-    au FileType html setlocal omnifunc=htmlcomplete#CompleteTags
+    au FileType xhtml,html setlocal omnifunc=htmlcomplete#CompleteTags
     au FileType css setlocal omnifunc=csscomplete#CompleteCSS
     au FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
     au FileType php setlocal omnifunc=phpcomplete#CompletePHP
@@ -264,7 +273,7 @@
 
 " Gui {{{
     if has('gui_running')
-        colorscheme molokai
+        colorscheme minimal_Theme
         set guioptions=ace
         set fillchars=diff:⣿
         set listchars=tab:▸\ ,eol:¬,extends:❯,precedes:❮
@@ -279,7 +288,6 @@
         let g:macvim_skip_cmd_opt_movement = 1
         set guifont=Inconsolata:h14
         " set linespace=1
-        set transparency=3
         nnoremap <D-1> 1gt
         nnoremap <D-2> 2gt
         nnoremap <D-3> 3gt
@@ -297,6 +305,16 @@
         nnoremap <D-]> <c-w>w
         let $PATH=substitute('~/.cabal/bin:~/Library/Haskell/bin:/usr/local/share/ruby:/usr/local/share/python:~/.zsh/plugins/osx/lib:/usr/sbin:~/.dotfiles/scripts:~/.bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Developer/usr/bin:~/.zsh/plugins/clojure/bin', '\~', $HOME, 'g')
         let $NODE_PATH='/usr/local/lib/jsctags/:'.$NODE_PATH
+
+        set transparency=5
+        function! TransparencyToggle()
+          if eval("&transparency") == 5
+            let &transparency=0
+          else
+            let &transparency=5
+          endif
+        endfunction
+        nnoremap <D-u> :call TransparencyToggle()<cr>
     endif
 " }}}
 
@@ -363,7 +381,7 @@
         call CSSBeautify()
     endfunc
     au FileType css command! Beautify call s:CssBeautify()
-    au FileType html command! Beautify call HtmlBeautify()
+    au FileType xml,xhtml,html command! Beautify call HtmlBeautify()
 " }}}
 
 " Netrw {{{
