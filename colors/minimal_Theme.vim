@@ -10,20 +10,20 @@ endif
 
 let g:colors_name = "minimal Theme"
 
-hi Cursor ctermfg=NONE ctermbg=208 cterm=NONE guifg=NONE guibg=#ff9900 gui=NONE
+hi Cursor ctermfg=52 ctermbg=208 cterm=NONE guifg=#302d26 guibg=#ff9900 gui=NONE
 hi Visual ctermfg=NONE ctermbg=16 cterm=NONE guifg=NONE guibg=#180024 gui=NONE
 hi CursorLine ctermfg=NONE ctermbg=59 cterm=NONE guifg=NONE guibg=#444239 gui=NONE
 hi CursorColumn ctermfg=NONE ctermbg=59 cterm=NONE guifg=NONE guibg=#444239 gui=NONE
 hi ColorColumn ctermfg=NONE ctermbg=59 cterm=NONE guifg=NONE guibg=#444239 gui=NONE
 hi LineNr ctermfg=102 ctermbg=59 cterm=NONE guifg=#969683 guibg=#444239 gui=NONE
 hi VertSplit ctermfg=59 ctermbg=59 cterm=NONE guifg=#6b6a5c guibg=#6b6a5c gui=NONE
-hi MatchParen ctermfg=108 ctermbg=NONE cterm=NONE guifg=#949c8b guibg=NONE gui=NONE
+hi MatchParen ctermfg=108 ctermbg=NONE cterm=underline guifg=#949c8b guibg=NONE gui=underline
 hi StatusLine ctermfg=230 ctermbg=59 cterm=bold guifg=#fcffe0 guibg=#6b6a5c gui=bold
 hi StatusLineNC ctermfg=230 ctermbg=59 cterm=NONE guifg=#fcffe0 guibg=#6b6a5c gui=NONE
 hi Pmenu ctermfg=94 ctermbg=NONE cterm=NONE guifg=#84730b guibg=NONE gui=NONE
 hi PmenuSel ctermfg=NONE ctermbg=16 cterm=NONE guifg=NONE guibg=#180024 gui=NONE
-hi IncSearch ctermfg=NONE ctermbg=59 cterm=NONE guifg=NONE guibg=#65554b gui=NONE
-hi Search ctermfg=NONE ctermbg=59 cterm=NONE guifg=NONE guibg=#65554b gui=NONE
+hi IncSearch ctermfg=52 ctermbg=102 cterm=NONE guifg=#302d26 guibg=#9a807c gui=NONE
+hi Search ctermfg=NONE ctermbg=NONE cterm=underline guifg=NONE guibg=NONE gui=underline
 hi Directory ctermfg=130 ctermbg=NONE cterm=NONE guifg=#ab641b guibg=NONE gui=NONE
 hi Folded ctermfg=59 ctermbg=52 cterm=NONE guifg=#706d5b guibg=#302d26 gui=NONE
 
@@ -34,6 +34,10 @@ hi Comment ctermfg=59 ctermbg=NONE cterm=NONE guifg=#706d5b guibg=NONE gui=itali
 hi Conditional ctermfg=108 ctermbg=NONE cterm=NONE guifg=#949c8b guibg=NONE gui=NONE
 hi Constant ctermfg=130 ctermbg=NONE cterm=NONE guifg=#ab641b guibg=NONE gui=NONE
 hi Define ctermfg=108 ctermbg=NONE cterm=NONE guifg=#949c8b guibg=NONE gui=NONE
+hi DiffAdd ctermfg=230 ctermbg=64 cterm=bold guifg=#fcffe0 guibg=#48840c gui=bold
+hi DiffDelete ctermfg=88 ctermbg=NONE cterm=NONE guifg=#8d0908 guibg=NONE gui=NONE
+hi DiffChange ctermfg=230 ctermbg=23 cterm=NONE guifg=#fcffe0 guibg=#283c57 gui=NONE
+hi DiffText ctermfg=230 ctermbg=24 cterm=bold guifg=#fcffe0 guibg=#204a87 gui=bold
 hi ErrorMsg ctermfg=231 ctermbg=88 cterm=NONE guifg=#f8f8f8 guibg=#800f00 gui=NONE
 hi WarningMsg ctermfg=231 ctermbg=88 cterm=NONE guifg=#f8f8f8 guibg=#800f00 gui=NONE
 hi Float ctermfg=130 ctermbg=NONE cterm=NONE guifg=#ab641b guibg=NONE gui=NONE

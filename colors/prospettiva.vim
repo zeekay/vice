@@ -10,20 +10,20 @@ endif
 
 let g:colors_name = "Prospettiva"
 
-hi Cursor ctermfg=NONE ctermbg=59 cterm=NONE guifg=NONE guibg=#635b4e gui=NONE
+hi Cursor ctermfg=231 ctermbg=59 cterm=NONE guifg=#fffefa guibg=#635b4e gui=NONE
 hi Visual ctermfg=NONE ctermbg=228 cterm=NONE guifg=NONE guibg=#fefe96 gui=NONE
 hi CursorLine ctermfg=NONE ctermbg=230 cterm=NONE guifg=NONE guibg=#f1f0ea gui=NONE
 hi CursorColumn ctermfg=NONE ctermbg=230 cterm=NONE guifg=NONE guibg=#f1f0ea gui=NONE
 hi ColorColumn ctermfg=NONE ctermbg=230 cterm=NONE guifg=NONE guibg=#f1f0ea gui=NONE
 hi LineNr ctermfg=145 ctermbg=230 cterm=NONE guifg=#bab7aa guibg=#f1f0ea gui=NONE
 hi VertSplit ctermfg=188 ctermbg=188 cterm=NONE guifg=#d7d5cc guibg=#d7d5cc gui=NONE
-hi MatchParen ctermfg=137 ctermbg=NONE cterm=NONE guifg=#b3935c guibg=NONE gui=NONE
+hi MatchParen ctermfg=137 ctermbg=NONE cterm=underline guifg=#b3935c guibg=NONE gui=underline
 hi StatusLine ctermfg=95 ctermbg=188 cterm=bold guifg=#746f5a guibg=#d7d5cc gui=bold
 hi StatusLineNC ctermfg=95 ctermbg=188 cterm=NONE guifg=#746f5a guibg=#d7d5cc gui=NONE
 hi Pmenu ctermfg=95 ctermbg=NONE cterm=NONE guifg=#785333 guibg=NONE gui=NONE
 hi PmenuSel ctermfg=NONE ctermbg=228 cterm=NONE guifg=NONE guibg=#fefe96 gui=NONE
-hi IncSearch ctermfg=NONE ctermbg=188 cterm=NONE guifg=NONE guibg=#d1dbd7 gui=NONE
-hi Search ctermfg=NONE ctermbg=188 cterm=NONE guifg=NONE guibg=#d1dbd7 gui=NONE
+hi IncSearch ctermfg=231 ctermbg=107 cterm=NONE guifg=#fffefa guibg=#7ca563 gui=NONE
+hi Search ctermfg=NONE ctermbg=NONE cterm=underline guifg=NONE guibg=NONE gui=underline
 hi Directory ctermfg=167 ctermbg=NONE cterm=NONE guifg=#da5659 guibg=NONE gui=NONE
 hi Folded ctermfg=249 ctermbg=231 cterm=NONE guifg=#b3b3b3 guibg=#fffefa gui=NONE
 
@@ -34,6 +34,10 @@ hi Comment ctermfg=249 ctermbg=231 cterm=NONE guifg=#b3b3b3 guibg=#fffefa gui=NO
 hi Conditional ctermfg=137 ctermbg=NONE cterm=NONE guifg=#b3935c guibg=NONE gui=NONE
 hi Constant ctermfg=167 ctermbg=NONE cterm=NONE guifg=#da5659 guibg=NONE gui=NONE
 hi Define ctermfg=137 ctermbg=NONE cterm=NONE guifg=#b3935c guibg=NONE gui=NONE
+hi DiffAdd ctermfg=95 ctermbg=149 cterm=bold guifg=#746f5a guibg=#a1e85c gui=bold
+hi DiffDelete ctermfg=203 ctermbg=NONE cterm=NONE guifg=#f25453 guibg=NONE gui=NONE
+hi DiffChange ctermfg=95 ctermbg=152 cterm=NONE guifg=#746f5a guibg=#b9cfe4 gui=NONE
+hi DiffText ctermfg=95 ctermbg=74 cterm=bold guifg=#746f5a guibg=#729fcf gui=bold
 hi ErrorMsg ctermfg=NONE ctermbg=NONE cterm=NONE guifg=NONE guibg=NONE gui=NONE
 hi WarningMsg ctermfg=NONE ctermbg=NONE cterm=NONE guifg=NONE guibg=NONE gui=NONE
 hi Float ctermfg=167 ctermbg=NONE cterm=NONE guifg=#da5659 guibg=NONE gui=NONE
