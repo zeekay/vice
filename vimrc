@@ -849,17 +849,24 @@
     " Automatically show diff in git window
     function! s:GitCommit()
         set textwidth=80
-        " Display diff
-        silent! DiffGitCached -p
-        " Switch back to commit message window
-        wincmd L
-        " Disable neocomplcache
-        let g:neocomplcache_disable_auto_complete = 1
-        if line('$') == 1 && getline(1) == ''
-            wincmd q
+
+        " Disable automatic completion
+        NeoComplCacheLock
+
+        " Display diff if we aren't in a fugitive window
+        if !eval('&pvw')
+            silent! DiffGitCached -p
+            " Switch back to commit message window
+            wincmd L
+            if line('$') == 1 && getline(1) == ''
+                wincmd q
+            endif
         endif
     endfunction
+
     autocmd FileType gitcommit call s:GitCommit()
+
+    " Diff options
     set diffopt+=iwhite,context:3
     if &diff
         nmap u u :diffu<cr>
