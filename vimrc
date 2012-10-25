@@ -869,6 +869,7 @@
             let g:_commitnr = bufnr('%')
             vnew
             silent! 0r!git diff --cached
+            normal gg
             set ft=diff
             set readonly
             setlocal noswapfile
