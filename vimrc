@@ -210,7 +210,6 @@
     set splitright
     set nomore
     set nrformats=hex,octal,alpha
-    set textwidth=80
     set clipboard=unnamed,unnamedplus
     silent! set breakindent
 " }}}
@@ -843,28 +842,55 @@
                               \ . synIDattr(synIDtrans(synID(line("."), col("."), 1)), "name")<CR>
     " toggle hlsearch
     map <leader>hl :set hls!<cr>
+
+    if has('gui_running')
+        " Close buffer only in GUI vim
+        nnoremap Q :bd<cr>
+    else
+        " Close and quit if in terminal
+        nnoremap Q :q<cr>
+    endif
 " }}}
 
 " Diff {{{
     " Automatically show diff in git window
-    function! s:GitCommit()
-        set textwidth=80
-
-        " Disable automatic completion
-        NeoComplCacheLock
-
-        " Display diff if we aren't in a fugitive window
-        if !eval('&pvw')
-            silent! DiffGitCached -p
-            " Switch back to commit message window
-            wincmd L
-            if line('$') == 1 && getline(1) == ''
-                wincmd q
+    function s:CloseDiff()
+        if bufwinnr(g:_diffnr)
+            if winnr("$") == 1
+                q
             endif
         endif
     endfunction
 
-    autocmd FileType gitcommit call s:GitCommit()
+    function! s:GitCommit()
+        " Disable automatic completion
+        silent! NeoComplCacheLock
+
+        " fugitive's Gstatus window is a preview window, we don't show the diff
+        " automatically there.
+        if !eval('&pvw')
+            let commitnr = bufnr('%')
+            vnew
+            let g:_diffnr = bufnr('%')
+            silent! 0r!git diff --cached
+            set ft=diff
+            set readonly
+            setlocal noswapfile
+            setlocal nobuflisted
+            setlocal buftype=nofile
+            setlocal bufhidden=delete
+            " Close if the diff is empty
+            if line('$') == 1 && getline(1) == ''
+                wincmd q
+            else
+                au WinEnter <buffer> call s:CloseDiff()
+                exe bufwinnr(commitnr) . "wincmd w"
+            endif
+        endif
+    endfunction
+
+    au FileType gitcommit call s:GitCommit()
+    au FileType gitcommit set textwidth=80
 
     " Diff options
     set diffopt+=iwhite,context:3
