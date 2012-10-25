@@ -855,10 +855,8 @@
 " Diff {{{
     " Automatically show diff in git window
     function s:CloseDiff()
-        if bufwinnr(g:_diffnr)
-            if winnr("$") == 1
-                q
-            endif
+        if bufwinnr(g:_commitnr) == -1
+            q
         endif
     endfunction
 
@@ -868,9 +866,8 @@
 
         " fugitive's Gstatus window is a preview window, we don't show the diff automatically there.
         if !eval('&pvw')
-            let commitnr = bufnr('%')
+            let g:_commitnr = bufnr('%')
             vnew
-            let g:_diffnr = bufnr('%')
             silent! 0r!git diff --cached
             set ft=diff
             set readonly
@@ -883,7 +880,7 @@
                 wincmd q
             else
                 au WinEnter <buffer> call s:CloseDiff()
-                exe bufwinnr(commitnr) . "wincmd w"
+                exe bufwinnr(g:_commitnr) . "wincmd w"
             endif
         endif
     endfunction
