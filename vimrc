@@ -866,8 +866,7 @@
         " Disable automatic completion
         silent! NeoComplCacheLock
 
-        " fugitive's Gstatus window is a preview window, we don't show the diff
-        " automatically there.
+        " fugitive's Gstatus window is a preview window, we don't show the diff automatically there.
         if !eval('&pvw')
             let commitnr = bufnr('%')
             vnew
