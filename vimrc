@@ -878,7 +878,7 @@
             setlocal bufhidden=delete
             " Close if the diff is empty
             if line('$') == 1 && getline(1) == ''
-                wincmd q
+                q
             else
                 au WinEnter <buffer> call s:CloseDiff()
                 exe bufwinnr(g:_commitnr) . "wincmd w"
@@ -910,11 +910,6 @@
     nnoremap [l :lprevious<cr>
     nnoremap ]L :llast<cr>
     nnoremap [L :lfirst<cr>
-" }}}
-
-" Command-line window {{{
-    au CmdwinEnter * map <buffer> q :quit<cr>:echo<cr>
-    au CmdwinEnter * map <buffer> Q :quit<cr>:echo<cr>
 " }}}
 
 " Hax {{{
