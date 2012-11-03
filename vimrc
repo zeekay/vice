@@ -100,7 +100,7 @@
                 \ 'github:digitaltoad/vim-jade',
                 \ ],
             \ 'javascript\|css\|html\|xhtml\|xml': [
-                \ 'github:maksimr/vim-jsbeautify',
+                \ 'github:zeekay/vim-jsbeautify',
                 \ 'github:zeekay/js-beautify',
                 \ ],
             \ 'javascript': [
