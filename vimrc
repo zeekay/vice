@@ -858,6 +858,7 @@
     " Automatically show diff in git window
     function s:CloseDiff()
         if bufwinnr(g:_commitnr) == -1
+            unlet g:_commitnr
             q
         endif
     endfunction
@@ -867,7 +868,7 @@
         silent! NeoComplCacheLock
 
         " fugitive's Gstatus window is a preview window, we don't show the diff automatically there.
-        if !eval('&pvw')
+        if !eval('&pvw') && !exists('g:_commitnr')
             let g:_commitnr = bufnr('%')
             vnew
             silent! 0r!git diff --cached
