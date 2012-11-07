@@ -868,6 +868,8 @@
         silent! NeoComplCacheLock
 
         " fugitive's Gstatus window is a preview window, we don't show the diff automatically there.
+        " Through some magic I do not understand we can be called multiple
+        " times, avoid that.
         if !eval('&pvw') && !exists('g:_commitnr')
             let g:_commitnr = bufnr('%')
             vnew
