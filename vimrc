@@ -760,6 +760,9 @@
     vnoremap <silent> <PageDown> <c-d><c-d>
     inoremap <silent> <PageDown> <c-\><c-o><c-d><c-\><c-o><c-d>
 
+    vnoremap <silent> <c-f> <c-f>
+    vnoremap <silent> <c-b> <c-b>
+
     " Buffer mappings {{{
     nnoremap <silent> <Leader>d :bd<CR>
 
