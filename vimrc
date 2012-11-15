@@ -391,7 +391,17 @@
         normal 4x
         normal Gdd$x
         normal gg
-        silent call JsBeautify()
+        %!node -e "
+            \ sys = require('sys');
+            \ process.stdin.resume();
+            \ process.stdin.setEncoding('utf8');
+            \ data = '';
+            \ process.stdin.on('data', function(chunk) {
+            \   data += chunk;
+            \ });
+            \ process.stdin.on('end', function() {
+            \   console.log(JSON.stringify(JSON.parse(data), null, 2));
+            \ })"
     endfunc
     au FileType json command! Beautify call s:JsonBeautify()
 " }}}
@@ -680,7 +690,8 @@
     endif
 " }}}
 
-" {{{
+" JSON {{{
+    au FileType json set nobomb
     au FileType json setlocal conceallevel=0
 " }}}
 
