@@ -110,6 +110,9 @@
             \ 'javascript\|python': [
                 \ 'github:alfredodeza/chapa.vim',
                 \ ],
+            \ 'json': [
+                \ 'github:elzr/vim-json',
+                \ ],
             \ 'lua\|ruby\|sh\|vim\|zsh': [
                 \ 'github:tpope/vim-endwise',
                 \ ],
@@ -381,6 +384,16 @@
     endfunc
     au FileType css command! Beautify call s:CssBeautify()
     au FileType xml,xhtml,html command! Beautify call HtmlBeautify()
+    func! s:JsonBeautify()
+        normal gg
+        normal iv=
+        silent %!uglifyjs2 -b indent-level=2,quote-keys=true
+        normal 4x
+        normal Gdd$x
+        normal gg
+        silent call JsBeautify()
+    endfunc
+    au FileType json command! Beautify call s:JsonBeautify()
 " }}}
 
 " Netrw {{{
@@ -624,6 +637,7 @@
     au BufNewFile,BufRead *.go set filetype=go
     au BufNewFile,BufRead *.haml set filetype=haml
     au BufNewFile,BufRead *.jade set filetype=jade
+    au BufNewFile,BufRead *.json set filetype=json
     au BufNewFile,BufRead *.sass set filetype=sass
     au BufNewFile,BufRead *.scss set filetype=scss
     au BufNewFile,BufRead *.styl set filetype=stylus
@@ -664,6 +678,10 @@
         au FileType javascript command! RunInNode call s:RunInNode()
         au FileType javascript map <leader>r :RunInNode<cr>
     endif
+" }}}
+
+" {{{
+    au FileType json setlocal conceallevel=0
 " }}}
 
 " Markdown {{{
@@ -760,6 +778,8 @@
     vnoremap <silent> <PageDown> <c-d><c-d>
     inoremap <silent> <PageDown> <c-\><c-o><c-d><c-\><c-o><c-d>
 
+    inoremap <silent> <c-f> <c-o><c-f>
+    inoremap <silent> <c-b> <c-o><c-b>
     vnoremap <silent> <c-f> <c-f>
     vnoremap <silent> <c-b> <c-b>
 
