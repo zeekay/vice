@@ -385,12 +385,14 @@
     au FileType css command! Beautify call s:CssBeautify()
     au FileType xml,xhtml,html command! Beautify call HtmlBeautify()
     func! s:JsonBeautify()
-        normal gg
-        normal iv=
-        silent %!uglifyjs2 -b indent-level=2,quote-keys=true
-        normal 4x
-        normal Gdd$x
-        normal gg
+        if executable('uglifyjs2')
+            normal gg
+            normal iv=
+            silent %!uglifyjs2 -b indent-level=2,quote-keys=true
+            normal 4x
+            normal Gdd$x
+            normal gg
+        endif
         %!node -e "
             \ sys = require('sys');
             \ process.stdin.resume();
