@@ -693,7 +693,7 @@
 " }}}
 
 " JSON {{{
-    au FileType json set nobomb
+    au FileType json setlocal nobomb
     au FileType json setlocal conceallevel=0
 " }}}
 
