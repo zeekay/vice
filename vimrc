@@ -558,6 +558,13 @@
     let g:NERDTreeMouseMode = 3
     let g:NERDTreeCaseSensitiveSort = 1
     let g:NERDTreeChDirMode = 2
+
+    " Default key: C/cd
+    let g:NERDTreeMapChdir = 'C'
+
+    " Default key: CD
+    let g:NERDTreeMapCWD = 'cd'
+
 " }}}
 
 " Tabularize {{{
