@@ -393,7 +393,7 @@
             normal Gdd$x
             normal gg
         endif
-        %!node -e "
+        silent %!node -e "
             \ sys = require('sys');
             \ process.stdin.resume();
             \ process.stdin.setEncoding('utf8');

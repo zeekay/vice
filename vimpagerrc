@@ -57,5 +57,8 @@ map k k
 map h h
 map l l
 map Q :q<cr>
+map g g
+map gg gg
+map A $
 
 " vim:set filetype=vim:
