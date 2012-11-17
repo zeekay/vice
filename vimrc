@@ -669,6 +669,7 @@
     au FileType coffee map <leader>c :CoffeeCompile watch vertical<cr>
     au FileType coffee imap <leader>r <c-o>:CoffeeRun<cr>
     au FileType coffee imap <leader>c <c-o>:CoffeeCompile watch vertical<cr>
+    au FileType coffee set nosmartindent
 " }}}
 
 " Haskell {{{
