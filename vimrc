@@ -36,10 +36,6 @@
         endif
     endif
 
-    if exists('g:addons_extra')
-        let g:addons += g:addons_extra
-    endif
-
     if !exists('g:lazy_addons')
         " These plugins are sourced lazily as the commands are used"
         let g:lazy_addons = {
@@ -52,12 +48,6 @@
         if version > 702 && executable('ctags')
             let g:lazy_addons.TagbarToggle = ['github:majutsushi/tagbar']
         endif
-    endif
-
-    if exists('g:lazy_addons_extra')
-        for [key, val] in items(g:lazy_addons_extra)
-            let g:lazy_addons[key] = val
-        endfor
     endif
 
     " filetype-specific addons
@@ -134,10 +124,9 @@
         endif
     endif
 
-    if exists('g:ft_addons_extra')
-        for [key, val] in items(g:ft_addons_extra)
-            let g:ft_addons[key] = val
-        endfor
+    " Hook to allow user customization of addons
+    if exists('*AddonsHook')
+        call AddonsHook()
     endif
 
     " Set VIMHOME
