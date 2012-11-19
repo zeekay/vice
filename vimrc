@@ -277,8 +277,9 @@
         set fuoptions=maxvert,maxhorz
         let g:macvim_hig_shift_movement = 1
         let g:macvim_skip_cmd_opt_movement = 1
-        set guifont=Inconsolata:h14
-        " set linespace=1
+        set guifont=Inconsolata-dz:h12
+        set linespace=-1
+        nnoremap <D-1> 1gt
         nnoremap <D-1> 1gt
         nnoremap <D-2> 2gt
         nnoremap <D-3> 3gt
@@ -289,11 +290,27 @@
         nnoremap <D-8> 8gt
         nnoremap <D-9> 9gt
         nnoremap <D-0> 10gt
-        nnoremap <D-CR> :set fullscreen!<cr>
         nnoremap <D-d> :vsplit<cr>
         nnoremap <D-D> :split<cr>
         nnoremap <D-[> <c-w>W
         nnoremap <D-]> <c-w>w
+        nnoremap <D-CR> :set fullscreen!<cr>
+
+        inoremap <D-1> <esc>1gt
+        inoremap <D-2> <esc>2gt
+        inoremap <D-3> <esc>3gt
+        inoremap <D-4> <esc>4gt
+        inoremap <D-5> <esc>5gt
+        inoremap <D-6> <esc>6gt
+        inoremap <D-7> <esc>7gt
+        inoremap <D-8> <esc>8gt
+        inoremap <D-9> <esc>9gt
+        inoremap <D-0> <esc>10gt
+        inoremap <D-d> <esc>:vsplit<cr>
+        inoremap <D-D> <esc>:split<cr>
+        inoremap <D-[> <esc><c-w>W
+        inoremap <D-]> <esc><c-w>w
+        inoremap <D-CR> <c-o>:set fullscreen!<cr>
         let $PATH=substitute('~/.cabal/bin:~/Library/Haskell/bin:/usr/local/share/ruby:/usr/local/share/python:~/.zsh/plugins/osx/lib:/usr/sbin:~/.dotfiles/scripts:~/.bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Developer/usr/bin:~/.zsh/plugins/clojure/bin', '\~', $HOME, 'g')
         let $NODE_PATH='/usr/local/lib/jsctags/:'.$NODE_PATH
 
@@ -665,10 +682,10 @@
 
 " CoffeeScript {{{
     au FileType coffee setlocal foldmethod=indent nofoldenable
-    au FileType coffee map <leader>r :CoffeeRun<cr>
-    au FileType coffee map <leader>c :CoffeeCompile watch vertical<cr>
-    au FileType coffee imap <leader>r <c-o>:CoffeeRun<cr>
-    au FileType coffee imap <leader>c <c-o>:CoffeeCompile watch vertical<cr>
+    au FileType coffee map <buffer><leader>r :CoffeeRun<cr>
+    au FileType coffee map <buffer><leader>c :CoffeeCompile watch vertical<cr>
+    au FileType coffee imap <buffer><leader>r <c-o>:CoffeeRun<cr>
+    au FileType coffee imap <buffer><leader>c <c-o>:CoffeeCompile watch vertical<cr>
     au FileType coffee setlocal nosmartindent
 " }}}
 
@@ -685,7 +702,7 @@
             !node %
         endf
         au FileType javascript command! RunInNode call s:RunInNode()
-        au FileType javascript map <leader>r :RunInNode<cr>
+        au FileType javascript map <buffer><leader>r :RunInNode<cr>
     endif
 " }}}
 
@@ -711,7 +728,7 @@
 " }}}
 
 " VimL {{{
-    au FileType vim nnoremap <leader>r :w<cr> <bar> :so %<cr>
+    au FileType vim nnoremap <buffer><leader>r :w<cr> <bar> :so %<cr>
 " }}}
 
 " Fast Escape {{{
@@ -784,12 +801,14 @@
     nnoremap <silent> <PageUp> <c-u><c-u>
     vnoremap <silent> <PageUp> <c-u><c-u>
     inoremap <silent> <PageUp> <c-\><c-o><c-u><c-\><c-o><c-u>
+
     nnoremap <silent> <PageDown> <c-d><c-d>
     vnoremap <silent> <PageDown> <c-d><c-d>
     inoremap <silent> <PageDown> <c-\><c-o><c-d><c-\><c-o><c-d>
 
     inoremap <silent> <c-f> <c-o><c-f>
     inoremap <silent> <c-b> <c-o><c-b>
+
     vnoremap <silent> <c-f> <c-f>
     vnoremap <silent> <c-b> <c-b>
 
@@ -828,27 +847,68 @@
     nnoremap <leader>ww <c-w>w
     nnoremap <leader>wx <c-w>x
 
-    " Fast window moving/resizing with alt/meta + h/j/k/l
-    map h <c-w>h
-    map j <c-w>j
-    map k <c-w>k
-    map l <c-w>l
-    map H <c-w>H
-    map J <c-w>J
-    map K <c-w>K
-    map L <c-w>L
-    map è <c-w>h
-    map ê <c-w>j
-    map ë <c-w>k
-    map ì <c-w>l
-    map È <c-w>H
-    map Ê <c-w>J
-    map Ë <c-w>K
-    map Ì <c-w>L
-    nnoremap <c-up> <c-w>+
-    nnoremap <c-down> <c-w>-
-    nnoremap <c-left> <c-w>>
-    nnoremap <c-right> <c-w><
+    " Fast window moving/resizing with alt/meta
+    if has('gui_running')
+        nnoremap <M-J> <C-w>J
+        nnoremap <M-K> <C-w>K
+        nnoremap <M-H> <C-w>H
+        nnoremap <M-L> <C-w>L
+
+        inoremap <M-J> <Esc><C-w>J
+        inoremap <M-K> <Esc><C-w>K
+        inoremap <M-H> <Esc><C-w>H
+        inoremap <M-L> <Esc><C-w>L
+
+        nnoremap <M-j> <C-w>j
+        nnoremap <M-k> <C-w>k
+        nnoremap <M-h> <C-w>h
+        nnoremap <M-l> <C-w>l
+
+        inoremap <M-j> <Esc><C-w>j
+        inoremap <M-k> <Esc><C-w>k
+        inoremap <M-h> <Esc><C-w>h
+        inoremap <M-l> <Esc><C-w>l
+
+        nnoremap <M-=> <C-w>+
+        nnoremap <M--> <C-w>-
+        nnoremap <M->> <C-w>>
+        nnoremap <M-<> <C-w><
+
+        inoremap <M-=> <Esc><C-w>+
+        inoremap <M--> <Esc><C-w>-
+        inoremap <M->> <Esc><C-w>>
+        inoremap <M-<> <Esc><C-w><
+    else
+        nnoremap h <c-w>h
+        nnoremap j <c-w>j
+        nnoremap k <c-w>k
+        nnoremap l <c-w>l
+
+        inoremap h <esc><c-w>h
+        inoremap j <esc><c-w>j
+        inoremap k <esc><c-w>k
+        inoremap l <esc><c-w>l
+
+        nnoremap H <c-w>H
+        nnoremap J <c-w>J
+        nnoremap K <c-w>K
+        nnoremap L <c-w>L
+
+        inoremap H <esc><c-w>H
+        inoremap J <esc><c-w>J
+        inoremap K <esc><c-w>K
+        inoremap L <esc><c-w>L
+
+        nnoremap = <c-w>+
+        nnoremap - <c-w>-
+        nnoremap > <c-w>>
+        nnoremap < <c-w><
+
+        inoremap = <c-o><c-w>+
+        inoremap - <c-o><c-w>-
+        inoremap > <c-o><c-w>>
+        inoremap < <c-o><c-w><
+    endif
 
     " CtrlP mappings
     nnoremap gm :CtrlPMixed<cr>
