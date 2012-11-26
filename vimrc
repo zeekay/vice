@@ -968,8 +968,8 @@
             vnew
             silent! 0r!git diff --cached
             normal gg
-            set ft=diff
-            set readonly
+            setlocal ft=diff
+            setlocal readonly
             setlocal noswapfile
             setlocal nobuflisted
             setlocal buftype=nofile
@@ -985,7 +985,7 @@
     endfunction
 
     au FileType gitcommit call s:GitCommit()
-    au FileType gitcommit set textwidth=80
+    au FileType gitcommit setlocal textwidth=80
 
     " Diff options
     set diffopt+=iwhite,context:3
@@ -997,9 +997,9 @@
 " }}}
 
 " Quickfix / location list {{{
-    au FileType qf setl nolist
-    au FileType qf setl nocursorline
-    au FileType qf setl nowrap
+    au FileType qf setlocal nolist
+    au FileType qf setlocal nocursorline
+    au FileType qf setlocal nowrap
     nnoremap ]q :cnext<cr>
     nnoremap [q :cprevious<cr>
     nnoremap ]Q :clast<cr>
@@ -1011,7 +1011,7 @@
 " }}}
 
 " Hax {{{
-    au FileChangedRO * set noro
+    au FileChangedRO * setlocal noro
 " }}}
 
 " vim: fdm=marker foldlevel=1 nofoldenable
