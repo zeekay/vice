@@ -507,8 +507,8 @@
 " }}}
 
 " Chapa.vim {{{
-    let g:chapa_no_repeat_mappings = 1
-    let g:chapa_default_mappings = 1
+    " let g:chapa_no_repeat_mappings = 1
+    let g:chapa_default_mappings = 0
 " }}}
 
 " Commentary {{{
