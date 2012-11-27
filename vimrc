@@ -997,6 +997,7 @@
 " }}}
 
 " Quickfix / location list {{{
+    au QuickFixCmdPost *grep* cwindow
     au FileType qf setlocal nolist
     au FileType qf setlocal nocursorline
     au FileType qf setlocal nowrap
