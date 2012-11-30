@@ -11,7 +11,7 @@ if version > 580
 	syntax reset
     endif
 endif
-let g:colors_name="atom"
+let g:colors_name="atom-dark"
 
 hi Normal       guifg=#e8ecf0     guibg=#232323
 

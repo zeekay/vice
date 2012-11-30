@@ -6,7 +6,7 @@ if exists("syntax_on")
     syntax reset
 endif
 
-let colors_name = "tomya"
+let g:colors_name = "tomya"
 
 hi Normal ctermbg=0 ctermfg=7 cterm=none guibg=#212221 guifg=#dcdccc gui=none
 

@@ -12,7 +12,7 @@ if exists("syntax_on")
     syntax reset
 endif
 
-let colors_name="AutumnLeaf"
+let colors_name="autumnleaf"
 
 
 " Colors for the User Interface.
@@ -113,14 +113,14 @@ hi Linenr	ctermbg=bg  ctermfg=7
 " hi DiffAdd	ctermbg=1   ctermfg=15
 " hi DiffChange	ctermbg=5   ctermfg=15
 " hi DiffDelete	ctermbg=7   ctermfg=8
-hi Directory	ctermbg=bg  ctermfg=2 
+hi Directory	ctermbg=bg  ctermfg=2
 hi IncSearch	ctermbg=9   ctermfg=0
 hi Search	ctermbg=9   ctermfg=0
-hi SpecialKey	ctermbg=bg  ctermfg=fg 
+hi SpecialKey	ctermbg=bg  ctermfg=fg
 hi Titled	ctermbg=bg  ctermfg=fg
-hi ErrorMsg	ctermbg=bg  ctermfg=12 
-hi ModeMsg	ctermbg=bg  ctermfg=9  
-hi WarningMsg	ctermbg=bg  ctermfg=12 
+hi ErrorMsg	ctermbg=bg  ctermfg=12
+hi ModeMsg	ctermbg=bg  ctermfg=9
+hi WarningMsg	ctermbg=bg  ctermfg=12
 hi StatusLine	ctermbg=14  ctermfg=0
 hi StatusLineNC	ctermbg=6   ctermfg=14
 hi VertSplit	ctermbg=6   ctermfg=14
@@ -148,7 +148,7 @@ hi Special	ctermbg=bg  ctermfg=fg cterm=bold
 hi Tag		ctermbg=bg  ctermfg=9  cterm=bold
 hi SpecialComment ctermbg=7 ctermfg=4
 hi Underlined	ctermbg=bg  ctermfg=9  cterm=underline
-hi Title	ctermbg=bg  ctermfg=fg cterm=bold 
+hi Title	ctermbg=bg  ctermfg=fg cterm=bold
 hi Ignore	ctermbg=bg  ctermfg=7
 hi Error	ctermbg=12  ctermfg=15
 hi Todo		ctermbg=bg  ctermfg=15

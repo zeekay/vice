@@ -1,4 +1,4 @@
-let g:colors_name="VO Light"
+let g:colors_name="vo_light"
 hi normal guifg=black guibg=white	ctermfg=white ctermbg=black
 hi StatusLine guifg=black guibg=white	ctermfg=white ctermbg=black
 hi StatusLineNC guifg=black guibg=white	ctermfg=white ctermbg=black
@@ -38,7 +38,7 @@ hi PT7 guifg=darkblue	ctermfg=cyan
 hi PT8 guifg=darkblue	ctermfg=cyan
 hi PT9 guifg=darkblue	ctermfg=cyan
 
-" color for tables 
+" color for tables
 hi TA1 guifg=darkviolet	ctermfg=cyan
 hi TA2 guifg=darkviolet	ctermfg=cyan
 hi TA3 guifg=darkviolet	ctermfg=cyan
