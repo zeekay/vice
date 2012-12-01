@@ -15,6 +15,7 @@
             \ 'github:tpope/vim-repeat',
             \ 'github:tpope/vim-surround',
             \ 'github:zeekay/vim-space',
+            \ 'github:zeekay/vim-color-switch',
         \ ]
 
         " Order is significant for these addons, so they are grouped for clarity
