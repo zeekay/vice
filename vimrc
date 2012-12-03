@@ -265,7 +265,7 @@
 
 " Gui {{{
     if has('gui_running')
-        colorscheme minimal_Theme
+        colorscheme minimal
         set guioptions=ace
         set fillchars=diff:⣿
         set listchars=tab:▸\ ,eol:¬,extends:❯,precedes:❮
@@ -316,13 +316,13 @@
         let $NODE_PATH='/usr/local/lib/jsctags/:'.$NODE_PATH
 
         set transparency=5
-        function! TransparencyToggle()
+        fun! TransparencyToggle()
           if eval("&transparency") == 5
             let &transparency=0
           else
             let &transparency=5
           endif
-        endfunction
+        endf
         nnoremap <D-u> :call TransparencyToggle()<cr>
     endif
 " }}}
@@ -388,7 +388,7 @@
         " Remove all leading indentation first, since js-beautify doesn't
         exe '%le'
         call CSSBeautify()
-    endfunc
+    endf
     au FileType css command! Beautify call s:CssBeautify()
     au FileType xml,xhtml,html command! Beautify call HtmlBeautify()
     func! s:JsonBeautify()
@@ -411,7 +411,7 @@
             \ process.stdin.on('end', function() {
             \   console.log(JSON.stringify(JSON.parse(data), null, 2));
             \ })"
-    endfunc
+    endf
     au FileType json command! Beautify call s:JsonBeautify()
 " }}}
 
@@ -449,7 +449,7 @@
                 endif
             endif
             return "\<CR>"
-        endfunction
+        endf
         inoremap <expr><CR> AutoClosePopup()
 
         " <TAB>: completion.
@@ -948,14 +948,14 @@
 
 " Diff {{{
     " Automatically show diff in git window
-    function s:CloseDiff()
+    func! s:CloseDiff()
         if bufwinnr(g:_commitnr) == -1
             unlet g:_commitnr
             q
         endif
-    endfunction
+    endf
 
-    function! s:GitCommit()
+    func! s:GitCommit()
         " Disable automatic completion
         silent! NeoComplCacheLock
 
@@ -981,7 +981,7 @@
                 exe bufwinnr(g:_commitnr) . "wincmd w"
             endif
         endif
-    endfunction
+    endf
 
     au FileType gitcommit call s:GitCommit()
     au FileType gitcommit setlocal textwidth=80
