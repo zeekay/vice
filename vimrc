@@ -642,6 +642,10 @@
 	let g:syntastic_stl_format = '⚡︎ line %F, 1 of %t ⚡︎'
 " }}}
 
+" Undotree {{{
+    let g:undotree_SplitLocation = 'botright'
+" }}}
+
 " Bebop {{{
   let g:bebop_enabled = 0
 " }}}
