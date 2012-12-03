@@ -43,7 +43,7 @@
             \ 'Ack': ['github:mileszs/ack.vim'],
             \ 'ColorV': ['github:Rykka/colorv.vim'],
             \ 'Gist': ['github:mattn/gist-vim', 'github:mattn/webapi-vim'],
-            \ 'GundoToggle': ['github:sjl/gundo.vim'],
+            \ 'UndotreeToggle': ['github:mbbill/undotree'],
         \ }
 
         if version > 702 && executable('ctags')
@@ -547,12 +547,6 @@
     let g:delimitMate_excluded_ft = "mail,help"
 " }}}
 
-" Gundo {{{
-    let g:gundo_help = 0
-    let g:gundo_right = 1
-    let g:gundo_width = 30
-" }}}
-
 " Nerdtree {{{
     "" Auto open nerd tree on startup
     let g:nerdtree_tabs_open_on_gui_startup = 0
@@ -918,11 +912,11 @@
     nnoremap go :CtrlP<cr>
     nnoremap gr :CtrlPMRUFiles<cr>
 
-    " Gundo, NERDTree, Tagbar
+    " NERDTree, undotree, Tagbar
     nnoremap <leader>n :NERDTreeToggle<cr>
     nnoremap <leader>N :NERDTreeCD<cr>
+    nnoremap <leader>u :UndotreeToggle<cr>
     nnoremap <leader>t :TagbarToggle<cr>
-    nnoremap <leader>u :GundoToggle<cr>
 
     " Fast substitute
     nnoremap <leader>s :s\v%//<left>
