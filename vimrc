@@ -313,7 +313,6 @@
         inoremap <D-]> <esc><c-w>w
         inoremap <D-CR> <c-o>:set fullscreen!<cr>
         let $PATH=substitute('~/.cabal/bin:~/Library/Haskell/bin:/usr/local/share/ruby:/usr/local/share/python:~/.zsh/plugins/osx/lib:/usr/sbin:~/.dotfiles/scripts:~/.bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Developer/usr/bin:~/.zsh/plugins/clojure/bin', '\~', $HOME, 'g')
-        let $NODE_PATH='/usr/local/lib/jsctags/:'.$NODE_PATH
 
         set transparency=5
         fun! TransparencyToggle()
@@ -694,14 +693,20 @@
 " }}}
 
 " Javascript {{{
+    " Run current file in node for quick evaluation
+    func! s:RunInNode()
+        w
+        !node %
+    endf
+
+    func! s:UpdateNodePath()
+      let $NODE_PATH='./node_modules:/usr/local/lib/jsctags/:'.$NODE_PATH
+    endf
+
     if executable('node')
-        " Run current file in node for quick evaluation
-        func! s:RunInNode()
-            w
-            !node %
-        endf
         au FileType javascript command! RunInNode call s:RunInNode()
         au FileType javascript map <buffer><leader>r :RunInNode<cr>
+        au FileType javascript,coffee call s:UpdateNodePath()
     endif
 " }}}
 
