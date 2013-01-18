@@ -79,6 +79,7 @@
                 \ 'github:tpope/vim-haml',
                 \ ],
             \ 'haskell': [
+                \ 'github:wlangstroth/vim-haskell',
                 \ 'github:zeekay/haskellmode-vim',
                 \ 'github:ujihisa/neco-ghc',
                 \ ],
@@ -716,7 +717,8 @@
 " }}}
 
 " Markdown {{{
-    autocmd BufNewFile,BufRead *.{md,mkd,mkdn,mark*} set filetype=markdown
+    au BufNewFile,BufRead *.{md,mkd,mkdn,mark*} set filetype=markdown
+    au FileType markdown set textwidth=80
 " }}}
 
 " Python {{{
