@@ -250,15 +250,14 @@
 " }}}
 
 " Enable omnicomplete {{{
-    au FileType python setl omnifunc=pythoncomplete#Complete
-    au FileType javascript,coffee setl setl omnifunc=jscomplete#CompleteJS
-    au FileType xhtml,html setl omnifunc=htmlcomplete#CompleteTags
-    au FileType css setl omnifunc=csscomplete#CompleteCSS
-    au FileType xml setl omnifunc=xmlcomplete#CompleteTags
-    au FileType php setl omnifunc=phpcomplete#CompletePHP
     au FileType c setl omnifunc=ccomplete#Complete
-    " au FileType cpp setl omnifunc=omni#cpp#complete#Main
+    au FileType coffee,javascript setl omnifunc=jscomplete#CompleteJS
+    au FileType css setl omnifunc=csscomplete#CompleteCSS
+    au FileType php setl omnifunc=phpcomplete#CompletePHP
+    au FileType python setl omnifunc=pythoncomplete#Complete
     au FileType ruby,eruby setl omnifunc=rubycomplete#Complete
+    au FileType xhtml,html setl omnifunc=htmlcomplete#CompleteTags
+    au FileType xml setl omnifunc=xmlcomplete#CompleteTags
 " }}}
 
 " Console {{{
