@@ -72,6 +72,9 @@
             \ 'coffee': [
                 \ 'github:kchmck/vim-coffee-script',
                 \ ],
+            \ 'coffee\|javascript': [
+                \ 'github:teramako/jscomplete-vim',
+                \ ],
             \ 'go': [
                 \ 'github:jnwhiteh/vim-golang',
                 \ ],
@@ -96,7 +99,6 @@
                 \ 'github:zeekay/js-beautify',
                 \ ],
             \ 'javascript': [
-                \ 'github:pangloss/vim-javascript',
                 \ 'github:zeekay/vim-js2coffee',
                 \ ],
             \ 'javascript\|python': [
@@ -217,8 +219,8 @@
     set autoindent
     set copyindent
     set smartindent
-    au FileType xml,xhtml,htmldjango set shiftwidth=4
-    au FileType html,coffee,haml,stylus,jade,javascript set shiftwidth=2
+    au FileType xml,xhtml,htmldjango setl shiftwidth=4
+    au FileType css,html,coffee,haml,stylus,jade,javascript setl shiftwidth=2
 " }}}
 
 " Search/Highlight {{{
@@ -248,20 +250,22 @@
 " }}}
 
 " Enable omnicomplete {{{
-    au FileType python setlocal omnifunc=pythoncomplete#Complete
-    au FileType javascript,coffee setlocal omnifunc=javascriptcomplete#CompleteJS
-    au FileType xhtml,html setlocal omnifunc=htmlcomplete#CompleteTags
-    au FileType css setlocal omnifunc=csscomplete#CompleteCSS
-    au FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-    au FileType php setlocal omnifunc=phpcomplete#CompletePHP
-    au FileType c setlocal omnifunc=ccomplete#Complete
-    " au FileType cpp setlocal omnifunc=omni#cpp#complete#Main
-    au FileType ruby,eruby setlocal omnifunc=rubycomplete#Complete
+    au FileType python setl omnifunc=pythoncomplete#Complete
+    au FileType javascript,coffee setl setl omnifunc=jscomplete#CompleteJS
+    au FileType xhtml,html setl omnifunc=htmlcomplete#CompleteTags
+    au FileType css setl omnifunc=csscomplete#CompleteCSS
+    au FileType xml setl omnifunc=xmlcomplete#CompleteTags
+    au FileType php setl omnifunc=phpcomplete#CompletePHP
+    au FileType c setl omnifunc=ccomplete#Complete
+    " au FileType cpp setl omnifunc=omni#cpp#complete#Main
+    au FileType ruby,eruby setl omnifunc=rubycomplete#Complete
 " }}}
 
 " Console {{{
-    set t_Co=256
-    colorscheme hornet
+    if !has('gui_running')
+        set t_Co=256
+        colorscheme hornet
+    endif
 " }}}
 
 " Gui {{{
@@ -363,7 +367,7 @@
     set lazyredraw
     augroup git
         au!
-        autocmd FileType git :setlocal foldlevel=99
+        au FileType git setl foldlevel=99
     augroup END
 " }}}
 
@@ -517,6 +521,7 @@
     au FileType cpp set commentstring=/\/\ %s
     au FileType python set commentstring=#\ %s
     au FileType lisp set commentstring=;;\ %s
+    au FileType json set commentstring=/\/\ %s
 " }}}
 
 " CtrlP {{{
@@ -680,20 +685,22 @@
 " }}}
 
 " CoffeeScript {{{
-    au FileType coffee setlocal foldmethod=indent nofoldenable
+    au FileType coffee setl foldmethod=indent nofoldenable
+    au FileType coffee setl nosmartindent
+    au FileType coffee setl nomodeline
     au FileType coffee map <buffer><leader>r :CoffeeRun<cr>
     au FileType coffee map <buffer><leader>c :CoffeeCompile watch vertical<cr>
     au FileType coffee imap <buffer><leader>r <c-o>:CoffeeRun<cr>
     au FileType coffee imap <buffer><leader>c <c-o>:CoffeeCompile watch vertical<cr>
-    au FileType coffee setlocal nosmartindent
 " }}}
 
 " Haskell {{{
     let g:haddock_browser="open"
-    au FileType haskell setlocal omnifunc=necoghc#omnifunc
+    au FileType haskell setl omnifunc=necoghc#omnifunc
 " }}}
 
 " Javascript {{{
+    let g:jscomplete_use = ['dom', 'moz', 'es6th']
     " Run current file in node for quick evaluation
     func! s:RunInNode()
         w
@@ -712,8 +719,8 @@
 " }}}
 
 " JSON {{{
-    au FileType json setlocal nobomb
-    au FileType json setlocal conceallevel=0
+    au FileType json setl nobomb
+    au FileType json setl conceallevel=0
 " }}}
 
 " Markdown {{{
@@ -730,7 +737,7 @@
     let g:pythonmode_enable_rope = 0
     let g:ropevim_vim_completion = 1
     let g:ropevim_extended_complete = 1
-    " au FileType python setlocal foldmethod=syntax
+    " au FileType python setl foldmethod=syntax
 " }}}
 
 " VimL {{{
@@ -974,12 +981,12 @@
             vnew
             silent! 0r!git diff --cached
             normal gg
-            setlocal ft=diff
-            setlocal readonly
-            setlocal noswapfile
-            setlocal nobuflisted
-            setlocal buftype=nofile
-            setlocal bufhidden=delete
+            setl ft=diff
+            setl readonly
+            setl noswapfile
+            setl nobuflisted
+            setl buftype=nofile
+            setl bufhidden=delete
             " Close if the diff is empty
             if line('$') == 1 && getline(1) == ''
                 q
@@ -991,7 +998,7 @@
     endf
 
     au FileType gitcommit call s:GitCommit()
-    au FileType gitcommit setlocal textwidth=80
+    au FileType gitcommit setl textwidth=80
 
     " Diff options
     set diffopt+=iwhite,context:3
@@ -1004,9 +1011,9 @@
 
 " Quickfix / location list {{{
     au QuickFixCmdPost *grep* cwindow
-    au FileType qf setlocal nolist
-    au FileType qf setlocal nocursorline
-    au FileType qf setlocal nowrap
+    au FileType qf setl nolist
+    au FileType qf setl nocursorline
+    au FileType qf setl nowrap
     nnoremap ]q :cnext<cr>
     nnoremap [q :cprevious<cr>
     nnoremap ]Q :clast<cr>
@@ -1018,7 +1025,7 @@
 " }}}
 
 " Hax {{{
-    au FileChangedRO * setlocal noro
+    au FileChangedRO * setl noro
 " }}}
 
 " vim: fdm=marker foldlevel=1 nofoldenable
