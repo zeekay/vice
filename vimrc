@@ -471,30 +471,29 @@
           let g:neocomplcache_omni_patterns = {}
         endif
 
+        let g:neocomplcache_omni_patterns.c = '\h\w\w*\|[^.[:digit:] *\t]\%(\.\|->\)'
         let g:neocomplcache_omni_patterns.coffee = '[^. \t]\.\%(\h\w*\)\?'
-        let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
-        let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-        let g:neocomplcache_omni_patterns.c = '\%(\.\|->\)\h\w*'
-        let g:neocomplcache_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
+        let g:neocomplcache_omni_patterns.cpp = '\h\w\w*\|[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
         let g:neocomplcache_omni_patterns.go = '\h\w*\%.'
+        let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+        let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\h\w*\|\h\w*::'
 
         " Enable clang
         let g:neocomplcache_force_overwrite_completefunc = 1
         let g:clang_complete_auto = 1
         let g:clang_auto_select = 1
-        let g:clang_complete_auto = 0
-        let g:clang_complete_copen = 1
-        let g:clang_hl_errors = 1
-        let g:clang_periodic_quickfix = 0
-        let g:clang_snippets = 0
-        let g:clang_exec = "clang"
-        let g:clang_user_options = ""
         let g:clang_auto_user_options = "path, .clang_complete"
-        let g:clang_use_library = 1
-        let g:clang_library_path = "/usr/local/lib"
-        let g:clang_sort_algo = "priority"
+        let g:clang_complete_copen = 0
         let g:clang_complete_macros = 1
         let g:clang_complete_patterns = 0
+        " let g:clang_exec = "clang"
+        let g:clang_hl_errors = 1
+        " let g:clang_library_path = "/usr/local/lib"
+        let g:clang_periodic_quickfix = 0
+        let g:clang_snippets = 0
+        let g:clang_sort_algo = "priority"
+        let g:clang_use_library = 1
+        let g:clang_user_options = ""
     endif
 " }}}
 
@@ -686,7 +685,6 @@
 " CoffeeScript {{{
     au FileType coffee setl foldmethod=indent nofoldenable
     au FileType coffee setl nosmartindent
-    au FileType coffee setl nomodeline
     au FileType coffee map <buffer><leader>r :CoffeeRun<cr>
     au FileType coffee map <buffer><leader>c :CoffeeCompile watch vertical<cr>
     au FileType coffee imap <buffer><leader>r <c-o>:CoffeeRun<cr>
