@@ -59,11 +59,8 @@ echo '...cloning vim-addon-manager'
 rm -rf $basedir/addons/vim-addon-manager
 git clone git://github.com/MarcWeber/vim-addon-manager.git $basedir/addons/vim-addon-manager
 
-echo '...creating helptags'
-vim -c "helptags ~/.vim/addons/vim-addon-manager/doc"
-
 echo '...installing plugins'
-yes | vim -c ':q'
+(echo; echo; echo) | vim --cmd "au BufEnter * q" -c "helptags ~/.vim/addons/vim-addon-manager/doc"
 
 echo '...done!'
 

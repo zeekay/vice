@@ -145,6 +145,11 @@
 
     " Add vim-addon-manager to rtp
     let &runtimepath.=','.$VIMHOME.'/addons/vim-addon-manager'
+    let g:vim_addon_manager = {
+        \ 'shell_commands_run_method': 'system',
+        \ 'auto_install': 1,
+        \ 'known_repos_activation_policy': 'never',
+    \ }
 
     " Redefine PluginDirFromName to use /addons
     func! vam#PluginDirFromName(name)
@@ -154,17 +159,17 @@
     " Helper functions to activate ft_addons and lazy_addons
     func! s:ActivateFtAddons(ft_addons, ft)
         for l in values(filter(copy(a:ft_addons), string(a:ft).' =~ v:key'))
-            call vam#ActivateAddons(l, {'auto_install': 1, 'force_loading_plugins_now': 1})
+            call vam#ActivateAddons(l, {'force_loading_plugins_now': 1})
         endfor
     endf
 
     func! s:LazyInit(name, plugins, bang, ...)
-        call vam#ActivateAddons(a:plugins, {'auto_install': 1})
+        call vam#ActivateAddons(a:plugins)
         exe a:name.a:bang.' '.join(a:000)
     endf
 
     " Activate addons
-    call vam#ActivateAddons(g:addons, {'auto_install': 1})
+    call vam#ActivateAddons(g:addons)
 
     au FileType * call s:ActivateFtAddons(g:ft_addons, expand('<amatch>'))
 
