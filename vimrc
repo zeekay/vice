@@ -110,6 +110,9 @@
             \ 'lua\|ruby\|sh\|vim\|zsh': [
                 \ 'github:tpope/vim-endwise',
                 \ ],
+            \ 'markdown': [
+                \ 'github:tpope/vim-markdown',
+                \ ],
             \ 'python': [
                 \ 'github:zeekay/python.vim',
                 \ ],
