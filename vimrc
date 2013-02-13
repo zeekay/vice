@@ -857,6 +857,9 @@
     nnoremap <leader>ww <c-w>w
     nnoremap <leader>wx <c-w>x
 
+    " blackhole register
+    nnoremap <leader>b "_
+
     " Fast window moving/resizing with alt/meta
     if has('gui_running')
         nnoremap <M-J> <C-w>J
