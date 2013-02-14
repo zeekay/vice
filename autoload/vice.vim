@@ -67,21 +67,20 @@ func! vice#Initialize()
         " Set addons dir
         if !exists('g:vice.addons_dir')
             " Addons dir defaults to parent directory
-            let g:vice.addons_dir = expand('<sfile>:p:h:h:h')
+            let g:vice.addons_dir = expand('<sfile>:p:h:h')
         endif
 
-        " Add vim-addon-manager to rtp
+        " Add vim-addon-manager hack to rtp
         let &runtimepath.=','.g:vice.addons_dir.'/vim-addon-manager'
+
+        " Hack to override vim-addon-manager addon install paths.
+        exe "so ".expand('<sfile>:p:h').'/addons-dir-hack.vim'
+
         let g:vim_addon_manager = {
             \ 'shell_commands_run_method': 'system',
             \ 'auto_install': 1,
             \ 'known_repos_activation_policy': 'never',
         \ }
-
-        " Redefine PluginDirFromName to use g:vice.addons_dir
-        func! vam#PluginDirFromName(name)
-            return g:vice.addons_dir.split(a:name, '/')[-1]
-        endf
 
         " Sane defaults, but hey some people might disagree...
         if !exists('g:vice.assume_nothing')
