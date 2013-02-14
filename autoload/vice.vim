@@ -27,6 +27,15 @@ if !exists('g:vice.commands')
     let g:vice.commands = {}
 endif
 
+" Simple vam wrapper, exposed for benefit of external addons
+func! vice#ActivateAddons(...)
+    if a:0 > 1
+    	call vam#ActivateAddons(a:1, a:2)
+    else
+    	call vam#ActivateAddons(a:1)
+    endif
+endf
+
 " Helper to activate a plugin for lazy command
 func! vice#LazyInit(name, plugins, bang, ...)
     call vice#ActivateAddons(a:plugins, {'force_loading_plugins_now': 1})
@@ -36,11 +45,6 @@ endf
 " Create lazy commands
 func! vice#CreateCommand(name, plugin)
     exe 'command! -nargs=* -bang '.a:name.' call vice#LazyInit("'.a:name.'", '.string(a:plugin).', "<bang>", <f-args>)'
-endf
-
-" Simple vam wrapper, exposed for benefit of external addons
-func! vice#ActivateAddons(addons)
-    silent! call vam#ActivateAddons(a:addons)
 endf
 
 " Activate plugins for a given filetype
@@ -70,17 +74,22 @@ func! vice#Initialize()
     if !exists('g:vice.initialized')
         let g:vice.initialized = 1
 
-        " Add vim-addon-manager hack to rtp
-        let &runtimepath.=','.g:vice.addons_dir.'/vim-addon-manager'
-
-        " Hack to override vim-addon-manager addon install paths.
-        exe "so ".g:vice.addons_dir.'/vice/autoload/addons-dir-hack.vim'
-
+	" vim-addon-manager global settings
         let g:vim_addon_manager = {
             \ 'shell_commands_run_method': 'system',
             \ 'auto_install': 1,
             \ 'known_repos_activation_policy': 'never',
         \ }
+
+        " Add vim-addon-manager runtime path
+        let &runtimepath.=','.g:vice.addons_dir.'/vim-addon-manager'
+
+	" No-op but loads vam.vim, which we need done so we can override
+	" vam#PluginDirFromName
+	call vam#ActivateAddons()
+
+        " Override vam#PluginDirFromName
+        exe "so ".g:vice.addons_dir.'/vice/autoload/addons-dir-hack.vim'
 
         " Sane defaults, but hey some people might disagree...
         if !exists('g:vice.assume_nothing')
