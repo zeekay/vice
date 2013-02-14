@@ -29,7 +29,7 @@ endif
 
 " Helper to activate a plugin for lazy command
 func! vice#LazyInit(name, plugins, bang, ...)
-    call vam#ActivateAddons(a:plugins, {'force_loading_plugins_now': 1})
+    call vice#ActivateAddons(a:plugins, {'force_loading_plugins_now': 1})
     exe a:name.a:bang.' '.join(a:000)
 endf
 
@@ -40,19 +40,19 @@ endf
 
 " Simple vam wrapper, exposed for benefit of external addons
 func! vice#ActivateAddons(addons)
-    call vam#ActivateAddons(a:addons)
+    silent! call vam#ActivateAddons(a:addons)
 endf
 
 " Activate plugins for a given filetype
-func! vice#ActivateFtAddons(ft_addons, ft)
-    for l in values(filter(copy(a:ft_addons), string(a:ft).' =~ v:key'))
-        call vam#ActivateAddons(l, {'force_loading_plugins_now': 1})
+func! vice#ActivateFtAddons(ft)
+    for addons in values(filter(copy(g:vice.ft_addons), string(a:ft).' =~ v:key'))
+        call vice#ActivateAddons(addons, {'force_loading_plugins_now': 1})
     endfor
 endf
 
 " Extend vice globals, create commands and activate plugins as necessary
 func! vice#Extend(config)
-    call vam#ActivateAddons(a:config.addons)
+    call vice#ActivateAddons(a:config.addons)
     call extend(g:vice.addons, a:config.addons)
 
     for [key, val] in items(a:config.ft_addons)
@@ -89,11 +89,11 @@ func! vice#Initialize()
         endif
 
         " Create ft autocommand
-        au FileType * call vice#ActivateFtAddons(g:vice.ft_addons, expand('<amatch>'))
+        au FileType * call vice#ActivateFtAddons(expand('<amatch>'))
     endif
 
     " Activate always on addons and create commands as necessary.
-    call vam#ActivateAddons(g:vice.addons)
+    call vice#ActivateAddons(g:vice.addons)
 
     for [key, val] in items(g:vice.commands)
         call vice#CreateCommand(key, val)
