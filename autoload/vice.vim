@@ -11,7 +11,7 @@ endif
 " Set addons dir
 if !exists('g:vice.addons_dir')
     " Addons dir defaults to parent directory
-    let g:vice.addons_dir = expand('<sfile>:p:h:h')
+    let g:vice.addons_dir = expand('<sfile>:p:h:h:h')
 endif
 
 " Create default global objects if necessary
@@ -74,7 +74,7 @@ func! vice#Initialize()
         let &runtimepath.=','.g:vice.addons_dir.'/vim-addon-manager'
 
         " Hack to override vim-addon-manager addon install paths.
-        exe "so ".expand('<sfile>:p:h').'/addons-dir-hack.vim'
+        exe "so ".g:vice.addons_dir.'/vice/autoload/addons-dir-hack.vim'
 
         let g:vim_addon_manager = {
             \ 'shell_commands_run_method': 'system',
