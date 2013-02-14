@@ -1,0 +1,28 @@
+let g:vice = {
+    \ 'addons': [
+        \ 'github:Raimondi/delimitMate',
+        \ 'github:kien/ctrlp.vim',
+        \ 'github:scrooloose/syntastic'
+    \ ],
+    \ 'ft_addons': {
+        \ 'c$\|cpp': ['github:Rip-Rip/clang_complete', 'github:osyo-manga/neocomplcache-clang_complete'],
+        \ 'coffee\|javascript': ['github:teramako/jscomplete-vim'],
+        \ 'javascript': ['github:zeekay/vim-js2coffee']
+    \ },
+    \ 'commands': {
+        \ 'Ack': ['github:mileszs/ack.vim'],
+        \ 'Gist': ['github:mattn/gist-vim', 'github:mattn/webapi-vim'],
+        \ 'UndotreeToggle': ['github:mbbill/undotree']
+    \ }
+\ }
+
+if version > 702
+    let g:vice.addons += ['github:Shougo/neocomplcache', 'github:Shougo/neosnippet']
+endif
+
+if version > 702 && executable('ctags')
+    let g:vice.commands.TagbarToggle = ['github:majutsushi/tagbar']
+endif
+
+let &rtp.=','.expand('~/.vim/addons/vice')
+vice#Initialize()

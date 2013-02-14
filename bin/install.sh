@@ -15,32 +15,8 @@ fi
 echo -n "create default ~/.vimrc? (y/n) "
 read input
 if [ "$input" = "y" ]; then
-    echo "...creating default vimrc"
-
-    cat > ~/.vimrc << EOF
-so ~/.vim/vimrc
-
-nnoremap ; :
-vnoremap ; :
-
-" Prevent cursor from moving when leavng insert mode
-inoremap <Esc> <Esc>\`^
-
-map <leader>q :q<cr>
-vnoremap q: :q<cr>
-nnoremap q: :q<cr>
-nnoremap J <c-d>
-nnoremap K <c-u>
-vnoremap J <c-d>
-vnoremap K <c-u>
-nnoremap W :w<cr>
-nnoremap Q ZQ
-au CmdwinEnter * unmap q;
-au CmdwinLeave * map q; q:
-
-nnoremap <c-cr> :BebopJsEvalLine<cr>
-vnoremap <c-cr> :py vimbop.js.eval_range()<cr>
-EOF
+    echo "...copying default vimrc"
+    cp $HOME/.vim/addons/vice/vimrc.default $HOME/.vimrc
 fi
 
 echo '...installing plugins'
