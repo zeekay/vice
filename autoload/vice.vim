@@ -8,6 +8,12 @@ else
     finish
 endif
 
+" Set addons dir
+if !exists('g:vice.addons_dir')
+    " Addons dir defaults to parent directory
+    let g:vice.addons_dir = expand('<sfile>:p:h:h')
+endif
+
 " Create default global objects if necessary
 if !exists('g:vice.addons')
     let g:vice.addons = []
@@ -63,12 +69,6 @@ endf
 func! vice#Initialize()
     if !exists('g:vice.initialized')
         let g:vice.initialized = 1
-
-        " Set addons dir
-        if !exists('g:vice.addons_dir')
-            " Addons dir defaults to parent directory
-            let g:vice.addons_dir = expand('<sfile>:p:h:h')
-        endif
 
         " Add vim-addon-manager hack to rtp
         let &runtimepath.=','.g:vice.addons_dir.'/vim-addon-manager'
