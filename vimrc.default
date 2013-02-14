@@ -25,4 +25,4 @@ if version > 702 && executable('ctags')
 endif
 
 let &rtp.=','.expand('~/.vim/addons/vice')
-vice#Initialize()
+call vice#Initialize()
