@@ -56,17 +56,28 @@ endf
 
 " Extend vice globals, create commands and activate plugins as necessary
 func! vice#Extend(config)
-    call vice#ActivateAddons(a:config.addons)
-    call extend(g:vice.addons, a:config.addons)
+    if has_key(a:config, 'addons')
+        call vice#ActivateAddons(a:config.addons)
+        call extend(g:vice.addons, a:config.addons)
+    endif
 
-    for [key, val] in items(a:config.ft_addons)
-        extend(g:vice.ft_addons[key], val)
-    endfor
+    if has_key(a:config, 'ft_addons')
+        for [ft, addons] in items(a:config.ft_addons)
+            if has_key(g:vice.ft_addons, ft)
+                call extend(g:vice.ft_addons[ft], addons)
+            else
+                let g:vice.ft_addons[ft] = addons
+            endif
+        endfor
+    endif
 
-    for [key, val] in items(a:config.commands)
-        call vice#CreateCommand(key, val)
-    endfor
-    call extend(g:vice.commands, a:config.commands)
+
+    if has_key(a:config, 'commands')
+        for [key, val] in items(a:config.commands)
+            call vice#CreateCommand(key, val)
+        endfor
+        call extend(g:vice.commands, a:config.commands)
+    endif
 endf
 
 " Initialize vice
