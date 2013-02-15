@@ -35,7 +35,7 @@ enviroment.
 - Extremely lightweight.
 - Vice modules are available which bundle together frequently used addons.
 
-## Install
+## Installation
 
 ### One liner for the impatient
 Get up and running fast with the most commonly used addons:
