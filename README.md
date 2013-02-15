@@ -81,7 +81,8 @@ For the truly meticulous, manual installation is the the way to go.
         let g:vice.commands.TagbarToggle = ['github:majutsushi/tagbar']
     endif
 
-    so ~/.vim/vice.vim
+    let &rtp.=','.expand('~/.vim/addons/vice')
+    call vice#Initialize()
 ```
 
 That's it!
