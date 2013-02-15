@@ -58,19 +58,18 @@ For the truly meticulous, manual installation is the the way to go.
 ```vim
     let g:vice = {
         \ 'addons': [
-            \ 'github:Raimondi/delimitMate',
-            \ 'github:kien/ctrlp.vim',
-            \ 'github:scrooloose/syntastic'
+            \ 'github:zeekay/vice-colors',
+            \ 'github:zeekay/vice-standard-issue',
         \ ],
         \ 'ft_addons': {
+            \ 'coffee': [
+                \ 'github:kchmck/vim-coffee-script',
+            \ ],
             \ 'c$\|cpp': ['github:Rip-Rip/clang_complete', 'github:osyo-manga/neocomplcache-clang_complete'],
-            \ 'coffee\|javascript': ['github:teramako/jscomplete-vim'],
-            \ 'javascript': ['github:zeekay/vim-js2coffee']
         \ },
         \ 'commands': {
             \ 'Ack': ['github:mileszs/ack.vim'],
             \ 'Gist': ['github:mattn/gist-vim', 'github:mattn/webapi-vim'],
-            \ 'UndotreeToggle': ['github:mbbill/undotree']
         \ }
     \ }
 
