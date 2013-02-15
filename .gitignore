@@ -1,6 +1,1 @@
-addons/
-tmp/
-haskellmode.config
-localrc
-.netrwhist
-.VimballRecord
+.DS_Store
