@@ -46,43 +46,53 @@ Get up and running fast with the most commonly used addons:
 ### Manual installation
 For the truly meticulous, manual installation is the the way to go.
 
-1. Copy `vice.vim` to your vim directory (usually `~/.vim`).
+1. Backup your `~/.vim` dir, if you have one!
 
-```bash
-    cd ~/.vim; curl -O https://raw.github.com/zeekay/vice/master/vice.vim
-```
+        mv ~/.vim ~/.vim.bak
 
-2. Specify addons you which to enable in your `~/.vimrc` and source
-   `~/.vim/vice.vim`. Example vimrc:
+2. Create `~/.vim/addons` dir (and `~/.vim/tmp/backup` if you want to use `vice-standard-issue`).
 
-```vim
-    let g:vice = {
-        \ 'addons': [
-            \ 'github:zeekay/vice-colors',
-            \ 'github:zeekay/vice-standard-issue',
-        \ ],
-        \ 'ft_addons': {
-            \ 'coffee': ['github:kchmck/vim-coffee-script'],
-            \ 'c$\|cpp': ['github:Rip-Rip/clang_complete', 'github:osyo-manga/neocomplcache-clang_complete'],
-        \ },
-        \ 'commands': {
-            \ 'Ack': ['github:mileszs/ack.vim'],
-            \ 'Gist': ['github:mattn/gist-vim', 'github:mattn/webapi-vim'],
+        mkdir -p ~/.vim/addons
+        mkdir -p ~/.vim/tmp/backup
+
+3. Clone [vim-addon-manager][vam] and vice into `~/.vim/addons`.
+
+        cd ~/.vim/addons
+        git clone https://github.com/MarcWeber/vim-addon-manager
+        git clone https://github.com/zeekay/vice
+
+4. Specify the addons you which to enable in your `~/.vimrc`, add vice to your
+   runtime path and call `vice#Initialize()`. Example:
+
+    ```vim
+        let g:vice = {
+            \ 'addons': [
+                \ 'github:zeekay/vice-colors',
+                \ 'github:zeekay/vice-standard-issue',
+            \ ],
+            \ 'ft_addons': {
+                \ 'coffee': ['github:kchmck/vim-coffee-script'],
+                \ 'c$\|cpp': ['github:Rip-Rip/clang_complete', 'github:osyo-manga/neocomplcache-clang_complete'],
+            \ },
+            \ 'commands': {
+                \ 'Ack': ['github:mileszs/ack.vim'],
+                \ 'Gist': ['github:mattn/gist-vim', 'github:mattn/webapi-vim'],
+            \ }
         \ }
-    \ }
 
-    if version > 702
-        let g:vice.addons += ['github:Shougo/neocomplcache', 'github:Shougo/neosnippet']
-    endif
+        if version > 702
+            let g:vice.addons += ['github:Shougo/neocomplcache', 'github:Shougo/neosnippet']
+        endif
 
-    if version > 702 && executable('ctags')
-        let g:vice.commands.TagbarToggle = ['github:majutsushi/tagbar']
-    endif
+        if version > 702 && executable('ctags')
+            let g:vice.commands.TagbarToggle = ['github:majutsushi/tagbar']
+        endif
 
-    let &rtp.=','.expand('~/.vim/addons/vice')
-    call vice#Initialize()
-```
+        let &rtp.=','.expand('~/.vim/addons/vice')
+        call vice#Initialize()
+    ```
 
-That's it!
+    That's it!
 
 [vim]: http://vim.org
+[vam]: https://github.com/MarcWeber/vim-addon-manager
