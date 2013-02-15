@@ -28,7 +28,7 @@ echo -n 'create default ~/.vimrc? (y/n) '
 read input
 if [ "$input" = "y" ]; then
     echo ...copying default vimrc
-    cp "$HOME/.vim/addons/vice/vimrc.default" "$HOME/.vimrc"
+    cp "$HOME/.vim/addons/vice/example-vimrc.vim" "$HOME/.vimrc"
 fi
 
 echo ...installing plugins
