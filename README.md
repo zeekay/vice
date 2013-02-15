@@ -1,5 +1,4 @@
 # vice
-
                __
               /  |
      __     __vv/   _______   ______
@@ -92,7 +91,35 @@ For the truly meticulous, manual installation is the the way to go.
     call vice#Initialize()
     ```
 
-    That's it!
+## Configuration
+
+There are three important sections to the `g:vice` global configuration
+dictionary:
+
+### Always enabled addons
+Addons which you expect to be sourced automatically should be defined in
+`g:vice.addons`, which is an array of addons that will be activated in order.
+Each addon specified should follow [vim-addon-manager][vam]'s expected syntax,
+which is `host:user/repo`. For addons hosted on github, you can use the
+shortened syntax:
+
+    let g:vice.addons = ['github:zeekay/vice-standard-issue']
+
+### Filetype specific addons
+Filetype specific addons are sourced when files matching their filetype pattern matches:
+
+    let g:vice.ft_addons['c$\|cpp'] = ['github:Rip-Rip/clang_complete']
+
+An array of addons can be specified for each filetype pattern.
+
+### Commands
+Commands which are called infrequently and do not require the addon providing
+them to be sourced on every start can be specified in the `command` key:
+
+    let g:vice.commands['Ack'] = ['github:mileszs/ack.vim']
+
+A placeholder command will be created which will be replaced by the real command
+when the addon is sourced.
 
 [vim]: http://vim.org
 [vam]: https://github.com/MarcWeber/vim-addon-manager
