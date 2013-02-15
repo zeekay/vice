@@ -61,35 +61,35 @@ For the truly meticulous, manual installation is the the way to go.
         git clone https://github.com/MarcWeber/vim-addon-manager
         git clone https://github.com/zeekay/vice
 
-4. Specify the addons you which to enable in your `~/.vimrc`, add vice to your
+4. Specify the addons you wish to enable in your `~/.vimrc`, add vice to your
    runtime path and call `vice#Initialize()`. Example:
 
     ```vim
-        let g:vice = {
-            \ 'addons': [
-                \ 'github:zeekay/vice-colors',
-                \ 'github:zeekay/vice-standard-issue',
-            \ ],
-            \ 'ft_addons': {
-                \ 'coffee': ['github:kchmck/vim-coffee-script'],
-                \ 'c$\|cpp': ['github:Rip-Rip/clang_complete', 'github:osyo-manga/neocomplcache-clang_complete'],
-            \ },
-            \ 'commands': {
-                \ 'Ack': ['github:mileszs/ack.vim'],
-                \ 'Gist': ['github:mattn/gist-vim', 'github:mattn/webapi-vim'],
-            \ }
+    let g:vice = {
+        \ 'addons': [
+            \ 'github:zeekay/vice-colors',
+            \ 'github:zeekay/vice-standard-issue',
+        \ ],
+        \ 'ft_addons': {
+            \ 'coffee': ['github:kchmck/vim-coffee-script'],
+            \ 'c$\|cpp': ['github:Rip-Rip/clang_complete', 'github:osyo-manga/neocomplcache-clang_complete'],
+        \ },
+        \ 'commands': {
+            \ 'Ack': ['github:mileszs/ack.vim'],
+            \ 'Gist': ['github:mattn/gist-vim', 'github:mattn/webapi-vim'],
         \ }
+    \ }
 
-        if version > 702
-            let g:vice.addons += ['github:Shougo/neocomplcache', 'github:Shougo/neosnippet']
-        endif
+    if version > 702
+        let g:vice.addons += ['github:Shougo/neocomplcache', 'github:Shougo/neosnippet']
+    endif
 
-        if version > 702 && executable('ctags')
-            let g:vice.commands.TagbarToggle = ['github:majutsushi/tagbar']
-        endif
+    if version > 702 && executable('ctags')
+        let g:vice.commands.TagbarToggle = ['github:majutsushi/tagbar']
+    endif
 
-        let &rtp.=','.expand('~/.vim/addons/vice')
-        call vice#Initialize()
+    let &rtp.=','.expand('~/.vim/addons/vice')
+    call vice#Initialize()
     ```
 
     That's it!
