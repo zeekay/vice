@@ -62,9 +62,7 @@ For the truly meticulous, manual installation is the the way to go.
             \ 'github:zeekay/vice-standard-issue',
         \ ],
         \ 'ft_addons': {
-            \ 'coffee': [
-                \ 'github:kchmck/vim-coffee-script',
-            \ ],
+            \ 'coffee': ['github:kchmck/vim-coffee-script'],
             \ 'c$\|cpp': ['github:Rip-Rip/clang_complete', 'github:osyo-manga/neocomplcache-clang_complete'],
         \ },
         \ 'commands': {
