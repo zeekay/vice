@@ -48,6 +48,7 @@ fi
 (echo; echo; echo) | vim --cmd 'au BufEnter * q' -c 'helptags ~/.vim/addons/vim-addon-manager/doc'
 
 cat << EOF
+Installation complete.
            __
           /  |
  __     __vv/   _______   ______
@@ -58,5 +59,5 @@ vv  \ /vv/vv |/vvvvvvv/ /vvvvvv  |
    vvv/   vv |vv       |vv       |
     v/    vv/  vvvvvvv/  vvvvvvv/
 
-...installation complete.
+...is now installed.
 EOF
