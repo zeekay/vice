@@ -45,7 +45,7 @@ if [ "$input" = "y" ]; then
     cp "$HOME/.vim/addons/vice/example-vimrc.vim" "$HOME/.vimrc"
 fi
 
-(echo; echo; echo) | vim --cmd 'au BufEnter * q' -c 'helptags ~/.vim/addons/vim-addon-manager/doc'
+(echo; echo; echo) | vim --cmd 'au BufEnter * qa' -c 'helptags ~/.vim/addons/vim-addon-manager/doc' -
 
 cat << EOF
 Installation complete.
