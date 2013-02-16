@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 backup() {
     original="$1"
