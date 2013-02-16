@@ -52,10 +52,10 @@ Installation complete.
            __
           /  |
  __     __vv/   _______   ______
-/  \   /  /  | /       | /      \
-vv  \ /vv/vv |/vvvvvvv/ /vvvvvv  |
+/  \\   /  /  | /       | /      \\
+vv  \\ /vv/vv |/vvvvvvv/ /vvvvvv  |
  vv  /vv/ vv |vv |      vv    vv |
-  vv vv/  vv |vv \_____ vvvvvvvv/
+  vv vv/  vv |vv \\_____ vvvvvvvv/
    vvv/   vv |vv       |vv       |
     v/    vv/  vvvvvvv/  vvvvvvv/
 
