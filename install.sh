@@ -53,15 +53,19 @@ install_vimrc() {
     cp "$HOME/.vim/addons/vice/example-vimrc.vim" "$HOME/.vimrc"
 }
 
+git_clone() {
+    git clone --depth 1 "$1" "$2" 2>&1 | grep 'Cloning into'
+}
+
 # backup .vim if necessary
 backup "$HOME/.vim"
 mkdir -p "$HOME/.vim/addons"
 mkdir -p "$HOME/.vim/tmp/backup"
 
-git clone --depth 1 'https://github.com/zeekay/vice' $HOME/.vim/addons/vice 2>&1 | grep 'Cloning into'
-git clone --depth 1 'https://github.com/MarcWeber/vim-addon-manager' $HOME/.vim/addons/vim-addon-manager 2>&1 | grep 'Cloning into'
+git_clone 'https://github.com/zeekay/vice' "$HOME/.vim/addons/vice"
+git_clone 'https://github.com/MarcWeber/vim-addon-manager' "$HOME/.vim/addons/vim-addon-manager"
 
-if [ -z "$VICE_NO_DEFAULT_VIMRC" ]; then
+if [ -z "$ELLIPSIS_INSTALL" ]; then
     ask "Create default vimrc?" "no" && install_vimrc
 fi
 
