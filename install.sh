@@ -34,7 +34,7 @@ backup() {
     name="`basename $original`"
 
     if [ -e "$original" ]; then
-        echo "Backing up $name"
+        echo "Backing up ~/$name"
 
         if [ -e "$backup" ]; then
             n=1
@@ -55,22 +55,17 @@ install_vimrc() {
 
 # backup .vim if necessary
 backup "$HOME/.vim"
-
-echo "Creating directory structure..."
 mkdir -p "$HOME/.vim/addons"
 mkdir -p "$HOME/.vim/tmp/backup"
-cd "$HOME/.vim/addons"
 
-git clone 'https://github.com/MarcWeber/vim-addon-manager'
-echo
-
-git clone 'https://github.com/zeekay/vice'
-echo
+echo Installing vim-addon-manager and vice addons...
+git clone --depth 1 'https://github.com/MarcWeber/vim-addon-manager' $HOME/.vim/addons/vim-addon-manager 2>&1 | grep 'Cloning into'
+git clone --depth 1 'https://github.com/zeekay/vice' $HOME/.vim/addons/vice 2>&1 | grep 'Cloning into'
 
 ask "Create default vimrc?" "no" && install_vimrc
 
-echo "Installing base addons"
-echo | vim -c 'helptags ~/.vim/addons/vim-addon-manager/doc' -c 'q!' 2>&1 | grep -v 'Vim: Warning'
+echo Initial install of addons...
+echo | vim -c 'helptags ~/.vim/addons/vim-addon-manager/doc' -c 'q!' 2>&1 | grep 'Cloning into'
 
 cat << EOF
 Installation complete.
