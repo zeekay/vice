@@ -30,7 +30,6 @@ mkdir -p "$HOME/.vim/tmp/backup"
 treebin=`which tree`
 if [ "$treebin" != "" ]; then
     tree "$HOME/.vim"
-
 fi
 
 cd "$HOME/.vim/addons"
@@ -45,7 +44,7 @@ if [ "$input" = "y" ]; then
     cp "$HOME/.vim/addons/vice/example-vimrc.vim" "$HOME/.vimrc"
 fi
 
-(echo; echo; echo) | vim --cmd 'au BufEnter * qa' -c 'helptags ~/.vim/addons/vim-addon-manager/doc' -
+(echo; echo; echo) | vim -c 'helptags ~/.vim/addons/vim-addon-manager/doc' -c q -
 
 cat << EOF
 Installation complete.
