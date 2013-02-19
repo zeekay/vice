@@ -119,3 +119,25 @@ func! vice#Initialize()
         call vice#CreateCommand(key, val)
     endfor
 endf
+
+func! vice#UpdateAddon(addon)
+    call vam#install#UpdateAddon(a:addon)
+endf
+
+func! vice#UpdateAddons()
+    for addon in g:vice.addons
+        call vice#UpdateAddon(addon)
+    endfor
+
+    for addons in values(g:vice.ft_addons)
+        for addon in addons
+            call vice#UpdateAddon(addon)
+        endfor
+    endfor
+
+    for addons in values(g:vice.commands)
+        for addon in addons
+            call vice#UpdateAddon(addon)
+        endfor
+    endfor
+endf
