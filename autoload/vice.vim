@@ -120,24 +120,47 @@ func! vice#Initialize()
     endfor
 endf
 
-func! vice#UpdateAddon(addon)
-    call vam#install#UpdateAddon(a:addon)
+func! vice#AddonDirFromName(addon)
+    return vam#PluginDirFromName(a:addon)
 endf
 
-func! vice#UpdateAddons()
+func! vice#ListAddons()
+    let res = []
+
     for addon in g:vice.addons
-        call vice#UpdateAddon(addon)
+        call add(res, vam#PluginDirFromName(addon))
     endfor
 
     for addons in values(g:vice.ft_addons)
         for addon in addons
-            call vice#UpdateAddon(addon)
+            call add(res, vam#PluginDirFromName(addon))
         endfor
     endfor
 
     for addons in values(g:vice.commands)
         for addon in addons
-            call vice#UpdateAddon(addon)
+            call add(res, vam#PluginDirFromName(addon))
         endfor
+    endfor
+
+    return res
+endf
+
+func! vice#ListAddonsIntoBuffer()
+    redir @a
+    for addon in vice#ListAddons()
+        silent! echo addon
+    endfor
+    redir END
+    normal "ap
+endf
+
+func! vice#UpdateAddon(addon)
+    call vam#install#UpdateAddon(a:addon)
+endf
+
+func! vice#UpdateAddons()
+    for addon in call vice#ListAddons()
+        call vice#UpdateAddon(addon)
     endfor
 endf
