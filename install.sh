@@ -68,6 +68,7 @@ git_clone() {
 backup "$HOME/.vim"
 mkdir -p "$HOME/.vim/addons"
 mkdir -p "$HOME/.vim/tmp/backup"
+mkdir -p "$HOME/.vim/tmp/undo"
 
 git_clone 'https://github.com/zeekay/vice' "$HOME/.vim/addons/vice"
 git_clone 'https://github.com/MarcWeber/vim-addon-manager' "$HOME/.vim/addons/vim-addon-manager"
