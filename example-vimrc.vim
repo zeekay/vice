@@ -14,14 +14,11 @@ let g:vice = {
         \ 'github:zeekay/vice-colors',
         \ 'github:zeekay/vice-beautify',
         \ 'github:zeekay/vice-standard-issue',
+        \ 'github:zeekay/vice-neocompletion',
     \ ],
     \ 'ft_addons': {
         \ 'actionscript': [
             \ 'github:endel/actionscript.vim',
-        \ ],
-        \ 'c$\|cpp': [
-            \ 'github:Rip-Rip/clang_complete',
-            \ 'github:osyo-manga/neocomplcache-clang_complete',
         \ ],
         \ 'css\|sass\|scss\|stylus': [
             \ 'github:hail2u/vim-css3-syntax',
@@ -34,9 +31,6 @@ let g:vice = {
         \ 'coffee': [
             \ 'github:kchmck/vim-coffee-script',
         \ ],
-        \ 'coffee\|javascript': [
-            \ 'github:teramako/jscomplete-vim',
-        \ ],
         \ 'go': [
             \ 'github:jnwhiteh/vim-golang',
         \ ],
@@ -46,7 +40,6 @@ let g:vice = {
         \ 'haskell': [
             \ 'github:wlangstroth/vim-haskell',
             \ 'github:zeekay/haskellmode-vim',
-            \ 'github:ujihisa/neco-ghc',
         \ ],
         \ 'html\|xhtml\|xml': [
             \ 'github:gregsexton/MatchTag',
@@ -100,10 +93,6 @@ let g:vice.addons += [
     \ 'github:scrooloose/nerdtree',
     \ 'github:zeekay/nerdtree-hax',
 \ ]
-
-if version > 702
-    let g:vice.addons += ['github:Shougo/neocomplcache', 'github:Shougo/neosnippet']
-endif
 
 if version > 702 && executable('ctags')
     let g:vice.commands.TagbarToggle = ['github:majutsushi/tagbar']
