@@ -6,6 +6,7 @@ let g:vice = {
         \ 'github:scrooloose/syntastic',
         \ 'github:tpope/vim-commentary',
         \ 'github:tpope/vim-eunuch',
+        \ 'github:tpope/vim-fugitive',
         \ 'github:tpope/vim-git',
         \ 'github:tpope/vim-repeat',
         \ 'github:tpope/vim-surround',
@@ -79,6 +80,7 @@ let g:vice = {
         \ 'Ack':            ['github:mileszs/ack.vim'],
         \ 'ColorV':         ['github:Rykka/colorv.vim'],
         \ 'Gist':           ['github:mattn/gist-vim', 'github:mattn/webapi-vim'],
+        \ 'Gitv':           ['github:gregsexton/gitv'],
         \ 'UndotreeToggle': ['github:mbbill/undotree'],
     \ }
 \ }
@@ -86,8 +88,6 @@ let g:vice = {
 
 " Order is significant for these addons, so they are grouped for clarity
 let g:vice.addons += [
-    \ 'github:tpope/vim-fugitive',
-    \ 'github:gregsexton/gitv',
     \ 'github:zeekay/vim-powerline-hax',
     \ 'github:Lokaltog/vim-powerline',
     \ 'github:scrooloose/nerdtree',
