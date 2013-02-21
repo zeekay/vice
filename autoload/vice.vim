@@ -45,7 +45,11 @@ func! vice#ActivateAddon(...)
 endf
 
 func! vice#ForceActivateAddon(addon)
-    call vice#ActivateAddon(a:addon, {'force_loading_plugins_now': 1})
+    call vam#ActivateAddons([a:addon], {'force_loading_plugins_now': 1})
+endf
+
+func! vice#ForceActivateAddons(addons)
+    call vam#ActivateAddons(a:addons, {'force_loading_plugins_now': 1})
 endf
 
 " Helper to activate a plugin for lazy command
@@ -69,7 +73,7 @@ endf
 " Extend vice globals, create commands and activate plugins as necessary
 func! vice#Extend(config)
     if has_key(a:config, 'addons')
-        call vice#ActivateAddons(a:config.addons)
+        call vam#ActivateAddons(a:config.addons)
         call extend(g:vice.addons, a:config.addons)
     endif
 
@@ -82,7 +86,6 @@ func! vice#Extend(config)
             endif
         endfor
     endif
-
 
     if has_key(a:config, 'commands')
         for [key, val] in items(a:config.commands)
@@ -114,8 +117,7 @@ func! vice#Initialize(...)
         let &runtimepath.=','.g:vice.addons_dir.'/vim-addon-manager'
 
         " No-op but loads vam.vim, which we need done so we can override
-        " vam#PluginDirFromName
-        call vam#ActivateAddons()
+        call vam#PluginDirFromName('github:zeekay/not-a-real-addon')
 
         " Override vam#PluginDirFromName
         exe "so ".g:vice.addons_dir.'/vice/autoload/addons-dir-hack.vim'
@@ -131,7 +133,7 @@ func! vice#Initialize(...)
     endif
 
     " Activate always on addons and create commands as necessary.
-    call vice#ActivateAddons(g:vice.addons)
+    call vam#ActivateAddons(copy(g:vice.addons))
 
     for [key, val] in items(g:vice.commands)
         call vice#CreateCommand(key, val)
