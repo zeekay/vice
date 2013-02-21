@@ -117,20 +117,36 @@ when the addon is sourced.
 There are several vice modules (essentially vim addons) which are designed to
 work with Vice and make it easy to get up and running fast:
 
-- vice-beautify        - Provides `:Beautify` command for several filetypes.
-- vice-colorful        - Provides colors and a few extra methods `:ColorNext`,
-  `:ColorPrev`, etc and bundles ColorV.
-- vice-ctrlp           - Integrates ctrlp.vim.
-- vice-delimitmate     - Integrates delimitMate.
-- vice-git             - Integrates fugitive and Gitv.
-- vice-neocompletion   - Integrates neocomplcache and several types of
-  completions.
-- vice-nerdtree        - Integrates NERDTree.
-- vice-polyglot        - Provides advanced language support.
-- vice-powerline       - Integrates vim-powerline.
-- vice-standard-issue  - Provides default settings and mappings.
-- vice-syntastic       - Integrates Syntastic.
-- vice-undo            - Enables undo and integrates UndoTree.
+- [vice-beautify][vice-beautify]             - Provides `:Beautify` command
+  for several filetypes.
+- [vice-colorful][vice-colorful]             - Provides colors and a few
+  extra methods `:ColorNext`, `:ColorPrev`, etc and bundles ColorV.
+- [vice-ctrlp][vice-ctrlp]                   - Integrates ctrlp.vim.
+- [vice-delimitmate][vice-delimitmate]       - Integrates delimitMate.
+- [vice-git][vice-git]                       - Integrates fugitive and Gitv.
+- [vice-neocompletion][vice-neocompletion]   - Integrates neocomplcache and
+  several types of completions.
+- [vice-nerdtree][vice-nerdtree]             - Integrates NERDTree.
+- [vice-polyglot][vice-polyglot]             - Provides advanced language
+  support.
+- [vice-powerline][vice-powerline]           - Integrates vim-powerline.
+- [vice-standard-issue][vice-standard-issue] - Provides default settings and
+  mappings.
+- [vice-syntastic][vice-syntastic]           - Integrates Syntastic.
+- [vice-undo][vice-undo]                     - Enables undo and integrates
+  UndoTree.
 
-[vim]: http://vim.org
-[vam]: https://github.com/MarcWeber/vim-addon-manager
+[vim]:                 http://vim.org
+[vam]:                 https://github.com/MarcWeber/vim-addon-manager
+[vice-beautify]:       https://github.com/zeekay/vice-beautify
+[vice-colorful]:       https://github.com/zeekay/vice-colorful
+[vice-ctrlp]:          https://github.com/zeekay/vice-ctrlp
+[vice-delimitmate]:    https://github.com/zeekay/vice-delimitmate
+[vice-git]:            https://github.com/zeekay/vice-git
+[vice-neocompletion]:  https://github.com/zeekay/vice-neocompletion
+[vice-nerdtree]:       https://github.com/zeekay/vice-nerdtree
+[vice-polyglot]:       https://github.com/zeekay/vice-polyglot
+[vice-powerline]:      https://github.com/zeekay/vice-powerline
+[vice-standard-issue]: https://github.com/zeekay/vice-standard-issue
+[vice-syntastic]:      https://github.com/zeekay/vice-syntastic
+[vice-undo]:           https://github.com/zeekay/vice-undo
