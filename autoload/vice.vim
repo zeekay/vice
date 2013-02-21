@@ -93,10 +93,12 @@ func! vice#Extend(config)
 endf
 
 " Initialize vice
-func! vice#Initialize(config)
-    for key in keys(a:config)
-        let g:vice[key] = a:config[key]
-    endfor
+func! vice#Initialize(...)
+    if a:0 == 1
+        for key in keys(a:1)
+            let g:vice[key] = a:1[key]
+        endfor
+    endif
 
     if !exists('g:vice.initialized')
         let g:vice.initialized = 1

@@ -60,35 +60,27 @@ For the truly meticulous, manual installation is the the way to go.
         git clone https://github.com/MarcWeber/vim-addon-manager
         git clone https://github.com/zeekay/vice
 
-4. Specify the addons you wish to enable in your `~/.vimrc`, add vice to your
-   runtime path and call `vice#Initialize()`. Example:
+4. Add vice to Vim's runtime path and call `vice#Initialize`.
 
     ```vim
-    let g:vice = {
-        \ 'addons': [
-            \ 'github:zeekay/vice-colors',
-            \ 'github:zeekay/vice-standard-issue',
-        \ ],
-        \ 'ft_addons': {
-            \ 'coffee': ['github:kchmck/vim-coffee-script'],
-            \ 'c$\|cpp': ['github:Rip-Rip/clang_complete', 'github:osyo-manga/neocomplcache-clang_complete'],
-        \ },
-        \ 'commands': {
-            \ 'Ack': ['github:mileszs/ack.vim'],
-            \ 'Gist': ['github:mattn/gist-vim', 'github:mattn/webapi-vim'],
-        \ }
-    \ }
-
-    if version > 702
-        let g:vice.addons += ['github:Shougo/neocomplcache', 'github:Shougo/neosnippet']
-    endif
-
-    if version > 702 && executable('ctags')
-        let g:vice.commands.TagbarToggle = ['github:majutsushi/tagbar']
-    endif
-
     let &rtp.=','.expand('~/.vim/addons/vice')
-    call vice#Initialize()
+
+    call vice#Initialize({
+        \ 'addons': [
+            \ 'github:zeekay/vice-beautify',
+            \ 'github:zeekay/vice-colorful',
+            \ 'github:zeekay/vice-ctrlp',
+            \ 'github:zeekay/vice-delimitmate',
+            \ 'github:zeekay/vice-git',
+            \ 'github:zeekay/vice-neocompletion',
+            \ 'github:zeekay/vice-nerdtree',
+            \ 'github:zeekay/vice-polyglot',
+            \ 'github:zeekay/vice-standard-issue',
+            \ 'github:zeekay/vice-syntastic',
+            \ 'github:zeekay/vice-powerline',
+            \ 'github:zeekay/vice-undo',
+        \ ],
+    \ })
     ```
 
 ## Configuration
@@ -120,6 +112,25 @@ them to be sourced on every start can be specified in the `command` key:
 
 A placeholder command will be created which will be replaced by the real command
 when the addon is sourced.
+
+### Modules
+There are several vice modules (essentially vim addons) which are designed to
+work with Vice and make it easy to get up and running fast:
+
+- vice-beautify        - Provides `:Beautify` command for several filetypes.
+- vice-colorful        - Provides colors and a few extra methods `:ColorNext`,
+  `:ColorPrev`, etc and bundles ColorV.
+- vice-ctrlp           - Integrates ctrlp.vim.
+- vice-delimitmate     - Integrates delimitMate.
+- vice-git             - Integrates fugitive and Gitv.
+- vice-neocompletion   - Integrates neocomplcache and several types of
+  completions.
+- vice-nerdtree        - Integrates NERDTree.
+- vice-polyglot        - Provides advanced language support.
+- vice-powerline       - Integrates vim-powerline.
+- vice-standard-issue  - Provides default settings and mappings.
+- vice-syntastic       - Integrates Syntastic.
+- vice-undo            - Enables undo and integrates UndoTree.
 
 [vim]: http://vim.org
 [vam]: https://github.com/MarcWeber/vim-addon-manager
