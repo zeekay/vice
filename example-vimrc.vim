@@ -1,21 +1,20 @@
 let g:vice = {
     \ 'addons': [
         \ 'github:Raimondi/delimitMate',
-        \ 'github:juanpabloaj/help.vim',
         \ 'github:kien/ctrlp.vim',
+        \ 'github:michaeljsmith/vim-indent-object',
         \ 'github:scrooloose/syntastic',
         \ 'github:tpope/vim-commentary',
         \ 'github:tpope/vim-eunuch',
-        \ 'github:tpope/vim-fugitive',
-        \ 'github:tpope/vim-git',
         \ 'github:tpope/vim-repeat',
         \ 'github:tpope/vim-surround',
-        \ 'github:zeekay/vim-space',
-        \ 'github:zeekay/vim-color-switch',
-        \ 'github:zeekay/vice-colors',
         \ 'github:zeekay/vice-beautify',
-        \ 'github:zeekay/vice-standard-issue',
+        \ 'github:zeekay/vice-colors',
+        \ 'github:zeekay/vice-git',
         \ 'github:zeekay/vice-neocompletion',
+        \ 'github:zeekay/vice-standard-issue',
+        \ 'github:zeekay/vim-color-switch',
+        \ 'github:zeekay/vim-space',
     \ ],
     \ 'ft_addons': {
         \ 'actionscript': [
@@ -42,6 +41,9 @@ let g:vice = {
             \ 'github:wlangstroth/vim-haskell',
             \ 'github:zeekay/haskellmode-vim',
         \ ],
+        \ 'help': [
+            \ 'github:juanpabloaj/help.vim',
+	    \ ],
         \ 'html\|xhtml\|xml': [
             \ 'github:gregsexton/MatchTag',
             \ 'github:othree/html5.vim',
@@ -79,8 +81,6 @@ let g:vice = {
     \ 'commands': {
         \ 'Ack':            ['github:mileszs/ack.vim'],
         \ 'ColorV':         ['github:Rykka/colorv.vim'],
-        \ 'Gist':           ['github:mattn/gist-vim', 'github:mattn/webapi-vim'],
-        \ 'Gitv':           ['github:gregsexton/gitv'],
         \ 'UndotreeToggle': ['github:mbbill/undotree'],
     \ }
 \ }
