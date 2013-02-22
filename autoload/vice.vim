@@ -53,14 +53,22 @@ func! vice#ForceActivateAddons(addons)
 endf
 
 " Helper to activate a plugin for lazy command
-func! vice#LazyInit(name, plugins, bang, ...)
+func! vice#LazyInit(name, plugins, callback, bang, ...)
     call vice#ActivateAddons(a:plugins, {'force_loading_plugins_now': 1})
+    if a:callback != ''
+        exe 'call '.a:callback.'()'
+    endif
     exe a:name.a:bang.' '.join(a:000)
 endf
 
 " Create lazy commands
-func! vice#CreateCommand(name, plugin)
-    exe 'command! -nargs=* -bang '.a:name.' call vice#LazyInit("'.a:name.'", '.string(a:plugin).', "<bang>", <f-args>)'
+func! vice#CreateCommand(name, plugins, ...)
+    if a:0 == 1
+        let callback = a:1
+    else
+        let callback = ''
+    endif
+    exe 'command! -nargs=* -bang '.a:name.' call vice#LazyInit("'.a:name.'", '.string(a:plugins).', "'.callback.'", "<bang>", <f-args>)'
 endf
 
 " Activate plugins for a given filetype
