@@ -99,6 +99,7 @@ endf
 " Extend vice globals, create commands and activate plugins as necessary
 func! vice#Extend(config)
     if has_key(a:config, 'addons')
+        call extend(g:vice.addons, a:config.addons)
         call extend(g:vice.needs_activation, a:config.addons)
     endif
 
@@ -162,7 +163,12 @@ func! vice#Initialize(...)
     for addon in g:vice.addons
         let name = split(addon, '/')[1]
         if has_key(g:vice.available_modules, name)
-            exe 'so '.g:vice.addons_dir.'/'.name.'/plugin/'.name.'.vim'
+            let plugin = g:vice.addons_dir.'/'.name.'/plugin/'.name.'.vim'
+            if filereadable(plugin)
+                exe 'so '.plugin
+            else
+                call add(g:vice.needs_activation,  addon)
+            endif
         else
             call add(g:vice.needs_activation,  addon)
         endif
