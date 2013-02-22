@@ -164,11 +164,11 @@ func! vice#Initialize(...)
         let name = split(addon, '/')[1]
         if has_key(g:vice.available_modules, name)
             let plugin = g:vice.addons_dir.'/'.name.'/plugin/'.name.'.vim'
-            if filereadable(plugin)
+            try
                 exe 'so '.plugin
-            else
+            catch
                 call add(g:vice.needs_activation,  addon)
-            endif
+            endtry
         else
             call add(g:vice.needs_activation,  addon)
         endif
