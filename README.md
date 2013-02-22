@@ -133,6 +133,7 @@ work with Vice and make it easy to get up and running fast:
 - [vice-standard-issue][vice-standard-issue] - Provides default settings and
   mappings.
 - [vice-syntastic][vice-syntastic]           - Integrates Syntastic.
+- [vice-tagbar][vice-tagbar]                 - Integrates tagbar.
 - [vice-undo][vice-undo]                     - Enables undo and integrates
   UndoTree.
 
@@ -149,4 +150,5 @@ work with Vice and make it easy to get up and running fast:
 [vice-powerline]:      https://github.com/zeekay/vice-powerline
 [vice-standard-issue]: https://github.com/zeekay/vice-standard-issue
 [vice-syntastic]:      https://github.com/zeekay/vice-syntastic
+[vice-tagbar]:         https://github.com/zeekay/vice-tagbar
 [vice-undo]:           https://github.com/zeekay/vice-undo

@@ -12,6 +12,7 @@ call vice#Initialize({
         \ 'github:zeekay/vice-polyglot',
         \ 'github:zeekay/vice-standard-issue',
         \ 'github:zeekay/vice-syntastic',
+        \ 'github:zeekay/vice-tagbar',
         \ 'github:zeekay/vice-powerline',
         \ 'github:zeekay/vice-undo',
     \ ],
