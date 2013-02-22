@@ -8,6 +8,24 @@ else
     finish
 endif
 
+let g:vice.needs_activation = []
+
+let g:vice.available_modules = {
+    \ 'vice-beautify': 1,
+    \ 'vice-colorful': 1,
+    \ 'vice-ctrlp': 1,
+    \ 'vice-delimitmate': 1,
+    \ 'vice-git': 1,
+    \ 'vice-neocompletion': 1,
+    \ 'vice-nerdtree': 1,
+    \ 'vice-polyglot': 1,
+    \ 'vice-powerline': 1,
+    \ 'vice-standard-issue': 1,
+    \ 'vice-syntastic': 1,
+    \ 'vice-tagbar': 1,
+    \ 'vice-undo': 1,
+\ }
+
 " Set addons dir
 if !exists('g:vice.addons_dir')
     " Addons dir defaults to parent directory
@@ -81,8 +99,7 @@ endf
 " Extend vice globals, create commands and activate plugins as necessary
 func! vice#Extend(config)
     if has_key(a:config, 'addons')
-        call vam#ActivateAddons(a:config.addons)
-        call extend(g:vice.addons, a:config.addons)
+        call extend(g:vice.needs_activation, a:config.addons)
     endif
 
     if has_key(a:config, 'ft_addons')
@@ -140,8 +157,19 @@ func! vice#Initialize(...)
         au FileType * call vice#ActivateFtAddons(expand('<amatch>'))
     endif
 
-    " Activate always on addons and create commands as necessary.
-    call vam#ActivateAddons(copy(g:vice.addons))
+    " Manually source vice modules, add regular addons to list of addons to be
+    " activated.
+    for addon in g:vice.addons
+        let name = split(addon, '/')[1]
+        if has_key(g:vice.available_modules, name)
+            exe 'so '.g:vice.addons_dir.'/'.name.'/plugin/'.name.'.vim'
+        else
+            call add(g:vice.needs_activation,  addon)
+        endif
+    endfor
+
+    " Activate all normal addons now
+    call vam#ActivateAddons(g:vice.needs_activation)
 
     for [key, val] in items(g:vice.commands)
         call vice#CreateCommand(key, val)
