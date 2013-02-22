@@ -9,6 +9,7 @@ else
 endif
 
 let s:needs_activation = []
+let s:activation_callbacks = []
 
 " Set addons dir
 if !exists('g:vice.addons_dir')
@@ -55,22 +56,36 @@ func! vice#ForceActivateAddons(addons)
 endf
 
 " Helper to activate a plugin for lazy command
-func! vice#LazyInit(name, plugins, callback, bang, ...)
-    call vice#ActivateAddons(a:plugins, {'force_loading_plugins_now': 1})
-    if a:callback != ''
-        exe 'call '.a:callback.'()'
+func! vice#LazyInit(name, plugins, before, after, bang, ...)
+    if a:before != ''
+        exe 'call '.a:before.'()'
     endif
+
+    silent! call vice#ActivateAddons(a:plugins, {'force_loading_plugins_now': 1})
+
+    if a:after != ''
+        exe 'call '.a:after.'()'
+    endif
+
     exe a:name.a:bang.' '.join(a:000)
 endf
 
 " Create lazy commands
-func! vice#CreateCommand(name, plugins, ...)
+func! vice#CreateCommand(name, addons, ...)
+    let after = ''
+    let before = ''
+
     if a:0 == 1
-        let callback = a:1
-    else
-        let callback = ''
+        if has_key(a:1, 'after')
+            let after = a:1.after
+        endif
+
+        if has_key(a:1, 'before')
+            let after = a:1.before
+        endif
     endif
-    exe 'command! -nargs=* -bang '.a:name.' call vice#LazyInit("'.a:name.'", '.string(a:plugins).', "'.callback.'", "<bang>", <f-args>)'
+
+    exe 'command! -nargs=* -bang '.a:name.' call vice#LazyInit("'.a:name.'", '.string(a:addons).', "'.before.'", "'.after.'", "<bang>", <f-args>)'
 endf
 
 " Activate plugins for a given filetype
@@ -78,6 +93,14 @@ func! vice#ActivateFtAddons(ft)
     for addons in values(filter(copy(g:vice.ft_addons), string(a:ft).' =~ v:key'))
         call vice#ActivateAddons(addons, {'force_loading_plugins_now': 1})
     endfor
+endf
+
+func! vice#Register(addon, ...)
+    call add(g:vice.addons, a:addon)
+    call add(s:needs_activation, a:addon)
+    if a:0 == 1
+        call add(s:activation_callbacks, a:1)
+    endif
 endf
 
 " Extend vice globals, create commands and activate plugins as necessary
@@ -146,12 +169,14 @@ func! vice#Initialize(...)
     " activated.
     for addon in g:vice.addons
         if addon =~ '.*\:.*\/vice-'
+            let dir=vice#AddonDirFromName(addon)
             try
-                let dir=vice#AddonDirFromName(addon)
-                let &rtp.=','.dir
                 exe 'so '.dir.'/module.vim'
+                let &rtp.=','.dir
             catch
-                call add(s:needs_activation,  addon)
+                call vam#ActivateAddons([addon])
+                exe 'so '.dir.'/module.vim'
+                let &rtp.=','.dir
             endtry
         else
             call add(s:needs_activation,  addon)
@@ -161,15 +186,11 @@ func! vice#Initialize(...)
     " Activate all normal addons now
     call vam#ActivateAddons(s:needs_activation)
 
-    " Try to activate vice module again.
-    for addon in s:needs_activation
-        if addon =~ '.*\:.*\/vice-'
-            let dir=vice#AddonDirFromName(addon)
-            let &rtp.=','.dir
-            exe 'so '.dir.'/module.vim'
-        endif
+    for callback in s:activation_callbacks
+        exe 'call '.callback.'()'
     endfor
 
+    " Create commands
     for [key, val] in items(g:vice.commands)
         call vice#CreateCommand(key, val)
     endfor
