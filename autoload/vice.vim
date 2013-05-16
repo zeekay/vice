@@ -56,7 +56,7 @@ func! vice#ForceActivateAddons(addons)
 endf
 
 " Helper to activate a plugin for lazy command
-func! vice#LazyInit(name, plugins, before, after, bang, ...)
+func! vice#LazyInit(name, plugins, before, after, bang, line1, line2, ...)
     if a:before != ''
         exe 'call '.a:before.'()'
     endif
@@ -67,7 +67,11 @@ func! vice#LazyInit(name, plugins, before, after, bang, ...)
         exe 'call '.a:after.'()'
     endif
 
-    exe a:name.a:bang.' '.join(a:000)
+    if a:line1 != a:line2
+        exe a:line1.','.a:line2.a:name.a:bang.' '.join(a:000)
+    else
+        exe a:name.a:bang.' '.join(a:000)
+    endif
 endf
 
 " Create lazy commands
@@ -85,7 +89,7 @@ func! vice#CreateCommand(name, addons, ...)
         endif
     endif
 
-    exe 'command! -nargs=* -bang '.a:name.' call vice#LazyInit("'.a:name.'", '.string(a:addons).', "'.before.'", "'.after.'", "<bang>", <f-args>)'
+    exe 'command! -range -nargs=* -bang '.a:name.' call vice#LazyInit("'.a:name.'", '.string(a:addons).', "'.before.'", "'.after.'", "<bang>", <line1>, <line2>, <f-args>)'
 endf
 
 " Activate plugins for a given filetype
