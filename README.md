@@ -40,7 +40,7 @@ enviroment.
 ### One liner for the impatient
 Get up and running fast with the most commonly used addons:
 
-    curl https://raw.github.com/zeekay/vice/master/install.sh | sh
+    curl https://raw.github.com/zeekay/vice/master/scripts/install.sh | sh
 
 ### Manual installation
 For the truly meticulous, manual installation is the the way to go.
