@@ -4,6 +4,7 @@ endif
 
 if !exists('g:vice.loaded') || &cp
     let g:vice.loaded = 1
+    set nocompatible
 else
     finish
 endif
@@ -134,40 +135,33 @@ endf
 
 " Initialize vice
 func! vice#Initialize(...)
+    if exists('g:vice.initialized')
+        return
+    endif
+
+    let g:vice.initialized = 1
+
+    " vim-addon-manager global settings
+    let g:vim_addon_manager = {'shell_commands_run_method': 'system', 'auto_install': 1, 'known_repos_activation_policy': 'never'}
+
+    " Add vim-addon-manager runtime path
+    let &runtimepath.=','.g:vice.addons_dir.'/vim-addon-manager'
+
+    " No-op but loads vam.vim, which we need done so we can override
+    call vam#PluginDirFromName('github:zeekay/not-a-real-addon')
+
+    " Override vam#PluginDirFromName
+    exe "so ".g:vice.addons_dir.'/vice/autoload/addons-dir-hack.vim'
+
+    " loop over options
     if a:0 == 1
         for key in keys(a:1)
             let g:vice[key] = a:1[key]
         endfor
     endif
 
-    if !exists('g:vice.initialized')
-        let g:vice.initialized = 1
-
-        " vim-addon-manager global settings
-        let g:vim_addon_manager = {
-            \ 'shell_commands_run_method': 'system',
-            \ 'auto_install': 1,
-            \ 'known_repos_activation_policy': 'never',
-        \ }
-
-        " Add vim-addon-manager runtime path
-        let &runtimepath.=','.g:vice.addons_dir.'/vim-addon-manager'
-
-        " No-op but loads vam.vim, which we need done so we can override
-        call vam#PluginDirFromName('github:zeekay/not-a-real-addon')
-
-        " Override vam#PluginDirFromName
-        exe "so ".g:vice.addons_dir.'/vice/autoload/addons-dir-hack.vim'
-
-        " Sane defaults, but hey some people might disagree...
-        if !exists('g:vice.assume_nothing')
-            set nocompatible
-            filetype indent plugin on | syn on
-        endif
-
-        " Create ft autocommand
-        au FileType * call vice#ActivateFtAddons(expand('<amatch>'))
-    endif
+    " Create ft autocommand
+    au FileType * call vice#ActivateFtAddons(expand('<amatch>'))
 
     " Manually source vice modules, add regular addons to list of addons to be
     " activated.
