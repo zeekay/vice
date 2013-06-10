@@ -167,7 +167,8 @@ func! vice#Initialize(...)
     " activated.
     for addon in g:vice.addons
         if addon =~ '.*\:.*\/vice-'
-            let dir=vice#AddonDirFromName(addon)
+            let dir = vice#AddonDirFromName(addon)
+            let g:vice.addon_dir = dir
             try
                 exe 'so '.dir.'/module.vim'
                 let &rtp.=','.dir
