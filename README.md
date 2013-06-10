@@ -63,6 +63,9 @@ For the truly meticulous, manual installation is the the way to go.
 4. Add vice to Vim's runtime path and call `vice#Initialize`.
 
     ```vim
+    set nocompatible
+    filetype indent plugin on | syntax on
+
     let &rtp.=','.expand('~/.vim/addons/vice')
 
     call vice#Initialize({
