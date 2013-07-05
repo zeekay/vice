@@ -32,20 +32,22 @@ if !exists('g:vice.commands')
 endif
 
 " Simple vam wrapper, exposed for benefit of external addons
-func! vice#ActivateAddons(...)
-    if a:0 > 1
-        call vam#ActivateAddons(a:1, a:2)
-    else
-        call vam#ActivateAddons(a:1)
-    endif
+func! vice#ActivateAddons(addons, ...)
+    let opts = a:0 > 0 ? a:1 : {}
+
+    for addon in a:addons
+        try
+            call vam#ActivateAddons([addon], opts)
+        catch /Failed to checkout addon/
+            throw 'Unable to checkout addon '.addon
+        endtry
+    endfor
 endf
 
-func! vice#ActivateAddon(...)
-    if a:0 > 1
-        call vam#ActivateAddons([a:1], a:2)
-    else
-        call vam#ActivateAddons([a:1])
-    endif
+func! vice#ActivateAddon(addon, ...)
+    let opts = a:0 > 0 ? a:1 : {}
+
+    call vice#ActivateAddons([a:addon], opts)
 endf
 
 func! vice#ForceActivateAddon(addon)
