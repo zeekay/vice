@@ -1,13 +1,8 @@
-               __
-              /  |
-     __     __vv/   _______   ______
-    /  \   /  /  | /       | /      \
-    vv  \ /vv/vv |/vvvvvvv/ /vvvvvv  |
-     vv  /vv/ vv |vv |      vv    vv |
-      vv vv/  vv |vv \_____ vvvvvvvv/
-       vvv/   vv |vv       |vv       |
-        v/    vv/  vvvvvvv/  vvvvvvv/
-
+          __
+    __   _\_\ ___  ____
+    \ \ / / |/ __\/ __ \
+     \ \ /| |\ \__\  __/
+      \_/ |_| \___/\____\
 
 Vice is an extensible, flexible and modular cross-platform [Vim][vim] framework.
 Unlike other configurations/distributions, vice makes no assumptions about how
