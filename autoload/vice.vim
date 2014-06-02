@@ -4,7 +4,6 @@ endif
 
 if !exists('g:vice.loaded') || &cp
     let g:vice.loaded = 1
-    set nocompatible
 else
     finish
 endif
@@ -176,8 +175,6 @@ func! vice#Initialize(...)
                 let &rtp.=','.dir
             catch
                 call vam#ActivateAddons([addon])
-                exe 'so '.dir.'/module.vim'
-                let &rtp.=','.dir
             endtry
         else
             call add(s:needs_activation,  addon)
