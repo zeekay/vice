@@ -146,7 +146,7 @@ func! vice#Initialize(...)
     let g:vim_addon_manager = {'shell_commands_run_method': 'system', 'auto_install': 1, 'known_repos_activation_policy': 'never'}
 
     " Add vim-addon-manager runtime path
-    let &runtimepath.=','.g:vice.addons_dir.'/vim-addon-manager'
+    let &rtp.=','.g:vice.addons_dir.'/vim-addon-manager'
 
     " No-op but loads vam.vim, which we need done so we can override
     call vam#PluginDirFromName('github:zeekay/not-a-real-addon')
