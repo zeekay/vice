@@ -169,11 +169,11 @@ func! vice#Initialize(...)
     for addon in g:vice.addons
         if addon =~ '.*\:.*\/vice-'
             let dir = vice#AddonDirFromName(addon)
-            let module = dir.'/module.vim'
+            let mod = dir.'/module.vim'
             let g:vice.addon_dir = dir
-            if filereadable(module)
+            if filereadable(mod)
                 let &rtp.=','.dir
-                exe 'so '.module
+                exe 'so '.mod
             else
                 call vam#ActivateAddons([addon])
             endif
