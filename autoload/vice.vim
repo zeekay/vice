@@ -17,6 +17,12 @@ if !exists('g:vice.addons_dir')
     let g:vice.addons_dir = expand('<sfile>:p:h:h:h')
 endif
 
+" Set addons dir
+if !exists('g:vice.vim_dir')
+    " Addons dir defaults to parent directory
+    let g:vice.vim_dir = expand('<sfile>:p:h:h:h:h')
+endif
+
 " Create default global objects if necessary
 if !exists('g:vice.addons')
     let g:vice.addons = []
