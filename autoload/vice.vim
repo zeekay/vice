@@ -69,17 +69,19 @@ func! vice#LazyInit(name, plugins, before, after, bang, line1, line2, ...)
         exe 'call '.a:before.'()'
     endif
 
-    silent! call vice#ActivateAddons(a:plugins, {'force_loading_plugins_now': 1})
+    call vice#ActivateAddons(a:plugins, {'force_loading_plugins_now': 1})
 
     if a:after != ''
         exe 'call '.a:after.'()'
     endif
 
     if a:line1 != a:line2
-        exe a:line1.','.a:line2.a:name.a:bang.' '.join(a:000)
+        let cmd = exe a:line1.','.a:line2.a:name.a:bang.' '.join(a:000)
     else
-        exe a:name.a:bang.' '.join(a:000)
+        let cmd = a:name.a:bang.' '.join(a:000)
     endif
+
+    exe cmd
 endf
 
 " Create lazy commands
@@ -149,7 +151,7 @@ func! vice#Initialize(...)
     let g:vice.initialized = 1
 
     " vim-addon-manager global settings
-    let g:vim_addon_manager = {'shell_commands_run_method': 'system', 'auto_install': 1, 'known_repos_activation_policy': 'never'}
+    let g:vim_addon_manager = {'shell_commands_run_method': 'system', 'auto_install': 1, 'known_repos_activation_policy': 'autoload'}
 
     " Add vim-addon-manager runtime path
     let &rtp.=','.g:vice.addons_dir.'/vim-addon-manager'
