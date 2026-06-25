@@ -1,95 +1,49 @@
 #!/bin/sh
+# vice installer — clones vice into ~/.vim/addons and optionally drops a vimrc.
+# vice is self-contained: it fetches its own addons on first launch.
 
-# get first character of string, lowercase
-first_char() {
-    echo $1 | cut -c 1 | tr '[A-Z]' '[a-z]'
-}
+set -e
 
-# read user input
+addons="$HOME/.vim/addons"
+
+# read a yes/no question, returning 0 for yes
 ask() {
-    question="$1"
-    default="$2"
-
-    echo "$question (yes/no default: $default) \c"
-
-    read answer </dev/tty
-
-    # get first char of answer or default
-    if [ "$answer" = "" ]; then
-        answer=`first_char $default`
-    else
-        answer=`first_char $answer`
-    fi
-
-    if [ $answer = y ]; then
-        return 0
-    else
-        return 1
-    fi
+    printf '%s (yes/no default: %s) ' "$1" "$2"
+    read answer </dev/tty || answer=""
+    [ -z "$answer" ] && answer="$2"
+    case "$answer" in [Yy]*) return 0 ;; *) return 1 ;; esac
 }
 
+# move an existing path (or broken symlink) aside
 backup() {
-    original="$1"
-    backup="$original.bak"
-    name="`basename $original`"
-
-    # check for broken symlinks
-    if [ "`find -L $original -maxdepth 0 -type l 2>/dev/null`" != "" ]; then
-        echo "rm ~/$name (broken link to `readlink $original`)"
-        rm $original
-        return
+    target="$1"
+    if [ -L "$target" ] && [ ! -e "$target" ]; then
+        rm -f "$target"; return
     fi
-
-    if [ -e "$original" ]; then
-        if [ -e "$backup" ]; then
-            n=1
-            while [ -e "$backup.$n" ]; do
-                (( n ++ ))
-            done
-            backup="$backup.$n"
-        fi
-
-        echo "mv ~/$name $backup"
-        mv "$original" "$backup"
-    fi
+    [ -e "$target" ] || return 0
+    dest="$target.bak"; n=1
+    while [ -e "$dest" ]; do dest="$target.bak.$n"; n=$((n + 1)); done
+    echo "backup $target -> $dest"
+    mv "$target" "$dest"
 }
 
-# install default vimrc
-install_vimrc() {
-    backup "$HOME/.vimrc"
-    cp "$HOME/.vim/addons/vice/example-vimrc.vim" "$HOME/.vimrc"
-}
+mkdir -p "$addons" "$HOME/.vim/tmp/backup" "$HOME/.vim/tmp/undo"
 
-git_clone() {
-    git clone --depth 1 "$1" "$2" 2>&1 | grep 'Cloning into'
-}
-
-# backup .vim if necessary
-backup "$HOME/.vim"
-mkdir -p "$HOME/.vim/addons"
-mkdir -p "$HOME/.vim/tmp/backup"
-mkdir -p "$HOME/.vim/tmp/undo"
-
-git_clone 'https://github.com/zeekay/vice' "$HOME/.vim/addons/vice"
-git_clone 'https://github.com/MarcWeber/vim-addon-manager' "$HOME/.vim/addons/vim-addon-manager"
-
-if [ -z "$ELLIPSIS_INSTALL" ]; then
-    ask "Create default vimrc?" "no" && install_vimrc
+if [ ! -d "$addons/vice" ]; then
+    git clone --depth 1 https://github.com/zeekay/vice "$addons/vice"
 fi
 
-echo | vim -c 'helptags ~/.vim/addons/vim-addon-manager/doc' -c 'q!' 2>&1 | grep 'Cloning into'
+if [ -z "$ELLIPSIS_INSTALL" ] && ask "Create default vimrc?" "no"; then
+    backup "$HOME/.vimrc"
+    cp "$addons/vice/example-vimrc.vim" "$HOME/.vimrc"
+fi
 
-cat << EOF
-Installation complete.
-           __
-          /  |
- __     __vv/   _______   ______
-/  \\   /  /  | /       | /      \\
-vv  \\ /vv/vv |/vvvvvvv/ /vvvvvv  |
- vv  /vv/ vv |vv |      vv    vv |
-  vv vv/  vv |vv \\_____ vvvvvvvv/
-   vvv/   vv |vv       |vv       |
-    v/    vv/  vvvvvvv/  vvvvvvv/
+cat << 'EOF'
+          __
+    __   _\_\ ___  ____
+    \ \ / / |/ __\/ __ \
+     \ \ /| |\ \__\  __/
+      \_/ |_| \___/\____\
 
-...is now installed.
+...is now installed. Launch vim — addons fetch on first run.
 EOF

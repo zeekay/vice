@@ -1,3 +1,17 @@
+" vice — a self-contained, lightweight Vim addon framework.
+"
+" Addons are git repositories. vice resolves a name to a clone url + a
+" directory under g:vice.addons_dir, clones it on demand, puts it on the
+" runtimepath and sources its plugin scripts. No external dependencies.
+"
+" Addon name schemes:
+"   github:user/repo        -> https://github.com/user/repo
+"   gitlab:user/repo        -> https://gitlab.com/user/repo
+"   bitbucket:user/repo     -> https://bitbucket.org/user/repo
+"   https://host/user/repo  -> used as-is
+"   git@host:user/repo      -> used as-is
+" The local directory is always the final path component (repo name).
+
 if !exists('g:vice')
     let g:vice = {}
 endif
@@ -8,22 +22,22 @@ else
     finish
 endif
 
+let g:vice.version = '1.0.0'
+
 let s:needs_activation = []
 let s:activation_callbacks = []
+let s:activated = {}
 
-" Set addons dir
+" addons_dir defaults to the directory containing vice (…/addons)
 if !exists('g:vice.addons_dir')
-    " Addons dir defaults to parent directory
     let g:vice.addons_dir = expand('<sfile>:p:h:h:h')
 endif
 
-" Set addons dir
+" vim_dir defaults to the parent of addons_dir (…/.vim)
 if !exists('g:vice.vim_dir')
-    " Addons dir defaults to parent directory
     let g:vice.vim_dir = expand('<sfile>:p:h:h:h:h')
 endif
 
-" Create default global objects if necessary
 if !exists('g:vice.addons')
     let g:vice.addons = []
 endif
@@ -36,78 +50,154 @@ if !exists('g:vice.commands')
     let g:vice.commands = {}
 endif
 
-" Simple vam wrapper, exposed for benefit of external addons
-func! vice#ActivateAddons(addons, ...)
-    let opts = a:0 > 0 ? a:1 : {}
+if !exists('g:vice.auto_install')
+    let g:vice.auto_install = 1
+endif
 
-    for addon in a:addons
-        try
-            call vam#ActivateAddons([addon], opts)
-        catch /Failed to checkout addon/
-            throw 'Unable to checkout addon '.addon
-        endtry
+" {{{1 Name resolution
+
+" Repo name: the final ':' or '/' delimited component, sans trailing .git
+func! s:RepoName(name)
+    return split(substitute(a:name, '\.git$', '', ''), '[:/]')[-1]
+endf
+
+" Local directory for an addon
+func! vice#AddonDirFromName(name)
+    return g:vice.addons_dir.'/'.s:RepoName(a:name)
+endf
+
+" Clone url for an addon
+func! vice#AddonUrlFromName(name)
+    let n = a:name
+    if n =~ '^https\?://' || n =~ '^git@'
+        return n
+    endif
+    if n =~ '^git://'
+        return substitute(n, '^git://', 'https://', '')
+    endif
+    let host = matchstr(n, '^\w\+\ze:')
+    let path = matchstr(n, ':\zs.*')
+    let domain = get({'github': 'github.com', 'gitlab': 'gitlab.com',
+                    \ 'bitbucket': 'bitbucket.org'}, host, host)
+    return 'https://'.domain.'/'.path
+endf
+
+" {{{1 Install / activate
+
+func! s:Install(name, dir)
+    if isdirectory(a:dir)
+        return
+    endif
+    if !g:vice.auto_install
+        echohl WarningMsg | echom 'vice: '.a:name.' is not installed' | echohl None
+        return
+    endif
+    let url = vice#AddonUrlFromName(a:name)
+    echo 'vice: installing '.s:RepoName(a:name).' …'
+    let out = system('git clone --depth 1 '.shellescape(url).' '.shellescape(a:dir))
+    if v:shell_error
+        echohl ErrorMsg | echom 'vice: failed to clone '.url.': '.out | echohl None
+    endif
+    redraw
+endf
+
+" Source an addon's plugin scripts and generate help tags
+func! s:Source(dir)
+    for pat in ['plugin/**/*.vim', 'after/plugin/**/*.vim', 'ftdetect/*.vim']
+        for file in split(globpath(a:dir, pat), "\n")
+            exe 'source '.fnameescape(file)
+        endfor
     endfor
+    if isdirectory(a:dir.'/doc') && !filereadable(a:dir.'/doc/tags')
+        silent! exe 'helptags '.fnameescape(a:dir.'/doc')
+    endif
+endf
+
+" Install (if needed), add to runtimepath and source an addon.
+" Returns 1 if newly activated, 0 otherwise.
+func! s:Activate(name)
+    let dir = vice#AddonDirFromName(a:name)
+    if has_key(s:activated, dir)
+        return 0
+    endif
+    call s:Install(a:name, dir)
+    if !isdirectory(dir)
+        return 0
+    endif
+    let s:activated[dir] = 1
+    exe 'set runtimepath^='.fnameescape(dir)
+    call s:Source(dir)
+    return 1
+endf
+
+" Activate addons now. Returns the number newly activated.
+func! vice#ActivateAddons(addons, ...)
+    let n = 0
+    for addon in a:addons
+        let n += s:Activate(addon)
+    endfor
+    return n
 endf
 
 func! vice#ActivateAddon(addon, ...)
-    let opts = a:0 > 0 ? a:1 : {}
-
-    call vice#ActivateAddons([a:addon], opts)
+    return vice#ActivateAddons([a:addon])
 endf
 
 func! vice#ForceActivateAddon(addon)
-    call vam#ActivateAddons([a:addon], {'force_loading_plugins_now': 1})
+    return vice#ActivateAddons([a:addon])
 endf
 
 func! vice#ForceActivateAddons(addons)
-    call vam#ActivateAddons(a:addons, {'force_loading_plugins_now': 1})
+    return vice#ActivateAddons(a:addons)
 endf
 
-" Helper to activate a plugin for lazy command
+" {{{1 Lazy commands
+
+" Activate plugins backing a lazy command, then run the real command
 func! vice#LazyInit(name, plugins, before, after, bang, line1, line2, ...)
     if a:before != ''
         exe 'call '.a:before.'()'
     endif
 
-    call vice#ActivateAddons(a:plugins, {'force_loading_plugins_now': 1})
+    call vice#ActivateAddons(a:plugins)
 
     if a:after != ''
         exe 'call '.a:after.'()'
     endif
 
-    if a:line1 != a:line2
-        let cmd = exe a:line1.','.a:line2.a:name.a:bang.' '.join(a:000)
-    else
-        let cmd = a:name.a:bang.' '.join(a:000)
-    endif
-
-    exe cmd
+    let range = a:line1 != a:line2 ? a:line1.','.a:line2 : ''
+    exe range.a:name.a:bang.' '.join(a:000)
 endf
 
-" Create lazy commands
+" Create a placeholder command that loads its addons on first use
 func! vice#CreateCommand(name, addons, ...)
-    let after = ''
-    let before = ''
+    let opts = a:0 > 0 ? a:1 : {}
+    let before = get(opts, 'before', '')
+    let after  = get(opts, 'after', '')
 
-    if a:0 == 1
-        if has_key(a:1, 'after')
-            let after = a:1.after
-        endif
-
-        if has_key(a:1, 'before')
-            let after = a:1.before
-        endif
-    endif
-
-    exe 'command! -range -nargs=* -bang '.a:name.' call vice#LazyInit("'.a:name.'", '.string(a:addons).', "'.before.'", "'.after.'", "<bang>", <line1>, <line2>, <f-args>)'
+    exe 'command! -range -nargs=* -bang '.a:name.' call vice#LazyInit('
+        \ .string(a:name).', '.string(a:addons).', '
+        \ .string(before).', '.string(after).', '
+        \ .'"<bang>", <line1>, <line2>, <f-args>)'
 endf
 
-" Activate plugins for a given filetype
+" {{{1 Filetype addons
+
+" Activate addons registered for a filetype, reloading ftplugins if any
+" were newly added to the runtimepath.
 func! vice#ActivateFtAddons(ft)
-    for addons in values(filter(copy(g:vice.ft_addons), string(a:ft).' =~ v:key'))
-        call vice#ActivateAddons(addons, {'force_loading_plugins_now': 1})
+    let n = 0
+    for [pat, addons] in items(g:vice.ft_addons)
+        if a:ft =~ pat
+            let n += vice#ActivateAddons(addons)
+        endif
     endfor
+    if n > 0 && a:ft !=# ''
+        exe 'setlocal filetype='.a:ft
+    endif
 endf
+
+" {{{1 Registration / extension
 
 func! vice#Register(addon, ...)
     call add(g:vice.addons, a:addon)
@@ -117,7 +207,7 @@ func! vice#Register(addon, ...)
     endif
 endf
 
-" Extend vice globals, create commands and activate plugins as necessary
+" Merge a config fragment: addons, ft_addons and lazy commands
 func! vice#Extend(config)
     if has_key(a:config, 'addons')
         call extend(g:vice.addons, a:config.addons)
@@ -142,96 +232,74 @@ func! vice#Extend(config)
     endif
 endf
 
-" Initialize vice
+" {{{1 Initialize
+
 func! vice#Initialize(...)
     if exists('g:vice.initialized')
         return
     endif
-
     let g:vice.initialized = 1
 
-    " vim-addon-manager global settings
-    "
-    " known_repos_activation_policy is 'never': every vice addon is a
-    " fully-qualified source (github:/git:...), so the vim-pi known-repos pool
-    " is never needed. Leaving it on ('autoload') makes VAM try to fetch vim-pi
-    " from its long-dead bitbucket origin and abort activation with E605.
-    let g:vim_addon_manager = {'shell_commands_run_method': 'system', 'auto_install': 1, 'known_repos_activation_policy': 'never'}
-
-    " Add vim-addon-manager runtime path
-    let &rtp.=','.g:vice.addons_dir.'/vim-addon-manager'
-
-    " No-op but loads vam.vim, which we need done so we can override
-    call vam#PluginDirFromName('github:zeekay/not-a-real-addon')
-
-    " Override vam#PluginDirFromName
-    exe "so ".g:vice.addons_dir.'/vice/autoload/addons-dir-hack.vim'
-
-    " loop over options
+    " Merge user config
     if a:0 == 1
         for key in keys(a:1)
             let g:vice[key] = a:1[key]
         endfor
     endif
 
-    " Create ft autocommand
+    " Lazily load filetype-specific addons
     au FileType * call vice#ActivateFtAddons(expand('<amatch>'))
 
-    " Manually source vice modules, add regular addons to list of addons to be
-    " activated.
+    " Source vice modules inline (so their vice#Extend() runs before we
+    " activate the addons they register); queue plain addons for activation.
     for addon in g:vice.addons
-        if addon =~ '.*\:.*\/vice-'
+        if s:RepoName(addon) =~ '^vice-'
             let dir = vice#AddonDirFromName(addon)
+            call s:Install(addon, dir)
             let mod = dir.'/module.vim'
-            let g:vice.addon_dir = dir
             if filereadable(mod)
-                let &rtp.=','.dir
-                exe 'so '.mod
+                let s:activated[dir] = 1
+                let g:vice.addon_dir = dir
+                exe 'set runtimepath^='.fnameescape(dir)
+                exe 'source '.fnameescape(mod)
+                call s:Source(dir)
             else
-                call vam#ActivateAddons([addon])
+                call add(s:needs_activation, addon)
             endif
         else
-            call add(s:needs_activation,  addon)
+            call add(s:needs_activation, addon)
         endif
     endfor
 
-    " Activate all normal addons now
-    call vam#ActivateAddons(s:needs_activation)
+    call vice#ActivateAddons(s:needs_activation)
 
     for callback in s:activation_callbacks
         exe 'call '.callback.'()'
     endfor
 
-    " Create commands
     for [key, val] in items(g:vice.commands)
         call vice#CreateCommand(key, val)
     endfor
+
+    command! -nargs=* ViceUpdate call vice#UpdateAddons()
+    command! ViceList call vice#ListAddonsIntoBuffer()
 endf
 
-func! vice#AddonDirFromName(addon)
-    return vam#PluginDirFromName(a:addon)
+" {{{1 Listing / updating
+
+func! s:AllNames()
+    let names = copy(g:vice.addons)
+    for addons in values(g:vice.ft_addons)
+        call extend(names, addons)
+    endfor
+    for addons in values(g:vice.commands)
+        call extend(names, addons)
+    endfor
+    return names
 endf
 
 func! vice#ListAddons()
-    let res = []
-
-    for addon in g:vice.addons
-        call add(res, vam#PluginDirFromName(addon))
-    endfor
-
-    for addons in values(g:vice.ft_addons)
-        for addon in addons
-            call add(res, vam#PluginDirFromName(addon))
-        endfor
-    endfor
-
-    for addons in values(g:vice.commands)
-        for addon in addons
-            call add(res, vam#PluginDirFromName(addon))
-        endfor
-    endfor
-
-    return res
+    return map(s:AllNames(), 'vice#AddonDirFromName(v:val)')
 endf
 
 func! vice#ListAddonsIntoBuffer()
@@ -240,15 +308,24 @@ func! vice#ListAddonsIntoBuffer()
         silent! echo addon
     endfor
     redir END
-    normal "ap
+    normal! "ap
 endf
 
-func! vice#UpdateAddon(addon)
-    call vam#install#UpdateAddon(a:addon)
+func! vice#UpdateAddon(name)
+    let dir = vice#AddonDirFromName(a:name)
+    if !isdirectory(dir)
+        return
+    endif
+    echo 'vice: updating '.s:RepoName(a:name).' …'
+    call system('git -C '.shellescape(dir).' pull --ff-only')
+    redraw
 endf
 
 func! vice#UpdateAddons()
-    for addon in call vice#ListAddons()
-        call vice#UpdateAddon(addon)
+    for name in s:AllNames()
+        call vice#UpdateAddon(name)
     endfor
+    echo 'vice: addons up to date'
 endf
+
+" vim: set fdm=marker:

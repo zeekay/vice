@@ -4,57 +4,50 @@
      \ \ /| |\ \__\  __/
       \_/ |_| \___/\____\
 
-Vice is an extensible, flexible and modular cross-platform [Vim][vim] framework.
+Vice is an extensible, lightweight, self-contained [Vim][vim] addon framework.
 Unlike other configurations/distributions, vice makes no assumptions about how
-you'll want to configure Vim. It's opinions can be succintly summarized:
+you'll want to configure Vim. Its opinions can be succinctly summarized:
 
     set nocompatible
     filetype indent plugin on | syntax on
 
 Vice is designed to be as efficient and lightweight as possible, lazily enabling
 filetype-specific and command-specific addons as needed. Addons are specified
-declaratively, making customization simple. Vice supports pathogen, vundle and
-vim-addon-manager compatible addons.
+declaratively, making customization simple.
 
-Several modules are also available which bundle together commonly used addons
-which extend the functionality of Vim and provide a more luxurious editing
-enviroment.
+Vice has **no dependencies** — it is a single autoload file. Addons are plain
+git repositories; vice clones them on demand, adds them to the runtimepath and
+sources them. No plugin-index, no manager to bootstrap, no network calls at
+startup beyond cloning the addons you've actually requested.
 
 ## Features
-- Addons which are filtype specific (`vim-coffeescript`, `vim-markdown`, etc')
-  can be lazily loaded as needed.
-- Addons which provide specific commands (`:Ack`, `:NerdTreeToggle`, etc) can
-  delay loading until desired command is called.
-- Addons are installed and can be updated automatically.
-- Extremely lightweight.
-- Vice modules are available which bundle together frequently used addons.
+- Filetype-specific addons (`vim-markdown`, `clang_complete`, …) load lazily,
+  the first time you open a matching file.
+- Command-specific addons (`:NERDTreeToggle`, `:Gist`, …) load the first time
+  the command is invoked.
+- Addons are cloned automatically on first launch and updated with one command.
+- No external dependencies — vice manages everything itself.
+- Vice modules bundle together frequently used addons.
 
 ## Installation
 
-### One liner for the impatient
-Get up and running fast with the most commonly used addons:
+### One liner
+Get up and running fast:
 
-    curl https://raw.github.com/zeekay/vice/master/scripts/install.sh | sh
+    curl -fsSL https://raw.githubusercontent.com/zeekay/vice/master/scripts/install.sh | sh
 
 ### Manual installation
-For the truly meticulous, manual installation is the the way to go.
 
-1. Backup your `~/.vim` dir, if you have one!
+1. Back up your `~/.vim` and `~/.vimrc` if you have them.
 
         mv ~/.vim ~/.vim.bak
 
-2. Create `~/.vim/addons` dir (and `~/.vim/tmp/backup` if you want to use `vice-standard-issue`).
+2. Clone vice into `~/.vim/addons`.
 
         mkdir -p ~/.vim/addons
-        mkdir -p ~/.vim/tmp/backup
+        git clone https://github.com/zeekay/vice ~/.vim/addons/vice
 
-3. Clone [vim-addon-manager][vam] and vice into `~/.vim/addons`.
-
-        cd ~/.vim/addons
-        git clone https://github.com/MarcWeber/vim-addon-manager
-        git clone https://github.com/zeekay/vice
-
-4. Add vice to Vim's runtime path and call `vice#Initialize`.
+3. Add vice to the runtimepath and call `vice#Initialize` from your `~/.vimrc`:
 
     ```vim
     set nocompatible
@@ -64,88 +57,76 @@ For the truly meticulous, manual installation is the the way to go.
 
     call vice#Initialize({
         \ 'addons': [
-            \ 'github:zeekay/vice-beautify',
-            \ 'github:zeekay/vice-colorful',
-            \ 'github:zeekay/vice-ctrlp',
-            \ 'github:zeekay/vice-delimitmate',
-            \ 'github:zeekay/vice-git',
-            \ 'github:zeekay/vice-neocompletion',
-            \ 'github:zeekay/vice-nerdtree',
-            \ 'github:zeekay/vice-polyglot',
             \ 'github:zeekay/vice-standard-issue',
-            \ 'github:zeekay/vice-syntastic',
-            \ 'github:zeekay/vice-powerline',
-            \ 'github:zeekay/vice-undo',
+            \ 'github:zeekay/vice-colorful',
+            \ 'github:zeekay/vice-git',
+            \ 'github:tpope/vim-vinegar',
         \ ],
     \ })
     ```
 
+Launch Vim — every addon is cloned into `~/.vim/addons` on first run.
+
+## Addon names
+Addons are referenced as `host:user/repo`. Supported shorthands resolve to a
+clone url; the local directory is always the repo name:
+
+| Name                     | Clones from                       |
+|--------------------------|-----------------------------------|
+| `github:user/repo`       | `https://github.com/user/repo`    |
+| `gitlab:user/repo`       | `https://gitlab.com/user/repo`    |
+| `bitbucket:user/repo`    | `https://bitbucket.org/user/repo` |
+| `https://host/user/repo` | used verbatim                     |
+| `git@host:user/repo`     | used verbatim                     |
+
 ## Configuration
+There are three sections to the `g:vice` configuration dictionary, all passed to
+`vice#Initialize` (or set on `g:vice` beforehand).
 
-There are three important sections to the `g:vice` global configuration
-dictionary:
-
-### Always enabled addons
-Addons which you expect to be sourced automatically should be defined in
-`g:vice.addons`, which is an array of addons that will be activated in order.
-Each addon specified should follow [vim-addon-manager][vam]'s expected syntax,
-which is `host:user/repo`. For addons hosted on github, you can use the
-shortened syntax:
+### Always-enabled addons
+Addons sourced on startup, activated in order:
 
     let g:vice.addons = ['github:zeekay/vice-standard-issue']
 
-### Filetype specific addons
-Filetype specific addons are sourced when files matching their filetype pattern matches:
+### Filetype-specific addons
+Sourced the first time a matching filetype is opened. The key is a regexp
+matched against `&filetype`:
 
     let g:vice.ft_addons['c$\|cpp'] = ['github:Rip-Rip/clang_complete']
 
-An array of addons can be specified for each filetype pattern.
-
 ### Commands
-Commands which are called infrequently and do not require the addon providing
-them to be sourced on every start can be specified in the `command` key:
+Infrequently-used addons can be bound to a command. A placeholder command is
+created and replaced by the real one when first invoked:
 
     let g:vice.commands['Ack'] = ['github:mileszs/ack.vim']
 
-A placeholder command will be created which will be replaced by the real command
-when the addon is sourced.
+## Commands
+- `:ViceUpdate` — `git pull` every configured addon.
+- `:ViceList`   — paste the list of addon directories into the current buffer.
 
-### Modules
-There are several vice modules (essentially vim addons) which are designed to
-work with Vice and make it easy to get up and running fast:
+## Modules
+Vice modules are addons whose repo name starts with `vice-`. They bundle and
+configure related addons via `vice#Extend`. Available modules:
 
-- [vice-beautify][vice-beautify]             - Provides `:Beautify` command
-  for several filetypes.
-- [vice-colorful][vice-colorful]             - Provides colors and a few
-  extra methods `:ColorNext`, `:ColorPrev`, etc and bundles ColorV.
-- [vice-ctrlp][vice-ctrlp]                   - Integrates ctrlp.vim.
-- [vice-delimitmate][vice-delimitmate]       - Integrates delimitMate.
-- [vice-git][vice-git]                       - Integrates fugitive and Gitv.
-- [vice-neocompletion][vice-neocompletion]   - Integrates neocomplcache and
-  several types of completions.
-- [vice-nerdtree][vice-nerdtree]             - Integrates NERDTree.
-- [vice-polyglot][vice-polyglot]             - Provides advanced language
-  support.
-- [vice-powerline][vice-powerline]           - Integrates vim-powerline.
-- [vice-standard-issue][vice-standard-issue] - Provides default settings and
-  mappings.
-- [vice-syntastic][vice-syntastic]           - Integrates Syntastic.
-- [vice-tagbar][vice-tagbar]                 - Integrates tagbar.
-- [vice-undo][vice-undo]                     - Enables undo and integrates
-  UndoTree.
+- [vice-colorful][vice-colorful]             — colorschemes and `:ColorNext`/`:ColorPrev`.
+- [vice-ctrlp][vice-ctrlp]                   — integrates ctrlp.vim.
+- [vice-delimitmate][vice-delimitmate]       — integrates delimitMate.
+- [vice-git][vice-git]                       — integrates fugitive and Gitv.
+- [vice-markdown][vice-markdown]             — Markdown support.
+- [vice-nerdtree][vice-nerdtree]             — integrates NERDTree.
+- [vice-polyglot][vice-polyglot]             — broad language support.
+- [vice-standard-issue][vice-standard-issue] — sensible defaults and mappings.
+- [vice-tagbar][vice-tagbar]                 — integrates tagbar.
+- [vice-undo][vice-undo]                     — persistent undo and UndoTree.
 
 [vim]:                 http://vim.org
-[vam]:                 https://github.com/MarcWeber/vim-addon-manager
-[vice-beautify]:       https://github.com/zeekay/vice-beautify
 [vice-colorful]:       https://github.com/zeekay/vice-colorful
 [vice-ctrlp]:          https://github.com/zeekay/vice-ctrlp
 [vice-delimitmate]:    https://github.com/zeekay/vice-delimitmate
 [vice-git]:            https://github.com/zeekay/vice-git
-[vice-neocompletion]:  https://github.com/zeekay/vice-neocompletion
+[vice-markdown]:       https://github.com/zeekay/vice-markdown
 [vice-nerdtree]:       https://github.com/zeekay/vice-nerdtree
 [vice-polyglot]:       https://github.com/zeekay/vice-polyglot
-[vice-powerline]:      https://github.com/zeekay/vice-powerline
 [vice-standard-issue]: https://github.com/zeekay/vice-standard-issue
-[vice-syntastic]:      https://github.com/zeekay/vice-syntastic
 [vice-tagbar]:         https://github.com/zeekay/vice-tagbar
 [vice-undo]:           https://github.com/zeekay/vice-undo
