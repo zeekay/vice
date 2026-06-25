@@ -151,7 +151,12 @@ func! vice#Initialize(...)
     let g:vice.initialized = 1
 
     " vim-addon-manager global settings
-    let g:vim_addon_manager = {'shell_commands_run_method': 'system', 'auto_install': 1, 'known_repos_activation_policy': 'autoload'}
+    "
+    " known_repos_activation_policy is 'never': every vice addon is a
+    " fully-qualified source (github:/git:...), so the vim-pi known-repos pool
+    " is never needed. Leaving it on ('autoload') makes VAM try to fetch vim-pi
+    " from its long-dead bitbucket origin and abort activation with E605.
+    let g:vim_addon_manager = {'shell_commands_run_method': 'system', 'auto_install': 1, 'known_repos_activation_policy': 'never'}
 
     " Add vim-addon-manager runtime path
     let &rtp.=','.g:vice.addons_dir.'/vim-addon-manager'
